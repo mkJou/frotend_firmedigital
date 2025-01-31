@@ -85,7 +85,7 @@ const menuData: MenuSection[] = [
         href: '/productos/cuentas'
       },
       {
-        title: 'APLICACIONE DE ACCESO',
+        title: 'APLICACIONES DE ACCESO',
         icon: HiOutlineLockClosed,
         description: 'Control de acceso seguro',
         href: '/productos/aplicaciones'
