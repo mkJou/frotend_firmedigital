@@ -18,20 +18,21 @@ import {
   BsStars, 
   BsRocket,
   BsDiamond,
-  BsBank2,
+  BsBank,
   BsHospital,
   BsShop,
   BsBuildings,
   BsBook,
-  BsGavel,
+  BsGear,
   BsTools,
   BsCalculator,
   BsGlobe,
   BsCurrencyDollar,
   BsCpu,
   BsPeople,
-  BsTractor,
-  BsScales
+  BsBoxes,
+  BsClipboard,
+  BsShieldLock
 } from 'react-icons/bs';
 import { FiTruck } from 'react-icons/fi';
 
@@ -103,7 +104,7 @@ const menuData: MenuSection[] = [
     subItems: [
       {
         title: 'Legal y jurídico',
-        icon: BsBuildings,
+        icon: BsClipboard,
         description: 'Soluciones digitales para el sector legal',
         href: '/sectores/legal'
       },
@@ -127,7 +128,7 @@ const menuData: MenuSection[] = [
       },
       {
         title: 'Gubernamentales',
-        icon: BsGlobe,
+        icon: BsBuilding,
         description: 'Servicios para entidades gubernamentales',
         href: '/sectores/gobierno'
       },
@@ -163,7 +164,7 @@ const menuData: MenuSection[] = [
       },
       {
         title: 'Agropecuario',
-        icon: FiTruck,
+        icon: BsBoxes,
         description: 'Soluciones para el sector agropecuario',
         href: '/sectores/agropecuario'
       }
