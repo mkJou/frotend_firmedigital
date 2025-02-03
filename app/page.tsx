@@ -180,6 +180,22 @@ export default function Home() {
     return () => ctx.revert();
   }, [isLoading]);
 
+  useEffect(() => {
+    // Efecto de seguimiento del mouse para el glow
+    const cards = document.querySelectorAll('.plan-card');
+    
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        card.style.setProperty('--mouse-x', `${x}%`);
+        card.style.setProperty('--mouse-y', `${y}%`);
+      });
+    });
+  }, []);
+
   return (
     <main ref={mainRef} className="min-h-screen bg-[#000000] text-white overflow-hidden">
       <MegaMenu />
@@ -253,56 +269,51 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {[
               {
-                name: "Essential",
-                description: "Perfect for small businesses",
+                name: "Básico",
+                description: "Perfecto para pequeñas empresas",
                 features: [
-                  "Managed IT Support",
-                  "24/7 Monitoring",
-                  "Cloud Backup",
-                  "Security Essentials"
+                  "Soporte TI Gestionado",
+                  "Monitoreo 24/7",
+                  "Respaldo en la Nube",
+                  "Seguridad Básica"
                 ],
                 icon: "",
                 color: "from-blue-400 to-cyan-400"
               },
               {
-                name: "Advanced",
-                description: "For growing companies",
+                name: "Avanzado",
+                description: "Para empresas en crecimiento",
                 features: [
-                  "Everything in Essential",
-                  "Advanced Security",
-                  "Priority Support",
-                  "Compliance Management"
+                  "Todo lo de Básico",
+                  "Seguridad Avanzada",
+                  "Soporte Prioritario",
+                  "Gestión de Cumplimiento"
                 ],
                 icon: "",
-                color: "from-purple-400 to-pink-400",
-                popular: true
+                color: "from-purple-400 to-pink-400"
               },
               {
-                name: "Enterprise",
-                description: "Full-scale solutions",
+                name: "Empresarial",
+                description: "Soluciones a gran escala",
                 features: [
-                  "Everything in Advanced",
-                  "Custom Solutions",
-                  "Dedicated Support Team",
-                  "Advanced Analytics"
+                  "Todo lo de Avanzado",
+                  "Soluciones Personalizadas",
+                  "Equipo de Soporte Dedicado",
+                  "Análisis Avanzado"
                 ],
                 icon: "",
                 color: "from-amber-400 to-orange-400"
               }
             ].map((plan, index) => (
               <div key={index} className="plan-card group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl blur-2xl" />
-                <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 h-full flex flex-col overflow-hidden">
-                  {plan.popular && (
-                    <div className="absolute -top-3 right-6 bg-gradient-to-r from-blue-400 to-purple-400 text-white text-sm font-medium px-3 py-1 rounded-full">
-                      Popular
-                    </div>
-                  )}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 animate-gradient-xy"></div>
+                <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 h-full flex flex-col overflow-hidden group-hover:border-white/20 transition-all duration-500">
                   <div className="glow-effect"></div>
                   <div className="mb-8">
                     <div className="flex items-center gap-3 mb-4">
                       <span className="text-3xl">{plan.icon}</span>
-                      <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r {plan.color}">
+                      <h3 className={`text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${plan.color}`}>
                         {plan.name}
                       </h3>
                     </div>
@@ -323,8 +334,8 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
-                  <button className="mt-8 w-full px-6 py-3 bg-gradient-to-r {plan.color} text-white font-medium rounded-lg hover:opacity-90 transition-all duration-300 transform hover:scale-[1.02]">
-                    Get Started
+                  <button className={`mt-8 w-full px-6 py-3 bg-gradient-to-r ${plan.color} text-white font-medium rounded-lg hover:opacity-90 transition-all duration-300 transform hover:scale-[1.02]`}>
+                    Empezar Ahora
                   </button>
                 </div>
               </div>
@@ -401,9 +412,6 @@ export default function Home() {
                 <CardSkeleton />
               ) : (
                 <div className="relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col">
-                  <div className="absolute -top-3 right-6 bg-gradient-to-r from-blue-400 to-purple-400 text-white text-sm font-medium px-3 py-1 rounded-full">
-                    Más Popular
-                  </div>
                   <div className="mb-8">
                     <h3 className="text-2xl font-semibold mb-2">Valor del Bloque</h3>
                     <p className="text-gray-400 text-sm mb-4">Hasta 100 Bloques. Después $1 por bloque.</p>
@@ -704,8 +712,8 @@ export default function Home() {
 
         .fade {
           pointer-events: none;
-          background: linear-gradient(90deg, #000, transparent 30%, transparent 70%, #000),
-                      linear-gradient(180deg, transparent 0%, transparent 85%, #000);
+          background: linear-gradient(to bottom, #000, transparent 30%, transparent 70%, #000),
+                      linear-gradient(to right, transparent 0%, transparent 85%, #000);
           position: absolute;
           inset: 0;
         }
@@ -791,41 +799,39 @@ export default function Home() {
 
         .glow-effect {
           position: absolute;
-          inset: -1px;
-          background: linear-gradient(90deg, #60a5fa, #a855f7, #60a5fa);
+          inset: 0;
+          background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56, 189, 248, 0.15), transparent 40%);
           opacity: 0;
           transition: opacity 0.3s ease;
-          border-radius: inherit;
-          z-index: -1;
-          filter: blur(8px);
         }
-
-        .plan-card:hover .glow-effect {
-          opacity: 0.15;
+        
+        .group:hover .glow-effect {
+          opacity: 1;
         }
-
+        
         .feature-item {
-          transform: translateX(0);
           transition: all 0.3s ease;
         }
-
+        
         .feature-item:hover {
-          transform: translateX(8px);
           background: rgba(255, 255, 255, 0.05);
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+          transform: translateX(5px);
         }
+      `}</style>
 
-        @keyframes pulse {
+      <style jsx global>{`
+        @keyframes gradient-xy {
           0%, 100% {
-            opacity: 1;
+            background-position: 0% 50%;
           }
           50% {
-            opacity: 0.5;
+            background-position: 100% 50%;
           }
         }
-
-        .popular-badge {
-          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        
+        .animate-gradient-xy {
+          background-size: 200% 200%;
+          animation: gradient-xy 15s ease infinite;
         }
       `}</style>
 

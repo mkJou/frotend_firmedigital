@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MegaMenu from '../../../components/MegaMenu';
 import { HiOutlineLightningBolt } from 'react-icons/hi';
 import gsap from 'gsap';
@@ -8,25 +8,38 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Workflow() {
+export default function WorkflowPage() {
   const timelineRef = useRef(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+  const numbersRef = useRef([]);
+  const titleRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const timelineSteps = document.querySelectorAll('.timeline-step');
     const ctx = gsap.context(() => {
       timelineSteps.forEach((step, index) => {
-        // Animación del contenedor principal
+        // Animación del paso
         gsap.fromTo(step,
           {
             opacity: 0,
             y: 50,
-            duration: 0
           },
           {
             opacity: 1,
             y: 0,
-            duration: 0.6,
-            ease: "power2.out",
+            duration: 0.4,
             scrollTrigger: {
               trigger: step,
               start: "top bottom-=150",
@@ -46,14 +59,15 @@ export default function Workflow() {
             {
               x: index % 2 === 0 ? -30 : 30,
               opacity: 0,
-              duration: 0
+              scale: 0.8,
             },
             {
               x: 0,
               opacity: 1,
-              duration: 0.7,
-              delay: 0.1,
-              ease: "power1.out",
+              scale: 1,
+              duration: 0.4,
+              delay: 0,
+              ease: "back.out(1.4)",
               scrollTrigger: {
                 trigger: step,
                 start: "top bottom-=150",
@@ -66,28 +80,40 @@ export default function Workflow() {
           );
         }
 
-        // Animación del punto del timeline
-        const dot = step.querySelector('.timeline-dot');
-        if (dot) {
-          gsap.fromTo(dot,
+        // Animación del número con contador
+        const number = step.querySelector('.step-number');
+        if (number) {
+          let startNumber = 0;
+          const endNumber = index + 1;
+          
+          gsap.fromTo(number,
             {
               scale: 0,
               opacity: 0,
-              duration: 0
+              rotate: -180,
             },
             {
               scale: 1,
               opacity: 1,
-              duration: 0.5,
-              delay: 0.2,
-              ease: "back.out(1.5)",
+              rotate: 0,
+              duration: 0.6,
+              delay: 0.3,
+              ease: "elastic.out(1, 0.5)",
               scrollTrigger: {
                 trigger: step,
                 start: "top bottom-=150",
                 end: "top center",
                 toggleActions: "play none none reverse",
                 markers: false,
-                scrub: false
+                onEnter: () => {
+                  // Animación del contador
+                  gsap.to(number.querySelector('.number-value'), {
+                    innerHTML: endNumber,
+                    duration: 1,
+                    snap: { innerHTML: 1 },
+                    ease: "power2.inOut",
+                  });
+                }
               }
             }
           );
@@ -98,6 +124,153 @@ export default function Workflow() {
     return () => {
       ctx.revert();
     };
+  }, []);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Timeline cards animation
+      const timelineCards = document.querySelectorAll('.timeline-card');
+      timelineCards.forEach((card, index) => {
+        gsap.fromTo(card,
+          {
+            opacity: 0,
+            scale: 0.8,
+            y: 50
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: card,
+              start: "top bottom-=100",
+              end: "top top",
+              toggleActions: "play reverse restart reverse",
+              markers: false
+            }
+          }
+        );
+      });
+
+      // Numbers counter animation
+      const numbers = document.querySelectorAll('.timeline-number');
+      numbers.forEach((number) => {
+        const targetNumber = parseInt(number.textContent || '0', 10);
+        gsap.fromTo(number,
+          {
+            innerText: '0'
+          },
+          {
+            innerText: targetNumber,
+            duration: 2,
+            snap: { innerText: 1 },
+            scrollTrigger: {
+              trigger: number,
+              start: "top bottom-=100",
+              end: "top top",
+              toggleActions: "play reverse restart reverse",
+              markers: false
+            }
+          }
+        );
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    // Animación del título principal
+    const mainTitle = document.querySelector('.main-title');
+    if (mainTitle) {
+      gsap.fromTo(mainTitle,
+        {
+          opacity: 0,
+          y: 50,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: mainTitle,
+            start: "top bottom-=100",
+            end: "top center",
+            toggleActions: "play none none reverse",
+          }
+        }
+      );
+
+      // Efecto de escritura
+      const text = mainTitle.textContent;
+      mainTitle.textContent = '';
+      const chars = text.split('');
+      chars.forEach((char, index) => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.style.opacity = '0';
+        mainTitle.appendChild(span);
+
+        gsap.to(span, {
+          opacity: 1,
+          duration: 0.1,
+          delay: index * 0.05,
+          scrollTrigger: {
+            trigger: mainTitle,
+            start: "top bottom-=100",
+            end: "top center",
+            toggleActions: "play none none reverse",
+          }
+        });
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    // Animación de las feature cards
+    const featureCards = document.querySelectorAll('.feature-card');
+    
+    featureCards.forEach((card, index) => {
+      gsap.fromTo(card,
+        {
+          opacity: 0,
+          y: 50,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          delay: index * 0.2,
+          ease: "back.out(1.4)",
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom-=100",
+            end: "top center",
+            toggleActions: "play none none reverse",
+          }
+        }
+      );
+    });
+  }, []);
+
+  useEffect(() => {
+    // Efecto de seguimiento del mouse para el glow
+    const cards = document.querySelectorAll('.timeline-card');
+    
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        card.style.setProperty('--mouse-x', `${x}%`);
+        card.style.setProperty('--mouse-y', `${y}%`);
+      });
+    });
   }, []);
 
   const steps = [
@@ -134,213 +307,301 @@ export default function Workflow() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#000000] text-white">
-      <MegaMenu />
-      
+    <>
+      <style jsx global>{`
+        @keyframes gradient-xy {
+          0%, 100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+        }
+        
+        .animate-gradient-xy {
+          background-size: 200% 200%;
+          animation: gradient-xy 15s ease infinite;
+        }
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden mt-30">
-        <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 z-0">
-            <object
-              type="image/svg+xml"
-              data="/images/workflow.svg"
-              className="w-full h-full"
-              aria-label="Workflow Animation"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-90" />
-          </div>
-          
-          <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 text-center" style={{ marginTop: '60vh' }}>
-            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
-              Optimiza tus procesos con nuestro sistema de workflow inteligente.
-              Automatiza, controla y mejora la eficiencia de tu negocio.
-            </p>
-          </div>
-        </div>
+        .glow-effect {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56, 189, 248, 0.15), transparent 40%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        
+        .group:hover .glow-effect {
+          opacity: 1;
+        }
+      `}</style>
+      <main className="min-h-screen bg-[#000000] text-white">
+        <MegaMenu />
+        
 
-        {/* Timeline Section */}
-        <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent pointer-events-none" />
-          
-          <div className="mapa relative py-20 overflow-hidden bg-black">
-            <div className="timeline-container max-w-6xl mx-auto relative px-4">
-              {/* Línea central del timeline */}
-              <div className="timeline-line absolute left-[50%] top-0 w-1 h-full transform -translate-x-1/2">
-                <div className="absolute inset-0 bg-gradient-to-b from-blue-400 to-purple-400" />
-                <div className="absolute inset-0 animate-pulse bg-gradient-to-b from-blue-300 to-purple-300 opacity-75" />
-              </div>
-              
-              {steps.map((step, index) => (
-                <div
-                  key={index}
-                  className="timeline-step opacity-0 flex items-center gap-8 mb-32"
-                  style={{
-                    flexDirection: index % 2 === 0 ? 'row' : 'row-reverse',
-                  }}
-                >
-                  <div className="flex-1">
-                    <div className={`timeline-card group bg-black/95 backdrop-blur-sm border border-white/20 rounded-2xl p-8 transform hover:-translate-y-2 transition-all duration-500 hover:border-white/40 ${
-                      index % 2 === 0 ? 'mr-12' : 'ml-12'
-                    }`}>
-                      <div className="relative">
-                        <div className="flex items-center gap-4 mb-4">
-                          <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-500/20 to-purple-500/20 flex items-center justify-center text-3xl transform group-hover:scale-110 transition-transform duration-500">
-                            {step.icon}
+        {/* Hero Section */}
+        <section className="relative overflow-hidden mt-30">
+          <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+            <div className="absolute inset-0 z-0">
+              <object
+                type="image/svg+xml"
+                data="/images/workflow.svg"
+                className="w-full h-full"
+                aria-label="Workflow Animation"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent opacity-90" />
+            </div>
+            
+            <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 text-center" style={{ marginTop: '60vh' }}>
+              <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
+                Optimiza tus procesos con nuestro sistema de workflow inteligente.
+                Automatiza, controla y mejora la eficiencia de tu negocio.
+              </p>
+            </div>
+          </div>
+
+          {/* Timeline Section */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent pointer-events-none" />
+            
+            <div className="mapa relative py-20 overflow-hidden bg-black">
+              <div className="timeline-container relative max-w-5xl mx-auto px-4">
+                <div className="absolute left-1/2 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 via-purple-500/50 to-blue-500/50 transform -translate-x-1/2 hidden md:block"></div>
+                {/* Línea del timeline para móvil */}
+                <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/50 via-purple-500/50 to-blue-500/50 md:hidden"></div>
+                
+                {steps.map((step, index) => (
+                  <div key={index} className="timeline-card group relative flex md:items-center mb-16">
+                    {/* Vista Desktop */}
+                    <div className="hidden md:flex w-full">
+                      {index % 2 === 0 ? (
+                        <>
+                          <div className="w-[45%]">
+                            <div className="relative max-w-md ml-auto mr-6">
+                              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl"></div>
+                              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 animate-gradient-xy"></div>
+                              <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 group-hover:border-white/20 transition-all duration-500 text-right">
+                                <div className="glow-effect"></div>
+                                <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
+                                <p className="text-gray-400">{step.description}</p>
+                              </div>
+                            </div>
                           </div>
-                          <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                            {step.title}
-                          </h3>
+                          <div className="timeline-dot absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center justify-center">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 relative z-10 flex items-center justify-center">
+                              <span className="timeline-number text-xl font-bold text-white">{index + 1}</span>
+                              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/50 to-purple-400/50 rounded-full blur-lg group-hover:blur-xl transition-all duration-500"></div>
+                            </div>
+                          </div>
+                          <div className="w-[45%]"></div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="w-[45%]"></div>
+                          <div className="timeline-dot absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center justify-center">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 relative z-10 flex items-center justify-center">
+                              <span className="timeline-number text-xl font-bold text-white">{index + 1}</span>
+                              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/50 to-purple-400/50 rounded-full blur-lg group-hover:blur-xl transition-all duration-500"></div>
+                            </div>
+                          </div>
+                          <div className="w-[45%]">
+                            <div className="relative max-w-md ml-24">
+                              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl"></div>
+                              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 animate-gradient-xy"></div>
+                              <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 group-hover:border-white/20 transition-all duration-500">
+                                <div className="glow-effect"></div>
+                                <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
+                                <p className="text-gray-400">{step.description}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+
+                    {/* Vista Mobile */}
+                    <div className="flex md:hidden w-full">
+                      <div className="timeline-dot absolute left-8 transform -translate-x-1/2 flex flex-col items-center justify-center">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 relative z-10 flex items-center justify-center">
+                          <span className="timeline-number text-lg font-bold text-white">{index + 1}</span>
+                          <div className="absolute inset-0 bg-gradient-to-r from-blue-400/50 to-purple-400/50 rounded-full blur-lg group-hover:blur-xl transition-all duration-500"></div>
                         </div>
-                        <p className="text-white/90 leading-relaxed">{step.description}</p>
+                      </div>
+                      <div className="flex-1 ml-16">
+                        <div className="relative">
+                          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl"></div>
+                          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 animate-gradient-xy"></div>
+                          <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 group-hover:border-white/20 transition-all duration-500">
+                            <div className="glow-effect"></div>
+                            <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                            <p className="text-gray-400 text-sm">{step.description}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="timeline-dot w-16 h-16 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center text-2xl font-bold relative z-10 transform hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/30">
-                    <div className="absolute inset-0 rounded-full animate-ping bg-gradient-to-r from-blue-400 to-purple-400 opacity-30" />
-                    {index + 1}
-                  </div>
-                  <div className="flex-1" />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Características */}
+        <section className="px-4 md:px-8 py-16">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent main-title opacity-0">
+              Características Principales
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="feature-card relative bg-gray-900 p-8 rounded-xl transition-all duration-500 cursor-pointer group">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl opacity-0 group-hover:opacity-100 blur-[1px] transition-all duration-500"></div>
+                <div className="absolute inset-[1px] bg-gray-900 rounded-xl z-[1]"></div>
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-500">
+                    Automatización Inteligente
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed group-hover:text-white transition-colors duration-500">
+                    Optimiza tus procesos empresariales con automatización inteligente. Reduce errores, ahorra tiempo y aumenta la productividad con flujos de trabajo automatizados que se adaptan a tu negocio.
+                  </p>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Características */}
-      <section className="px-4 md:px-8 py-16">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Características Principales</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Automatización</h3>
-              <p className="text-gray-300">
-                Automatiza tareas repetitivas y procesos complejos con facilidad.
-              </p>
-            </div>
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Personalización</h3>
-              <p className="text-gray-300">
-                Adapta los flujos de trabajo a tus necesidades específicas.
-              </p>
-            </div>
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Integración</h3>
-              <p className="text-gray-300">
-                Conecta con tus herramientas y sistemas existentes.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Proceso de Workflow */}
-      <section className="px-4 md:px-8 py-16 bg-gray-900">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Proceso de Workflow</h2>
-          <div className="relative">
-            {/* Línea de conexión */}
-            <div className="absolute top-1/2 left-0 w-full h-1 bg-blue-500 transform -translate-y-1/2 hidden md:block"></div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div className="bg-gray-800 p-6 rounded-xl relative z-10">
-                <div className="text-2xl font-bold text-blue-500 mb-4">1</div>
-                <h3 className="text-xl font-bold mb-2">Diseño</h3>
-                <p className="text-gray-300">Crea flujos de trabajo personalizados</p>
               </div>
-              <div className="bg-gray-800 p-6 rounded-xl relative z-10">
-                <div className="text-2xl font-bold text-blue-500 mb-4">2</div>
-                <h3 className="text-xl font-bold mb-2">Asignación</h3>
-                <p className="text-gray-300">Define roles y responsabilidades</p>
+              
+              <div className="feature-card relative bg-gray-900 p-8 rounded-xl transition-all duration-500 cursor-pointer group">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl opacity-0 group-hover:opacity-100 blur-[1px] transition-all duration-500"></div>
+                <div className="absolute inset-[1px] bg-gray-900 rounded-xl z-[1]"></div>
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-500">
+                    Personalización Total
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed group-hover:text-white transition-colors duration-500">
+                    Diseña flujos de trabajo que se ajusten perfectamente a tus necesidades. Configura cada paso, establece reglas personalizadas y adapta el sistema a tu forma única de trabajar.
+                  </p>
+                </div>
               </div>
-              <div className="bg-gray-800 p-6 rounded-xl relative z-10">
-                <div className="text-2xl font-bold text-blue-500 mb-4">3</div>
-                <h3 className="text-xl font-bold mb-2">Ejecución</h3>
-                <p className="text-gray-300">Implementa y monitorea el proceso</p>
-              </div>
-              <div className="bg-gray-800 p-6 rounded-xl relative z-10">
-                <div className="text-2xl font-bold text-blue-500 mb-4">4</div>
-                <h3 className="text-xl font-bold mb-2">Optimización</h3>
-                <p className="text-gray-300">Analiza y mejora continuamente</p>
+              
+              <div className="feature-card relative bg-gray-900 p-8 rounded-xl transition-all duration-500 cursor-pointer group">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl opacity-0 group-hover:opacity-100 blur-[1px] transition-all duration-500"></div>
+                <div className="absolute inset-[1px] bg-gray-900 rounded-xl z-[1]"></div>
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-500">
+                    Integración Seamless
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed group-hover:text-white transition-colors duration-500">
+                    Conecta sin problemas con tus herramientas favoritas. Integración perfecta con sistemas de gestión, firmas electrónicas y otras aplicaciones empresariales para un flujo de trabajo sin interrupciones.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Tipos de Workflow */}
-      <section className="px-4 md:px-8 py-16">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Tipos de Workflow</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Workflow Secuencial</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• Procesos paso a paso</li>
-                <li>• Aprobaciones en cadena</li>
-                <li>• Seguimiento lineal</li>
-              </ul>
-            </div>
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Workflow Paralelo</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• Tareas simultáneas</li>
-                <li>• Múltiples aprobadores</li>
-                <li>• Procesos concurrentes</li>
-              </ul>
-            </div>
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Workflow Condicional</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• Rutas dinámicas</li>
-                <li>• Decisiones automatizadas</li>
-                <li>• Reglas personalizadas</li>
-              </ul>
-            </div>
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Workflow de Estado</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• Control de estados</li>
-                <li>• Transiciones definidas</li>
-                <li>• Seguimiento de progreso</li>
-              </ul>
+        {/* Proceso de Workflow */}
+        <section className="px-4 md:px-8 py-16">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-bold mb-12 text-center">Proceso de Workflow</h2>
+            <div className="relative">
+              {/* Línea de conexión */}
+              <div className="absolute top-1/2 left-0 w-full h-1 bg-blue-500 transform -translate-y-1/2 hidden md:block"></div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div className="bg-gray-800 p-6 rounded-xl relative z-10">
+                  <div className="text-2xl font-bold text-blue-500 mb-4">1</div>
+                  <h3 className="text-xl font-bold mb-2">Diseño</h3>
+                  <p className="text-gray-300">Crea flujos de trabajo personalizados</p>
+                </div>
+                <div className="bg-gray-800 p-6 rounded-xl relative z-10">
+                  <div className="text-2xl font-bold text-blue-500 mb-4">2</div>
+                  <h3 className="text-xl font-bold mb-2">Asignación</h3>
+                  <p className="text-gray-300">Define roles y responsabilidades</p>
+                </div>
+                <div className="bg-gray-800 p-6 rounded-xl relative z-10">
+                  <div className="text-2xl font-bold text-blue-500 mb-4">3</div>
+                  <h3 className="text-xl font-bold mb-2">Ejecución</h3>
+                  <p className="text-gray-300">Implementa y monitorea el proceso</p>
+                </div>
+                <div className="bg-gray-800 p-6 rounded-xl relative z-10">
+                  <div className="text-2xl font-bold text-blue-500 mb-4">4</div>
+                  <h3 className="text-xl font-bold mb-2">Optimización</h3>
+                  <p className="text-gray-300">Analiza y mejora continuamente</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Sección adicional después del timeline */}
-      <div className="max-w-6xl mx-auto px-4 py-20">
-        <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 mb-16">
-          <h2 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-            Simplifica tu Trabajo con Firmedigital PSC
-          </h2>
-          <p className="text-gray-300 leading-relaxed mb-8">
-            En Firmedigital PSC, estamos comprometidos a ofrecerte soluciones que hagan tu vida más fácil. Nuestro Workflow optimizado y nuestras herramientas de firma digital están diseñadas para brindarte la máxima eficiencia y seguridad. Descubre cómo podemos ayudarte a llevar tu negocio al siguiente nivel.
-          </p>
-        </div>
+        {/* Tipos de Workflow */}
+        <section className="px-4 md:px-8 py-16">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-bold mb-12 text-center">Tipos de Workflow</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-gray-900 p-8 rounded-xl">
+                <h3 className="text-2xl font-bold mb-4">Workflow Secuencial</h3>
+                <ul className="space-y-3 text-gray-300">
+                  <li>• Procesos paso a paso</li>
+                  <li>• Aprobaciones en cadena</li>
+                  <li>• Seguimiento lineal</li>
+                </ul>
+              </div>
+              <div className="bg-gray-900 p-8 rounded-xl">
+                <h3 className="text-2xl font-bold mb-4">Workflow Paralelo</h3>
+                <ul className="space-y-3 text-gray-300">
+                  <li>• Tareas simultáneas</li>
+                  <li>• Múltiples aprobadores</li>
+                  <li>• Procesos concurrentes</li>
+                </ul>
+              </div>
+              <div className="bg-gray-900 p-8 rounded-xl">
+                <h3 className="text-2xl font-bold mb-4">Workflow Condicional</h3>
+                <ul className="space-y-3 text-gray-300">
+                  <li>• Rutas dinámicas</li>
+                  <li>• Decisiones automatizadas</li>
+                  <li>• Reglas personalizadas</li>
+                </ul>
+              </div>
+              <div className="bg-gray-900 p-8 rounded-xl">
+                <h3 className="text-2xl font-bold mb-4">Workflow de Estado</h3>
+                <ul className="space-y-3 text-gray-300">
+                  <li>• Control de estados</li>
+                  <li>• Transiciones definidas</li>
+                  <li>• Seguimiento de progreso</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-              Revoluciona tu flujo de trabajo con Firmedigital PSC
-            </h3>
-            <p className="text-gray-300 leading-relaxed">
-              ¿Te imaginas un proceso donde cada tarea se realiza sin contratiempos, desde la creación del primer documento hasta su aprobación final? En Firmedigital PSC, lo hemos hecho posible. Nuestro sistema es intuitivo y automatizado, diseñado para gestionar tus documentos con rapidez y eficiencia.
+        {/* Sección adicional después del timeline */}
+        <div className="max-w-6xl mx-auto px-4 py-20">
+          <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 mb-16">
+            <h2 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+              Simplifica tu Trabajo con Firmedigital PSC
+            </h2>
+            <p className="text-gray-300 leading-relaxed mb-8">
+              En Firmedigital PSC, estamos comprometidos a ofrecerte soluciones que hagan tu vida más fácil. Nuestro Workflow optimizado y nuestras herramientas de firma digital están diseñadas para brindarte la máxima eficiencia y seguridad. Descubre cómo podemos ayudarte a llevar tu negocio al siguiente nivel.
             </p>
           </div>
 
-          <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-              Fluidez en cada paso
-            </h3>
-            <p className="text-gray-300 leading-relaxed">
-              Cada etapa de nuestro Workflow está cuidadosamente pensada para ser sencilla y clara, reduciendo al mínimo el tiempo y esfuerzo necesarios. Olvídate de los cuellos de botella y las complicaciones: con Firmedigital PSC, cada paso es un avance hacia la eficiencia y la seguridad.
-            </p>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                Revoluciona tu flujo de trabajo con Firmedigital PSC
+              </h3>
+              <p className="text-gray-300 leading-relaxed">
+                ¿Te imaginas un proceso donde cada tarea se realiza sin contratiempos, desde la creación del primer documento hasta su aprobación final? En Firmedigital PSC, lo hemos hecho posible. Nuestro sistema es intuitivo y automatizado, diseñado para gestionar tus documentos con rapidez y eficiencia.
+              </p>
+            </div>
+
+            <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                Fluidez en cada paso
+              </h3>
+              <p className="text-gray-300 leading-relaxed">
+                Cada etapa de nuestro Workflow está cuidadosamente pensada para ser sencilla y clara, reduciendo al mínimo el tiempo y esfuerzo necesarios. Olvídate de los cuellos de botella y las complicaciones: con Firmedigital PSC, cada paso es un avance hacia la eficiencia y la seguridad.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
