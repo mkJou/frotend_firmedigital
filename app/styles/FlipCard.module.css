@@ -2,6 +2,8 @@
   perspective: 1000px;
   height: 100%;
   min-height: 600px;
+  position: relative;
+  background-color: transparent;
 }
 
 .flip-card-inner {
@@ -31,4 +33,21 @@
 .flip-card-back {
   transform: rotateY(180deg);
   justify-content: space-between;
+}
+
+.glow-effect {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.06),
+    transparent 40%
+  );
+  transition: opacity 0.2s;
+}
+
+.flip-card:hover .glow-effect {
+  opacity: 1;
 }

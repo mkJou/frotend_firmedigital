@@ -100,6 +100,14 @@ const Footer = () => {
               >
                 Instagram
               </a>
+              <a 
+                href="https://t.me/firmedigital" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors duration-200"
+              >
+                Telegram
+              </a>
             </div>
           </div>
         </div>
