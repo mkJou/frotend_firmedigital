@@ -92,10 +92,16 @@ const menuData: MenuSection[] = [
         href: '/productos/aplicaciones'
       },
       {
-        title: 'WORKFLOW',
+        title: 'IA',
+        icon: HiOutlineLightningBolt,
+        description: 'Inteligencia artificial avanzada',
+        href: '/productos/ia'
+      },
+      {
+        title: 'FLUJOS',
         icon: HiOutlineLightningBolt,
         description: 'Flujos de trabajo automatizados',
-        href: '/productos/workflow'
+        href: '/productos/flujos'
       },
     ],
   },
