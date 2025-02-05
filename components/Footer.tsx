@@ -106,7 +106,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors duration-200"
               >
-                Telegram
+                Telegram{}
               </a>
             </div>
           </div>

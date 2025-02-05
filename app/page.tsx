@@ -55,6 +55,7 @@ export default function Home() {
   const featuresRef = useRef<HTMLElement>(null);
   const textRef = useRef<HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showFeatures, setShowFeatures] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -277,7 +278,7 @@ export default function Home() {
 
 
       {/* Pricing Section */}
-      <section className="py-24 relative border-t border-white/5 pricing-section">
+      <section className="relative border-t border-white/5 pricing-section">
         <div className="mx-auto max-w-7xl px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
@@ -384,6 +385,8 @@ export default function Home() {
                             </svg>
                             <span>Multifirma</span>
                           </li>
+                         
+                          
                         </ul>
                       </div>
                       <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
@@ -728,6 +731,281 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Sección de características detalladas */}
+      <div className="mt-16 max-w-7xl mx-auto px-4">
+        <div className="flex justify-center mb-8">
+          <button
+            onClick={() => setShowFeatures(!showFeatures)}
+            className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-[#0A0A0A] via-[#1A1A1A] to-[#0A0A0A] hover:from-blue-500/10 hover:via-purple-500/10 hover:to-blue-500/10 text-white rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 relative overflow-hidden group"
+          >
+            <span className="text-lg font-medium bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              {showFeatures ? 'Ocultar' : 'Mostrar'} todas las características
+            </span>
+            <svg
+              className={`w-5 h-5 transition-transform duration-300 ${
+                showFeatures ? 'rotate-180' : ''
+              }`}
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 9L12 15L18 9"
+                stroke="url(#arrow-gradient)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <defs>
+                <linearGradient id="arrow-gradient" x1="6" y1="9" x2="18" y2="15" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#60A5FA" />
+                  <stop offset="1" stopColor="#A78BFA" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-purple-500/5 to-blue-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </button>
+        </div>
+        <div
+          className={`transition-all duration-500 overflow-hidden ${
+            showFeatures ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="w-full overflow-x-auto rounded-xl border border-white/10">
+          
+            <table className="w-full min-w-[800px] border-collapse">
+              
+              <thead>
+              <tr>
+                  <td colSpan={5} className="py-4 px-4 text-lg font-semibold text-white bg-[#1A1A1A] border-b border-white/10">
+                  Caracteristicas principales de FIRMEDIGITAL
+                  </td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <th className="py-3 px-4 text-left text-base font-semibold">Características principales de Planes</th>
+                  <th className="py-3 px-4 text-center">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs text-purple-400">Personal</span>
+                      <span className="text-base font-semibold">$170</span>
+                      <span className="text-xs text-gray-400">al mes</span>
+                    </div>
+                  </th>
+                  <th className="py-3 px-4 text-center bg-[#1A1A1A]/50">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs text-purple-400">Standard</span>
+                      <span className="text-base font-semibold">$425</span>
+                      <span className="text-xs text-gray-400">al mes</span>
+                    </div>
+                  </th>
+                  <th className="py-3 px-4 text-center">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs text-purple-400">Business Pro</span>
+                      <span className="text-base font-semibold">$680</span>
+                      <span className="text-xs text-gray-400">al mes</span>
+                    </div>
+                  </th>
+                  <th className="py-3 px-4 text-center">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs text-purple-400">Planes Mejorados</span>
+                      <span className="text-base font-semibold">Personalizado</span>
+                      <span className="text-xs text-gray-400">Contactar</span>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="text-sm titulo">
+               
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Envía acuerdos para firma electrónica</td>
+                  <td className="py-3 px-4 text-center">5 al mes</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Plan anual: 100 por usuario | Plan mensual: 10 por usuario</td>
+                  <td className="py-3 px-4 text-center">Plan anual: 100 por usuario | Plan mensual: 10 por usuario</td>
+                  <td className="py-3 px-4 text-center">Límites personalizados</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Flujo de trabajo de la firma</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Campos básicos</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Registro de auditoría en tiempo real</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Varios idiomas (firma en 44)</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Notificaciones y recordatorios</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Las aplicaciones móviles mejor valoradas</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Firma responsiva</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Informes</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Plantillas reutilizables</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="w-full overflow-x-auto rounded-xl border border-white/10">
+            <table className="w-full min-w-[800px] border-collapse">
+              <thead>
+                
+                <tr className="border-b border-white/10">
+                  <th className="py-3 px-4 text-left text-base font-semibold">Características principales de Planes</th>
+                  <th className="py-3 px-4 text-center">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs text-purple-400">Personal</span>
+                      <span className="text-base font-semibold">$170</span>
+                      <span className="text-xs text-gray-400">al mes</span>
+                    </div>
+                  </th>
+                  <th className="py-3 px-4 text-center bg-[#1A1A1A]/50">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs text-purple-400">Standard</span>
+                      <span className="text-base font-semibold">$425</span>
+                      <span className="text-xs text-gray-400">al mes</span>
+                    </div>
+                  </th>
+                  <th className="py-3 px-4 text-center">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs text-purple-400">Business Pro</span>
+                      <span className="text-base font-semibold">$680</span>
+                      <span className="text-xs text-gray-400">al mes</span>
+                    </div>
+                  </th>
+                  <th className="py-3 px-4 text-center">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs text-purple-400">Planes Mejorados</span>
+                      <span className="text-base font-semibold">Personalizado</span>
+                      <span className="text-xs text-gray-400">Contactar</span>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="text-sm titulo">
+                <tr>
+                  <td colSpan={5} className="py-4 px-4 text-lg font-semibold text-white bg-[#1A1A1A] border-b border-white/10">
+                  Flujos de trabajo y documentos simplificados
+                  </td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Envía acuerdos para firma electrónica</td>
+                  <td className="py-3 px-4 text-center">5 al mes</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Plan anual: 100 por usuario | Plan mensual: 10 por usuario</td>
+                  <td className="py-3 px-4 text-center">Plan anual: 100 por usuario | Plan mensual: 10 por usuario</td>
+                  <td className="py-3 px-4 text-center">Límites personalizados</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Flujo de trabajo de la firma</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Campos básicos</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Registro de auditoría en tiempo real</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Varios idiomas (firma en 44)</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Notificaciones y recordatorios</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Las aplicaciones móviles mejor valoradas</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Firma responsiva</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Informes</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-3 px-4">Plantillas reutilizables</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                  <td className="py-3 px-4 text-center">✓</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       {/* Nuestras Soluciones Digitales Section */}
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text">
@@ -914,7 +1192,7 @@ export default function Home() {
       `}</style>
 
       {/* Contact Section */}
-      <section className="py-24 relative border-t border-white/5 contact-section">
+      <section className="relative border-t border-white/5 contact-section">
         <div className="mx-auto max-w-7xl px-4">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-xl blur-xl" />
