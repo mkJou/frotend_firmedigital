@@ -264,99 +264,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-24 relative">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {[
-              {
-                name: "Básico",
-                description: "Perfecto para pequeñas empresas",
-                features: [
-                  "Soporte TI Gestionado",
-                  "Monitoreo 24/7",
-                  "Respaldo en la Nube",
-                  "Seguridad Básica"
-                ],
-                icon: "",
-                color: "from-blue-400 to-cyan-400"
-              },
-              {
-                name: "Avanzado",
-                description: "Para empresas en crecimiento",
-                features: [
-                  "Todo lo de Básico",
-                  "Seguridad Avanzada",
-                  "Soporte Prioritario",
-                  "Gestión de Cumplimiento"
-                ],
-                icon: "",
-                color: "from-purple-400 to-pink-400"
-              },
-              {
-                name: "Empresarial",
-                description: "Soluciones a gran escala",
-                features: [
-                  "Todo lo de Avanzado",
-                  "Soluciones Personalizadas",
-                  "Equipo de Soporte Dedicado",
-                  "Análisis Avanzado"
-                ],
-                icon: "",
-                color: "from-amber-400 to-orange-400"
-              }
-            ].map((plan, index) => (
-              <div key={index} className={`${styles['flip-card']} relative group plan-card`}>
-                <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
-                    <div className="absolute -top-8 -left-4">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 2L15 8L20 8.2L16 12.2L17 17.8L12 15.2L7 17.8L8 12.2L4 8.2L9.6 8L12 2Z" stroke="url(#grad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          <circle cx="12" cy="10" r="3" stroke="url(#grad1)" strokeWidth="1.5" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="flex flex-col h-full justify-center items-center">
-                      <h3 className="text-2xl font-semibold mb-2">{plan.name}</h3>
-                      <p className="text-gray-400 text-sm">{plan.description}</p>
-                    </div>
-                  </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
-                    <div className="flex flex-col h-full">
-                      <div className="flex-grow">
-                        <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
-                        <ul className="space-y-4">
-                          {plan.features.map((feature, idx) => (
-                            <li 
-                              key={idx} 
-                              className="flex items-center gap-3"
-                            >
-                              <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                              </svg>
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <button className={`mt-8 w-full px-6 py-3 bg-gradient-to-r ${plan.color} text-white font-medium rounded-lg hover:opacity-90 transition-all duration-300 transform hover:scale-[1.02]`}>
-                        Empezar Ahora
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Pricing Section */}
       <section className="py-24 relative border-t border-white/5 pricing-section">
@@ -375,8 +282,8 @@ export default function Home() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300`}>
-                    <div className="absolute -top-8 -left-4">
+                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
                       <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
                         <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 3L20 7V17L12 21L4 17V7L12 3Z" stroke="url(#grad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -391,17 +298,30 @@ export default function Home() {
                         </svg>
                       </div>
                     </div>
-                    <div className="flex flex-col h-full justify-center items-center">
-                      <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                      <p className="text-gray-400 text-sm">Impulsa tu negocio al siguiente nivel</p>
-                    </div>
+                    <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
+                    <p className="text-gray-400 text-sm">Impulsa tu negocio al siguiente nivel</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300`}>
+                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 3L20 7V17L12 21L4 17V7L12 3Z" stroke="url(#grad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M12 8L16 10V14L12 16L8 14V10L12 8Z" stroke="url(#grad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <circle cx="12" cy="12" r="2" stroke="url(#grad1)" strokeWidth="1.5" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
                         <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
                         <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
-                        <div className="flex flex-col items-center space-y-6">
+                        <div className="flex flex-col items-center space-y-6 mb-8">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
                               <div className="relative">
@@ -416,38 +336,49 @@ export default function Home() {
                               </div>
                             </div>
                           </div>
+                          <div className="flex items-center justify-between w-full max-w-[280px]">
+                            <div className="flex items-center">
+                              <div className="relative">
+                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                  $10
+                                </span>
+                              </div>
+                              <div className="ml-2 flex flex-col">
+                                <span className="text-gray-400 text-base">anual</span>
+                                <span className="text-green-400 text-sm">¡Ahorra con el plan anual!</span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="mt-6">
-                          <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
-                          <ul className="space-y-4">
-                            <li className="flex items-center gap-3">
-                              <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                              </svg>
-                              <span>Firma Electrónica</span>
-                            </li>
-                            <li className="flex items-center gap-3">
-                              <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                              </svg>
-                              <span>Trazabilidad</span>
-                            </li>
-                            <li className="flex items-center gap-3">
-                              <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                              </svg>
-                              <span>Flujos</span>
-                            </li>
-                            <li className="flex items-center gap-3">
-                              <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                              </svg>
-                              <span>Multifirma</span>
-                            </li>
-                          </ul>
-                        </div>
+                        <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
+                        <ul className="space-y-4 mb-8">
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Firma Electrónica</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Trazabilidad</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Flujos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Multifirma</span>
+                          </li>
+                        </ul>
                       </div>
-                      <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity mt-6">
+                      <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
                         Comenzar Ahora
                       </button>
                     </div>
@@ -462,8 +393,8 @@ export default function Home() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
-                    <div className="absolute -top-8 -left-4">
+                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
                       <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
                         <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 2L15 8L20 8.2L16 12.2L17 17.8L12 15.2L7 17.8L8 12.2L4 8.2L9.6 8L12 2Z" stroke="url(#grad2)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -477,12 +408,24 @@ export default function Home() {
                         </svg>
                       </div>
                     </div>
-                    <div className="flex flex-col h-full justify-center items-center">
-                      <h3 className="text-2xl font-semibold mb-2">Plan Elite</h3>
-                      <p className="text-gray-400 text-sm">Hasta 100 Bloques. Después $1 por bloque.</p>
-                    </div>
+                    <h3 className="text-2xl font-semibold mb-2">Plan Elite</h3>
+                    <p className="text-gray-400 text-sm">Hasta 100 Bloques. Después $1 por bloque.</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 2L15 8L20 8.2L16 12.2L17 17.8L12 15.2L7 17.8L8 12.2L4 8.2L9.6 8L12 2Z" stroke="url(#grad2)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <circle cx="12" cy="10" r="3" stroke="url(#grad2)" strokeWidth="1.5" />
+                          <defs>
+                            <linearGradient id="grad2" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
                         <h3 className="text-2xl font-semibold mb-2">Plan Elite</h3>
@@ -535,8 +478,8 @@ export default function Home() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
-                    <div className="absolute -top-8 -left-4">
+                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
                       <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
                         <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 3L20 7V17L12 21L4 17V7L12 3Z" stroke="url(#grad3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -551,12 +494,25 @@ export default function Home() {
                         </svg>
                       </div>
                     </div>
-                    <div className="flex flex-col h-full justify-center items-center">
-                      <h3 className="text-2xl font-semibold mb-2">Renovación de Certificados</h3>
-                      <p className="text-gray-400 text-sm">Mantén tus certificados emitidos al día.</p>
-                    </div>
+                    <h3 className="text-2xl font-semibold mb-2">Renovación de Certificados</h3>
+                    <p className="text-gray-400 text-sm">Mantén tus certificados emitidos al día.</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 3L20 7V17L12 21L4 17V7L12 3Z" stroke="url(#grad3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M12 8L16 10V14L12 16L8 14V10L12 8Z" stroke="url(#grad3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <circle cx="12" cy="12" r="2" stroke="url(#grad3)" strokeWidth="1.5" />
+                          <defs>
+                            <linearGradient id="grad3" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
                         <h3 className="text-2xl font-semibold mb-2">Renovación de Certificados</h3>
@@ -609,8 +565,8 @@ export default function Home() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
-                    <div className="absolute -top-8 -left-4">
+                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
                       <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
                         <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" stroke="url(#grad4)" strokeWidth="1.5" />
@@ -624,12 +580,24 @@ export default function Home() {
                         </svg>
                       </div>
                     </div>
-                    <div className="flex flex-col h-full justify-center items-center">
-                      <h3 className="text-2xl font-semibold mb-2">Corporativo</h3>
-                      <p className="text-gray-400 text-sm">Planes a la medida de tus necesidades.</p>
-                    </div>
+                    <h3 className="text-2xl font-semibold mb-2">Corporativo</h3>
+                    <p className="text-gray-400 text-sm">Planes a la medida de tus necesidades.</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" stroke="url(#grad4)" strokeWidth="1.5" />
+                          <path d="M12 7L13.5 10L16 10.5L14 12.5L14.5 15L12 14L9.5 15L10 12.5L8 10.5L10.5 10L12 7Z" stroke="url(#grad4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <defs>
+                            <linearGradient id="grad4" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#8B5CF6" />
+                              <stop offset="1" stopColor="#C084FC" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
                         <h3 className="text-2xl font-semibold mb-2">Corporativo</h3>
