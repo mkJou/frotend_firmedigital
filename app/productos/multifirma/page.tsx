@@ -1,97 +1,192 @@
-'use client';
-
-import React from 'react';
+"use client"
+import { motion } from "framer-motion";
+import Image from "next/image";
 import MegaMenu from '../../../components/MegaMenu';
-import { AiOutlineFileSync } from 'react-icons/ai';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.43, 0.13, 0.23, 0.96]
+    }
+  },
+  hover: {
+    scale: 1.02,
+    transition: {
+      duration: 0.3,
+      ease: [0.43, 0.13, 0.23, 0.96]
+    }
+  }
+};
 
 export default function Multifirma() {
   return (
-    <main className="min-h-screen bg-[#000000] text-white">
+    <main className="bg-black">
       <MegaMenu />
-      
+
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-4 mb-8">
-            <AiOutlineFileSync className="text-5xl text-blue-500" />
-            <h1 className="text-4xl md:text-6xl font-bold">
-              Multifirma
-            </h1>
-          </div>
-          <p className="text-xl text-gray-300 max-w-3xl mb-8">
-            Solución avanzada para la firma múltiple de documentos, perfecta para equipos y organizaciones.
-          </p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300">
-            Probar Ahora
-          </button>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/bg-hero.webp"
+            alt="Background"
+            fill
+            className="object-cover opacity-30"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black"></div>
         </div>
+
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="container mx-auto px-4 py-20 relative z-10"
+        >
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div className="text-center lg:text-left pt-32">
+              <motion.div variants={itemVariants}>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                  <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 text-transparent bg-clip-text">
+                    Multifirma
+                  </span>
+                  <br />
+                  <span className="text-3xl md:text-4xl lg:text-5xl text-gray-200">
+                    Eficiencia y Seguridad con Firmedigital PSC
+                  </span>
+                </h1>
+              </motion.div>
+              
+              <motion.p
+                variants={itemVariants}
+                className="text-gray-300 text-lg md:text-xl mb-8 leading-relaxed"
+              >
+                La multifirma permite que varios firmantes autoricen un documento de manera rápida y segura. Con Firmedigital PSC, disfruta de un proceso simplificado y protegido, donde cada firma se registra y verifica. Nuestra solución optimiza la colaboración y asegura que cada documento sea legalmente vinculante.
+              </motion.p>
+              
+              <motion.div
+                variants={itemVariants}
+                className="relative"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 rounded-2xl blur-xl"></div>
+                <p className="text-2xl text-purple-400 font-semibold italic relative bg-black/50 p-6 rounded-xl border border-purple-500/20">
+                  "La eficiencia y seguridad que necesitas, con la confiabilidad de Firmedigital PSC."
+                </p>
+              </motion.div>
+            </div>
+            
+            <motion.div
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full h-screen max-h-[800px]"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-3xl blur-3xl"></div>
+              <Image
+                src="/images/multifirma-hero.svg"
+                alt="Multifirma Illustration"
+                fill
+                className="object-contain object-top relative z-10"
+                priority
+              />
+            </motion.div>
+          </div>
+        </motion.div>
       </section>
 
-      {/* Beneficios */}
-      <section className="px-4 md:px-8 py-16">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Beneficios Clave</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Firma en Lote</h3>
-              <p className="text-gray-300">
-                Firma múltiples documentos simultáneamente, ahorrando tiempo y esfuerzo.
-              </p>
-            </div>
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Flujos Personalizados</h3>
-              <p className="text-gray-300">
-                Define el orden y las condiciones de firma según tus necesidades.
-              </p>
-            </div>
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Control Total</h3>
-              <p className="text-gray-300">
-                Monitorea el estado de cada firma y gestiona los documentos en tiempo real.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Contenido Principal */}
+      <section className="relative py-20 bg-black">
+        <div className="container mx-auto px-4">
+          {/* Secciones Principales */}
+          <div className="grid md:grid-cols-2 gap-12 mb-20">
+            <motion.div
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              whileHover="hover"
+              viewport={{ once: true }}
+              className="group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 group-hover:border-white/20 transition-all duration-500 relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text relative">
+                  Para Empresas
+                </h2>
+                <h3 className="text-xl text-gray-200 mb-4 relative">Agilidad y Control en la Gestión Documental</h3>
+                <p className="text-gray-400 relative leading-relaxed">
+                  La multifirma permite a las empresas gestionar de manera eficiente la firma de múltiples documentos por varios firmantes. Este proceso es fundamental para agilizar flujos de trabajo, reducir tiempos de espera y asegurar que todos los documentos sean revisados y aprobados en el orden correcto. Con la multifirma, las empresas pueden definir el orden de las firmas, personalizar permisos y garantizar que cada firmante tenga acceso solo a los documentos que necesita.
+                </p>
+              </div>
+            </motion.div>
 
-      {/* Características Avanzadas */}
-      <section className="px-4 md:px-8 py-16 bg-gray-900">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Características Avanzadas</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-gray-800 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Gestión de Grupos</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• Crea grupos de firmantes</li>
-                <li>• Asigna roles y permisos</li>
-                <li>• Gestiona accesos y visibilidad</li>
-              </ul>
-            </div>
-            <div className="bg-gray-800 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Notificaciones</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• Alertas automáticas</li>
-                <li>• Recordatorios programados</li>
-                <li>• Seguimiento en tiempo real</li>
-              </ul>
-            </div>
-            <div className="bg-gray-800 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Seguridad</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• Encriptación de extremo a extremo</li>
-                <li>• Verificación en dos pasos</li>
-                <li>• Registro de auditoría</li>
-              </ul>
-            </div>
-            <div className="bg-gray-800 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Integración</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• API REST completa</li>
-                <li>• Webhooks personalizables</li>
-                <li>• SDKs para múltiples plataformas</li>
-              </ul>
-            </div>
+            <motion.div
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              whileHover="hover"
+              viewport={{ once: true }}
+              className="group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-blue-500/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 group-hover:border-white/20 transition-all duration-500 relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-blue-500/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text relative">
+                  Para Personas Naturales
+                </h2>
+                <h3 className="text-xl text-gray-200 mb-4 relative">Simplificación y Seguridad en tus Trámites</h3>
+                <p className="text-gray-400 relative leading-relaxed">
+                  La multifirma también ofrece grandes beneficios a personas naturales que necesitan firmar múltiples documentos. Este proceso permite gestionar y completar trámites de forma rápida y segura, desde la comodidad de tu hogar o lugar de trabajo. Con la multifirma, puedes asegurarte de que todos los documentos sean firmados en el orden adecuado y que cada firmante reciba notificaciones en tiempo real sobre el estado de los documentos.
+                </p>
+              </div>
+            </motion.div>
           </div>
+
+          {/* Caso de Uso */}
+          <motion.div
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            whileHover="hover"
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 group-hover:border-white/20 transition-all duration-500 relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 text-transparent bg-clip-text text-center relative">
+                Caso de Uso: Multifirma en el Sector de Contabilidad
+              </h2>
+              <p className="text-gray-400 relative leading-relaxed">
+                En el sector de contabilidad, la multifirma es una herramienta crucial para garantizar la precisión y seguridad de los documentos financieros. Imagina una firma contable que maneja múltiples reportes, declaraciones fiscales y contratos. Con la multifirma, cada documento puede ser revisado y aprobado por varios contadores y clientes de manera secuencial y controlada. Esto asegura que cada paso del proceso sea transparente y verificable, reduciendo el riesgo de errores y fraudes. Además, la multifirma permite a la firma contable mantener un historial detallado de todas las firmas, facilitando auditorías y cumpliendo con las normativas legales.
+              </p>
+            </div>
+          </motion.div>
         </div>
       </section>
     </main>

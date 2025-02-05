@@ -383,7 +383,7 @@ export default function FirmaElectronica() {
                 Transacciones Digitales Personalizables y Seguras
               </h2>
               <p className="text-gray-300 mb-8">
-                En Firmedigital PSC, hemos diseñado una solución de firma electrónica especialmente para grandes empresas como la tuya. Optimiza tus flujos de trabajo, incrementa la eficiencia y asegura el cumplimiento normativo en cada operación.
+                  En FIRMEDIGITAL, hemos diseño una solución de firma electrónica especialmente para grandes empresas como la tuya. Optimiza tus flujos de trabajo, incrementa la eficiencia y asegura el cumplimiento normativo en cada operación.
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}
