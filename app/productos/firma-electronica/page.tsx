@@ -241,7 +241,7 @@ export default function FirmaElectronica() {
                     {...fadeIn}
                     className="text-xl text-gray-300 max-w-3xl mb-8"
                   >
-                    Firma Electrónica Legalmente Válida, Rápida y Segura. Optimiza los procesos de firma de documentos en tu empresa con Firmedigital PSC.
+                    Firma Electrónica Legalmente Válida, Rápida y Segura. Optimiza los procesos de firma de documentos en tu empresa con FIRMEDIGITAL.
                   </motion.p>
                   
                   <motion.button
