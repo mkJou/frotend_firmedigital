@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/Skeletons';
 import styles from './styles/FlipCard.module.css';
 import Image from 'next/image';
+import Modal from '@/components/Modal';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, TextPlugin);
@@ -56,6 +57,20 @@ export default function Home() {
   const textRef = useRef<HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showFeatures, setShowFeatures] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState({
+    title: '',
+    description: ''
+  });
+
+  const handleOpenModal = (title: string, description: string) => {
+    setModalContent({ title, description });
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -287,7 +302,7 @@ export default function Home() {
             <p className="mt-4 text-xl text-gray-400">Soluciones flexibles para todas tus necesidades</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Emisión de Firma Electrónica */}
             <div className={`${styles['flip-card']} relative group pricing-card`}
                  onMouseMove={handleMouseMove}>
@@ -310,7 +325,8 @@ export default function Home() {
                       </div>
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                    <p className="text-gray-400 text-sm">Impulsa tu negocio al siguiente nivel</p>
+                    <p className="text-gray-400 text-sm">Impulso al siguiente Nivel</p>
+                    <p className="text-gray-400 text-sm">Hasta 20 Bloques Anuales</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
@@ -408,11 +424,10 @@ export default function Home() {
                   <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
                       <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 2L15 8L20 8.2L16 12.2L17 17.8L12 15.2L7 17.8L8 12.2L4 8.2L9.6 8L12 2Z" stroke="url(#grad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          <circle cx="12" cy="10" r="3" stroke="url(#grad1)" strokeWidth="1.5" />
+                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/efficiency.svg" width="24" height="24" />
                           <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
                               <stop stopColor="#60A5FA" />
                               <stop offset="1" stopColor="#A78BFA" />
                             </linearGradient>
@@ -420,17 +435,17 @@ export default function Home() {
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Elite</h3>
-                    <p className="text-gray-400 text-sm">Hasta 100 Bloques. Después $1 por bloque.</p>
+                    <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
+                    <p className="text-gray-400 text-sm">Gestión Eficiente de Documentos</p>
+                    <p className="text-gray-400 text-sm">Hasta 200 Bloques Anuales</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
                       <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 2L15 8L20 8.2L16 12.2L17 17.8L12 15.2L7 17.8L8 12.2L4 8.2L9.6 8L12 2Z" stroke="url(#grad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          <circle cx="12" cy="10" r="3" stroke="url(#grad1)" strokeWidth="1.5" />
+                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/efficiency.svg" width="24" height="24" />
                           <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
                               <stop stopColor="#60A5FA" />
                               <stop offset="1" stopColor="#A78BFA" />
                             </linearGradient>
@@ -440,7 +455,7 @@ export default function Home() {
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Elite</h3>
+                        <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
                         <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
@@ -448,7 +463,7 @@ export default function Home() {
                               <div className="relative">
                                 <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400/40 to-purple-400/40 relative">
                                   <span className="absolute top-1/2 left-0 right-0 border-t-[3px] border-dashed border-purple-400/30 transform -rotate-6"></span>
-                                  $1
+                                  $10
                                 </span>
                               </div>
                               <div className="ml-2 flex flex-col">
@@ -461,7 +476,7 @@ export default function Home() {
                             <div className="flex items-center">
                               <div className="relative">
                                 <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                                  $10
+                                  $100
                                 </span>
                               </div>
                               <div className="ml-2 flex flex-col">
@@ -530,7 +545,7 @@ export default function Home() {
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Renovación de Certificados</h3>
+                    <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
                     <p className="text-gray-400 text-sm">Mantén tus certificados emitidos al día.</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
@@ -550,36 +565,21 @@ export default function Home() {
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Renovación de Certificados</h3>
-                        <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
+                        <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
+                        <p className="text-gray-400 text-sm mb-2">Bloques Personalizables</p>
                         <div className="flex flex-col items-center space-y-6 mb-8">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
                               <div className="relative">
                                 <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400/40 to-purple-400/40 relative">
                                   <span className="absolute top-1/2 left-0 right-0 border-t-[3px] border-dashed border-purple-400/30 transform -rotate-6"></span>
-                                  $1
+                                 
                                 </span>
                               </div>
-                              <div className="ml-2 flex flex-col">
-                                <span className="text-gray-400/80 text-base">al mes</span>
-                                <span className="text-xs text-gray-500">precio regular</span>
-                              </div>
+                           
                             </div>
                           </div>
-                          <div className="flex items-center justify-between w-full max-w-[280px]">
-                            <div className="flex items-center">
-                              <div className="relative">
-                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                                  $10
-                                </span>
-                              </div>
-                              <div className="ml-2 flex flex-col">
-                                <span className="text-gray-400 text-base">anual</span>
-                                <span className="text-green-400 text-sm">¡Ahorra con el plan anual!</span>
-                              </div>
-                            </div>
-                          </div>
+                          <p className="text-gray-400 text-sm mb-6">Te ofrecemos soluciones personalizadas y eficientes para la seguridad y validación de tus documentos, adaptándonos a tus requerimientos específicos</p>
                         </div>
                         <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
                         <ul className="space-y-4 mb-8">
@@ -606,6 +606,18 @@ export default function Home() {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                             <span>Multifirma</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Flujos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>IA</span>
                           </li>
                         </ul>
                       </div>
@@ -619,114 +631,7 @@ export default function Home() {
             </div>
 
             {/* Corporativo */}
-            <div className={`${styles['flip-card']} relative group pricing-card`}
-                 onMouseMove={handleMouseMove}>
-              {isLoading ? (
-                <CardSkeleton />
-              ) : (
-                <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
-                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 2L15 8L20 8.2L16 12.2L17 17.8L12 15.2L7 17.8L8 12.2L4 8.2L9.6 8L12 2Z" stroke="url(#grad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          <circle cx="12" cy="10" r="3" stroke="url(#grad1)" strokeWidth="1.5" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-semibold mb-2">Corporativo</h3>
-                    <p className="text-gray-400 text-sm">Planes a la medida de tus necesidades.</p>
-                  </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
-                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 2L15 8L20 8.2L16 12.2L17 17.8L12 15.2L7 17.8L8 12.2L4 8.2L9.6 8L12 2Z" stroke="url(#grad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          <circle cx="12" cy="10" r="3" stroke="url(#grad1)" strokeWidth="1.5" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="flex flex-col h-full">
-                      <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Corporativo</h3>
-                        <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
-                        <div className="flex flex-col items-center space-y-6 mb-8">
-                          <div className="flex items-center justify-between w-full max-w-[280px]">
-                            <div className="flex items-center">
-                              <div className="relative">
-                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400/40 to-purple-400/40 relative">
-                                  <span className="absolute top-1/2 left-0 right-0 border-t-[3px] border-dashed border-purple-400/30 transform -rotate-6"></span>
-                                  $1
-                                </span>
-                              </div>
-                              <div className="ml-2 flex flex-col">
-                                <span className="text-gray-400/80 text-base">al mes</span>
-                                <span className="text-xs text-gray-500">precio regular</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex items-center justify-between w-full max-w-[280px]">
-                            <div className="flex items-center">
-                              <div className="relative">
-                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                                  $10
-                                </span>
-                              </div>
-                              <div className="ml-2 flex flex-col">
-                                <span className="text-gray-400 text-base">anual</span>
-                                <span className="text-green-400 text-sm">¡Ahorra con el plan anual!</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
-                        <ul className="space-y-4 mb-8">
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Firma Electrónica</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Trazabilidad</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Flujos</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Multifirma</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
-                        Comenzar Ahora
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+
           </div>
         </div>
       </section>
@@ -816,74 +721,141 @@ export default function Home() {
               <tbody className="text-sm titulo">
                
                 <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Envía acuerdos para firma electrónica</td>
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Envío de acuerdos para firma electrónica",
+                      `Con nuestra plataforma, podrás:
+                      • Enviar documentos para firma de manera segura y eficiente
+                      • Establecer flujos de firma personalizados
+                      • Recibir notificaciones en tiempo real
+                      • Dar seguimiento al estado de las firmas
+                      • Obtener confirmaciones de firma con validez legal
+                      • Gestionar múltiples firmantes en un solo documento
+                      • Acceder a un registro detallado de todas las operaciones`
+                    )}
+                  >
+                    Envía acuerdos para firma electrónica
+                  </td>
                   <td className="py-3 px-4 text-center">5 al mes</td>
                   <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Plan anual: 100 por usuario | Plan mensual: 10 por usuario</td>
                   <td className="py-3 px-4 text-center">Plan anual: 100 por usuario | Plan mensual: 10 por usuario</td>
                   <td className="py-3 px-4 text-center">Límites personalizados</td>
                 </tr>
                 <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Flujo de trabajo de la firma</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Almacenamiento de documentos",
+                      `Nuestro sistema de almacenamiento de documentos ofrece:
+                      • Almacenamiento seguro en la nube
+                      • Organización jerárquica de documentos
+                      • Búsqueda avanzada por metadatos
+                      • Control de versiones de documentos
+                      • Acceso controlado por roles
+                      • Respaldo automático
+                      • Cifrado de extremo a extremo
+                      • Cumplimiento con estándares de seguridad`
+                    )}
+                  >
+                    Almacenamiento de documentos
+                  </td>
+                  <td className="py-3 px-4 text-center">5 GB</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">20 GB</td>
+                  <td className="py-3 px-4 text-center">50 GB</td>
+                  <td className="py-3 px-4 text-center">Personalizado</td>
                 </tr>
                 <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Campos básicos</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Gestión de usuarios",
+                      `Sistema avanzado de gestión de usuarios que incluye:
+                      • Creación y administración de cuentas
+                      • Asignación de roles y permisos
+                      • Gestión de grupos de trabajo
+                      • Registro detallado de actividades
+                      • Autenticación de dos factores
+                      • Políticas de contraseñas personalizables
+                      • Integración con directorio activo
+                      • Panel de control administrativo`
+                    )}
+                  >
+                    Gestión de usuarios
+                  </td>
+                  <td className="py-3 px-4 text-center">3 usuarios</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">10 usuarios</td>
+                  <td className="py-3 px-4 text-center">25 usuarios</td>
+                  <td className="py-3 px-4 text-center">Ilimitado</td>
                 </tr>
                 <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Registro de auditoría en tiempo real</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Flujos de trabajo",
+                      `Automatización de flujos de trabajo que permite:
+                      • Diseño visual de flujos personalizados
+                      • Aprobaciones secuenciales o paralelas
+                      • Notificaciones automáticas
+                      • Seguimiento en tiempo real
+                      • Plantillas predefinidas
+                      • Integración con calendarios
+                      • Reportes de productividad
+                      • Análisis de tiempos de proceso`
+                    )}
+                  >
+                    Flujos de trabajo
+                  </td>
+                  <td className="py-3 px-4 text-center">Básico</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Avanzado</td>
+                  <td className="py-3 px-4 text-center">Premium</td>
+                  <td className="py-3 px-4 text-center">Enterprise</td>
                 </tr>
                 <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Varios idiomas (firma en 44)</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Soporte técnico",
+                      `Servicio de soporte técnico especializado:
+                      • Atención 24/7
+                      • Múltiples canales de contacto
+                      • Tiempo de respuesta garantizado
+                      • Base de conocimientos
+                      • Capacitación personalizada
+                      • Soporte en sitio (según plan)
+                      • Monitoreo proactivo
+                      • Mantenimiento preventivo`
+                    )}
+                  >
+                    Soporte técnico
+                  </td>
+                  <td className="py-3 px-4 text-center">Email</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Email + Chat</td>
+                  <td className="py-3 px-4 text-center">Priority</td>
+                  <td className="py-3 px-4 text-center">24/7 Dedicado</td>
                 </tr>
                 <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Notificaciones y recordatorios</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Las aplicaciones móviles mejor valoradas</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Firma responsiva</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Informes</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Plantillas reutilizables</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Integraciones",
+                      `Capacidades de integración empresarial:
+                      • APIs RESTful documentadas
+                      • Webhooks personalizables
+                      • Conectores predefinidos
+                      • Integración con ERPs comunes
+                      • Single Sign-On (SSO)
+                      • Sincronización bidireccional
+                      • Mapeo de datos flexible
+                      • Monitoreo de integraciones`
+                    )}
+                  >
+                    Integraciones
+                  </td>
+                  <td className="py-3 px-4 text-center">Básicas</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Estándar</td>
+                  <td className="py-3 px-4 text-center">Completas</td>
+                  <td className="py-3 px-4 text-center">Enterprise</td>
                 </tr>
               </tbody>
             </table>
@@ -931,74 +903,141 @@ export default function Home() {
                   </td>
                 </tr>
                 <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Envía acuerdos para firma electrónica</td>
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Envío de acuerdos para firma electrónica",
+                      `Con nuestra plataforma, podrás:
+                      • Enviar documentos para firma de manera segura y eficiente
+                      • Establecer flujos de firma personalizados
+                      • Recibir notificaciones en tiempo real
+                      • Dar seguimiento al estado de las firmas
+                      • Obtener confirmaciones de firma con validez legal
+                      • Gestionar múltiples firmantes en un solo documento
+                      • Acceder a un registro detallado de todas las operaciones`
+                    )}
+                  >
+                    Envía acuerdos para firma electrónica
+                  </td>
                   <td className="py-3 px-4 text-center">5 al mes</td>
                   <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Plan anual: 100 por usuario | Plan mensual: 10 por usuario</td>
                   <td className="py-3 px-4 text-center">Plan anual: 100 por usuario | Plan mensual: 10 por usuario</td>
                   <td className="py-3 px-4 text-center">Límites personalizados</td>
                 </tr>
                 <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Flujo de trabajo de la firma</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Almacenamiento de documentos",
+                      `Nuestro sistema de almacenamiento de documentos ofrece:
+                      • Almacenamiento seguro en la nube
+                      • Organización jerárquica de documentos
+                      • Búsqueda avanzada por metadatos
+                      • Control de versiones de documentos
+                      • Acceso controlado por roles
+                      • Respaldo automático
+                      • Cifrado de extremo a extremo
+                      • Cumplimiento con estándares de seguridad`
+                    )}
+                  >
+                    Almacenamiento de documentos
+                  </td>
+                  <td className="py-3 px-4 text-center">5 GB</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">20 GB</td>
+                  <td className="py-3 px-4 text-center">50 GB</td>
+                  <td className="py-3 px-4 text-center">Personalizado</td>
                 </tr>
                 <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Campos básicos</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Gestión de usuarios",
+                      `Sistema avanzado de gestión de usuarios que incluye:
+                      • Creación y administración de cuentas
+                      • Asignación de roles y permisos
+                      • Gestión de grupos de trabajo
+                      • Registro detallado de actividades
+                      • Autenticación de dos factores
+                      • Políticas de contraseñas personalizables
+                      • Integración con directorio activo
+                      • Panel de control administrativo`
+                    )}
+                  >
+                    Gestión de usuarios
+                  </td>
+                  <td className="py-3 px-4 text-center">3 usuarios</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">10 usuarios</td>
+                  <td className="py-3 px-4 text-center">25 usuarios</td>
+                  <td className="py-3 px-4 text-center">Ilimitado</td>
                 </tr>
                 <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Registro de auditoría en tiempo real</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Flujos de trabajo",
+                      `Automatización de flujos de trabajo que permite:
+                      • Diseño visual de flujos personalizados
+                      • Aprobaciones secuenciales o paralelas
+                      • Notificaciones automáticas
+                      • Seguimiento en tiempo real
+                      • Plantillas predefinidas
+                      • Integración con calendarios
+                      • Reportes de productividad
+                      • Análisis de tiempos de proceso`
+                    )}
+                  >
+                    Flujos de trabajo
+                  </td>
+                  <td className="py-3 px-4 text-center">Básico</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Avanzado</td>
+                  <td className="py-3 px-4 text-center">Premium</td>
+                  <td className="py-3 px-4 text-center">Enterprise</td>
                 </tr>
                 <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Varios idiomas (firma en 44)</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Soporte técnico",
+                      `Servicio de soporte técnico especializado:
+                      • Atención 24/7
+                      • Múltiples canales de contacto
+                      • Tiempo de respuesta garantizado
+                      • Base de conocimientos
+                      • Capacitación personalizada
+                      • Soporte en sitio (según plan)
+                      • Monitoreo proactivo
+                      • Mantenimiento preventivo`
+                    )}
+                  >
+                    Soporte técnico
+                  </td>
+                  <td className="py-3 px-4 text-center">Email</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Email + Chat</td>
+                  <td className="py-3 px-4 text-center">Priority</td>
+                  <td className="py-3 px-4 text-center">24/7 Dedicado</td>
                 </tr>
                 <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Notificaciones y recordatorios</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Las aplicaciones móviles mejor valoradas</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Firma responsiva</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Informes</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td className="py-3 px-4">Plantillas reutilizables</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
-                  <td className="py-3 px-4 text-center">✓</td>
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Integraciones",
+                      `Capacidades de integración empresarial:
+                      • APIs RESTful documentadas
+                      • Webhooks personalizables
+                      • Conectores predefinidos
+                      • Integración con ERPs comunes
+                      • Single Sign-On (SSO)
+                      • Sincronización bidireccional
+                      • Mapeo de datos flexible
+                      • Monitoreo de integraciones`
+                    )}
+                  >
+                    Integraciones
+                  </td>
+                  <td className="py-3 px-4 text-center">Básicas</td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Estándar</td>
+                  <td className="py-3 px-4 text-center">Completas</td>
+                  <td className="py-3 px-4 text-center">Enterprise</td>
                 </tr>
               </tbody>
             </table>
@@ -1007,7 +1046,7 @@ export default function Home() {
       </div>
 
       {/* Nuestras Soluciones Digitales Section */}
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto py-10 px-4">
         <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text">
           Nuestras Soluciones Digitales
         </h2>
@@ -1191,6 +1230,16 @@ export default function Home() {
         }
       `}</style>
 
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        title={modalContent.title}
+      >
+        <div className="whitespace-pre-line">
+          {modalContent.description}
+        </div>
+      </Modal>
+
       {/* Contact Section */}
       <section className="relative border-t border-white/5 contact-section">
         <div className="mx-auto max-w-7xl px-4">
@@ -1289,7 +1338,6 @@ export default function Home() {
       </section>
 
       {/* Footer */}
- 
     </main>
   );
 }

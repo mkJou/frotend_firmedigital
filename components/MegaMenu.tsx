@@ -103,6 +103,18 @@ const menuData: MenuSection[] = [
         description: 'Flujos de trabajo automatizados',
         href: '/productos/flujos'
       },
+      {
+        title: 'CARNET CERTIFICADO',
+        icon: HiOutlineLightningBolt,
+        description: 'Credenciales Seguras',
+        href: '/productos/carnetcertificado'
+      },
+      {
+        title: 'EVENTOS',
+        icon: HiOutlineLightningBolt,
+        description: 'P',
+        href: '/productos/eventos'
+      }
     ],
   },
   {
@@ -176,17 +188,7 @@ const menuData: MenuSection[] = [
       }
     ]
   },
-  {
-    title: 'SOLUCIONES',
-    subItems: [
-      {
-        title: 'Industriales',
-        icon: BsBuilding,
-        description: 'Soluciones para la industria',
-        href: '/soluciones/industriales'
-      },
-    ],
-  },
+  
   {
     title: 'PLANES',
     subItems: [
