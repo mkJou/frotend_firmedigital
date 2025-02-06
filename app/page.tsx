@@ -224,6 +224,22 @@ export default function Home() {
     card.style.setProperty('--mouse-y', `${y}px`);
   };
 
+  const CheckIcon = () => (
+    <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-500/20 text-green-500">
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+    </span>
+  );
+
+  const XIcon = () => (
+    <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-500/20 text-red-500">
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </span>
+  );
+
   return (
     <main ref={mainRef} className="min-h-screen bg-[#000000] text-white overflow-hidden">
       <MegaMenu />
@@ -326,7 +342,7 @@ export default function Home() {
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
                     <p className="text-gray-400 text-sm">Impulso al siguiente Nivel</p>
-                    <p className="text-gray-400 text-sm">Hasta 20 Bloques Anuales</p>
+                    <p className="text-gray-400 text-sm">Hasta 10 Bloques Anuales</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
@@ -534,10 +550,9 @@ export default function Home() {
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
                       <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
                         <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 2L15 8L20 8.2L16 12.2L17 17.8L12 15.2L7 17.8L8 12.2L4 8.2L9.6 8L12 2Z" stroke="url(#grad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          <circle cx="12" cy="10" r="3" stroke="url(#grad1)" strokeWidth="1.5" />
+                          <image href="/images/organizacion.svg" width="24" height="24" />
                           <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
                               <stop stopColor="#60A5FA" />
                               <stop offset="1" stopColor="#A78BFA" />
                             </linearGradient>
@@ -547,15 +562,15 @@ export default function Home() {
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
                     <p className="text-gray-400 text-sm">Mantén tus certificados emitidos al día.</p>
+                    <p className="text-gray-400 text-sm">Bloques Ilimitados.</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
                       <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 2L15 8L20 8.2L16 12.2L17 17.8L12 15.2L7 17.8L8 12.2L4 8.2L9.6 8L12 2Z" stroke="url(#grad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          <circle cx="12" cy="10" r="3" stroke="url(#grad1)" strokeWidth="1.5" />
+                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/organizacion.svg" width="24" height="24" />
                           <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
                               <stop stopColor="#60A5FA" />
                               <stop offset="1" stopColor="#A78BFA" />
                             </linearGradient>
@@ -566,7 +581,7 @@ export default function Home() {
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
                         <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                        <p className="text-gray-400 text-sm mb-2">Bloques Personalizables</p>
+                        <p className="text-gray-400 text-sm mb-2">Bloques Ilimitados</p>
                         <div className="flex flex-col items-center space-y-6 mb-8">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -676,230 +691,437 @@ export default function Home() {
             showFeatures ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="w-full overflow-x-auto rounded-xl border border-white/10">
+          <div className="w-full overflow-x-auto rounded-none border border-white/10">
           
             <table className="w-full min-w-[800px] border-collapse">
               
               <thead>
               <tr>
                   <td colSpan={5} className="py-4 px-4 text-lg font-semibold text-white bg-[#1A1A1A] border-b border-white/10">
-                  Caracteristicas principales de FIRMEDIGITAL
+                  Características principales de FIRMEDIGITAL
                   </td>
                 </tr>
                 <tr className="border-b border-white/10">
                   <th className="py-3 px-4 text-left text-base font-semibold">Características principales de Planes</th>
                   <th className="py-3 px-4 text-center">
                     <div className="flex flex-col items-center">
-                      <span className="text-xs text-purple-400">Personal</span>
-                      <span className="text-base font-semibold">$170</span>
-                      <span className="text-xs text-gray-400">al mes</span>
+                      <span className="text-xs text-purple-400 whitespace-nowrap">Plan Despegue</span>                     
+                      
                     </div>
                   </th>
                   <th className="py-3 px-4 text-center bg-[#1A1A1A]/50">
                     <div className="flex flex-col items-center">
-                      <span className="text-xs text-purple-400">Standard</span>
-                      <span className="text-base font-semibold">$425</span>
-                      <span className="text-xs text-gray-400">al mes</span>
+                      <span className="text-xs text-purple-400 whitespace-nowrap">Plan Élite</span>           
+                      
                     </div>
                   </th>
                   <th className="py-3 px-4 text-center">
                     <div className="flex flex-col items-center">
-                      <span className="text-xs text-purple-400">Business Pro</span>
-                      <span className="text-base font-semibold">$680</span>
-                      <span className="text-xs text-gray-400">al mes</span>
+                      <span className="text-xs text-purple-400 whitespace-nowrap">Plan Max</span>                   
                     </div>
                   </th>
                   <th className="py-3 px-4 text-center">
                     <div className="flex flex-col items-center">
-                      <span className="text-xs text-purple-400">Planes Mejorados</span>
-                      <span className="text-base font-semibold">Personalizado</span>
-                      <span className="text-xs text-gray-400">Contactar</span>
+                      <span className="text-xs text-purple-400 whitespace-nowrap">Bloques Adicionales</span>                      
                     </div>
                   </th>
                 </tr>
               </thead>
               <tbody className="text-sm titulo">
-               
+                
                 <tr className="border-b border-white/10">
                   <td 
                     className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
                     onClick={() => handleOpenModal(
-                      "Envío de acuerdos para firma electrónica",
-                      `Con nuestra plataforma, podrás:
-                      • Enviar documentos para firma de manera segura y eficiente
-                      • Establecer flujos de firma personalizados
-                      • Recibir notificaciones en tiempo real
-                      • Dar seguimiento al estado de las firmas
-                      • Obtener confirmaciones de firma con validez legal
-                      • Gestionar múltiples firmantes en un solo documento
-                      • Acceder a un registro detallado de todas las operaciones`
+                      "Sistema AR",
+                      `Facilita a los usuarios la gestión de certificados digitales y firmas electrónicas mediante una plataforma en línea intuitiva. Permite la emisión, renovación y verificación de documentos con seguridad avanzada, optimizando procesos de registro y validación para un acceso más rápido y eficiente.`
                     )}
                   >
-                    Envía acuerdos para firma electrónica
+                    Sistema AR
                   </td>
-                  <td className="py-3 px-4 text-center">5 al mes</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Plan anual: 100 por usuario | Plan mensual: 10 por usuario</td>
-                  <td className="py-3 px-4 text-center">Plan anual: 100 por usuario | Plan mensual: 10 por usuario</td>
-                  <td className="py-3 px-4 text-center">Límites personalizados</td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
                     className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
                     onClick={() => handleOpenModal(
-                      "Almacenamiento de documentos",
-                      `Nuestro sistema de almacenamiento de documentos ofrece:
-                      • Almacenamiento seguro en la nube
-                      • Organización jerárquica de documentos
-                      • Búsqueda avanzada por metadatos
-                      • Control de versiones de documentos
-                      • Acceso controlado por roles
-                      • Respaldo automático
-                      • Cifrado de extremo a extremo
-                      • Cumplimiento con estándares de seguridad`
+                      "Módulo de Firma",
+                      `Nuestro módulo de firma ofrece:
+                      • Firma electrónica
+                      • Firma digital
+                      • Firma de documentos
+                      • Firma de contratos
+                      • Firma de acuerdos
+                      • Firma de informes
+                      • Firma de certificados
+                      • Firma de diplomas`
                     )}
                   >
-                    Almacenamiento de documentos
+                    Módulo de Firma
                   </td>
-                  <td className="py-3 px-4 text-center">5 GB</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">20 GB</td>
-                  <td className="py-3 px-4 text-center">50 GB</td>
-                  <td className="py-3 px-4 text-center">Personalizado</td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
                     className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
                     onClick={() => handleOpenModal(
-                      "Gestión de usuarios",
-                      `Sistema avanzado de gestión de usuarios que incluye:
-                      • Creación y administración de cuentas
-                      • Asignación de roles y permisos
-                      • Gestión de grupos de trabajo
-                      • Registro detallado de actividades
-                      • Autenticación de dos factores
-                      • Políticas de contraseñas personalizables
-                      • Integración con directorio activo
-                      • Panel de control administrativo`
+                      "Firma Electrónica",
+                      `Nuestra firma electrónica ofrece:
+                      • Firma electrónica avanzada
+                      • Firma electrónica segura
+                      • Firma electrónica eficiente
+                      • Firma electrónica personalizada
+                      • Firma electrónica para documentos
+                      • Firma electrónica para contratos
+                      • Firma electrónica para acuerdos
+                      • Firma electrónica para informes`
                     )}
                   >
-                    Gestión de usuarios
+                    Firma Electrónica
                   </td>
-                  <td className="py-3 px-4 text-center">3 usuarios</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">10 usuarios</td>
-                  <td className="py-3 px-4 text-center">25 usuarios</td>
-                  <td className="py-3 px-4 text-center">Ilimitado</td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                {/* <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "SSL",
+                      `Nuestro certificado SSL ofrece:
+                      • Seguridad avanzada
+                      • Protección de datos
+                      • Autenticación de sitios web
+                      • Encriptación de datos
+                      • Cumplimiento con estándares de seguridad
+                      • Soporte técnico especializado
+                      • Actualizaciones automáticas
+                      • Notificaciones de expiración`
+                    )}
+                  >
+                    SSL
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr> */}
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Firma de Documentos",
+                      `Nuestra firma de documentos ofrece:
+                      • Firma de documentos electrónicos
+                      • Firma de documentos digitales
+                      • Firma de documentos en línea
+                      • Firma de documentos segura
+                      • Firma de documentos eficiente
+                      • Firma de documentos personalizada
+                      • Firma de documentos para empresas
+                      • Firma de documentos para individuos`
+                    )}
+                  >
+                    Firma de Documentos
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
                     className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
                     onClick={() => handleOpenModal(
-                      "Flujos de trabajo",
-                      `Automatización de flujos de trabajo que permite:
-                      • Diseño visual de flujos personalizados
-                      • Aprobaciones secuenciales o paralelas
-                      • Notificaciones automáticas
-                      • Seguimiento en tiempo real
-                      • Plantillas predefinidas
-                      • Integración con calendarios
-                      • Reportes de productividad
-                      • Análisis de tiempos de proceso`
+                      "Editor de Documentos",
+                      `Nuestro editor de documentos ofrece:
+                      • Edición de documentos electrónicos
+                      • Edición de documentos digitales
+                      • Edición de documentos en línea
+                      • Edición de documentos segura
+                      • Edición de documentos eficiente
+                      • Edición de documentos personalizada
+                      • Edición de documentos para empresas
+                      • Edición de documentos para individuos`
                     )}
                   >
-                    Flujos de trabajo
+                    Editor de Documentos
                   </td>
-                  <td className="py-3 px-4 text-center">Básico</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Avanzado</td>
-                  <td className="py-3 px-4 text-center">Premium</td>
-                  <td className="py-3 px-4 text-center">Enterprise</td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
                     className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
                     onClick={() => handleOpenModal(
-                      "Soporte técnico",
-                      `Servicio de soporte técnico especializado:
-                      • Atención 24/7
-                      • Múltiples canales de contacto
-                      • Tiempo de respuesta garantizado
-                      • Base de conocimientos
-                      • Capacitación personalizada
-                      • Soporte en sitio (según plan)
-                      • Monitoreo proactivo
-                      • Mantenimiento preventivo`
+                      "Trazabilidad",
+                      `Nuestra trazabilidad ofrece:
+                      • Trazabilidad de documentos electrónicos
+                      • Trazabilidad de documentos digitales
+                      • Trazabilidad de documentos en línea
+                      • Trazabilidad de documentos segura
+                      • Trazabilidad de documentos eficiente
+                      • Trazabilidad de documentos personalizada
+                      • Trazabilidad de documentos para empresas
+                      • Trazabilidad de documentos para individuos`
                     )}
                   >
-                    Soporte técnico
+                    Trazabilidad
                   </td>
-                  <td className="py-3 px-4 text-center">Email</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Email + Chat</td>
-                  <td className="py-3 px-4 text-center">Priority</td>
-                  <td className="py-3 px-4 text-center">24/7 Dedicado</td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
                     className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
                     onClick={() => handleOpenModal(
-                      "Integraciones",
-                      `Capacidades de integración empresarial:
-                      • APIs RESTful documentadas
-                      • Webhooks personalizables
-                      • Conectores predefinidos
-                      • Integración con ERPs comunes
-                      • Single Sign-On (SSO)
-                      • Sincronización bidireccional
-                      • Mapeo de datos flexible
-                      • Monitoreo de integraciones`
+                      "Cuentas Múltiples",
+                      `Nuestras cuentas múltiples ofrecen:
+                      • Cuentas múltiples para empresas
+                      • Cuentas múltiples para individuos
+                      • Cuentas múltiples para documentos electrónicos
+                      • Cuentas múltiples para documentos digitales
+                      • Cuentas múltiples para documentos en línea
+                      • Cuentas múltiples seguras
+                      • Cuentas múltiples eficientes
+                      • Cuentas múltiples personalizadas`
                     )}
                   >
-                    Integraciones
+                    Cuentas Múltiples
                   </td>
-                  <td className="py-3 px-4 text-center">Básicas</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Estándar</td>
-                  <td className="py-3 px-4 text-center">Completas</td>
-                  <td className="py-3 px-4 text-center">Enterprise</td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "IA",
+                      `Nuestra inteligencia artificial ofrece:
+                      • Inteligencia artificial para documentos electrónicos
+                      • Inteligencia artificial para documentos digitales
+                      • Inteligencia artificial para documentos en línea
+                      • Inteligencia artificial segura
+                      • Inteligencia artificial eficiente
+                      • Inteligencia artificial personalizada
+                      • Inteligencia artificial para empresas
+                      • Inteligencia artificial para individuos`
+                    )}
+                  >
+                    IA
+                  </td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Carnet Certificado",
+                      `Nuestro carnet certificado ofrece:
+                      • Carnet certificado para documentos electrónicos
+                      • Carnet certificado para documentos digitales
+                      • Carnet certificado para documentos en línea
+                      • Carnet certificado seguro
+                      • Carnet certificado eficiente
+                      • Carnet certificado personalizado
+                      • Carnet certificado para empresas
+                      • Carnet certificado para individuos`
+                    )}
+                  >
+                    Carnet Certificado
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Multifirma",
+                      `Nuestra multifirma ofrece:
+                      • Multifirma para documentos electrónicos
+                      • Multifirma para documentos digitales
+                      • Multifirma para documentos en línea
+                      • Multifirma segura
+                      • Multifirma eficiente
+                      • Multifirma personalizada
+                      • Multifirma para empresas
+                      • Multifirma para individuos`
+                    )}
+                  >
+                    Multifirma
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Análisis Personalizable",
+                      `Nuestro análisis personalizable ofrece:
+                      • Análisis personalizable para documentos electrónicos
+                      • Análisis personalizable para documentos digitales
+                      • Análisis personalizable para documentos en línea
+                      • Análisis personalizable seguro
+                      • Análisis personalizable eficiente
+                      • Análisis personalizable personalizado
+                      • Análisis personalizable para empresas
+                      • Análisis personalizable para individuos`
+                    )}
+                  >
+                    Análisis Personalizable
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Aplicaciones de Acceso",
+                      `Nuestras aplicaciones de acceso ofrecen:
+                      • Aplicaciones de acceso para documentos electrónicos
+                      • Aplicaciones de acceso para documentos digitales
+                      • Aplicaciones de acceso para documentos en línea
+                      • Aplicaciones de acceso seguras
+                      • Aplicaciones de acceso eficientes
+                      • Aplicaciones de acceso personalizadas
+                      • Aplicaciones de acceso para empresas
+                      • Aplicaciones de acceso para individuos`
+                    )}
+                  >
+                    Aplicaciones de Acceso
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Flujos e Integraciones",
+                      `Nuestros flujos e integraciones ofrecen:
+                      • Flujos e integraciones para documentos electrónicos
+                      • Flujos e integraciones para documentos digitales
+                      • Flujos e integraciones para documentos en línea
+                      • Flujos e integraciones seguras
+                      • Flujos e integraciones eficientes
+                      • Flujos e integraciones personalizadas
+                      • Flujos e integraciones para empresas
+                      • Flujos e integraciones para individuos`
+                    )}
+                  >
+                    Flujos e Integraciones
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className=" border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Almacenamiento de Documentos",
+                      `Nuestro almacenamiento de documentos ofrece:
+                      • Almacenamiento de documentos electrónicos
+                      • Almacenamiento de documentos digitales
+                      • Almacenamiento de documentos en línea
+                      • Almacenamiento de documentos seguro
+                      • Almacenamiento de documentos eficiente
+                      • Almacenamiento de documentos personalizado
+                      • Almacenamiento de documentos para empresas
+                      • Almacenamiento de documentos para individuos`
+                    )}
+                  >
+                    Almacenamiento de Documentos
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className=" border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Almacenamiento de Documentos",
+                      `Nuestro almacenamiento de documentos ofrece:
+                      • Almacenamiento de documentos electrónicos
+                      • Almacenamiento de documentos digitales
+                      • Almacenamiento de documentos en línea
+                      • Almacenamiento de documentos seguro
+                      • Almacenamiento de documentos eficiente
+                      • Almacenamiento de documentos personalizado
+                      • Almacenamiento de documentos para empresas
+                      • Almacenamiento de documentos para individuos`
+                    )}
+                  >
+                    Conoce a tus Clientes (KYC) 
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className=" border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Almacenamiento de Documentos",
+                      `Nuestro almacenamiento de documentos ofrece:
+                      • Almacenamiento de documentos electrónicos
+                      • Almacenamiento de documentos digitales
+                      • Almacenamiento de documentos en línea
+                      • Almacenamiento de documentos seguro
+                      • Almacenamiento de documentos eficiente
+                      • Almacenamiento de documentos personalizado
+                      • Almacenamiento de documentos para empresas
+                      • Almacenamiento de documentos para individuos`
+                    )}
+                  >
+                    Conozca a su Empresa (KYB) 
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><XIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div className="w-full overflow-x-auto rounded-xl border border-white/10">
+          <div className="w-full overflow-x-auto border border-white/10">
             <table className="w-full min-w-[800px] border-collapse">
-              <thead>
-                
-                <tr className="border-b border-white/10">
-                  <th className="py-3 px-4 text-left text-base font-semibold">Características principales de Planes</th>
-                  <th className="py-3 px-4 text-center">
-                    <div className="flex flex-col items-center">
-                      <span className="text-xs text-purple-400">Personal</span>
-                      <span className="text-base font-semibold">$170</span>
-                      <span className="text-xs text-gray-400">al mes</span>
-                    </div>
-                  </th>
-                  <th className="py-3 px-4 text-center bg-[#1A1A1A]/50">
-                    <div className="flex flex-col items-center">
-                      <span className="text-xs text-purple-400">Standard</span>
-                      <span className="text-base font-semibold">$425</span>
-                      <span className="text-xs text-gray-400">al mes</span>
-                    </div>
-                  </th>
-                  <th className="py-3 px-4 text-center">
-                    <div className="flex flex-col items-center">
-                      <span className="text-xs text-purple-400">Business Pro</span>
-                      <span className="text-base font-semibold">$680</span>
-                      <span className="text-xs text-gray-400">al mes</span>
-                    </div>
-                  </th>
-                  <th className="py-3 px-4 text-center">
-                    <div className="flex flex-col items-center">
-                      <span className="text-xs text-purple-400">Planes Mejorados</span>
-                      <span className="text-base font-semibold">Personalizado</span>
-                      <span className="text-xs text-gray-400">Contactar</span>
-                    </div>
-                  </th>
-                </tr>
-              </thead>
+
               <tbody className="text-sm titulo">
                 <tr>
                   <td colSpan={5} className="py-4 px-4 text-lg font-semibold text-white bg-[#1A1A1A] border-b border-white/10">
-                  Flujos de trabajo y documentos simplificados
+                  Confianza, seguridad y certificaciones  
                   </td>
                 </tr>
                 <tr className="border-b border-white/10">
@@ -1133,7 +1355,7 @@ export default function Home() {
           color: #e2e8f0;
           font-size: 1rem;
           background-color: rgba(15, 23, 42, 0.5);
-          border-radius: 0.4rem;
+          border-radius: 0;
           padding: 0.7rem 1rem;
           margin-right: 1rem;
           box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2),
@@ -1167,7 +1389,7 @@ export default function Home() {
           position: absolute;
           inset: 0;
           background: rgba(15, 23, 42, 0.5);
-          border-radius: 0.4rem;
+          border-radius: 0;
           z-index: -1;
         }
 
@@ -1244,8 +1466,8 @@ export default function Home() {
       <section className="relative border-t border-white/5 contact-section">
         <div className="mx-auto max-w-7xl px-4">
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-xl blur-xl" />
-            <div className="relative bg-[#0A0A0A] border border-white/10 rounded-xl p-8 lg:p-12">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-none blur-xl" />
+            <div className="relative bg-[#0A0A0A] border border-white/10 rounded-none p-8 lg:p-12">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <h2 className="text-3xl font-bold mb-4">Conecta con nosotros</h2>
@@ -1272,32 +1494,32 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-xl blur-xl" />
-                  <div className="relative bg-[#0A0A0A] border border-white/10 rounded-xl p-6">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-none blur-xl" />
+                  <div className="relative bg-[#0A0A0A] border border-white/10 rounded-none p-6">
                     <form className="space-y-4">
                       {isLoading ? (
                         <>
                           <input
                             type="text"
                             placeholder="Nombre Completo"
-                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                             disabled
                           />
                           <input
                             type="email"
                             placeholder="Correo Electronico"
-                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                             disabled
                           />
                           <textarea
                             placeholder="Mensaje"
                             rows={4}
-                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                             disabled
                           />
                           <button
                             type="submit"
-                            className="w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+                            className="w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-none hover:opacity-90 transition-opacity"
                             disabled
                           >
                             Enviar Mensaje
@@ -1308,21 +1530,21 @@ export default function Home() {
                           <input
                             type="text"
                             placeholder="Nombre Completo"
-                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                           />
                           <input
                             type="email"
                             placeholder="Correo Electronico"
-                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                           />
                           <textarea
                             placeholder="Mensaje"
                             rows={4}
-                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                           />
                           <button
                             type="submit"
-                            className="w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+                            className="w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-none hover:opacity-90 transition-opacity"
                           >
                             Enviar Mensaje
                           </button>

@@ -30,7 +30,7 @@ const Footer = () => {
   return (
     <footer className="bg-black border-t border-white/10">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Logo y Descripción */}
           <div className="col-span-1 md:col-span-1">
             <Image
@@ -41,7 +41,8 @@ const Footer = () => {
               className="mb-4"
             />
             <p className="text-gray-400 text-sm">
-              Soluciones digitales seguras y confiables para la gestión de documentos electrónicos.
+            FirmeDigital.com es una plataforma de certificación y firma electronica desarrollada por Documentos Digitales PSC, C.A. en la República Bolivariana de Venezuela.
+
             </p>
           </div>
 
@@ -68,54 +69,63 @@ const Footer = () => {
               ))}
             </ul>
           </div>
+          {/* Autoridad de Certificación */}
+          <div className="col-span-1">
+            <h3 className="text-white font-semibold mb-4 text-lg">Autoridad de Certificación</h3>
+            <ul className="space-y-3 space-y-3 text-gray-400">
+             <li className='hover:text-white transition-colors duration-200'>Cadena de Certificación</li>
+             <li className='hover:text-white transition-colors duration-200'>Certificado Raíz SUSCERTE</li>
+             <li className='hover:text-white transition-colors duration-200'>Lista de Certificados Revocados (LCR)</li>
+            </ul>
+          </div>
+          {/*Informacion Legal */}
+          <div className="col-span-1">
+            <h3 className="text-white font-semibold mb-4 text-lg">Información Legal</h3>
+            <ul className="space-y-3 space-y-3 text-gray-400">
+             <li className='hover:text-white transition-colors duration-200'>Cadena de Certificación</li>
+             <li className='hover:text-white transition-colors duration-200'>
+               <a 
+                 href="https://firmedigital.com/docs/PSC-PSC-DPC-001%20Documentos%20Digitales%20%20PSC.pdf"
+                 target="_blank"
+                 rel="noopener noreferrer"
+               >
+                 DPC
+               </a>
+             </li>
+            
+            </ul>
+          </div>
 
           {/* Contacto */}
           <div className="col-span-1">
             <h3 className="text-white font-semibold mb-4 text-lg">Contacto</h3>
             <ul className="space-y-3 text-gray-400">
-              <li>
-                <a href="tel:+584141234567" className="hover:text-white transition-colors duration-200">
-                  +58 424-7100380
+              <li className='hover:text-white transition-colors duration-200'>
+                <a href="tel:+584247100380">Telf: +58 424-7100380</a>
+              </li>
+              <li className='hover:text-white transition-colors duration-200'>
+                <a href="mailto:info@firmedigital.com.ve">info@firmedigital.com.ve</a>
+              </li>
+              <li className='hover:text-white transition-colors duration-200'>
+                <a href="https://www.instagram.com/firmedigital" target="_blank" rel="noopener noreferrer">
+                  Instagram
                 </a>
               </li>
-              <li>
-                <a href="mailto:info@firmedigital.com.ve" className="hover:text-white transition-colors duration-200">
-                  info@firmedigital.com.ve
+              <li className='hover:text-white transition-colors duration-200'>
+                <a href="https://t.me/firmedigital" target="_blank" rel="noopener noreferrer">
+                  Telegram
                 </a>
               </li>
-            
             </ul>
           </div>
 
-          {/* Redes Sociales */}
-          <div className="col-span-1">
-            <h3 className="text-white font-semibold mb-4 text-lg">Síguenos</h3>
-            <div className="flex space-x-4">
-            
-              <a 
-                href="https://instagram.com/firmedigitalve" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors duration-200"
-              >
-                Instagram
-              </a>
-              <a 
-                href="https://t.me/firmedigital" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors duration-200"
-              >
-                Telegram{}
-              </a>
-            </div>
-          </div>
+          {/* Eliminar la sección de Síguenos ya que se movió a Contacto */}
         </div>
 
         {/* Copyright */}
         <div className="mt-12 pt-8 border-t border-white/10">
           <p className="text-center text-gray-400 text-sm">
-            © {new Date().getFullYear()} DOCUMENTOS DIGITALES PSC, C.A. RIF J-50541585-9. Todos los derechos reservados.
+            {new Date().getFullYear()} DOCUMENTOS DIGITALES PSC, C.A. RIF J-50541585-9. Todos los derechos reservados.
             www.firmedigital.com.ve
           </p>
         </div>
