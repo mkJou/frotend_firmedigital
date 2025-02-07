@@ -29,9 +29,9 @@ const FeaturesCard = dynamic(() => Promise.resolve(() => {
         <h3 className="text-xl font-semibold mb-6">Características Principales</h3>
         <div className="space-y-4">
           {[
-            'Firma Digital Avanzada',
+            'Firma Electrónica',
             'Gestor de Documentos',
-            'Blockchain Integrado',
+            'Tecnología Blockchain',
             'Validación Instantánea',
             'Almacenamiento Seguro'
           ].map((feature, index) => (
@@ -343,7 +343,7 @@ export default function Home() {
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
                     <p className="text-gray-400 text-sm">Impulso al siguiente Nivel</p>
-                    <p className="text-gray-400 text-sm">Hasta 10 Bloques Anuales</p>
+                    <p className="text-gray-400 text-sm">Hasta 10 Creditos Anuales</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
@@ -461,7 +461,7 @@ export default function Home() {
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
                     <p className="text-gray-400 text-sm">Gestión Eficiente de Documentos</p>
-                    <p className="text-gray-400 text-sm">Hasta 200 Bloques Anuales</p>
+                    <p className="text-gray-400 text-sm">Hasta 200 Creditos Anuales</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
@@ -576,7 +576,7 @@ export default function Home() {
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
                     <p className="text-gray-400 text-sm">Mantén tus certificados emitidos al día.</p>
-                    <p className="text-gray-400 text-sm">Bloques Ilimitados.</p>
+                    <p className="text-gray-400 text-sm">Creditos Ilimitados.</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
@@ -595,7 +595,7 @@ export default function Home() {
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
                         <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                        <p className="text-gray-400 text-sm mb-2">Bloques Ilimitados</p>
+                        <p className="text-gray-400 text-sm mb-2">Creditos Ilimitados</p>
                         <div className="flex flex-col items-center space-y-6 mb-8">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -738,7 +738,7 @@ export default function Home() {
                   </th>
                   <th className="py-3 px-4 text-center">
                     <div className="flex flex-col items-center">
-                      <span className="text-xs text-purple-400 whitespace-nowrap">Bloques Adicionales</span>                      
+                      <span className="text-xs text-purple-400 whitespace-nowrap">Creditos Adicionales</span>                      
                     </div>
                   </th>
                 </tr>
