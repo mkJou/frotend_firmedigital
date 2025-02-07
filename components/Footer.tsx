@@ -40,7 +40,7 @@ const Footer = () => {
               height={40}
               className="mb-4"
             />
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-sm text-justify">
             FirmeDigital.com es una plataforma de certificación y firma electronica desarrollada por Documentos Digitales PSC, C.A. en la República Bolivariana de Venezuela.
 
             </p>
@@ -82,7 +82,15 @@ const Footer = () => {
           <div className="col-span-1">
             <h3 className="text-white font-semibold mb-4 text-lg">Información Legal</h3>
             <ul className="space-y-3 space-y-3 text-gray-400">
-             <li className='hover:text-white transition-colors duration-200'>Cadena de Certificación</li>
+             <li className='hover:text-white transition-colors duration-200'>
+             <a 
+                 href="https://www.suscerte.gob.ve/"
+                 target="_blank"
+                 rel="noopener noreferrer"
+               >
+                 SUSCERTE
+               </a>
+             </li>           
              <li className='hover:text-white transition-colors duration-200'>
                <a 
                  href="https://firmedigital.com/docs/PSC-PSC-DPC-001%20Documentos%20Digitales%20%20PSC.pdf"

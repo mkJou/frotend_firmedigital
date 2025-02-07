@@ -30,6 +30,7 @@ const FeaturesCard = dynamic(() => Promise.resolve(() => {
         <div className="space-y-4">
           {[
             'Firma Digital Avanzada',
+            'Gestor de Documentos',
             'Blockchain Integrado',
             'Validación Instantánea',
             'Almacenamiento Seguro'
@@ -403,6 +404,12 @@ export default function Home() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
+                            <span>Gestor de Documentos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
                             <span>Trazabilidad</span>
                           </li>
                           <li className="flex items-center gap-3">
@@ -417,6 +424,7 @@ export default function Home() {
                             </svg>
                             <span>Multifirma</span>
                           </li>
+                          
                          
                           
                         </ul>
@@ -514,6 +522,12 @@ export default function Home() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
+                            <span>Gestor de Documentos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
                             <span>Trazabilidad</span>
                           </li>
                           <li className="flex items-center gap-3">
@@ -598,6 +612,7 @@ export default function Home() {
                         </div>
                         <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
                         <ul className="space-y-4 mb-8">
+                        
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -608,14 +623,15 @@ export default function Home() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Trazabilidad</span>
+                            <span>Gestor de Documentos</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Flujos</span>
+                            <span>Trazabilidad</span>
                           </li>
+                          
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -789,30 +805,7 @@ export default function Home() {
                   <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
-                </tr>
-                {/* <tr className="border-b border-white/10">
-                  <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
-                    onClick={() => handleOpenModal(
-                      "SSL",
-                      `Nuestro certificado SSL ofrece:
-                      • Seguridad avanzada
-                      • Protección de datos
-                      • Autenticación de sitios web
-                      • Encriptación de datos
-                      • Cumplimiento con estándares de seguridad
-                      • Soporte técnico especializado
-                      • Actualizaciones automáticas
-                      • Notificaciones de expiración`
-                    )}
-                  >
-                    SSL
-                  </td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
-                </tr> */}
+                </tr>                
                 <tr className="border-b border-white/10">
                   <td 
                     className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
@@ -928,29 +921,7 @@ export default function Home() {
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
-                <tr className="border-b border-white/10">
-                  <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
-                    onClick={() => handleOpenModal(
-                      "Carnet Certificado",
-                      `Nuestro carnet certificado ofrece:
-                      • Carnet certificado para documentos electrónicos
-                      • Carnet certificado para documentos digitales
-                      • Carnet certificado para documentos en línea
-                      • Carnet certificado seguro
-                      • Carnet certificado eficiente
-                      • Carnet certificado personalizado
-                      • Carnet certificado para empresas
-                      • Carnet certificado para individuos`
-                    )}
-                  >
-                    Carnet Certificado
-                  </td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
-                </tr>
+               
                 <tr className="border-b border-white/10">
                   <td 
                     className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
@@ -1070,16 +1041,8 @@ export default function Home() {
                   <td 
                     className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
                     onClick={() => handleOpenModal(
-                      "Almacenamiento de Documentos",
-                      `Nuestro almacenamiento de documentos ofrece:
-                      • Almacenamiento de documentos electrónicos
-                      • Almacenamiento de documentos digitales
-                      • Almacenamiento de documentos en línea
-                      • Almacenamiento de documentos seguro
-                      • Almacenamiento de documentos eficiente
-                      • Almacenamiento de documentos personalizado
-                      • Almacenamiento de documentos para empresas
-                      • Almacenamiento de documentos para individuos`
+                      "Conoce a tus Clientes (KYC)",
+                      `el KYC es un proceso fundamental para garantizar la seguridad y la integridad del sistema financiero. Al conocer a sus clientes, las empresas pueden protegerse contra el fraude, el lavado de dinero y otros delitos financieros, al tiempo que cumplen con las regulaciones y construyen relaciones comerciales sólidas y confiables.`
                     )}
                   >
                     Conoce a tus Clientes (KYC) 
@@ -1093,177 +1056,120 @@ export default function Home() {
                   <td 
                     className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
                     onClick={() => handleOpenModal(
-                      "Almacenamiento de Documentos",
-                      `Nuestro almacenamiento de documentos ofrece:
-                      • Almacenamiento de documentos electrónicos
-                      • Almacenamiento de documentos digitales
-                      • Almacenamiento de documentos en línea
-                      • Almacenamiento de documentos seguro
-                      • Almacenamiento de documentos eficiente
-                      • Almacenamiento de documentos personalizado
-                      • Almacenamiento de documentos para empresas
-                      • Almacenamiento de documentos para individuos`
+                      "Conozca a su Empresa (KYB)",
+                      `El KYB es un requisito legal para muchas empresas, especialmente en el sector financiero. También es una buena práctica para cualquier empresa que quiera protegerse de riesgos y construir relaciones comerciales seguras.`
                     )}
                   >
                     Conozca a su Empresa (KYB) 
                   </td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><XIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+              </tbody>
+              <thead>
+              <tr>
+                  <td colSpan={5} className="py-4 px-4 text-lg font-semibold text-white bg-[#1A1A1A] border-b border-white/10">
+                  Gestor de Documentos
+                  </td>
+                </tr>
+                
+                
+              </thead>
+              <tbody className="text-sm titulo">
+                
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Gestión de Condiciones",
+                      `Otorgue control legal sobre cada versión de sus términos en línea`
+                    )}
+                  >
+                    Gestión de Condiciones
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "API",
+                      `Acceso a tus Documentos de manera facil facilitando la integración de tus documentos con otras aplicaciones.`
+                    )}
+                  >
+                    API
+                  </td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
                   <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><XIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="w-full overflow-x-auto border border-white/10">
-            <table className="w-full min-w-[800px] border-collapse">
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Formatos de Documentos Soportados",
+                      `Nuestro gestor de documentos soporta los formatos más populares para la gestión online de documentos:
+                      • Documentos de Office: DOC, DOCX, XLS, XLSX, PPT, PPTX
+                      • PDF y PDF/A
+                      • Imágenes: JPG, JPEG, PNG, TIFF, BMP
+                      • Documentos de texto: TXT, RTF
+                      • Documentos web: HTML, XML
+                      • Documentos comprimidos: ZIP, RAR
+                      • Documentos de diseño: DWG, DXF
+                      • Documentos de correo: EML, MSG
+                      
+                      Todos los documentos son procesados y optimizados para su visualización online, manteniendo la integridad y seguridad del documento original.`
+                    )}
+                  >
+                    Formatos de Documentos Soportados
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Asistentes (agentes IA)",
+                      `Accede a agentes especializados, diseñados para cada tipo de documento y estructura organizacional, optimizando así la gestión documental en cada etapa del proceso.`
+                    )}
+                  >
+                    Asistentes (agentes IA)
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    onClick={() => handleOpenModal(
+                      "Ciclo de Vida de Documento (CML)",
+                      `Sigue el proceso que atraviesa un documento desde su creación hasta su archivo o destrucción. Comprender y gestionar este ciclo es fundamental para cualquier organización, ya que permite optimizar el manejo de la información, reducir costos y garantizar el cumplimiento normativo.`
+                    )}
+                  >
+                    Ciclo de Vida de Documento (CML)
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
 
-              <tbody className="text-sm titulo">
-                <tr>
-                  <td colSpan={5} className="py-4 px-4 text-lg font-semibold text-white bg-[#1A1A1A] border-b border-white/10">
-                  Confianza, seguridad y certificaciones  
-                  </td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
-                    onClick={() => handleOpenModal(
-                      "Envío de acuerdos para firma electrónica",
-                      `Con nuestra plataforma, podrás:
-                      • Enviar documentos para firma de manera segura y eficiente
-                      • Establecer flujos de firma personalizados
-                      • Recibir notificaciones en tiempo real
-                      • Dar seguimiento al estado de las firmas
-                      • Obtener confirmaciones de firma con validez legal
-                      • Gestionar múltiples firmantes en un solo documento
-                      • Acceder a un registro detallado de todas las operaciones`
-                    )}
-                  >
-                    Envía acuerdos para firma electrónica
-                  </td>
-                  <td className="py-3 px-4 text-center">5 al mes</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Plan anual: 100 por usuario | Plan mensual: 10 por usuario</td>
-                  <td className="py-3 px-4 text-center">Plan anual: 100 por usuario | Plan mensual: 10 por usuario</td>
-                  <td className="py-3 px-4 text-center">Límites personalizados</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
-                    onClick={() => handleOpenModal(
-                      "Almacenamiento de documentos",
-                      `Nuestro sistema de almacenamiento de documentos ofrece:
-                      • Almacenamiento seguro en la nube
-                      • Organización jerárquica de documentos
-                      • Búsqueda avanzada por metadatos
-                      • Control de versiones de documentos
-                      • Acceso controlado por roles
-                      • Respaldo automático
-                      • Cifrado de extremo a extremo
-                      • Cumplimiento con estándares de seguridad`
-                    )}
-                  >
-                    Almacenamiento de documentos
-                  </td>
-                  <td className="py-3 px-4 text-center">5 GB</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">20 GB</td>
-                  <td className="py-3 px-4 text-center">50 GB</td>
-                  <td className="py-3 px-4 text-center">Personalizado</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
-                    onClick={() => handleOpenModal(
-                      "Gestión de usuarios",
-                      `Sistema avanzado de gestión de usuarios que incluye:
-                      • Creación y administración de cuentas
-                      • Asignación de roles y permisos
-                      • Gestión de grupos de trabajo
-                      • Registro detallado de actividades
-                      • Autenticación de dos factores
-                      • Políticas de contraseñas personalizables
-                      • Integración con directorio activo
-                      • Panel de control administrativo`
-                    )}
-                  >
-                    Gestión de usuarios
-                  </td>
-                  <td className="py-3 px-4 text-center">3 usuarios</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">10 usuarios</td>
-                  <td className="py-3 px-4 text-center">25 usuarios</td>
-                  <td className="py-3 px-4 text-center">Ilimitado</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
-                    onClick={() => handleOpenModal(
-                      "Flujos de trabajo",
-                      `Automatización de flujos de trabajo que permite:
-                      • Diseño visual de flujos personalizados
-                      • Aprobaciones secuenciales o paralelas
-                      • Notificaciones automáticas
-                      • Seguimiento en tiempo real
-                      • Plantillas predefinidas
-                      • Integración con calendarios
-                      • Reportes de productividad
-                      • Análisis de tiempos de proceso`
-                    )}
-                  >
-                    Flujos de trabajo
-                  </td>
-                  <td className="py-3 px-4 text-center">Básico</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Avanzado</td>
-                  <td className="py-3 px-4 text-center">Premium</td>
-                  <td className="py-3 px-4 text-center">Enterprise</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
-                    onClick={() => handleOpenModal(
-                      "Soporte técnico",
-                      `Servicio de soporte técnico especializado:
-                      • Atención 24/7
-                      • Múltiples canales de contacto
-                      • Tiempo de respuesta garantizado
-                      • Base de conocimientos
-                      • Capacitación personalizada
-                      • Soporte en sitio (según plan)
-                      • Monitoreo proactivo
-                      • Mantenimiento preventivo`
-                    )}
-                  >
-                    Soporte técnico
-                  </td>
-                  <td className="py-3 px-4 text-center">Email</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Email + Chat</td>
-                  <td className="py-3 px-4 text-center">Priority</td>
-                  <td className="py-3 px-4 text-center">24/7 Dedicado</td>
-                </tr>
-                <tr className="border-b border-white/10">
-                  <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
-                    onClick={() => handleOpenModal(
-                      "Integraciones",
-                      `Capacidades de integración empresarial:
-                      • APIs RESTful documentadas
-                      • Webhooks personalizables
-                      • Conectores predefinidos
-                      • Integración con ERPs comunes
-                      • Single Sign-On (SSO)
-                      • Sincronización bidireccional
-                      • Mapeo de datos flexible
-                      • Monitoreo de integraciones`
-                    )}
-                  >
-                    Integraciones
-                  </td>
-                  <td className="py-3 px-4 text-center">Básicas</td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50">Estándar</td>
-                  <td className="py-3 px-4 text-center">Completas</td>
-                  <td className="py-3 px-4 text-center">Enterprise</td>
-                </tr>
+               
               </tbody>
             </table>
           </div>
+        
         </div>
       </div>
 
