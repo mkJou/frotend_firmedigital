@@ -32,7 +32,8 @@ import {
   BsPeople,
   BsBoxes,
   BsClipboard,
-  BsShieldLock
+  BsShieldLock,
+  BsCalendar
 } from 'react-icons/bs';
 import { FiTruck } from 'react-icons/fi';
 
@@ -98,7 +99,7 @@ const menuData: MenuSection[] = [
         href: '/productos/ia'
       },
       {
-        title: 'FLUJOS',
+        title: 'FLUJO DE TRABAJO',
         icon: HiOutlineLightningBolt,
         description: 'Flujos de trabajo automatizados',
         href: '/productos/flujos'
@@ -110,10 +111,10 @@ const menuData: MenuSection[] = [
         href: '/productos/carnetcertificado'
       },
       {
-        title: 'EVENTOS',
+        title: 'GESTOR DE DOCUMENTOS',
         icon: HiOutlineLightningBolt,
-        description: 'P',
-        href: '/productos/eventos'
+        description: 'Gestión de documentos electronicos',
+        href: '/productos/gestor-de-documentos'
       }
     ],
   },
@@ -185,33 +186,17 @@ const menuData: MenuSection[] = [
         icon: BsBoxes,
         description: 'Soluciones para el sector agropecuario',
         href: '/sectores/agropecuario'
+      },
+      {
+        title: 'Eventos',
+        icon: BsCalendar,
+        description: 'Soluciones eventos con gestión documental',
+        href: '/sectores/eventos'
       }
     ]
   },
   
-  {
-    title: 'PLANES',
-    subItems: [
-      {
-        title: 'Básico',
-        icon: BsStars,
-        description: 'Para pequeños equipos',
-        href: '/planes/basico'
-      },
-      {
-        title: 'Enterprise',
-        icon: BsRocket,
-        description: 'Para grandes organizaciones',
-        href: '/planes/enterprise'
-      },
-      {
-        title: 'Avanzado',
-        icon: BsDiamond,
-        description: 'Para equipos en crecimiento',
-        href: '/planes/avanzado'
-      },
-    ],
-  },
+  
 ];
 
 export default function MegaMenu() {

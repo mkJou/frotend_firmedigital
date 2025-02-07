@@ -10,25 +10,27 @@ const productos = [
     description: "Firma digital certificada y segura"
   },
   {
+    name: "Gestor de Documentos",
+    href: "/productos/gestor-de-documentos",
+    description: "Gestión de documentos electronicos"
+  },
+  {
+    name: "Firma Electrónica",
+    href: "/productos/firma-electronica",
+    description: "Firma digital certificada y segura"
+  },
+  {
     name: "Multifirma",
     href: "/productos/multifirma",
     description: "Gestión de múltiples firmas"
   },
-  {
-    name: "Workflow",
-    href: "/productos/workflow",
-    description: "Flujos de trabajo automatizados"
-  },
-  {
-    name: "Facturación",
-    href: "/productos/facturacion",
-    description: "Facturación electrónica"
-  }
+  
+  
 ];
 
 const Footer = () => {
   return (
-    <footer className="bg-black border-t border-white/10">
+    <footer className="bg-black border-t border-white/10 ">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Logo y Descripción */}

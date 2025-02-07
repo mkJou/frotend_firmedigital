@@ -362,7 +362,7 @@ export default function Home() {
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
                         <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                        <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
+                        <p className="text-gray-400 text-sm">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -1119,7 +1119,7 @@ export default function Home() {
                       • PDF y PDF/A
                       • Imágenes: JPG, JPEG, PNG, TIFF, BMP
                       • Documentos de texto: TXT, RTF
-                      • Documentos web: HTML, XML
+                      • Documentos web: HTML
                       • Documentos comprimidos: ZIP, RAR
                       • Documentos de diseño: DWG, DXF
                       • Documentos de correo: EML, MSG
@@ -1181,30 +1181,30 @@ export default function Home() {
         <div className="tag-list mx-auto">
           <div className="loop-slider" style={{ "--duration": "15951ms", "--direction": "normal" } as React.CSSProperties}>
             <div className="inner">
-              <div className="tag"><span>#</span> Firma Digital</div>
-              <div className="tag"><span>#</span> Certificados</div>
-              <div className="tag"><span>#</span> Seguridad</div>
-              <div className="tag"><span>#</span> Blockchain</div>
-              <div className="tag"><span>#</span> Trazabilidad</div>
-              <div className="tag"><span>#</span> Firma Digital</div>
-              <div className="tag"><span>#</span> Certificados</div>
-              <div className="tag"><span>#</span> Seguridad</div>
-              <div className="tag"><span>#</span> Blockchain</div>
-              <div className="tag"><span>#</span> Trazabilidad</div>
+              <div className="tag  rounded-xl"><span>#</span> Firma Digital</div>
+              <div className="tag  rounded-xl"><span>#</span> Certificados</div>
+              <div className="tag  rounded-xl"><span>#</span> Seguridad</div>
+              <div className="tag  rounded-xl"><span>#</span> Blockchain</div>
+              <div className="tag  rounded-xl"><span>#</span> Trazabilidad</div>
+              <div className="tag  rounded-xl"><span>#</span> Firma Digital</div>
+              <div className="tag  rounded-xl"><span>#</span> Certificados</div>
+              <div className="tag  rounded-xl"><span>#</span> Seguridad</div>
+              <div className="tag  rounded-xl"><span>#</span> Blockchain</div>
+              <div className="tag  rounded-xl"><span>#</span> Trazabilidad</div>
             </div>
           </div>
           <div className="loop-slider" style={{ "--duration": "19260ms", "--direction": "reverse" } as React.CSSProperties}>
             <div className="inner">
-              <div className="tag"><span>#</span> Autenticación</div>
-              <div className="tag"><span>#</span> Validación</div>
-              <div className="tag"><span>#</span> Documentos</div>
-              <div className="tag"><span>#</span> Encriptación</div>
-              <div className="tag"><span>#</span> Seguridad</div>
-              <div className="tag"><span>#</span> Autenticación</div>
-              <div className="tag"><span>#</span> Validación</div>
-              <div className="tag"><span>#</span> Documentos</div>
-              <div className="tag"><span>#</span> Encriptación</div>
-              <div className="tag"><span>#</span> Seguridad</div>
+              <div className="tag rounded-xl"><span>#</span> Autenticación</div>
+              <div className="tag rounded-xl"><span>#</span> Validación</div>
+              <div className="tag rounded-xl"><span>#</span> Documentos</div>
+              <div className="tag rounded-xl"><span>#</span> Encriptación</div>
+              <div className="tag rounded-xl"><span>#</span> Seguridad</div>
+              <div className="tag rounded-xl"><span>#</span> Autenticación</div>
+              <div className="tag rounded-xl"><span>#</span> Validación</div>
+              <div className="tag rounded-xl"><span>#</span> Documentos</div>
+              <div className="tag rounded-xl"><span>#</span> Encriptación</div>
+              <div className="tag rounded-xl"><span>#</span> Seguridad</div>
             </div>
           </div>
           <div className="loop-slider" style={{ "--duration": "10449ms", "--direction": "normal" } as React.CSSProperties}>
@@ -1369,11 +1369,11 @@ export default function Home() {
       </Modal>
 
       {/* Contact Section */}
-      <section className="relative border-t border-white/5 contact-section">
+      <section className="relative border-t border-white/5 contact-section my-10  ">
         <div className="mx-auto max-w-7xl px-4">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-none blur-xl" />
-            <div className="relative bg-[#0A0A0A] border border-white/10 rounded-none p-8 lg:p-12">
+            <div className="relative bg-[#0A0A0A] border border-white/10 rounded-1xl p-8 lg:p-12">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <h2 className="text-3xl font-bold mb-4">Conecta con nosotros</h2>
@@ -1400,32 +1400,32 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-none blur-xl" />
-                  <div className="relative bg-[#0A0A0A] border border-white/10 rounded-none p-6">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-2xl blur-xl" />
+                  <div className="relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-6">
                     <form className="space-y-4">
                       {isLoading ? (
                         <>
                           <input
                             type="text"
                             placeholder="Nombre Completo"
-                            className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                             disabled
                           />
                           <input
                             type="email"
                             placeholder="Correo Electronico"
-                            className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                             disabled
                           />
                           <textarea
                             placeholder="Mensaje"
                             rows={4}
-                            className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                             disabled
                           />
                           <button
                             type="submit"
-                            className="w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-none hover:opacity-90 transition-opacity"
+                            className="w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-2xl hover:opacity-90 transition-opacity"
                             disabled
                           >
                             Enviar Mensaje
@@ -1436,21 +1436,21 @@ export default function Home() {
                           <input
                             type="text"
                             placeholder="Nombre Completo"
-                            className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                           />
                           <input
                             type="email"
                             placeholder="Correo Electronico"
-                            className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                           />
                           <textarea
                             placeholder="Mensaje"
                             rows={4}
-                            className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                           />
                           <button
                             type="submit"
-                            className="w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-none hover:opacity-90 transition-opacity"
+                            className="w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-2xl hover:opacity-90 transition-opacity"
                           >
                             Enviar Mensaje
                           </button>
