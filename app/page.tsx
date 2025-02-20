@@ -83,107 +83,119 @@ export default function Home() {
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const ctx = gsap.context(() => {
+    let ctx = gsap.context(() => {
       if (!isLoading) {
         // Animación inicial del hero
         const heroTl = gsap.timeline({
           defaults: { duration: 1, ease: 'power3.out' }
         });
         
-        heroTl
-          .from('.hero-overlay', {
-            opacity: 0,
-          })
-          .from('.hero-title', {
-            y: 100,
-            opacity: 0,
-            ease: 'power4.out'
-          })
-          .from('.hero-subtitle', {
-            y: 50,
-            opacity: 0,
-            duration: 0.8,
-          }, '-=0.5')
-          .from('.hero-button', {
-            scale: 0,
-            opacity: 0,
-            duration: 0.6,
-            ease: 'back.out(1.7)'
-          }, '-=0.3');
+        if (document.querySelector('.hero-overlay')) {
+          heroTl
+            .from('.hero-overlay', {
+              opacity: 0,
+            })
+            .from('.hero-title', {
+              y: 100,
+              opacity: 0,
+              ease: 'power4.out'
+            })
+            .from('.hero-subtitle', {
+              y: 50,
+              opacity: 0,
+              duration: 0.8,
+            }, '-=0.5')
+            .from('.hero-button', {
+              scale: 0,
+              opacity: 0,
+              duration: 0.6,
+              ease: 'back.out(1.7)'
+            }, '-=0.3');
+        }
 
         // Animación de texto typewriter
-        const words = ['Segura', 'Confiable', 'Innovadora'];
-        const typewriterTl = gsap.timeline({ repeat: -1 });
-        
-        words.forEach(word => {
-          typewriterTl
-            .to('.typewriter', {
-              duration: 1,
-              text: word,
-              ease: 'none'
-            })
-            .to('.typewriter', {
-              duration: 1,
-              opacity: 1
-            })
-            .to('.typewriter', {
-              duration: 1,
-              opacity: 0
-            });
-        });
+        if (document.querySelector('.typewriter')) {
+          const words = ['Segura', 'Confiable', 'Innovadora'];
+          const typewriterTl = gsap.timeline({ repeat: -1 });
+          
+          words.forEach(word => {
+            typewriterTl
+              .to('.typewriter', {
+                duration: 1,
+                text: word,
+                ease: 'none'
+              })
+              .to('.typewriter', {
+                duration: 1,
+                opacity: 1
+              })
+              .to('.typewriter', {
+                duration: 1,
+                opacity: 0
+              });
+          });
+        }
 
         // Animaciones scroll
         const scrollAnimations = () => {
           // Cards animación
-          gsap.from('.feature-card', {
-            scrollTrigger: {
-              trigger: '.feature-card',
-              start: 'top 80%',
-              toggleActions: 'play none none reverse'
-            },
-            y: 50,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2
-          });
+          if (document.querySelector('.feature-card')) {
+            gsap.from('.feature-card', {
+              scrollTrigger: {
+                trigger: '.feature-card',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              },
+              y: 50,
+              opacity: 0,
+              duration: 0.8,
+              stagger: 0.2
+            });
+          }
 
           // Pricing cards animación
-          gsap.from('.pricing-card', {
-            scrollTrigger: {
-              trigger: '.pricing-section',
-              start: 'top 80%',
-              toggleActions: 'play none none reverse'
-            },
-            y: 50,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2
-          });
+          if (document.querySelector('.pricing-card')) {
+            gsap.from('.pricing-card', {
+              scrollTrigger: {
+                trigger: '.pricing-section',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              },
+              y: 50,
+              opacity: 0,
+              duration: 0.8,
+              stagger: 0.2
+            });
+          }
 
           // Features animación
-          gsap.from('.feature', {
-            scrollTrigger: {
-              trigger: '.features-section',
-              start: 'top 80%',
-              toggleActions: 'play none none reverse'
-            },
-            y: 30,
-            opacity: 0,
-            duration: 0.6,
-            stagger: 0.2
-          });
+          if (document.querySelector('.features-section')) {
+            gsap.from('.feature', {
+              scrollTrigger: {
+                trigger: '.features-section',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              },
+              y: 30,
+              opacity: 0,
+              duration: 0.6,
+              stagger: 0.2
+            });
+          }
 
           // Contact section animación
-          gsap.from('.contact-section', {
-            scrollTrigger: {
-              trigger: '.contact-section',
-              start: 'top 80%',
-              toggleActions: 'play none none reverse'
-            },
-            y: 50,
-            opacity: 0,
-            duration: 1
-          });
+          if (document.querySelector('.contact-section')) {
+            gsap.from('.contact-section', {
+              scrollTrigger: {
+                trigger: '.contact-section',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              },
+              y: 50,
+              opacity: 0,
+              duration: 1
+            });
+          }
         };
 
         // Iniciar animaciones de scroll
@@ -196,7 +208,9 @@ export default function Home() {
       };
     }, mainRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+    };
   }, [isLoading]);
 
   useEffect(() => {
