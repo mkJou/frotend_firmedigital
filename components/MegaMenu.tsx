@@ -10,7 +10,9 @@ import {
   HiOutlineSearchCircle,
   HiOutlineMenu,
   HiOutlineX,
-  HiChevronDown
+  HiChevronDown,
+  HiOutlineSupport,
+  HiOutlineMail
 } from 'react-icons/hi';
 import { AiOutlineFileDone, AiOutlineFileSync } from 'react-icons/ai';
 import { 
@@ -195,8 +197,28 @@ const menuData: MenuSection[] = [
       }
     ]
   },
-  
-  
+  {
+    title: 'BLOG',
+    href: '/blog'
+  },
+  {
+    title: 'RECURSOS',
+    href: '#recursos',
+    subItems: [
+      {
+        title: 'Contactos',
+        description: 'Ponte en contacto con nosotros',
+        href: '#recursos',
+        icon: HiOutlineMail
+      },
+      {
+        title: 'Soporte',
+        description: 'Centro de ayuda y soporte',
+        href: '/soporte',
+        icon: HiOutlineSupport
+      }
+    ]
+  }
 ];
 
 export default function MegaMenu() {
@@ -204,6 +226,16 @@ export default function MegaMenu() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleResourcesClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const recursosSection = document.getElementById('recursos');
+    if (recursosSection) {
+      recursosSection.scrollIntoView({ behavior: 'smooth' });
+      setActiveMenu(null);
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -288,8 +320,9 @@ export default function MegaMenu() {
                 onMouseLeave={handleMouseLeave}
               >
                 <Link
-                  href={section.href || '#'}
+                  href={section.title === 'RECURSOS' ? '#recursos' : (section.href || '#')}
                   className="px-4 py-2 text-gray-300 hover:text-white transition-colors"
+                  onClick={section.title === 'RECURSOS' ? handleResourcesClick : undefined}
                 >
                   {section.title}
                 </Link>
@@ -356,6 +389,11 @@ export default function MegaMenu() {
                 )}
               </div>
             ))}
+            <button
+              className="px-4 py-2 text-gray-300 hover:text-white transition-colors border border-gray-300 rounded-lg hover:bg-white/10 ml-2"
+            >
+              Iniciar Sesión
+            </button>
           </div>
 
           {/* Menú móvil */}
@@ -411,6 +449,10 @@ export default function MegaMenu() {
                               : ''
                           }`}
                         onClick={(e) => {
+                          if (section.title === 'RECURSOS' && item.title === 'Contactos') {
+                            e.preventDefault();
+                            handleResourcesClick();
+                          }
                           e.stopPropagation();
                           setIsMobileMenuOpen(false);
                         }}

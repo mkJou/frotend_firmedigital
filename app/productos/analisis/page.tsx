@@ -158,23 +158,25 @@ export default function Analisis() {
             </p>
           </motion.div>
 
-          <div className="flex justify-center items-center gap-4 md:gap-8">
+          <div className="flex justify-center items-center gap-4 md:gap-6">
             {timelineSteps.map((step, index) => (
               <div key={index} className="flex items-center">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`${styles['flip-card']} ${index === 1 ? 'w-40 md:w-44' : 'w-48 md:w-56'}`}
+                  className={`${styles['flip-card']} ${index === 1 ? 'w-36 md:w-40' : 'w-40 md:w-44'}`}
                 >
                   <div className={styles['flip-card-inner']}>
-                    <div className={`${styles['flip-card-front']} bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6`}>
-                      <div className="flex flex-col items-center justify-center h-full space-y-4">
-                        {step.icon}
-                        <h3 className="text-xl font-semibold text-gray-200">{step.title}</h3>
+                    <div className={`${styles['flip-card-front']} bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-4`}>
+                      <div className="flex flex-col items-center justify-center h-full space-y-3">
+                        <div className="text-3xl">
+                          {step.icon}
+                        </div>
+                        <h3 className="text-base font-semibold text-gray-200">{step.title}</h3>
                       </div>
                     </div>
-                    <div className={`${styles['flip-card-back']} bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6`}>
+                    <div className={`${styles['flip-card-back']} bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-4`}>
                       <div className="flex flex-col items-center justify-center h-full">
                         <p className="text-gray-300 text-center text-sm">{step.description}</p>
                       </div>

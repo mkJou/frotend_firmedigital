@@ -150,18 +150,10 @@ export default function IAPage() {
           <h2 className="text-3xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
             Características
           </h2>
-          <div className="relative">
-            {/* Scroll Indicators */}
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-24 h-full bg-gradient-to-r from-gray-900 to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-24 h-full bg-gradient-to-l from-gray-900 to-transparent z-10 pointer-events-none"></div>
-            
-            <div className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory hide-scrollbar">
-              {features.map((feature, index) => (
-                <div key={index} className="flex-none w-[300px] snap-center first:ml-[10%] last:mr-[10%]">
-                  <Card {...feature} />
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} {...feature} />
+            ))}
           </div>
         </div>
       </section>
@@ -180,16 +172,6 @@ export default function IAPage() {
           </div>
         </div>
       </section>
-
-      <style jsx global>{`
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </main>
   );
 }
