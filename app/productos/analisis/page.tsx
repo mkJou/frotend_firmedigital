@@ -158,41 +158,27 @@ export default function Analisis() {
             </p>
           </motion.div>
 
-          <div className="flex justify-center items-center gap-4 md:gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {timelineSteps.map((step, index) => (
-              <div key={index} className="flex items-center">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`${styles['flip-card']} ${index === 1 ? 'w-36 md:w-40' : 'w-40 md:w-44'}`}
-                >
-                  <div className={styles['flip-card-inner']}>
-                    <div className={`${styles['flip-card-front']} bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-4`}>
-                      <div className="flex flex-col items-center justify-center h-full space-y-3">
-                        <div className="text-3xl">
-                          {step.icon}
-                        </div>
-                        <h3 className="text-base font-semibold text-gray-200">{step.title}</h3>
-                      </div>
+              <div
+                key={index}
+                className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+                <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0 flex flex-col items-center justify-center">
+                    <div className="flex items-center justify-center mb-4 w-16 h-16 bg-blue-500/10 rounded-full">
+                      {step.icon}
                     </div>
-                    <div className={`${styles['flip-card-back']} bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-4`}>
-                      <div className="flex flex-col items-center justify-center h-full">
-                        <p className="text-gray-300 text-center text-sm">{step.description}</p>
-                      </div>
-                    </div>
+                    <h3 className="text-xl font-semibold text-gray-200">{step.title}</h3>
                   </div>
-                </motion.div>
-                {index < timelineSteps.length - 1 && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
-                    className="flex items-center px-2 md:px-4"
-                  >
-                    <BsArrowRight className="text-2xl text-gray-500" />
-                  </motion.div>
-                )}
+                  <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    <div className="flex items-center justify-center mb-4 w-16 h-16 mx-auto bg-blue-500/10 rounded-full">
+                      {step.icon}
+                    </div>
+                    <p className="text-gray-300 text-center">{step.description}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

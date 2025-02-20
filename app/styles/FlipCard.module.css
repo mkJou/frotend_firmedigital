@@ -1,6 +1,6 @@
 .flip-card {
   background-color: transparent;
-  height: 150px;
+  height: 650px;
   perspective: 1000px;
   position: relative;
   margin-top: 2rem;
@@ -29,6 +29,11 @@
   display: flex;
   flex-direction: column;
   overflow: visible;
+}
+
+.flip-card-front {
+  justify-content: center;
+  align-items: center;
 }
 
 .flip-card-back {
