@@ -15,9 +15,9 @@ const productos = [
     description: "Gestión de documentos electronicos"
   },
   {
-    name: "Firma Electrónica",
-    href: "/productos/firma-electronica",
-    description: "Firma digital certificada y segura"
+    name: "IA",
+    href: "/productos/ia",
+    description: "Inteligencia artificial avanzada"
   },
   {
     name: "Multifirma",
