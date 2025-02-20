@@ -80,7 +80,11 @@ export default function Contadores() {
           </div>
         </div>
       </section>
+    
 
+
+
+    
       {/* Quote Section */}
       <section className="py-12 bg-gradient-to-b from-[#111827] to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
