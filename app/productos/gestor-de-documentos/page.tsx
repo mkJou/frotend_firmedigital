@@ -3,7 +3,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { HiOutlineDocumentText, HiOutlineLightningBolt, HiOutlineShieldCheck, HiOutlineCloud } from 'react-icons/hi';
+import { HiOutlineDocumentText, HiOutlineLightningBolt, HiOutlineShieldCheck, HiOutlineCloud, HiOutlineDatabase, HiOutlinePencil, HiOutlineEye } from 'react-icons/hi';
+import { FaRocket, FaPiggyBank, FaShieldAlt, FaUsers, FaFolderOpen, FaSearch, FaUserFriends, FaArchive } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function GestorDocumentos() {
@@ -71,25 +72,54 @@ export default function GestorDocumentos() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl lg:text-5xl font-bold mb-6">
-                Sistema de Gestión Documental con Firmedigital
+                ¿Sabes qué es un gestor de documentos?
               </h1>
               <p className="text-gray-400 text-lg mb-8">
-                Firmedigital es un software de gestión documental que integra todo lo esencial para la gestión de los documentos, 
-                la colaboración entre usuarios y las funcionalidades de búsqueda avanzada, en una única solución fácil de usar.
+                Es una herramienta que te ayuda a manejar toda la documentación de una organización de forma accesible, organizada y segura, desde su creación hasta su archivo o eliminación. Imagina poder administrar y controlar todos los documentos de tu empresa de manera eficiente y sin complicaciones. Eso es exactamente lo que hacemos en Firmedigital.
               </p>
               <div className="grid grid-cols-2 gap-6">
-                {features.map((feature, index) => (
-                  <motion.div
+                {[
+                  {
+                    icon: <FaRocket className="text-4xl text-blue-400" />,
+                    title: "Eficiencia",
+                    description: "Automatización de tareas y optimización de procesos documentales."
+                  },
+                  {
+                    icon: <FaPiggyBank className="text-4xl text-blue-400" />,
+                    title: "Reducción de Costos",
+                    description: "Minimiza gastos de impresión y almacenamiento físico."
+                  },
+                  {
+                    icon: <FaShieldAlt className="text-4xl text-blue-400" />,
+                    title: "Seguridad",
+                    description: "Protección avanzada y control de acceso a la información."
+                  },
+                  {
+                    icon: <FaUsers className="text-4xl text-blue-400" />,
+                    title: "Colaboración",
+                    description: "Trabajo en equipo eficiente con acceso compartido."
+                  }
+                ].map((benefit, index) => (
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-white/5 p-6 rounded-xl border border-white/10"
+                    className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
                   >
-                    <feature.icon className="w-8 h-8 text-blue-400 mb-4" />
-                    <h3 className="font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-sm text-gray-400">{feature.description}</p>
-                  </motion.div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+                    <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                      <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                        <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                          {benefit.icon}
+                        </div>
+                        <h3 className="text-xl font-bold">{benefit.title}</h3>
+                      </div>
+                      <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                        <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                          {benefit.icon}
+                        </div>
+                        <p className="text-gray-300 text-center">{benefit.description}</p>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -125,114 +155,136 @@ export default function GestorDocumentos() {
         </div>
       </section>
 
-      {/* IA Integration Section */}
-      <section className="py-20 bg-[#0A0A0A]">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-              Incorporando el Poder de la IA al Software de Gestión de documentos
-            </h2>
-            <p className="text-gray-400 max-w-3xl mx-auto">
-              Aumente la eficiencia de contratación en un 80% en toda su empresa con la solución de gestión 
-              de documentos intuitiva, personalizable y basada en inteligencia artificial de Firmedigital.
-            </p>
-          </div>
-          
-          {/* Formatos Soportados */}
-          <div className="grid lg:grid-cols-2 gap-12 mb-20">
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Formatos de Archivo Soportados</h3>
-              <div className="grid gap-6">
-                {formatosArchivo.map((categoria, index) => (
-                  <div key={index} className="bg-white/5 p-6 rounded-xl border border-white/10">
-                    <h4 className="font-semibold mb-4 text-blue-400">{categoria.categoria}</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {categoria.formatos.map((formato, i) => (
-                        <span key={i} className="px-3 py-1 bg-white/10 rounded-full text-sm">
-                          .{formato}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Características Principales</h3>
-              <div className="space-y-6">
-                <div className="bg-white/5 p-6 rounded-xl border border-white/10">
-                  <h4 className="font-semibold mb-4">Gestión del Conocimiento</h4>
-                  <ul className="space-y-3 text-gray-400">
-                    <li className="flex items-center gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
-                      Búsqueda de Texto Completa
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
-                      Ingesta Automática de Datos
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
-                      Seguimiento de Operaciones
-                    </li>
-                  </ul>
-                </div>
-                <div className="bg-white/5 p-6 rounded-xl border border-white/10">
-                  <h4 className="font-semibold mb-4">Diseñador de Flujo de Trabajo</h4>
-                  <p className="text-gray-400">
-                    Diseña y Valida documentos desde una interfaz única e intuitiva. Centralice los procesos,
-                    como la admisión, la revisión y la ruta de aprobación.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Casos de Uso Section */}
-      <section className="py-20">
+      {/* Características Section */}
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-12 text-center">
-            Casos de Aplicabilidad
+          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+            Características
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                title: "Empresas de Construcción",
-                description: "Gestión de contratos con subcontratistas y proveedores, asegurando cumplimiento y puntualidad."
+                icon: <HiOutlineDocumentText className="text-4xl text-blue-400" />,
+                title: "Creación y Captura",
+                description: "Crea y digitaliza documentos en múltiples formatos."
               },
               {
-                title: "Firmas Legales",
-                description: "Análisis y comparación de versiones de contratos, marcado de cláusulas importantes."
+                icon: <FaFolderOpen className="text-4xl text-blue-400" />,
+                title: "Organización",
+                description: "Estructura y almacenamiento inteligente de documentos."
               },
               {
-                title: "Corporaciones Financieras",
-                description: "Centralización y gestión eficiente de contratos, minimizando riesgos financieros."
+                icon: <FaSearch className="text-4xl text-blue-400" />,
+                title: "Búsqueda Rápida",
+                description: "Localiza documentos al instante con búsqueda avanzada."
               },
               {
-                title: "Sector Salud",
-                description: "Control sobre contratos con proveedores de servicios y equipos médicos."
+                icon: <HiOutlineShieldCheck className="text-4xl text-blue-400" />,
+                title: "Control de Acceso",
+                description: "Gestión de permisos y protección de documentos."
               },
               {
-                title: "Industria de Tecnología",
-                description: "Gestión de contratos de licencias y acuerdos de colaboración."
+                icon: <FaUserFriends className="text-4xl text-blue-400" />,
+                title: "Colaboración",
+                description: "Edición y comentarios en tiempo real con tu equipo."
+              },
+              {
+                icon: <FaArchive className="text-4xl text-blue-400" />,
+                title: "Gestión de Archivo",
+                description: "Políticas de retención y eliminación segura."
               }
-            ].map((caso, index) => (
-              <motion.div
+            ].map((feature, index) => (
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white/5 p-6 rounded-xl border border-white/10"
+                className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
               >
-                <h3 className="font-semibold mb-4">{caso.title}</h3>
-                <p className="text-gray-400 text-sm">{caso.description}</p>
-              </motion.div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+                <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-xl font-bold">{feature.title}</h3>
+                  </div>
+                  <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                      {feature.icon}
+                    </div>
+                    <p className="text-gray-300 text-center">{feature.description}</p>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Formatos Soportados Section */}
+      <section className="py-20 bg-[#0A0A0A]">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+            Formatos Soportados
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Documentos de Texto",
+                formats: [
+                  { ext: "txt", desc: "Archivo de texto sin formato" },
+                  { ext: "doc", desc: "Documento de Microsoft Word (versiones antiguas)" },
+                  { ext: "docx", desc: "Documento de Microsoft Word (versiones modernas)" },
+                  { ext: "pdf", desc: "Formato de documento portátil, creado por Adobe" },
+                  { ext: "odt", desc: "Documento de OpenDocument, un formato abierto y estándar" },
+                  { ext: "rtf", desc: "Archivo de texto enriquecido" },
+                  { ext: "html", desc: "Página web en formato HTML" }
+                ]
+              },
+              {
+                title: "Hojas de Cálculo",
+                formats: [
+                  { ext: "xls", desc: "Hoja de cálculo de Microsoft Excel (versiones antiguas)" },
+                  { ext: "xlsx", desc: "Hoja de cálculo de Microsoft Excel (versiones modernas)" },
+                  { ext: "ods", desc: "Hoja de cálculo de OpenDocument" },
+                  { ext: "csv", desc: "Archivo de valores separados por comas" }
+                ]
+              },
+              {
+                title: "Presentaciones",
+                formats: [
+                  { ext: "ppt", desc: "Presentación de Microsoft PowerPoint (versiones antiguas)" },
+                  { ext: "pptx", desc: "Presentación de Microsoft PowerPoint (versiones modernas)" },
+                  { ext: "odp", desc: "Presentación de OpenDocument" }
+                ]
+              },
+              {
+                title: "Imágenes",
+                formats: [
+                  { ext: "jpg/jpeg", desc: "Formato de imagen comprimido, ideal para fotografías" },
+                  { ext: "png", desc: "Formato de imagen sin compresión, ideal para gráficos" },
+                  { ext: "gif", desc: "Formato de imagen animada" },
+                  { ext: "bmp", desc: "Formato de imagen sin compresión" }
+                ]
+              }
+            ].map((category, index) => (
+              <div key={index} className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+                <h3 className="text-xl font-semibold mb-4 text-blue-400">{category.title}</h3>
+                <div className="space-y-3">
+                  {category.formats.map((format, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <span className="px-2 py-1 bg-blue-500/10 rounded text-blue-400 text-sm font-mono">
+                        .{format.ext}
+                      </span>
+                      <span className="text-gray-400 text-sm">{format.desc}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

@@ -2,9 +2,29 @@
 
 import React from 'react';
 import MegaMenu from '../../../components/MegaMenu';
-import { BsShop } from 'react-icons/bs';
+import { BsShop, BsArrowRightCircle } from 'react-icons/bs';
+import { FaCogs, FaUsers, FaChartLine, FaUserTie, FaIndustry, FaRocket, FaChartBar, FaShieldAlt, FaHandshake, FaLeaf, FaGlobe } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 export default function SectorIndustria() {
+  const features = {
+    'Automatización de Procesos': 'Optimiza tareas repetitivas y manuales, reduciendo errores y aumentando la productividad en líneas de producción y ensamblaje.',
+    'Gestión de Inventarios': 'Control preciso de productos y materiales en tiempo real, previniendo falta de stock y optimizando costos de almacenamiento.',
+    'Mejora de la Logística': 'Optimización de la cadena de suministro y rutas de entrega para reducir tiempos y costos operativos.',
+    'Análisis de Datos': 'Toma de decisiones basada en datos para mejorar procesos productivos e identificar áreas de optimización.',
+    'Integración de Sistemas': 'Conexión eficiente entre sistemas de contabilidad, CRM y gestión empresarial para una operación unificada.',
+  };
+
+  const benefits = {
+    'Trazabilidad': 'Seguimiento completo del origen y movimiento de productos para garantizar transparencia y prevenir fraudes.',
+    'Seguimiento de envíos': 'Monitoreo en tiempo real de ubicación y estado de envíos para mejor gestión logística.',
+    'Gestión de documentos': 'Digitalización y almacenamiento seguro de contratos y documentos comerciales.',
+    'Smart contracts': 'Automatización de contratos para simplificar procesos y reducir costos.',
+    'Sostenibilidad': 'Transparencia en origen y procesos de productos para consumidores conscientes.',
+    'Pagos transfronterizos': 'Transacciones internacionales simplificadas con mayor seguridad entre partes.',
+  };
+
   return (
     <main className="min-h-screen bg-[#000000] text-white">
       <MegaMenu />
@@ -12,137 +32,132 @@ export default function SectorIndustria() {
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-4 mb-8">
-            <BsShop className="text-5xl text-blue-500" />
-            <h1 className="text-4xl md:text-6xl font-bold">
-              Industria y Comercio
-            </h1>
-          </div>
-          <p className="text-xl text-gray-300 max-w-3xl mb-8">
-            Soluciones digitales especializadas para el sector industrial y comercial.
-          </p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300">
-            Contactar Ahora
-          </button>
-        </div>
-      </section>
-
-      {/* Beneficios */}
-      <section className="px-4 md:px-8 py-16">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Beneficios Clave</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Eficiencia Operativa</h3>
-              <p className="text-gray-300">
-                Optimización de procesos y reducción de tiempos de gestión.
+          <div className="flex flex-col md:flex-row items-start justify-between gap-8">
+            <div className="md:w-1/2">
+              <div className="flex items-center gap-4 mb-8">
+                <BsShop className="text-5xl text-blue-500" />
+                <h1 className="text-4xl md:text-5xl font-bold">
+                  La Transformación Digital en la Industria y el Comercio
+                </h1>
+              </div>
+              <p className="text-xl text-gray-300 mb-8">
+                En la actualidad, la industria y el comercio están experimentando una transformación digital significativa. 
+                La implementación de software especializado no solo optimiza los procesos internos, sino que también mejora 
+                la eficiencia operativa y la competitividad en el mercado.
               </p>
             </div>
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Control Total</h3>
-              <p className="text-gray-300">
-                Gestión centralizada de documentos y procesos comerciales.
-              </p>
-            </div>
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Trazabilidad</h3>
-              <p className="text-gray-300">
-                Seguimiento completo de documentación y transacciones.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Aplicaciones */}
-      <section className="px-4 md:px-8 py-16 bg-gray-900">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Aplicaciones Específicas</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-gray-800 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Documentación Comercial</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• Contratos comerciales</li>
-                <li>• Órdenes de compra</li>
-                <li>• Facturas electrónicas</li>
-                <li>• Documentos de exportación</li>
-              </ul>
-            </div>
-            <div className="bg-gray-800 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Gestión Interna</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• Políticas y procedimientos</li>
-                <li>• Documentación de calidad</li>
-                <li>• Registros de producción</li>
-                <li>• Informes de inventario</li>
-              </ul>
+            <div className="md:w-1/2 flex justify-end">
+              <motion.div
+                animate={{ 
+                  y: [0, -10, 0],
+                }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <Image
+                  src="/images/industria.png"
+                  alt="Transformación Digital Industrial"
+                  width={400}
+                  height={200}
+                  className="rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300"
+                />
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Características */}
-      <section className="px-4 md:px-8 py-16">
+      <section className="py-12">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Características Especializadas</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-gray-900 p-6 rounded-xl">
-              <h3 className="text-xl font-bold mb-4">Firma Digital</h3>
-              <p className="text-gray-300">
-                Firma electrónica segura para documentos comerciales.
-              </p>
-            </div>
-            <div className="bg-gray-900 p-6 rounded-xl">
-              <h3 className="text-xl font-bold mb-4">Automatización</h3>
-              <p className="text-gray-300">
-                Flujos de trabajo automatizados para procesos comerciales.
-              </p>
-            </div>
-            <div className="bg-gray-900 p-6 rounded-xl">
-              <h3 className="text-xl font-bold mb-4">Integración</h3>
-              <p className="text-gray-300">
-                Conexión con sistemas ERP y software de gestión.
-              </p>
-            </div>
-            <div className="bg-gray-900 p-6 rounded-xl">
-              <h3 className="text-xl font-bold mb-4">Reportes</h3>
-              <p className="text-gray-300">
-                Informes detallados y análisis de datos comerciales.
-              </p>
-            </div>
+          <h2 className="text-3xl font-bold mb-12 text-center">Características</h2>
+          <div className="flex flex-wrap justify-center gap-8">
+            {Object.entries(features).map(([title, content], index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative bg-gray-800/50 rounded-xl shadow-lg border border-gray-700/50 backdrop-blur-sm overflow-hidden h-[180px] w-[300px] cursor-pointer hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]"
+              >
+                <div className="absolute inset-0 p-6 transition-transform duration-500 transform group-hover:-translate-y-full flex flex-col items-center justify-center text-center bg-gradient-to-b from-gray-800 to-gray-900">
+                  <div className="mb-4">
+                    {index === 0 && <FaCogs className="text-4xl text-blue-500" />}
+                    {index === 1 && <FaUsers className="text-4xl text-blue-500" />}
+                    {index === 2 && <FaChartLine className="text-4xl text-blue-500" />}
+                    {index === 3 && <FaUserTie className="text-4xl text-blue-500" />}
+                    {index === 4 && <FaIndustry className="text-4xl text-blue-500" />}
+                  </div>
+                  <h3 className="text-xl font-bold text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.3)] group-hover:text-blue-300 transition-colors">
+                    {title}
+                  </h3>
+                </div>
+
+                <div className="absolute inset-0 p-6 transition-transform duration-500 transform translate-y-full group-hover:translate-y-0 bg-gradient-to-b from-gray-800 to-gray-900 flex flex-col items-center justify-center">
+                  <div className="mb-4">
+                    {index === 0 && <FaCogs className="text-4xl text-blue-500" />}
+                    {index === 1 && <FaUsers className="text-4xl text-blue-500" />}
+                    {index === 2 && <FaChartLine className="text-4xl text-blue-500" />}
+                    {index === 3 && <FaUserTie className="text-4xl text-blue-500" />}
+                    {index === 4 && <FaIndustry className="text-4xl text-blue-500" />}
+                  </div>
+                  <p className="text-gray-300 text-center group-hover:text-gray-200 transition-colors">
+                    {content}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Sectores Específicos */}
-      <section className="px-4 md:px-8 py-16 bg-gray-900">
+      {/* Beneficios */}
+      <section className="py-12 bg-gray-900">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Sectores Específicos</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gray-800 p-6 rounded-xl">
-              <h3 className="text-xl font-bold mb-4">Manufactura</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li>• Control de calidad</li>
-                <li>• Gestión de producción</li>
-                <li>• Cadena de suministro</li>
-              </ul>
-            </div>
-            <div className="bg-gray-800 p-6 rounded-xl">
-              <h3 className="text-xl font-bold mb-4">Comercio Minorista</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li>• Gestión de inventario</li>
-                <li>• Contratos con proveedores</li>
-                <li>• Documentación de ventas</li>
-              </ul>
-            </div>
-            <div className="bg-gray-800 p-6 rounded-xl">
-              <h3 className="text-xl font-bold mb-4">Distribución</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li>• Logística</li>
-                <li>• Documentos de transporte</li>
-                <li>• Gestión de pedidos</li>
-              </ul>
-            </div>
+          <h2 className="text-3xl font-bold mb-12 text-center">Beneficios</h2>
+          <div className="flex flex-wrap justify-center gap-8">
+            {Object.entries(benefits).map(([title, content], index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative bg-gray-800/50 rounded-xl shadow-lg border border-gray-700/50 backdrop-blur-sm overflow-hidden h-[180px] w-[300px] cursor-pointer hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]"
+              >
+                <div className="absolute inset-0 p-6 transition-transform duration-500 transform group-hover:-translate-y-full flex flex-col items-center justify-center text-center bg-gradient-to-b from-gray-800 to-gray-900">
+                  <div className="mb-4">
+                    {index === 0 && <FaRocket className="text-4xl text-blue-500" />}
+                    {index === 1 && <FaChartBar className="text-4xl text-blue-500" />}
+                    {index === 2 && <FaShieldAlt className="text-4xl text-blue-500" />}
+                    {index === 3 && <FaHandshake className="text-4xl text-blue-500" />}
+                    {index === 4 && <FaLeaf className="text-4xl text-blue-500" />}
+                    {index === 5 && <FaGlobe className="text-4xl text-blue-500" />}
+                  </div>
+                  <h3 className="text-xl font-bold text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.3)] group-hover:text-blue-300 transition-colors">
+                    {title}
+                  </h3>
+                </div>
+
+                <div className="absolute inset-0 p-6 transition-transform duration-500 transform translate-y-full group-hover:translate-y-0 bg-gradient-to-b from-gray-800 to-gray-900 flex flex-col items-center justify-center">
+                  <div className="mb-4">
+                    {index === 0 && <FaRocket className="text-4xl text-blue-500" />}
+                    {index === 1 && <FaChartBar className="text-4xl text-blue-500" />}
+                    {index === 2 && <FaShieldAlt className="text-4xl text-blue-500" />}
+                    {index === 3 && <FaHandshake className="text-4xl text-blue-500" />}
+                    {index === 4 && <FaLeaf className="text-4xl text-blue-500" />}
+                    {index === 5 && <FaGlobe className="text-4xl text-blue-500" />}
+                  </div>
+                  <p className="text-gray-300 text-center group-hover:text-gray-200 transition-colors">
+                    {content}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

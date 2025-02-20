@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MegaMenu from '@/components/MegaMenu';
-import { FaGraduationCap, FaBook, FaUserGraduate, FaChalkboardTeacher, FaCalendarAlt, FaClipboardCheck, FaUsers, FaShieldAlt, FaClock, FaAward, FaTrophy } from 'react-icons/fa';
+import { FaQrcode, FaUserClock, FaShieldAlt, FaUsers, FaBell, FaPlug, FaLock, FaHistory, FaClock, FaCheckCircle, FaCalendarCheck, FaUserFriends, FaClipboardList, FaGlassCheers, FaBriefcase, FaMusic, FaTrophy } from 'react-icons/fa';
 
 const SkeletonHero = () => (
   <div className="space-y-8">
@@ -19,7 +19,7 @@ const SkeletonHero = () => (
   </div>
 );
 
-export default function Educacion() {
+export default function Eventos() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -47,10 +47,10 @@ export default function Educacion() {
               ) : (
                 <>
                   <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                    Mejore su Institución y la Experiencia de sus Estudiantes
+                    Firmedigital: Monitoreo de Eventos
                   </h1>
                   <p className="text-xl text-gray-300 leading-relaxed mb-8">
-                    Cree y emita certificados e insignias digitales de marca que no solo mejoren la participación y el intercambio de los estudiantes, sino que también realcen la reputación de su institución e impulsen la inscripción. Firmedigital le ofrece herramientas innovadoras para que sus certificados y distintivos digitales se destaquen por su autenticidad y diseño, asegurando un impacto positivo en la comunidad educativa.
+                    En Firmedigital, entendemos la importancia de gestionar tus eventos de manera segura y eficiente. Nuestra plataforma te permite llevar un control detallado y preciso de las invitaciones y entradas, garantizando la transparencia y seguridad que necesitas.
                   </p>
                 </>
               )}
@@ -68,8 +68,8 @@ export default function Educacion() {
                 className="relative w-[500px] h-[400px]"
               >
                 <Image
-                  src="/images/educativo.png"
-                  alt="Educación Digital"
+                  src="/images/evento.png"
+                  alt="Gestión de Eventos"
                   fill
                   style={{ objectFit: 'contain' }}
                   priority
@@ -81,38 +81,29 @@ export default function Educacion() {
         </div>
       </section>
 
-      {/* Quote Section */}
-      <section className="py-12 bg-gradient-to-b from-[#111827] to-gray-900">
-        <div className="max-w-7xl mx-auto px-4">
-          <blockquote className="text-2xl lg:text-3xl font-semibold text-center italic text-gray-300">
-            "Transformando la educación con seguridad, eficiencia y modernidad digital."
-          </blockquote>
-        </div>
-      </section>
-
-      {/* Beneficios Section */}
+      {/* Funciones Section */}
       <section className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black relative">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto relative z-10">
           <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-            Beneficios
+            Funciones
           </h2>
-          <div className="flex flex-col md:flex-row gap-4 justify-center items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: <FaGraduationCap className="text-4xl text-blue-400" />,
-                title: "Gestión Académica",
-                description: "Control integral de procesos educativos."
+                icon: <FaCalendarCheck className="text-4xl text-blue-400" />,
+                title: "Gestión de Eventos",
+                description: "Organiza y coordina eventos con eficiencia y precisión."
               },
               {
-                icon: <FaBook className="text-4xl text-blue-400" />,
-                title: "Material Digital",
-                description: "Organización eficiente de recursos educativos."
+                icon: <FaUserFriends className="text-4xl text-blue-400" />,
+                title: "Control de Invitados",
+                description: "Administra listas de invitados y confirmaciones fácilmente."
               },
               {
-                icon: <FaUserGraduate className="text-4xl text-blue-400" />,
-                title: "Seguimiento Estudiantil",
-                description: "Monitoreo del progreso y desempeño académico."
+                icon: <FaClipboardList className="text-4xl text-blue-400" />,
+                title: "Planificación Detallada",
+                description: "Seguimiento completo de tareas y cronogramas."
               }
             ].map((item, index) => (
               <motion.div
@@ -144,36 +135,36 @@ export default function Educacion() {
         </div>
       </section>
 
-      {/* Características Adicionales */}
+      {/* Beneficios Section */}
       <section className="py-16 px-4 bg-gradient-to-b from-black to-gray-900 relative">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="max-w-7xl mx-auto relative z-10">
           <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-            Características Destacadas
+            Beneficios
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-stretch">
             {[
               {
-                icon: <FaChalkboardTeacher className="text-4xl text-blue-400" />,
-                title: "Gestión Docente",
-                description: "Herramientas para planificación y evaluación."
+                icon: <FaGlassCheers className="text-4xl text-blue-400" />,
+                title: "Eventos Sociales",
+                description: "Gestión integral de bodas, fiestas y celebraciones."
               },
               {
-                icon: <FaCalendarAlt className="text-4xl text-blue-400" />,
-                title: "Calendario Académico",
-                description: "Organización de eventos y actividades escolares."
+                icon: <FaBriefcase className="text-4xl text-blue-400" />,
+                title: "Eventos Corporativos",
+                description: "Organización eficiente de conferencias y reuniones."
               },
               {
-                icon: <FaClipboardCheck className="text-4xl text-blue-400" />,
-                title: "Evaluaciones",
-                description: "Sistema integral de evaluación y calificaciones."
+                icon: <FaMusic className="text-4xl text-blue-400" />,
+                title: "Eventos Artísticos",
+                description: "Coordinación de conciertos y espectáculos."
               },
               {
-                icon: <FaUsers className="text-4xl text-blue-400" />,
-                title: "Comunidad Educativa",
-                description: "Conexión entre estudiantes, docentes y padres."
+                icon: <FaTrophy className="text-4xl text-blue-400" />,
+                title: "Eventos Deportivos",
+                description: "Control de competencias y torneos deportivos."
               }
-            ].map((caracteristica, index) => (
+            ].map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -186,15 +177,15 @@ export default function Educacion() {
                 <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
                   <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0 flex flex-col items-center justify-center">
                     <div className="flex items-center justify-center mb-4 w-16 h-16 bg-blue-500/10 rounded-full">
-                      {caracteristica.icon}
+                      {item.icon}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-200">{caracteristica.title}</h3>
+                    <h3 className="text-xl font-semibold text-gray-200">{item.title}</h3>
                   </div>
                   <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
                     <div className="flex items-center justify-center mb-4 w-16 h-16 mx-auto bg-blue-500/10 rounded-full">
-                      {caracteristica.icon}
+                      {item.icon}
                     </div>
-                    <p className="text-gray-300 text-center">{caracteristica.description}</p>
+                    <p className="text-gray-300 text-center">{item.description}</p>
                   </div>
                 </div>
               </motion.div>

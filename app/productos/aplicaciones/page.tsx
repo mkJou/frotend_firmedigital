@@ -2,7 +2,8 @@
 
 import React from 'react';
 import MegaMenu from '../../../components/MegaMenu';
-import { HiOutlineLockClosed } from 'react-icons/hi';
+import { HiOutlineLockClosed, HiOutlineShieldCheck, HiOutlinePuzzle, HiOutlineDesktopComputer } from 'react-icons/hi';
+import { IoRocketOutline, IoShieldCheckmarkOutline, IoHeadsetOutline } from 'react-icons/io5';
 
 export default function AplicacionesAcceso() {
   return (
@@ -12,111 +13,376 @@ export default function AplicacionesAcceso() {
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-4 mb-8">
-            <HiOutlineLockClosed className="text-5xl text-blue-500" />
-            <h1 className="text-4xl md:text-6xl font-bold">
-              Aplicaciones de Acceso
-            </h1>
+          <div className="grid md:grid-cols-2 gap-8 items-start">
+            <div>
+              <div className="flex items-center gap-4 mb-8">
+                <HiOutlineLockClosed className="text-5xl text-blue-500" />
+                <h1 className="text-4xl md:text-6xl font-bold">
+                  Aplicaciones de Acceso
+                </h1>
+              </div>
+              <p className="text-xl text-gray-300 max-w-3xl mb-8">
+                Elegir Firmedigital es sinónimo de tecnología avanzada, confianza y un soporte dedicado. Transforma la seguridad y acceso a tus recursos con Firmedigital y descubre cómo nuestras aplicaciones pueden optimizar tu organización hoy mismo.
+              </p>
+              <div className="text-gray-300 max-w-3xl mb-8">
+                <p className="leading-relaxed">
+                  Firmedigital ofrece una plataforma avanzada para gestionar accesos a sistemas y datos críticos, garantizando que solo personas autorizadas puedan ingresar a información sensible. Con autenticación multifactor y encriptación de última generación, nuestras aplicaciones aseguran accesos protegidos contra amenazas. Nuestra solución se integra fácilmente con sistemas existentes y permite un control centralizado desde una interfaz intuitiva, adaptándose a empresas de cualquier tamaño.
+                </p>
+              </div>
+              <div className="bg-gray-900/50 p-6 rounded-xl border border-blue-500/20 mb-8">
+                <p className="text-2xl text-blue-400 font-semibold italic text-center">
+                  "Accede de forma segura y eficiente con Firmedigital: Protección máxima, acceso instantáneo."
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-center items-center">
+              <svg
+                viewBox="0 0 800 600"
+                className="w-full max-w-lg h-auto"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <linearGradient id="screenGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#3B82F6', stopOpacity: 0.1 }} />
+                    <stop offset="100%" style={{ stopColor: '#1E40AF', stopOpacity: 0.3 }} />
+                  </linearGradient>
+                  <linearGradient id="deviceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#1F2937', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: '#111827', stopOpacity: 1 }} />
+                  </linearGradient>
+                  <linearGradient id="lockGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#60A5FA', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: '#2563EB', stopOpacity: 1 }} />
+                  </linearGradient>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+
+                {/* Dispositivo principal */}
+                <g transform="translate(200, 100)">
+                  {/* Marco del dispositivo */}
+                  <rect
+                    x="0"
+                    y="0"
+                    width="400"
+                    height="300"
+                    rx="20"
+                    fill="url(#deviceGrad)"
+                    stroke="#3B82F6"
+                    strokeWidth="2"
+                  />
+
+                  {/* Pantalla */}
+                  <rect
+                    x="20"
+                    y="20"
+                    width="360"
+                    height="260"
+                    rx="10"
+                    fill="url(#screenGlow)"
+                  />
+
+                  {/* Elementos de interfaz */}
+                  <g transform="translate(60, 60)">
+                    {/* Círculo central de autenticación */}
+                    <circle
+                      cx="140"
+                      cy="80"
+                      r="50"
+                      fill="none"
+                      stroke="#3B82F6"
+                      strokeWidth="4"
+                      filter="url(#glow)"
+                    />
+                    <circle
+                      cx="140"
+                      cy="80"
+                      r="35"
+                      fill="none"
+                      stroke="#3B82F6"
+                      strokeWidth="2"
+                      opacity="0.2"
+                    />
+
+                    {/* Candado mejorado */}
+                    <g transform="translate(100, 45)">
+                      {/* Círculo de fondo para el candado */}
+                      <circle
+                        cx="80"
+                        cy="35"
+                        r="30"
+                        fill="none"
+                        stroke="#3B82F6"
+                        strokeWidth="1"
+                        opacity="0.2"
+                      />
+                      
+                      {/* Arco superior del candado */}
+                      <path
+                        d="M65 35 V20 C65 5 80 -5 95 -5 C110 -5 125 5 125 20 V35"
+                        fill="none"
+                        stroke="url(#lockGradient)"
+                        strokeWidth="8"
+                        strokeLinecap="round"
+                        filter="url(#glow)"
+                      />
+                      
+                      {/* Cuerpo del candado */}
+                      <path
+                        d="M55 35 H135 V75 C95 85 55 75 55 35"
+                        fill="none"
+                        stroke="url(#lockGradient)"
+                        strokeWidth="8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        filter="url(#glow)"
+                      />
+                      
+                      {/* Detalles del candado */}
+                      <circle
+                        cx="95"
+                        cy="50"
+                        r="8"
+                        fill="none"
+                        stroke="#60A5FA"
+                        strokeWidth="4"
+                      />
+                      <path
+                        d="M95 54 L95 65"
+                        stroke="#60A5FA"
+                        strokeWidth="4"
+                        strokeLinecap="round"
+                      />
+                      
+                      {/* Detalles de brillo */}
+                      <path
+                        d="M65 35 C75 35 115 35 125 35"
+                        stroke="#93C5FD"
+                        strokeWidth="2"
+                        opacity="0.5"
+                      />
+                    </g>
+
+                    {/* Líneas de datos */}
+                    <g>
+                      {[0, 1, 2].map((i) => (
+                        <path
+                          key={i}
+                          d={`M40 ${150 + i * 20} L240 ${150 + i * 20}`}
+                          stroke="#3B82F6"
+                          strokeWidth="2"
+                          strokeDasharray="8 4"
+                          opacity="0.6"
+                        />
+                      ))}
+                    </g>
+
+                    {/* Puntos de conexión */}
+                    {[0, 60, 120, 180].map((x) => (
+                      <circle
+                        key={x}
+                        cx={x + 40}
+                        cy="80"
+                        r="4"
+                        fill="#3B82F6"
+                      />
+                    ))}
+                  </g>
+                </g>
+
+                {/* Elementos flotantes de seguridad */}
+                <g transform="translate(150, 450)">
+                  {[0, 1, 2].map((i) => (
+                    <g key={i} transform={`translate(${i * 200}, 0)`}>
+                      <rect
+                        x="0"
+                        y="0"
+                        width="150"
+                        height="40"
+                        rx="20"
+                        fill="#1F2937"
+                        stroke="#3B82F6"
+                        strokeWidth="1"
+                      />
+                      <circle
+                        cx="30"
+                        cy="20"
+                        r="10"
+                        fill="#3B82F6"
+                        opacity="0.5"
+                      />
+                      <line
+                        x1="50"
+                        y1="20"
+                        x2="130"
+                        y2="20"
+                        stroke="#3B82F6"
+                        strokeWidth="2"
+                        strokeDasharray="4 2"
+                      />
+                    </g>
+                  ))}
+                </g>
+              </svg>
+            </div>
           </div>
-          <p className="text-xl text-gray-300 max-w-3xl mb-8">
-            Control de acceso seguro y eficiente para todas tus aplicaciones empresariales.
-          </p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300">
-            Solicitar Demo
-          </button>
         </div>
       </section>
 
-      {/* Características */}
+      {/* Ventajas */}
       <section className="px-4 md:px-8 py-16">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Características de Seguridad</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Autenticación Múltiple</h3>
-              <p className="text-gray-300">
-                Múltiples capas de verificación para garantizar la seguridad del acceso.
-              </p>
+          <h2 className="text-3xl font-bold mb-12 text-center">Ventajas de las Aplicaciones de Acceso</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                  <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                    <HiOutlineShieldCheck className="text-3xl text-blue-400" />
+                  </div>
+                  <h3 className="text-xl font-bold">Seguridad Robusta</h3>
+                </div>
+                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                    <HiOutlineShieldCheck className="text-3xl text-blue-400" />
+                  </div>
+                  <p className="text-gray-300 text-center">Protección avanzada contra accesos no autorizados.</p>
+                </div>
+              </div>
             </div>
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Control Granular</h3>
-              <p className="text-gray-300">
-                Define permisos específicos para cada usuario y aplicación.
-              </p>
+            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                  <div className="w-16 h-16 mx-auto bg-purple-500/10 rounded-full flex items-center justify-center mb-4">
+                    <HiOutlinePuzzle className="text-3xl text-purple-400" />
+                  </div>
+                  <h3 className="text-xl font-bold">Fácil Integración</h3>
+                </div>
+                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="w-16 h-16 mx-auto bg-purple-500/10 rounded-full flex items-center justify-center mb-4">
+                    <HiOutlinePuzzle className="text-3xl text-purple-400" />
+                  </div>
+                  <p className="text-gray-300 text-center">Integración perfecta con sistemas existentes.</p>
+                </div>
+              </div>
             </div>
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Monitoreo en Tiempo Real</h3>
-              <p className="text-gray-300">
-                Supervisa y registra toda la actividad de acceso en tiempo real.
-              </p>
+            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                  <div className="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center mb-4">
+                    <HiOutlineDesktopComputer className="text-3xl text-green-400" />
+                  </div>
+                  <h3 className="text-xl font-bold">Gestión Centralizada</h3>
+                </div>
+                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center mb-4">
+                    <HiOutlineDesktopComputer className="text-3xl text-green-400" />
+                  </div>
+                  <p className="text-gray-300 text-center">Control total desde una interfaz intuitiva.</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                  <div className="w-16 h-16 mx-auto bg-red-500/10 rounded-full flex items-center justify-center mb-4">
+                    <IoRocketOutline className="text-3xl text-red-400" />
+                  </div>
+                  <h3 className="text-xl font-bold">Escalabilidad</h3>
+                </div>
+                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="w-16 h-16 mx-auto bg-red-500/10 rounded-full flex items-center justify-center mb-4">
+                    <IoRocketOutline className="text-3xl text-red-400" />
+                  </div>
+                  <p className="text-gray-300 text-center">Adaptable a empresas de cualquier tamaño.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Métodos de Autenticación */}
+      {/* Por qué elegirnos */}
       <section className="px-4 md:px-8 py-16 bg-gray-900">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Métodos de Autenticación</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-gray-800 p-6 rounded-xl">
-              <h3 className="text-xl font-bold mb-4">Biométrico</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li>• Huella digital</li>
-                <li>• Reconocimiento facial</li>
-                <li>• Escaneo de iris</li>
-              </ul>
+          <h2 className="text-3xl font-bold mb-12 text-center">Por qué Elegir Firmedigital</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                  <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                    <IoShieldCheckmarkOutline className="text-4xl text-blue-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold">Tecnología Avanzada</h3>
+                </div>
+                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                    <IoShieldCheckmarkOutline className="text-4xl text-blue-400" />
+                  </div>
+                  <p className="text-gray-300 text-center">Tecnología de punta para máxima seguridad.</p>
+                </div>
+              </div>
             </div>
-            <div className="bg-gray-800 p-6 rounded-xl">
-              <h3 className="text-xl font-bold mb-4">2FA/MFA</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li>• Códigos SMS</li>
-                <li>• Apps autenticadoras</li>
-                <li>• Email verification</li>
-              </ul>
+            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                  <div className="w-16 h-16 mx-auto bg-purple-500/10 rounded-full flex items-center justify-center mb-4">
+                    <HiOutlineLockClosed className="text-4xl text-purple-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold">Confianza y Confiabilidad</h3>
+                </div>
+                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="w-16 h-16 mx-auto bg-purple-500/10 rounded-full flex items-center justify-center mb-4">
+                    <HiOutlineLockClosed className="text-4xl text-purple-400" />
+                  </div>
+                  <p className="text-gray-300 text-center">Años de experiencia y éxito comprobado.</p>
+                </div>
+              </div>
             </div>
-            <div className="bg-gray-800 p-6 rounded-xl">
-              <h3 className="text-xl font-bold mb-4">Single Sign-On</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li>• SAML 2.0</li>
-                <li>• OAuth 2.0</li>
-                <li>• OpenID Connect</li>
-              </ul>
-            </div>
-            <div className="bg-gray-800 p-6 rounded-xl">
-              <h3 className="text-xl font-bold mb-4">Certificados</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li>• Certificados digitales</li>
-                <li>• Smart cards</li>
-                <li>• Token físicos</li>
-              </ul>
+            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                  <div className="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center mb-4">
+                    <IoHeadsetOutline className="text-4xl text-green-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold">Soporte Dedicado</h3>
+                </div>
+                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center mb-4">
+                    <IoHeadsetOutline className="text-4xl text-green-400" />
+                  </div>
+                  <p className="text-gray-300 text-center">Soporte experto disponible cuando lo necesites.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Integración */}
+      {/* Caso de Uso */}
       <section className="px-4 md:px-8 py-16">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Integración Universal</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Sistemas Soportados</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• Active Directory</li>
-                <li>• LDAP</li>
-                <li>• Azure AD</li>
-                <li>• G Suite</li>
-              </ul>
-            </div>
-            <div className="bg-gray-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">APIs y SDKs</h3>
-              <ul className="space-y-3 text-gray-300">
-                <li>• REST API completa</li>
-                <li>• SDKs multiplataforma</li>
-                <li>• Documentación detallada</li>
-                <li>• Soporte técnico</li>
-              </ul>
+          <h2 className="text-3xl font-bold mb-12 text-center">Caso de Uso: Sector de Ingeniería</h2>
+          <div className="bg-gray-900 p-8 rounded-xl">
+            <div className="space-y-6 text-gray-300">
+              <p className="leading-relaxed">
+                Las aplicaciones de acceso de Firmedigital son ideales para el sector de ingenieros, ya que permiten gestionar de manera segura y eficiente el acceso a proyectos y datos sensibles. En una firma de ingeniería, estas aplicaciones pueden asegurar que solo el personal autorizado pueda acceder a planos, especificaciones técnicas y documentos confidenciales, mejorando la colaboración mientras se protege la propiedad intelectual.
+              </p>
+              <p className="leading-relaxed">
+                La autenticación multifactor y la encriptación avanzada garantizan que los datos críticos estén siempre seguros, permitiendo a los ingenieros centrarse en innovar y ejecutar proyectos con total confianza.
+              </p>
             </div>
           </div>
         </div>

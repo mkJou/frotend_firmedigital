@@ -1,10 +1,10 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MegaMenu from '@/components/MegaMenu';
-import { FaGraduationCap, FaBook, FaUserGraduate, FaChalkboardTeacher, FaCalendarAlt, FaClipboardCheck, FaUsers, FaShieldAlt, FaClock, FaAward, FaTrophy } from 'react-icons/fa';
+import { FaLeaf, FaChartLine, FaClipboardCheck, FaMobileAlt } from 'react-icons/fa';
+import { BsBuilding, BsPeople, BsFileText } from 'react-icons/bs';
 
 const SkeletonHero = () => (
   <div className="space-y-8">
@@ -19,7 +19,18 @@ const SkeletonHero = () => (
   </div>
 );
 
-export default function Educacion() {
+const SkeletonCard = () => (
+  <div className="bg-gray-800/50 p-8 rounded-xl border border-gray-700/50 space-y-4 animate-pulse">
+    <div className="h-8 bg-gray-700 rounded w-2/3"></div>
+    <div className="space-y-3">
+      <div className="h-4 bg-gray-700 rounded"></div>
+      <div className="h-4 bg-gray-700 rounded w-5/6"></div>
+      <div className="h-4 bg-gray-700 rounded w-4/6"></div>
+    </div>
+  </div>
+);
+
+export default function Agropecuario() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -47,74 +58,57 @@ export default function Educacion() {
               ) : (
                 <>
                   <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                    Mejore su Institución y la Experiencia de sus Estudiantes
+                    El Software Agrícola para Gestión de Explotaciones Agro
                   </h1>
                   <p className="text-xl text-gray-300 leading-relaxed mb-8">
-                    Cree y emita certificados e insignias digitales de marca que no solo mejoren la participación y el intercambio de los estudiantes, sino que también realcen la reputación de su institución e impulsen la inscripción. Firmedigital le ofrece herramientas innovadoras para que sus certificados y distintivos digitales se destaquen por su autenticidad y diseño, asegurando un impacto positivo en la comunidad educativa.
+                    Firmedigital es un software agrícola en la nube que permite a los agricultores gestionar de forma fácil e intuitiva la parte agronómica y económica de sus explotaciones, cumpliendo con las leyes agrícolas. Con esta herramienta, puedes trabajar desde cualquier lugar y en cualquier momento, llevando un control total de tus actividades agrícolas.
                   </p>
                 </>
               )}
             </div>
             <div className="flex-1 flex justify-center">
-              <motion.div
-                animate={{
-                  y: [0, -20, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="relative w-[500px] h-[400px]"
-              >
-                <Image
-                  src="/images/educativo.png"
-                  alt="Educación Digital"
-                  fill
-                  style={{ objectFit: 'contain' }}
-                  priority
-                  className="drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]"
-                />
-              </motion.div>
+              <Image
+                src="/images/agro.png"
+                alt="Gestión Agropecuaria"
+                width={500}
+                height={400}
+                className="drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Quote Section */}
-      <section className="py-12 bg-gradient-to-b from-[#111827] to-gray-900">
-        <div className="max-w-7xl mx-auto px-4">
-          <blockquote className="text-2xl lg:text-3xl font-semibold text-center italic text-gray-300">
-            "Transformando la educación con seguridad, eficiencia y modernidad digital."
-          </blockquote>
-        </div>
-      </section>
-
       {/* Beneficios Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black relative">
+      <section className="py-16 px-4 bg-gradient-to-b from-[#111827] to-gray-900 relative">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="max-w-6xl mx-auto relative z-10">
           <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
             Beneficios
           </h2>
-          <div className="flex flex-col md:flex-row gap-4 justify-center items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {[
               {
-                icon: <FaGraduationCap className="text-4xl text-blue-400" />,
-                title: "Gestión Académica",
-                description: "Control integral de procesos educativos."
+                icon: <FaLeaf className="text-4xl text-blue-400" />,
+                title: "Gestión Agronómica",
+                description: "Control completo de actividades desde siembra hasta cosecha."
               },
               {
-                icon: <FaBook className="text-4xl text-blue-400" />,
-                title: "Material Digital",
-                description: "Organización eficiente de recursos educativos."
+                icon: <FaChartLine className="text-4xl text-blue-400" />,
+                title: "Control Económico",
+                description: "Registro eficiente de costos y gastos operativos."
               },
               {
-                icon: <FaUserGraduate className="text-4xl text-blue-400" />,
-                title: "Seguimiento Estudiantil",
-                description: "Monitoreo del progreso y desempeño académico."
+                icon: <FaClipboardCheck className="text-4xl text-blue-400" />,
+                title: "Cumplimiento Legal",
+                description: "Gestión del Cuaderno de Campo y certificaciones."
+              },
+              {
+                icon: <FaMobileAlt className="text-4xl text-blue-400" />,
+                title: "Accesibilidad",
+                description: "Acceso desde cualquier dispositivo y ubicación."
               }
-            ].map((item, index) => (
+            ].map((benefit, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -127,15 +121,15 @@ export default function Educacion() {
                 <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
                   <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0 flex flex-col items-center justify-center">
                     <div className="flex items-center justify-center mb-4 w-16 h-16 bg-blue-500/10 rounded-full">
-                      {item.icon}
+                      {benefit.icon}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-200">{item.title}</h3>
+                    <h3 className="text-xl font-semibold text-gray-200">{benefit.title}</h3>
                   </div>
                   <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
                     <div className="flex items-center justify-center mb-4 w-16 h-16 mx-auto bg-blue-500/10 rounded-full">
-                      {item.icon}
+                      {benefit.icon}
                     </div>
-                    <p className="text-gray-300 text-center">{item.description}</p>
+                    <p className="text-gray-300 text-center">{benefit.description}</p>
                   </div>
                 </div>
               </motion.div>
@@ -144,36 +138,31 @@ export default function Educacion() {
         </div>
       </section>
 
-      {/* Características Adicionales */}
-      <section className="py-16 px-4 bg-gradient-to-b from-black to-gray-900 relative">
+      {/* Características Section */}
+      <section className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black relative">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-            Características Destacadas
+            Características
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               {
-                icon: <FaChalkboardTeacher className="text-4xl text-blue-400" />,
-                title: "Gestión Docente",
-                description: "Herramientas para planificación y evaluación."
+                icon: <BsBuilding className="text-4xl text-blue-400" />,
+                title: "Gerencia",
+                description: "Control eficiente de costes y toma de decisiones."
               },
               {
-                icon: <FaCalendarAlt className="text-4xl text-blue-400" />,
-                title: "Calendario Académico",
-                description: "Organización de eventos y actividades escolares."
+                icon: <BsPeople className="text-4xl text-blue-400" />,
+                title: "Campo",
+                description: "Coordinación efectiva con personal de campo."
               },
               {
-                icon: <FaClipboardCheck className="text-4xl text-blue-400" />,
-                title: "Evaluaciones",
-                description: "Sistema integral de evaluación y calificaciones."
-              },
-              {
-                icon: <FaUsers className="text-4xl text-blue-400" />,
-                title: "Comunidad Educativa",
-                description: "Conexión entre estudiantes, docentes y padres."
+                icon: <BsFileText className="text-4xl text-blue-400" />,
+                title: "Administración",
+                description: "Gestión ágil de partes de trabajo."
               }
-            ].map((caracteristica, index) => (
+            ].map((feature, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -186,15 +175,15 @@ export default function Educacion() {
                 <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
                   <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0 flex flex-col items-center justify-center">
                     <div className="flex items-center justify-center mb-4 w-16 h-16 bg-blue-500/10 rounded-full">
-                      {caracteristica.icon}
+                      {feature.icon}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-200">{caracteristica.title}</h3>
+                    <h3 className="text-xl font-semibold text-gray-200">{feature.title}</h3>
                   </div>
                   <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
                     <div className="flex items-center justify-center mb-4 w-16 h-16 mx-auto bg-blue-500/10 rounded-full">
-                      {caracteristica.icon}
+                      {feature.icon}
                     </div>
-                    <p className="text-gray-300 text-center">{caracteristica.description}</p>
+                    <p className="text-gray-300 text-center">{feature.description}</p>
                   </div>
                 </div>
               </motion.div>

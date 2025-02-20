@@ -1,401 +1,217 @@
 'use client';
-
-import React, { useEffect, useRef, Suspense, useState } from 'react';
-import { motion, useAnimation } from 'framer-motion';
-import dynamic from 'next/dynamic';
-import MegaMenu from '../../../components/MegaMenu';
-import { AiOutlineFileDone, AiOutlineSafety, AiOutlineCheck } from 'react-icons/ai';
+import { useEffect, useState } from 'react';
+import { HiOutlineDocumentText } from 'react-icons/hi';
+import MegaMenu from '@/components/MegaMenu';
 import { BsFillShieldLockFill, BsSpeedometer2 } from 'react-icons/bs';
-import { FaUserShield, FaHandshake } from 'react-icons/fa';
-import gsap from 'gsap';
-import { 
-  TitleSkeleton, 
-  TextSkeleton, 
-  ButtonSkeleton, 
-  CardSkeleton,
-  SVGSkeleton 
-} from '../../../components/ui/Skeletons';
+import { FaUserShield, FaMoneyBillWave, FaDatabase, FaHistory, FaLeaf } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
-// Lazy load the AnimatedDocumentSVG component
-const AnimatedDocumentSVG = dynamic(() => {
-  const Component = () => {
-    const svgRef = useRef(null);
-    const signatureRef = useRef(null);
-    const checkmarkRef = useRef(null);
-
-    useEffect(() => {
-      const svg = svgRef.current;
-      const signature = signatureRef.current;
-      const checkmark = checkmarkRef.current;
-
-      // Create floating animation
-      gsap.to(svg, {
-        y: -10,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut"
-      });
-
-      // Animate signature drawing
-      gsap.fromTo(signature,
-        { strokeDashoffset: 1000 },
-        {
-          strokeDashoffset: 0,
-          duration: 3,
-          ease: "power1.inOut",
-          repeat: -1,
-          repeatDelay: 2
-        }
-      );
-
-      // Animate checkmark
-      gsap.fromTo(checkmark,
-        { scale: 0, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.5,
-          delay: 2.5,
-          repeat: -1,
-          repeatDelay: 2.5,
-          ease: "back.out(1.7)"
-        }
-      );
-    }, []);
-
-    return (
-      <svg
-        ref={svgRef}
-        width="400"
-        height="400"
-        viewBox="0 0 300 300"
-        className="transform-gpu"
-        style={{
-          filter: 'drop-shadow(0px 10px 20px rgba(0, 0, 255, 0.2))'
-        }}
-      >
-        {/* Document background */}
-        <rect
-          x="50"
-          y="30"
-          width="200"
-          height="240"
-          rx="10"
-          fill="#fff"
-          className="drop-shadow-xl"
-        />
-        
-        {/* Document lines */}
-        {[...Array(8)].map((_, i) => (
-          <line
-            key={i}
-            x1="70"
-            y1={80 + i * 25}
-            x2="230"
-            y2={80 + i * 25}
-            stroke="#e5e7eb"
-            strokeWidth="2"
-          />
-        ))}
-        
-        {/* Signature line */}
-        <path
-          ref={signatureRef}
-          d="M70 200 C90 180, 110 220, 130 200 C150 180, 170 220, 190 200 C210 180, 230 220, 230 200"
-          fill="none"
-          stroke="#3b82f6"
-          strokeWidth="3"
-          strokeDasharray="1000"
-          strokeLinecap="round"
-        />
-        
-        {/* Checkmark circle */}
-        <circle
-          cx="220"
-          cy="70"
-          r="20"
-          fill="#3b82f6"
-          fillOpacity="0.1"
-        />
-        
-        {/* Checkmark */}
-        <path
-          ref={checkmarkRef}
-          d="M210 70 L218 78 L230 62"
-          fill="none"
-          stroke="#3b82f6"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
-  };
-  return Promise.resolve(Component);
-}, {
-  loading: () => <SVGSkeleton />,
-  ssr: false
-});
-
-const fadeIn = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 }
-};
-
-// Lazy load feature cards component
-const FeatureCards = dynamic(() => Promise.resolve(() => {
-  const features = [
-    {
-      icon: <BsFillShieldLockFill className="text-4xl text-blue-500 mb-4" />,
-      title: "Certificación Digital SUSCERTE",
-      description: "Respaldada por un proveedor de confianza autorizado, garantizando validez legal y fácil identificación."
-    },
-    {
-      icon: <FaUserShield className="text-4xl text-purple-500 mb-4" />,
-      title: "Autenticación Segura",
-      description: "Inicio de firma vía correo electrónico o WhatsApp con segundo factor de autenticación opcional."
-    },
-    {
-      icon: <BsSpeedometer2 className="text-4xl text-blue-500 mb-4" />,
-      title: "Proceso Optimizado",
-      description: "Dile adiós a las firmas manuscritas que conllevan riesgos legales y demandan más esfuerzo."
-    }
-  ];
-
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {features.map((feature, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: index * 0.2 }}
-          className="bg-gradient-to-b from-gray-800 to-gray-900 p-8 rounded-xl hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300"
-        >
-          {feature.icon}
-          <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
-          <p className="text-gray-300">{feature.description}</p>
-        </motion.div>
-      ))}
+const SkeletonHero = () => (
+  <div className="space-y-8">
+    <div className="flex justify-center">
+      <div className="animate-pulse h-16 w-16 bg-gray-700 rounded-full"></div>
     </div>
-  );
-}), {
-  loading: () => (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {[...Array(3)].map((_, i) => (
-        <CardSkeleton key={i} />
-      ))}
+    <div className="space-y-6">
+      <div className="animate-pulse h-14 max-w-3xl mx-auto bg-gray-700 rounded"></div>
+      <div className="animate-pulse h-4 max-w-2xl mx-auto bg-gray-700 rounded"></div>
+      <div className="animate-pulse h-4 max-w-xl mx-auto bg-gray-700 rounded"></div>
     </div>
-  )
-});
+  </div>
+);
+
+const SkeletonCard = () => (
+  <div className="bg-gray-800/50 p-8 rounded-xl border border-gray-700/50 space-y-4 animate-pulse">
+    <div className="h-8 bg-gray-700 rounded w-2/3"></div>
+    <div className="space-y-3">
+      <div className="h-4 bg-gray-700 rounded"></div>
+      <div className="h-4 bg-gray-700 rounded w-5/6"></div>
+      <div className="h-4 bg-gray-700 rounded w-4/6"></div>
+    </div>
+  </div>
+);
 
 export default function FirmaElectronica() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate content loading
-    const timer = setTimeout(() => {
+    const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
+    }, 2000);
+
+    return () => {
+      clearTimeout(loadingTimeout);
+    };
+  }, [isLoading]);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white">
+    <main className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-gray-100">
       <MegaMenu />
       
       {/* Hero Section */}
-      <motion.section 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="relative pt-32 pb-16 px-4 md:px-8"
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="w-full md:w-1/2">
-              {isLoading ? (
-                <div className="space-y-8">
-                  <TitleSkeleton />
-                  <TextSkeleton />
-                  <ButtonSkeleton />
-                </div>
-              ) : (
-                <>
-                  <motion.div 
-                    initial={{ x: -100, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.8 }}
-                    className="flex items-center gap-4 mb-8"
-                  >
-                    <AiOutlineFileDone className="text-6xl text-blue-500" />
-                    <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
-                      Firma Electrónica
-                    </h1>
-                  </motion.div>
-                  
-                  <motion.p 
-                    {...fadeIn}
-                    className="text-xl text-gray-300 max-w-3xl mb-8"
-                  >
-                    Firma Electrónica Legalmente Válida, Rápida y Segura. Optimiza los procesos de firma de documentos en tu empresa con FIRMEDIGITAL.
-                  </motion.p>
-                  
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium py-3 px-8 rounded-lg transition duration-300 shadow-lg hover:shadow-blue-500/30"
-                  >
-                    Comenzar Ahora
-                  </motion.button>
-                </>
-              )}
-            </div>
-            
-            <div className="w-full md:w-1/2 flex justify-center items-center">
-              <Suspense fallback={<SVGSkeleton />}>
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="relative transform hover:scale-105 transition-transform duration-300"
-                >
-                  <AnimatedDocumentSVG />
-                </motion.div>
-              </Suspense>
-            </div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Características Principales */}
-      <section className="px-4 md:px-8 py-16">
-        <div className="max-w-7xl mx-auto">
+      <section className="hero-section bg-gradient-to-b from-black via-black to-[#111827] text-white py-24 px-4 mt-[100px] relative overflow-hidden z-20">
+        <div className="max-w-7xl mx-auto text-center relative z-10">
           {isLoading ? (
-            <div className="space-y-12">
-              <TitleSkeleton />
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {[...Array(3)].map((_, i) => (
-                  <CardSkeleton key={i} />
-                ))}
-              </div>
-            </div>
+            <SkeletonHero />
           ) : (
             <>
-              <motion.h2 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="text-3xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500"
+              <HiOutlineDocumentText className="hero-icon text-6xl mx-auto mb-4 text-blue-400 drop-shadow-[0_0_15px_rgba(96,165,250,0.5)]" />
+              <h1 
+                className="hero-title text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]"
               >
-                Firma Electrónica con Atribución, Seguridad e Integridad Garantizadas
-              </motion.h2>
-
-              <Suspense fallback={
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {[...Array(3)].map((_, i) => (
-                    <CardSkeleton key={i} />
-                  ))}
-                </div>
-              }>
-                <FeatureCards />
-              </Suspense>
+                ¿Qué es la Firma Electrónica de Firmedigital?
+              </h1>
+              <p className="hero-text text-xl max-w-3xl mx-auto text-white leading-relaxed drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
+                La firma electrónica de Firmedigital permite a las personas firmar documentos electrónicamente, sin necesidad de papel ni tinta. A diferencia de la firma tradicional, la firma electrónica se realiza a través de dispositivos electrónicos como ordenadores, tabletas o smartphones, y tiene la misma validez legal que una firma manuscrita.
+              </p>
             </>
           )}
         </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 pointer-events-none"></div>
       </section>
 
-      {/* Flexibilidad y Adaptabilidad */}
-      <section className="px-4 md:px-8 py-16 bg-gray-900/50">
-        <div className="max-w-7xl mx-auto">
-          {isLoading ? (
-            <div className="space-y-12">
-              <TitleSkeleton />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {[...Array(2)].map((_, i) => (
-                  <CardSkeleton key={i} />
-                ))}
-              </div>
-            </div>
-          ) : (
-            <>
-              <motion.h2
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="text-3xl font-bold mb-12 text-center"
-              >
-                Firma Electrónica Flexible y Adaptable
-              </motion.h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Características Section */}
+      <section className="features-section py-20 px-4 bg-gradient-to-b from-[#111827] to-gray-900 relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
+        <div className="max-w-6xl mx-auto relative z-10">
+          <h2 className="text-3xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+            Características
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {isLoading ? (
+              Array.from({ length: 4 }).map((_, index) => (
+                <SkeletonCard key={index} />
+              ))
+            ) : (
+              <>
                 {[
                   {
-                    icon: <FaHandshake className="text-4xl text-blue-500 mb-4" />,
-                    title: "Diseña Flujos de Trabajo",
-                    description: "Crea procesos de firma electrónica ajustados a las necesidades específicas de tu negocio."
+                    icon: <BsFillShieldLockFill className="text-4xl text-blue-500" />,
+                    title: "Autenticidad",
+                    description: "Verificación segura de identidad mediante contraseñas, códigos SMS o biometría."
                   },
                   {
-                    icon: <AiOutlineCheck className="text-4xl text-purple-500 mb-4" />,
-                    title: "Establece Firmantes",
-                    description: "Define quiénes firmarán, el tipo de firma requerida y el orden en que se realizará."
+                    icon: <FaUserShield className="text-4xl text-purple-500" />,
+                    title: "Integridad",
+                    description: "Garantía de que el documento permanece inalterado desde su firma."
+                  },
+                  {
+                    icon: <BsSpeedometer2 className="text-4xl text-blue-500" />,
+                    title: "No Repudio",
+                    description: "Registro verificable de cada firma con identidad y tiempo de ejecución."
+                  },
+                  {
+                    icon: <FaUserShield className="text-4xl text-purple-500" />,
+                    title: "Eficiencia",
+                    description: "Firma de documentos desde cualquier lugar y dispositivo, sin papel."
                   }
                 ].map((feature, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="bg-gradient-to-b from-gray-800 to-gray-900 p-8 rounded-xl"
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="group relative bg-gray-800/50 rounded-xl shadow-lg border border-gray-700/50 backdrop-blur-sm overflow-hidden h-[180px] cursor-pointer hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]"
                   >
-                    {feature.icon}
-                    <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
-                    <p className="text-gray-300">{feature.description}</p>
+                    <div className="absolute inset-0 p-6 transition-transform duration-500 transform group-hover:-translate-y-full flex flex-col items-center justify-center text-center bg-gradient-to-b from-gray-800 to-gray-900">
+                      <div className="mb-4">
+                        {feature.icon}
+                      </div>
+                      <h3 className="text-xl font-bold text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.3)] group-hover:text-blue-300 transition-colors">
+                        {feature.title}
+                      </h3>
+                    </div>
+
+                    <div className="absolute inset-0 p-6 transition-transform duration-500 transform translate-y-full group-hover:translate-y-0 bg-gradient-to-b from-gray-800 to-gray-900">
+                      <div className="flex flex-col items-center justify-center h-full">
+                        <div className="mb-4">
+                          {feature.icon}
+                        </div>
+                        <p className="text-gray-300 text-center group-hover:text-gray-200 transition-colors">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </div>
                   </motion.div>
                 ))}
-              </div>
-            </>
-          )}
+              </>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="px-4 md:px-8 py-16"
-      >
-        <div className="max-w-3xl mx-auto text-center">
-          {isLoading ? (
-            <div className="space-y-8">
-              <TitleSkeleton />
-              <TextSkeleton />
-              <ButtonSkeleton />
-            </div>
-          ) : (
-            <>
-              <h2 className="text-3xl font-bold mb-6">
-                Transacciones Digitales Personalizables y Seguras
-              </h2>
-              <p className="text-gray-300 mb-8">
-                  En FIRMEDIGITAL, hemos diseño una solución de firma electrónica especialmente para grandes empresas como la tuya. Optimiza tus flujos de trabajo, incrementa la eficiencia y asegura el cumplimiento normativo en cada operación.
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium py-3 px-8 rounded-lg transition duration-300 shadow-lg hover:shadow-blue-500/30"
+      {/* Beneficios Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-gray-900 to-black relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
+        <div className="max-w-6xl mx-auto relative z-10">
+          <h2 className="text-3xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+            Beneficios
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                icon: <BsSpeedometer2 className="text-4xl text-blue-500" />,
+                title: "Eficiencia Inmediata",
+                description: "Firma documentos al instante desde cualquier lugar, ahorrando tiempo valioso."
+              },
+              {
+                icon: <BsFillShieldLockFill className="text-4xl text-purple-500" />,
+                title: "Seguridad Inquebrantable",
+                description: "Protección avanzada con validez legal y cumplimiento normativo."
+              },
+              {
+                icon: <FaMoneyBillWave className="text-4xl text-blue-500" />,
+                title: "Ahorro de Costos",
+                description: "Elimina gastos de papel, impresión y almacenamiento físico."
+              },
+              {
+                icon: <FaDatabase className="text-4xl text-purple-500" />,
+                title: "Acceso y Almacenamiento",
+                description: "Gestión centralizada y acceso inmediato a documentos firmados."
+              },
+              {
+                icon: <FaHistory className="text-4xl text-blue-500" />,
+                title: "Trazabilidad Completa",
+                description: "Seguimiento detallado de firmas, fechas y participantes."
+              },
+              {
+                icon: <FaLeaf className="text-4xl text-purple-500" />,
+                title: "Sostenibilidad Ambiental",
+                description: "Reduce el impacto ambiental eliminando el uso de papel."
+              }
+            ].map((benefit, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative bg-gray-800/50 rounded-xl shadow-lg border border-gray-700/50 backdrop-blur-sm overflow-hidden h-[180px] cursor-pointer hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]"
               >
-                Comienza tu Transformación Digital
-              </motion.button>
-            </>
-          )}
+                <div className="absolute inset-0 p-6 transition-transform duration-500 transform group-hover:-translate-y-full flex flex-col items-center justify-center text-center bg-gradient-to-b from-gray-800 to-gray-900">
+                  <div className="mb-4">
+                    {benefit.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.3)] group-hover:text-blue-300 transition-colors">
+                    {benefit.title}
+                  </h3>
+                </div>
+
+                <div className="absolute inset-0 p-6 transition-transform duration-500 transform translate-y-full group-hover:translate-y-0 bg-gradient-to-b from-gray-800 to-gray-900">
+                  <div className="flex flex-col items-center justify-center h-full">
+                    <div className="mb-4">
+                      {benefit.icon}
+                    </div>
+                    <p className="text-gray-300 text-center group-hover:text-gray-200 transition-colors">
+                      {benefit.description}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </motion.section>
+      </section>
     </main>
   );
 }

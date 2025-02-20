@@ -1,7 +1,6 @@
 .flip-card {
   perspective: 1000px;
-  height: 100%;
-  min-height: 600px;
+  height: 180px;
   position: relative;
   background-color: transparent;
 }

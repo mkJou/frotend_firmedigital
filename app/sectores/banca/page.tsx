@@ -1,27 +1,26 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MegaMenu from '@/components/MegaMenu';
-import { FaSignature, FaFolder, FaSyncAlt, FaPiggyBank, FaShieldAlt, FaBolt, FaUserCheck, FaUniversity, FaBuilding, FaUsers } from 'react-icons/fa';
+import { FaSignature, FaFolder, FaSyncAlt, FaShieldAlt, FaBolt, FaUserCheck, FaUniversity, FaBuilding, FaUsers, FaFileContract, FaLock, FaChartLine, FaHandshake } from 'react-icons/fa';
 
-export default function SectorFintech() {
+export default function SectorBanca() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadingTimeout = setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 500);
 
-    return () => {
-      clearTimeout(loadingTimeout);
-    };
+    return () => clearTimeout(timer);
   }, [isLoading]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-gray-100">
       <MegaMenu />
+      
       {/* Hero Section */}
       <section className="relative py-12 lg:py-20 overflow-hidden mt-[100px]">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 pointer-events-none"></div>
@@ -29,16 +28,16 @@ export default function SectorFintech() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-                ¿Qué es Tecnología Financiera?
+                ¿Qué es "Banca y Finanzas"?
               </h1>
               <p className="text-gray-300 text-lg leading-relaxed">
-                Es una plataforma innovadora que combina la potencia de la firma electrónica, la gestión documental inteligente y el flujo de trabajo automatizado de Firmedigital con funcionalidades especializadas para el sector financiero. Su objetivo es impulsar la transformación digital de instituciones financieras, empresas fintech y usuarios, brindando una experiencia más eficiente, segura y conveniente en sus operaciones.
+                Es una plataforma diseñada para transformar la forma en que operan las instituciones financieras, aprovechando al máximo las capacidades de firma electrónica, gestión documental y flujo de trabajo de Firmedigital. Su objetivo principal es optimizar procesos, reducir costos, mejorar la experiencia del cliente y garantizar el cumplimiento normativo en el sector bancario y financiero.
               </p>
             </div>
             <div className="relative h-[400px]">
               <Image
-                src="/images/finanzas.png"
-                alt="Tecnología Financiera"
+                src="/images/banca.png"
+                alt="Banca y Finanzas"
                 fill
                 className="object-contain"
                 priority
@@ -53,22 +52,27 @@ export default function SectorFintech() {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl font-bold text-white text-center mb-12">Funcionalidades</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 icon: <FaSignature className="text-4xl text-blue-400" />,
-                title: "Firma Electrónica Avanzada",
-                description: "Autenticación múltiple y cumplimiento normativo para transacciones seguras."
+                title: "Firma Electrónica",
+                description: "Firma segura para operaciones bancarias y financieras."
               },
               {
                 icon: <FaFolder className="text-4xl text-blue-400" />,
                 title: "Gestión Documental",
-                description: "Almacenamiento seguro y organizado de documentos financieros."
+                description: "Almacenamiento centralizado y seguro de documentos."
               },
               {
                 icon: <FaSyncAlt className="text-4xl text-blue-400" />,
                 title: "Flujos Automatizados",
-                description: "Digitalización y seguimiento de procesos financieros en tiempo real."
+                description: "Procesos bancarios digitalizados y eficientes."
+              },
+              {
+                icon: <FaLock className="text-4xl text-blue-400" />,
+                title: "KYC Digital",
+                description: "Verificación de identidad y onboarding digital."
               }
             ].map((item, index) => (
               <motion.div
@@ -108,11 +112,6 @@ export default function SectorFintech() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                icon: <FaPiggyBank className="text-4xl text-blue-400" />,
-                title: "Reducción de Costos",
-                description: "Optimiza recursos eliminando papel y automatizando procesos."
-              },
-              {
                 icon: <FaShieldAlt className="text-4xl text-blue-400" />,
                 title: "Mayor Seguridad",
                 description: "Protección avanzada contra fraudes y accesos no autorizados."
@@ -120,12 +119,17 @@ export default function SectorFintech() {
               {
                 icon: <FaBolt className="text-4xl text-blue-400" />,
                 title: "Eficiencia Operativa",
-                description: "Procesos ágiles y reducción de errores en operaciones."
+                description: "Procesos ágiles y reducción de tiempos de respuesta."
               },
               {
                 icon: <FaUserCheck className="text-4xl text-blue-400" />,
                 title: "Mejor Experiencia",
-                description: "Transacciones rápidas y seguras para los usuarios."
+                description: "Transacciones rápidas y seguras para clientes."
+              },
+              {
+                icon: <FaHandshake className="text-4xl text-blue-400" />,
+                title: "Cumplimiento",
+                description: "Conformidad con regulaciones bancarias y financieras."
               }
             ].map((item, index) => (
               <motion.div
@@ -162,22 +166,27 @@ export default function SectorFintech() {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl font-bold text-white text-center mb-12">¿A Quién está Dirigido?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 icon: <FaUniversity className="text-4xl text-blue-400" />,
+                title: "Bancos",
+                description: "Instituciones financieras que buscan digitalización."
+              },
+              {
+                icon: <FaChartLine className="text-4xl text-blue-400" />,
                 title: "Entidades Financieras",
-                description: "Bancos, cooperativas, fintechs y aseguradoras."
+                description: "Empresas de crédito, fintechs y cooperativas."
               },
               {
                 icon: <FaBuilding className="text-4xl text-blue-400" />,
                 title: "Empresas",
-                description: "Departamentos financieros y áreas administrativas."
+                description: "Departamentos financieros y administrativos."
               },
               {
                 icon: <FaUsers className="text-4xl text-blue-400" />,
                 title: "Usuarios",
-                description: "Personas que realizan transacciones financieras online."
+                description: "Clientes que realizan operaciones bancarias."
               }
             ].map((item, index) => (
               <motion.div
@@ -216,7 +225,7 @@ export default function SectorFintech() {
           <h2 className="text-3xl font-bold text-white text-center mb-8">¿Cómo se Integra?</h2>
           <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
             <p className="text-gray-300 text-lg text-center leading-relaxed">
-              Tecnología Financiera se construye sobre la plataforma de Firmedigital, aprovechando sus funcionalidades de firma electrónica, gestión documental y flujo de trabajo. Se agregan módulos y herramientas específicas para el sector financiero, creando una solución integral y personalizada que se adapta a las necesidades de cada cliente.
+              "Banca y Finanzas" se basa en la plataforma de Firmedigital, aprovechando sus funcionalidades de firma electrónica, gestión documental y flujo de trabajo. Se agregan módulos y herramientas específicas para el sector bancario y financiero, creando una solución integral y personalizada que se adapta a las necesidades de cada institución.
             </p>
           </div>
         </div>
