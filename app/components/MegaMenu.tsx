@@ -29,9 +29,20 @@ const MegaMenu = () => {
             <Link href="/contacto" className="text-gray-300 hover:text-white transition-colors">
               Contacto
             </Link>
-            <button className="px-6 py-2 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
-              Iniciar Sesión
-            </button>
+            <div className="flex space-x-4">
+              <Link 
+                href="/iniciar-sesion" 
+                className="px-6 py-2 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+              >
+                Iniciar Sesión
+              </Link>
+              <Link 
+                href="/registro" 
+                className="px-6 py-2 bg-gradient-to-r from-purple-400 to-blue-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+              >
+                Registrate
+              </Link>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -92,9 +103,18 @@ const MegaMenu = () => {
               >
                 Contacto
               </Link>
-              <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+              <Link 
+                href="#"
+                className="w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity text-center"
+              >
                 Iniciar Sesión
-              </button>
+              </Link>
+              <Link 
+                href="#"
+                className="w-full px-6 py-3 bg-gradient-to-r from-purple-400 to-blue-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity text-center"
+              >
+                Registrate
+              </Link>
             </div>
           </div>
         )}

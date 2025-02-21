@@ -37,7 +37,7 @@ const FeaturesCard = dynamic(() => Promise.resolve(() => {
           ].map((feature, index) => (
             <div 
               key={index}
-              className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/5 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/5 transition-colors"
             >
               <div className="w-2 h-2 rounded-full bg-blue-400" />
               <span>{feature}</span>
@@ -761,7 +761,7 @@ export default function Home() {
                 
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Sistema AR",
                       `Facilita a los usuarios la gestión de certificados digitales y firmas electrónicas mediante una plataforma en línea intuitiva. Permite la emisión, renovación y verificación de documentos con seguridad avanzada, optimizando procesos de registro y validación para un acceso más rápido y eficiente.`
@@ -776,7 +776,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Módulo de Firma",
                       `Nuestro módulo de firma ofrece:
@@ -799,7 +799,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Firma Electrónica",
                       `Nuestra firma electrónica ofrece:
@@ -822,7 +822,7 @@ export default function Home() {
                 </tr>                
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Firma de Documentos",
                       `Nuestra firma de documentos ofrece:
@@ -845,7 +845,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Editor de Documentos",
                       `Nuestro editor de documentos ofrece:
@@ -868,7 +868,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Trazabilidad",
                       `Nuestra trazabilidad ofrece:
@@ -891,7 +891,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Cuentas Múltiples",
                       `Nuestras cuentas múltiples ofrecen:
@@ -914,7 +914,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "IA",
                       `Nuestra inteligencia artificial ofrece:
@@ -938,7 +938,7 @@ export default function Home() {
                
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Multifirma",
                       `Nuestra multifirma ofrece:
@@ -961,7 +961,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Análisis Personalizable",
                       `Nuestro análisis personalizable ofrece:
@@ -984,7 +984,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Aplicaciones de Acceso",
                       `Nuestras aplicaciones de acceso ofrecen:
@@ -1007,7 +1007,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Flujos e Integraciones",
                       `Nuestros flujos e integraciones ofrecen:
@@ -1030,7 +1030,7 @@ export default function Home() {
                 </tr>
                 <tr className=" border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Almacenamiento de Documentos",
                       `Nuestro almacenamiento de documentos ofrece:
@@ -1053,7 +1053,7 @@ export default function Home() {
                 </tr>
                 <tr className=" border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Conoce a tus Clientes (KYC)",
                       `el KYC es un proceso fundamental para garantizar la seguridad y la integridad del sistema financiero. Al conocer a sus clientes, las empresas pueden protegerse contra el fraude, el lavado de dinero y otros delitos financieros, al tiempo que cumplen con las regulaciones y construyen relaciones comerciales sólidas y confiables.`
@@ -1068,7 +1068,7 @@ export default function Home() {
                 </tr>
                 <tr className=" border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Conozca a su Empresa (KYB)",
                       `El KYB es un requisito legal para muchas empresas, especialmente en el sector financiero. También es una buena práctica para cualquier empresa que quiera protegerse de riesgos y construir relaciones comerciales seguras.`
@@ -1095,7 +1095,7 @@ export default function Home() {
                 
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Gestión de Condiciones",
                       `Otorgue control legal sobre cada versión de sus términos en línea`
@@ -1110,7 +1110,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "API",
                       `Acceso a tus Documentos de manera facil facilitando la integración de tus documentos con otras aplicaciones.`
@@ -1125,7 +1125,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Formatos de Documentos Soportados",
                       `Nuestro gestor de documentos soporta los formatos más populares para la gestión online de documentos:
@@ -1150,7 +1150,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Asistentes (agentes IA)",
                       `Accede a agentes especializados, diseñados para cada tipo de documento y estructura organizacional, optimizando así la gestión documental en cada etapa del proceso.`
@@ -1165,7 +1165,7 @@ export default function Home() {
                 </tr>
                 <tr className="border-b border-white/10">
                   <td 
-                    className="py-3 px-4 cursor-pointer hover:text-purple-400 transition-colors"
+                    className="py-3 px-4"
                     onClick={() => handleOpenModal(
                       "Ciclo de Vida de Documento (CML)",
                       `Sigue el proceso que atraviesa un documento desde su creación hasta su archivo o destrucción. Comprender y gestionar este ciclo es fundamental para cualquier organización, ya que permite optimizar el manejo de la información, reducir costos y garantizar el cumplimiento normativo.`

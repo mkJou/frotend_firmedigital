@@ -235,8 +235,7 @@ export default function MegaMenu() {
   const menuRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleResourcesClick = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleResourcesClick = () => {
     const recursosSection = document.getElementById('recursos');
     if (recursosSection) {
       recursosSection.scrollIntoView({ behavior: 'smooth' });
@@ -330,7 +329,16 @@ export default function MegaMenu() {
                 <Link
                   href={section.title === 'RECURSOS' ? '#recursos' : (section.href || '#')}
                   className="px-4 py-2 text-gray-300 hover:text-white transition-colors font-bold"
-                  onClick={section.title === 'RECURSOS' ? handleResourcesClick : undefined}
+                  onClick={(e) => {
+                    if (section.title === 'RECURSOS') {
+                      handleResourcesClick();
+                    }
+                    if (!section.subItems) {
+                      setIsMobileMenuOpen(false);
+                    } else {
+                      setActiveMenu(activeMenu === section.title ? null : section.title);
+                    }
+                  }}
                 >
                   {section.title}
                 </Link>
@@ -402,11 +410,21 @@ export default function MegaMenu() {
                 )}
               </div>
             ))}
-            <button
-              className="px-4 py-2 text-gray-300 hover:text-white transition-colors border border-gray-300 rounded-lg hover:bg-white/10 ml-2"
-            >
-              Iniciar Sesión
-            </button>
+            {/* Desktop Auth Buttons */}
+            <div className="flex items-center space-x-4">
+              <Link 
+                href="/inicio_sesion" 
+                className="px-6 py-2 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+              >
+                Iniciar Sesión
+              </Link>
+              <Link 
+                href="/registro" 
+                className="px-6 py-2 bg-gradient-to-r from-purple-400 to-blue-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+              >
+                Registrate
+              </Link>
+            </div>
           </div>
 
           {/* Mobile menu */}
@@ -438,9 +456,9 @@ export default function MegaMenu() {
                     <Link
                       href={section.href || '#'}
                       className="w-full text-left px-4 py-3 text-lg font-bold text-gray-300 rounded-lg hover:text-white hover:bg-gradient-to-br hover:from-gray-800/50 hover:via-gray-800/30 hover:to-transparent transition-colors flex items-center justify-between"
-                      onClick={() => {
+                      onClick={(e) => {
                         if (section.title === 'RECURSOS') {
-                          handleResourcesClick(e);
+                          handleResourcesClick();
                         }
                         if (!section.subItems) {
                           setIsMobileMenuOpen(false);
@@ -476,6 +494,22 @@ export default function MegaMenu() {
                     )}
                   </div>
                 ))}
+                <div className="mt-6 space-y-3">
+                  <Link 
+                    href="/inicio_sesion"
+                    className="block w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity text-center"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Iniciar Sesión
+                  </Link>
+                  <Link 
+                    href="/registro"
+                    className="block w-full px-6 py-3 bg-gradient-to-r from-purple-400 to-blue-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity text-center"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Registrate
+                  </Link>
+                </div>
               </nav>
             </div>
           </div>

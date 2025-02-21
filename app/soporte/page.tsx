@@ -1,18 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import MegaMenu from '@/components/MegaMenu';
-import { FaQuestionCircle, FaClipboardList, FaComments, FaArrowRight } from 'react-icons/fa';
+import { FaQuestionCircle, FaChevronDown } from 'react-icons/fa';
 
 export default function Soporte() {
+  const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [formData, setFormData] = useState({
-    nombre: '',
-    correo: '',
-    pregunta: ''
-  });
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,20 +16,6 @@ export default function Soporte() {
 
     return () => clearTimeout(timer);
   }, [isLoading]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Aquí iría la lógica para enviar el formulario
-    console.log(formData);
-  };
 
   const faqs = [
     {
@@ -55,13 +36,9 @@ export default function Soporte() {
     }
   ];
 
-  const requerimientos = [
-    "Documento de identidad vigente",
-    "Correo electrónico personal",
-    "Dispositivo con conexión a internet",
-    "Cámara web para verificación biométrica",
-    "Documentación adicional según el tipo de certificado"
-  ];
+  const toggleQuestion = (index: number) => {
+    setActiveQuestion(activeQuestion === index ? null : index);
+  };
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-gray-100">
@@ -91,116 +68,53 @@ export default function Soporte() {
             transition={{ duration: 0.5 }}
             className="mb-16"
           >
-            <div className="flex items-center mb-8">
-              <FaQuestionCircle className="text-4xl text-blue-500 mr-4" />
-              <h2 className="text-3xl font-bold">Preguntas Frecuentes</h2>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 px-2">
+              <div className="flex items-center">
+                <FaQuestionCircle className="text-4xl text-blue-500 mr-4" />
+                <h2 className="text-3xl font-bold">Preguntas Frecuentes</h2>
+              </div>
+              <a 
+                href="#"
+                className="px-4 sm:px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium rounded-lg hover:opacity-90 transition-all duration-300 transform hover:scale-105 text-center whitespace-nowrap"
+              >
+                Preguntas Personalizadas
+              </a>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-4">
               {faqs.map((faq, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl"
+                  className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden"
                 >
-                  <h3 className="text-xl font-semibold text-blue-400 mb-3">{faq.pregunta}</h3>
-                  <p className="text-gray-300">{faq.respuesta}</p>
+                  <button
+                    onClick={() => toggleQuestion(index)}
+                    className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-800/50 transition-colors"
+                  >
+                    <h3 className="text-xl font-semibold text-blue-400">{faq.pregunta}</h3>
+                    <FaChevronDown 
+                      className={`text-blue-400 transition-transform duration-300 ${
+                        activeQuestion === index ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                  <AnimatePresence>
+                    {activeQuestion === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="px-6 pb-4"
+                      >
+                        <p className="text-gray-300">{faq.respuesta}</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               ))}
-            </div>
-          </motion.div>
-
-          {/* Requirements Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-16"
-          >
-            <div className="flex items-center mb-8">
-              <FaClipboardList className="text-4xl text-green-500 mr-4" />
-              <h2 className="text-3xl font-bold">Requerimientos</h2>
-            </div>
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl">
-              <ul className="space-y-4">
-                {requerimientos.map((req, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="flex items-center text-gray-300"
-                  >
-                    <FaArrowRight className="text-green-500 mr-3" />
-                    {req}
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-
-          {/* Contact Form Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="flex items-center mb-8">
-              <FaComments className="text-4xl text-purple-500 mr-4" />
-              <h2 className="text-3xl font-bold">Preguntas y Asistencia</h2>
-            </div>
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-xl">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="nombre" className="block text-sm font-medium text-gray-300 mb-2">
-                    Nombre
-                  </label>
-                  <input
-                    type="text"
-                    id="nombre"
-                    name="nombre"
-                    value={formData.nombre}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="correo" className="block text-sm font-medium text-gray-300 mb-2">
-                    Correo electrónico
-                  </label>
-                  <input
-                    type="email"
-                    id="correo"
-                    name="correo"
-                    value={formData.correo}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pregunta" className="block text-sm font-medium text-gray-300 mb-2">
-                    Tu pregunta
-                  </label>
-                  <textarea
-                    id="pregunta"
-                    name="pregunta"
-                    value={formData.pregunta}
-                    onChange={handleInputChange}
-                    rows={4}
-                    className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
-                    required
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200"
-                >
-                  Enviar consulta
-                </button>
-              </form>
             </div>
           </motion.div>
         </div>

@@ -24,7 +24,7 @@ export default function SectorSalud() {
                 </h1>
               </div>
               <p className="text-xl text-gray-300 max-w-3xl mb-8">
-                Un hospital es un centro sanitario al servicio de las personas. Sin embargo, también es una organización compleja con innumerables procesos internos y externos. En Venezuela, se observa un cambio de paradigma. La E-salud o cibermedicina se ve cada vez más como una oportunidad. La transmisión y el almacenamiento seguros de datos personales en ecosistemas digitales se consideran una oportunidad para ser competitivos y estar preparados para el futuro. Por ley, todos los hospitales están obligados a impulsar la transformación digital en favor de la seguridad y la eficiencia.
+                El sector salud está experimentando una transformación digital significativa. La E-salud representa una oportunidad para modernizar y optimizar los procesos hospitalarios en Venezuela. La gestión digital segura de datos médicos es clave para mejorar la eficiencia y competitividad de los centros de salud, cumpliendo con los requisitos legales y preparándose para el futuro digital.
               </p>
               <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300">
                 Solicitar Demo

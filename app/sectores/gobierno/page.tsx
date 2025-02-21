@@ -2,7 +2,8 @@
 
 import React from 'react';
 import MegaMenu from '../../../components/MegaMenu';
-import { BsGlobe, BsShieldCheck, BsPeople, BsGear, BsFolder, BsFileEarmark, BsPerson, FaLandmark, FaUserTie, FaShieldAlt } from 'react-icons/bs';
+import { BsGlobe, BsShieldCheck, BsPeople, BsGear, BsFolder, BsFileEarmark, BsPerson } from 'react-icons/bs';
+import { FaLandmark, FaUserTie, FaShieldAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -149,12 +150,10 @@ export default function SectorGobierno() {
       <section className="py-16 px-4 md:px-8 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Beneficios</h2>
-          <div className="relative">
-            <div className="flex overflow-x-auto pb-8 gap-6 snap-x snap-mandatory hide-scrollbar">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {benefits.map((benefit, index) => (
-                <div key={index} className="flex-none w-[300px] snap-center">
-                  <Card {...benefit} />
-                </div>
+                <Card key={index} {...benefit} />
               ))}
             </div>
           </div>

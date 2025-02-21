@@ -49,10 +49,10 @@ export default function SectorRRHH() {
                 </h1>
               </div>
               <p className="text-xl text-gray-300 max-w-3xl mb-8">
-                Para atraer, motivar y retener empleados en un entorno competitivo, las organizaciones a nivel global se centran en mejorar el compromiso de los empleados. Los departamentos de Recursos Humanos (RR. HH.) deben tomar decisiones cruciales en los momentos más críticos. ¿Qué candidato contratar? ¿Cómo garantizar que el proceso de integración en la empresa, con todos los formularios necesarios, sea eficiente y completo?
+                En el competitivo entorno actual, la gestión eficiente del talento humano es crucial para el éxito empresarial. Los departamentos de RR.HH. necesitan herramientas digitales que optimicen sus procesos críticos, desde la contratación hasta la gestión del desarrollo profesional de los empleados.
               </p>
               <p className="text-xl text-gray-300 mb-8">
-                La clave para una toma de decisiones inteligente radica en tener información completa, segura y accesible.
+                Nuestra solución digital permite tomar decisiones informadas basadas en datos seguros y accesibles.
               </p>
             </div>
             <div className="relative h-[400px] w-full">
