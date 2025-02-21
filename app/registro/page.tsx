@@ -59,6 +59,9 @@ export default function Registro() {
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-xl shadow-2xl border border-gray-700">
             <h2 className="text-3xl font-bold text-white mb-6 text-center">Registro de Usuario</h2>
             
+
+
+            
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
