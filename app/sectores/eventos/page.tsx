@@ -147,7 +147,7 @@ export default function Eventos() {
               {
                 icon: <FaGlassCheers className="text-4xl text-blue-400" />,
                 title: "Eventos Sociales",
-                description: "Gestión integral de bodas, fiestas y celebraciones."
+                description: "Gestión integral de eventos sociales."
               },
               {
                 icon: <FaBriefcase className="text-4xl text-blue-400" />,

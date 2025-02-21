@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MegaMenu from '@/components/MegaMenu';
-import { FaBuilding, FaUsersCog, FaMagic, FaSync, FaFileInvoiceDollar, FaChartLine, FaCalculator, FaChartPie, FaBalanceScale, FaFileAlt, FaMoneyBillWave, FaUserTie } from 'react-icons/fa';
+import { FaBuilding, FaUsersCog, FaMagic, FaSync, FaFileInvoiceDollar, FaChartLine, FaCalculator, FaChartPie, FaChartBar, FaBalanceScale, FaFileAlt, FaMoneyBillWave, FaUserTie } from 'react-icons/fa';
 
 const SkeletonHero = () => (
   <div className="space-y-8">
@@ -155,27 +155,22 @@ export default function Contadores() {
           <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
             Beneficios
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                icon: <FaBalanceScale className="text-4xl text-blue-400" />,
-                title: "Auditoría",
-                description: "Herramientas avanzadas para procesos de auditoría."
+                icon: <FaCalculator className="text-4xl text-blue-400" />,
+                title: "Gestión Contable",
+                description: "Control integral de documentos contables."
               },
               {
-                icon: <FaFileAlt className="text-4xl text-blue-400" />,
-                title: "Declaraciones",
-                description: "Gestión de declaraciones fiscales y tributarias."
+                icon: <FaFileInvoiceDollar className="text-4xl text-blue-400" />,
+                title: "Facturación Digital",
+                description: "Gestión eficiente de facturas y pagos."
               },
               {
-                icon: <FaMoneyBillWave className="text-4xl text-blue-400" />,
-                title: "Flujo de Caja",
-                description: "Control y proyección de flujos financieros."
-              },
-              {
-                icon: <FaUserTie className="text-4xl text-blue-400" />,
-                title: "Asesoría Fiscal",
-                description: "Soporte para consultoría y asesoría contable."
+                icon: <FaChartBar className="text-4xl text-blue-400" />,
+                title: "Reportes Financieros",
+                description: "Generación y firma de informes contables."
               }
             ].map((item, index) => (
               <motion.div
@@ -188,14 +183,14 @@ export default function Contadores() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
                 <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
-                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0 flex flex-col items-center justify-center">
-                    <div className="flex items-center justify-center mb-4 w-16 h-16 bg-blue-500/10 rounded-full">
+                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
                       {item.icon}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-200">{item.title}</h3>
+                    <h3 className="text-xl font-bold">{item.title}</h3>
                   </div>
                   <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <div className="flex items-center justify-center mb-4 w-16 h-16 mx-auto bg-blue-500/10 rounded-full">
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
                       {item.icon}
                     </div>
                     <p className="text-gray-300 text-center">{item.description}</p>

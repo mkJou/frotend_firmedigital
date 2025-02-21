@@ -77,46 +77,46 @@ export default function GestorDocumentos() {
               <p className="text-gray-400 text-lg mb-8">
                 Es una herramienta que te ayuda a manejar toda la documentación de una organización de forma accesible, organizada y segura, desde su creación hasta su archivo o eliminación. Imagina poder administrar y controlar todos los documentos de tu empresa de manera eficiente y sin complicaciones. Eso es exactamente lo que hacemos en Firmedigital.
               </p>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                 {[
                   {
-                    icon: <FaRocket className="text-4xl text-blue-400" />,
+                    icon: <FaRocket className="text-3xl md:text-4xl text-blue-400" />,
                     title: "Eficiencia",
                     description: "Automatización de tareas y optimización de procesos documentales."
                   },
                   {
-                    icon: <FaPiggyBank className="text-4xl text-blue-400" />,
+                    icon: <FaPiggyBank className="text-3xl md:text-4xl text-blue-400" />,
                     title: "Reducción de Costos",
                     description: "Minimiza gastos de impresión y almacenamiento físico."
                   },
                   {
-                    icon: <FaShieldAlt className="text-4xl text-blue-400" />,
+                    icon: <FaShieldAlt className="text-3xl md:text-4xl text-blue-400" />,
                     title: "Seguridad",
                     description: "Protección avanzada y control de acceso a la información."
                   },
                   {
-                    icon: <FaUsers className="text-4xl text-blue-400" />,
+                    icon: <FaUsers className="text-3xl md:text-4xl text-blue-400" />,
                     title: "Colaboración",
                     description: "Trabajo en equipo eficiente con acceso compartido."
                   }
                 ].map((benefit, index) => (
                   <div
                     key={index}
-                    className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
+                    className="group relative h-[140px] sm:h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6 overflow-hidden transition-all duration-500"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-xl md:rounded-2xl"></div>
                     <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
                       <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
-                        <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-3 md:mb-4">
                           {benefit.icon}
                         </div>
-                        <h3 className="text-xl font-bold">{benefit.title}</h3>
+                        <h3 className="text-lg sm:text-xl font-bold">{benefit.title}</h3>
                       </div>
-                      <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                        <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                      <div className="absolute inset-x-4 sm:inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-3 md:mb-4">
                           {benefit.icon}
                         </div>
-                        <p className="text-gray-300 text-center">{benefit.description}</p>
+                        <p className="text-sm sm:text-base text-gray-300 text-center">{benefit.description}</p>
                       </div>
                     </div>
                   </div>
@@ -162,56 +162,56 @@ export default function GestorDocumentos() {
           <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
             Características
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {[
               {
-                icon: <HiOutlineDocumentText className="text-4xl text-blue-400" />,
+                icon: <HiOutlineDocumentText className="text-3xl md:text-4xl text-blue-400" />,
                 title: "Creación y Captura",
                 description: "Crea y digitaliza documentos en múltiples formatos."
               },
               {
-                icon: <FaFolderOpen className="text-4xl text-blue-400" />,
+                icon: <FaFolderOpen className="text-3xl md:text-4xl text-blue-400" />,
                 title: "Organización",
                 description: "Estructura y almacenamiento inteligente de documentos."
               },
               {
-                icon: <FaSearch className="text-4xl text-blue-400" />,
+                icon: <FaSearch className="text-3xl md:text-4xl text-blue-400" />,
                 title: "Búsqueda Rápida",
                 description: "Localiza documentos al instante con búsqueda avanzada."
               },
               {
-                icon: <HiOutlineShieldCheck className="text-4xl text-blue-400" />,
+                icon: <HiOutlineShieldCheck className="text-3xl md:text-4xl text-blue-400" />,
                 title: "Control de Acceso",
                 description: "Gestión de permisos y protección de documentos."
               },
               {
-                icon: <FaUserFriends className="text-4xl text-blue-400" />,
+                icon: <FaUserFriends className="text-3xl md:text-4xl text-blue-400" />,
                 title: "Colaboración",
                 description: "Edición y comentarios en tiempo real con tu equipo."
               },
               {
-                icon: <FaArchive className="text-4xl text-blue-400" />,
+                icon: <FaArchive className="text-3xl md:text-4xl text-blue-400" />,
                 title: "Gestión de Archivo",
                 description: "Políticas de retención y eliminación segura."
               }
             ].map((feature, index) => (
               <div
                 key={index}
-                className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
+                className="group relative h-[140px] sm:h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6 overflow-hidden transition-all duration-500"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-xl md:rounded-2xl"></div>
                 <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
                   <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
-                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-3 md:mb-4">
                       {feature.icon}
                     </div>
-                    <h3 className="text-xl font-bold">{feature.title}</h3>
+                    <h3 className="text-lg sm:text-xl font-bold">{feature.title}</h3>
                   </div>
-                  <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                  <div className="absolute inset-x-4 sm:inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-3 md:mb-4">
                       {feature.icon}
                     </div>
-                    <p className="text-gray-300 text-center">{feature.description}</p>
+                    <p className="text-sm sm:text-base text-gray-300 text-center">{feature.description}</p>
                   </div>
                 </div>
               </div>

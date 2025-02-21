@@ -2,7 +2,7 @@
 
 import React from 'react';
 import MegaMenu from '../../../components/MegaMenu';
-import { BsGlobe, BsShieldCheck, BsPeople, BsGear, BsFolder, BsFileEarmark, BsPerson } from 'react-icons/bs';
+import { BsGlobe, BsShieldCheck, BsPeople, BsGear, BsFolder, BsFileEarmark, BsPerson, FaLandmark, FaUserTie, FaShieldAlt } from 'react-icons/bs';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -41,53 +41,45 @@ const characteristics = [
 
 const benefits = [
   {
-    icon: <BsGear className="text-4xl text-blue-500" />,
-    title: "Eficiencia Administrativa",
-    description: "Reduce significativamente el tiempo de procesamiento de documentos y optimiza recursos."
+    icon: <FaLandmark className="text-4xl text-blue-400" />,
+    title: "Gestión Gubernamental",
+    description: "Firma digital de documentos oficiales."
   },
   {
-    icon: <BsShieldCheck className="text-4xl text-blue-500" />,
-    title: "Seguridad y Confidencialidad",
-    description: "Garantiza la integridad de los documentos con acceso controlado y verificación de autenticidad."
+    icon: <FaUserTie className="text-4xl text-blue-400" />,
+    title: "Trámites Ciudadanos",
+    description: "Servicios digitales para la ciudadanía."
   },
   {
-    icon: <BsPeople className="text-4xl text-blue-500" />,
-    title: "Accesibilidad",
-    description: "Firma documentos desde cualquier lugar y dispositivo, sin necesidad de presencia física."
-  },
-  {
-    icon: <BsFileEarmark className="text-4xl text-blue-500" />,
-    title: "Transparencia",
-    description: "Facilita la trazabilidad y auditoría de procesos para una gestión más transparente."
-  },
-  {
-    icon: <BsGlobe className="text-4xl text-blue-500" />,
-    title: "Sostenibilidad",
-    description: "Reduce el uso de papel contribuyendo a prácticas más sostenibles y ecológicas."
+    icon: <FaShieldAlt className="text-4xl text-blue-400" />,
+    title: "Seguridad Estatal",
+    description: "Protección de documentos gubernamentales."
   }
 ];
 
 const Card = ({ icon, title, description }) => {
   return (
     <motion.div
-      className="bg-gray-900 p-6 rounded-xl h-[250px] flex flex-col items-center justify-center text-center cursor-pointer group relative"
-      whileHover={{ y: -5 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
     >
-      <div className="absolute inset-0 flex flex-col items-center justify-center transition-all duration-300 opacity-100 group-hover:opacity-0">
-        <motion.div className="mb-4">
-          {icon}
-        </motion.div>
-        <motion.h3 className="text-xl font-bold">
-          {title}
-        </motion.h3>
-      </div>
-      <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-        <motion.div className="mb-4">
-          {icon}
-        </motion.div>
-        <motion.p className="text-gray-300 w-[80%]">
-          {description}
-        </motion.p>
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+      <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+        <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+          <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+            {icon}
+          </div>
+          <h3 className="text-xl font-bold">{title}</h3>
+        </div>
+        <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+          <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+            {icon}
+          </div>
+          <p className="text-gray-300 text-center">{description}</p>
+        </div>
       </div>
     </motion.div>
   );

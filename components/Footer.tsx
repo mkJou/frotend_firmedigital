@@ -30,28 +30,28 @@ const productos = [
 
 const Footer = () => {
   return (
-    <footer id="recursos" className="bg-black border-t border-white/10 ">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+    <footer className="bg-black text-white py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Logo y Descripción */}
-          <div className="col-span-1 md:col-span-1">
+          <div className="text-center md:text-left">
             <Image
               src="/images/logo.webp"
               alt="Firmedigital Logo"
               width={150}
               height={40}
-              className="mb-4"
+              className="mx-auto md:mx-0 mb-4"
             />
-            <p className="text-gray-400 text-sm text-justify">
+            <p className="text-gray-400 text-sm">
             FirmeDigital.com es una plataforma de certificación y firma electronica desarrollada por Documentos Digitales PSC, C.A. en la República Bolivariana de Venezuela.
 
             </p>
           </div>
 
           {/* Productos */}
-          <div className="col-span-1">
-            <h3 className="text-white font-semibold mb-4 text-lg">Productos</h3>
-            <ul className="space-y-3">
+          <div className="text-center md:text-left">
+            <h3 className="text-lg font-semibold mb-4">Productos</h3>
+            <ul className="space-y-2">
               {productos.map((producto) => (
                 <motion.li 
                   key={producto.name}
@@ -72,18 +72,18 @@ const Footer = () => {
             </ul>
           </div>
           {/* Autoridad de Certificación */}
-          <div className="col-span-1">
-            <h3 className="text-white font-semibold mb-4 text-lg">Autoridad de Certificación</h3>
-            <ul className="space-y-3 space-y-3 text-gray-400">
+          <div className="text-center md:text-left">
+            <h3 className="text-lg font-semibold mb-4">Autoridad de Certificación</h3>
+            <ul className="space-y-2 space-y-3 text-gray-400">
              <li className='hover:text-white transition-colors duration-200'>Cadena de Certificación</li>
              <li className='hover:text-white transition-colors duration-200'>Certificado Raíz SUSCERTE</li>
              <li className='hover:text-white transition-colors duration-200'>Lista de Certificados Revocados (LCR)</li>
             </ul>
           </div>
           {/*Informacion Legal */}
-          <div className="col-span-1">
-            <h3 className="text-white font-semibold mb-4 text-lg">Información Legal</h3>
-            <ul className="space-y-3 space-y-3 text-gray-400">
+          <div className="text-center md:text-left">
+            <h3 className="text-lg font-semibold mb-4">Información Legal</h3>
+            <ul className="space-y-2 space-y-3 text-gray-400">
              <li className='hover:text-white transition-colors duration-200'>
              <a 
                  href="https://www.suscerte.gob.ve/"
@@ -107,9 +107,9 @@ const Footer = () => {
           </div>
 
           {/* Contacto */}
-          <div className="col-span-1">
-            <h3 className="text-white font-semibold mb-4 text-lg">Contacto</h3>
-            <ul className="space-y-3 text-gray-400">
+          <div id="footer-contacto" className="text-center md:text-left">
+            <h3 className="text-lg font-semibold mb-4">Contacto</h3>
+            <ul className="space-y-2 text-gray-400">
               <li className='hover:text-white transition-colors duration-200'>
                 <a href="tel:+584247100380">Telf: +58 424-7100380</a>
               </li>
@@ -129,12 +129,11 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Eliminar la sección de Síguenos ya que se movió a Contacto */}
         </div>
 
         {/* Copyright */}
-        <div className="mt-12 pt-8 border-t border-white/10">
-          <p className="text-center text-gray-400 text-sm">
+        <div className="mt-8 pt-8 border-t border-gray-800 text-center">
+          <p className="text-gray-400 text-sm">
             {new Date().getFullYear()} DOCUMENTOS DIGITALES PSC, C.A. RIF J-50541585-9. Todos los derechos reservados.
             www.firmedigital.com.ve
           </p>

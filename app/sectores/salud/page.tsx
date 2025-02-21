@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { BsHospital } from 'react-icons/bs';
-import { FaUserPlus, FaRocket, FaShieldAlt, FaLock, FaUserMd, FaBuilding, FaShoppingCart } from 'react-icons/fa';
+import { FaUserPlus, FaRocket, FaShieldAlt, FaLock, FaUserMd, FaBuilding, FaShoppingCart, FaHospital, FaNotesMedical, FaPrescriptionBottleAlt, FaCloudUploadAlt, FaMobile } from 'react-icons/fa';
 import MegaMenu from '../../../components/MegaMenu';
 import Image from "next/image";
 import { motion } from 'framer-motion';
@@ -61,44 +61,48 @@ export default function SectorSalud() {
           <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
             Beneficios
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                icon: <div className="flex justify-center"><FaUserPlus className="text-4xl text-blue-400 mb-4" /></div>,
-                title: "Experiencia del Paciente Mejorada",
-                description: "La implementación de la firma electrónica mejora significativamente la experiencia del paciente, ofreciendo una interacción más moderna y eficiente. Los pacientes pueden gestionar sus trámites de manera digital."
+                icon: <FaHospital className="text-4xl text-blue-400" />,
+                title: "Gestión Hospitalaria",
+                description: "Firma digital de historias clínicas."
               },
               {
-                icon: <div className="flex justify-center"><FaRocket className="text-4xl text-blue-400 mb-4" /></div>,
-                title: "Máxima Velocidad y Eficacia",
-                description: "Nuestra solución se integra rápidamente en cualquier infraestructura informática. Con una interfaz intuitiva, no se necesita formación adicional para su equipo, externos o pacientes."
+                icon: <FaUserMd className="text-4xl text-blue-400" />,
+                title: "Atención Médica",
+                description: "Documentación clínica segura."
               },
               {
-                icon: <div className="flex justify-center"><FaShieldAlt className="text-4xl text-blue-400 mb-4" /></div>,
-                title: "Máxima Seguridad y Conformidad",
-                description: "El personal de la clínica, los pacientes y todas las partes interesadas firman con un efecto jurídicamente vinculante del 100%. Las firmas electrónicas cualificadas son legalmente equivalentes a las firmas manuscritas."
-              },
-              {
-                icon: <div className="flex justify-center"><FaLock className="text-4xl text-blue-400 mb-4" /></div>,
-                title: "Máxima Protección de Datos",
-                description: "Todos los servicios se alojan dentro de la UE y sin intervención de terceros países. El tratamiento de los datos sanitarios sensibles cumple las normas más estrictas."
+                icon: <FaNotesMedical className="text-4xl text-blue-400" />,
+                title: "Registros Médicos",
+                description: "Gestión digital de expedientes."
               }
-            ].map((benefit, index) => (
-              <div
+            ].map((item, index) => (
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
                 <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
                   <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
-                    {benefit.icon}
-                    <h3 className="text-xl font-semibold text-gray-200">{benefit.title}</h3>
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                      {item.icon}
+                    </div>
+                    <h3 className="text-xl font-bold">{item.title}</h3>
                   </div>
                   <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <p className="text-gray-300 text-center">{benefit.description}</p>
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                      {item.icon}
+                    </div>
+                    <p className="text-gray-300 text-center">{item.description}</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -107,47 +111,51 @@ export default function SectorSalud() {
       {/* Características Section */}
       <section className="py-20 bg-gradient-to-b from-black to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-            Características
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <h2 className="text-3xl font-bold text-white text-center mb-12">Características</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                icon: <div className="flex justify-center"><FaUserMd className="text-4xl text-blue-400 mb-4" /></div>,
-                title: "Gestión de Pacientes",
-                description: "Declaraciones de consentimiento, contratos de tratamiento, ingresos, altas, a través de un portal digital del paciente."
+                icon: <FaLock className="text-4xl text-blue-400" />,
+                title: "Seguridad",
+                description: "Protección de datos sensibles."
               },
               {
-                icon: <div className="flex justify-center"><FaBuilding className="text-4xl text-blue-400 mb-4" /></div>,
-                title: "Procesos Internos",
-                description: "Contratos de personal, referencias, resoluciones, acuerdos de accionistas, entre otros."
+                icon: <FaCloudUploadAlt className="text-4xl text-blue-400" />,
+                title: "Almacenamiento",
+                description: "Respaldo seguro en la nube."
               },
               {
-                icon: <div className="flex justify-center"><FaShoppingCart className="text-4xl text-blue-400 mb-4" /></div>,
-                title: "Compras",
-                description: "Contratos de compra, contratos de préstamo, adquisiciones, albaranes, etc."
+                icon: <FaMobile className="text-4xl text-blue-400" />,
+                title: "Accesibilidad",
+                description: "Acceso desde cualquier dispositivo."
               }
-            ].map((feature, index) => (
-              <div
+            ].map((item, index) => (
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
                 <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
                   <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
-                    {feature.icon}
-                    <h3 className="text-xl font-semibold text-gray-200">{feature.title}</h3>
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                      {item.icon}
+                    </div>
+                    <h3 className="text-xl font-bold">{item.title}</h3>
                   </div>
                   <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <p className="text-gray-300 text-center">{feature.description}</p>
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                      {item.icon}
+                    </div>
+                    <p className="text-gray-300 text-center">{item.description}</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-          <p className="text-center text-gray-300 mt-12 text-lg italic">
-            "Integración rápida, uso intuitivo y eficiencia mejorada."
-          </p>
         </div>
       </section>
     </main>

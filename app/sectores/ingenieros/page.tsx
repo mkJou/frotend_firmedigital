@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MegaMenu from '@/components/MegaMenu';
-import { FaProjectDiagram, FaClipboardCheck, FaUsers, FaBuilding, FaHardHat, FaCheckSquare, FaUsersCog } from 'react-icons/fa';
+import { FaProjectDiagram, FaClipboardCheck, FaUsers, FaBuilding, FaHardHat, FaCheckSquare, FaUsersCog, FaCogs, FaDrawPolygon, FaTools, FaLock, FaCloudUploadAlt, FaMobile } from 'react-icons/fa';
 
 const SkeletonHero = () => (
   <div className="space-y-8">
@@ -137,22 +137,22 @@ export default function Ingenieros() {
           <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
             Flujo de Revisión
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                icon: <FaProjectDiagram className="text-4xl text-blue-400" />,
-                title: "Control de Workflows",
-                description: "Optimiza la revisión de proyectos con workflows automatizados."
+                icon: <FaHardHat className="text-4xl text-blue-400" />,
+                title: "Gestión de Proyectos",
+                description: "Firma digital de documentos técnicos."
               },
               {
-                icon: <FaClipboardCheck className="text-4xl text-blue-400" />,
-                title: "Avisos Automáticos",
-                description: "Notifica cambios y asigna tareas con un solo clic."
+                icon: <FaTools className="text-4xl text-blue-400" />,
+                title: "Documentación Técnica",
+                description: "Gestión de planos y especificaciones."
               },
               {
-                icon: <FaUsers className="text-4xl text-blue-400" />,
-                title: "Colaboración Eficiente",
-                description: "Mejora el control y la eficiencia en cada etapa del proyecto."
+                icon: <FaCogs className="text-4xl text-blue-400" />,
+                title: "Procesos de Ingeniería",
+                description: "Control digital de operaciones."
               }
             ].map((item, index) => (
               <motion.div
@@ -165,14 +165,14 @@ export default function Ingenieros() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
                 <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
-                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0 flex flex-col items-center justify-center">
-                    <div className="flex items-center justify-center mb-4 w-16 h-16 bg-blue-500/10 rounded-full">
+                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
                       {item.icon}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-200">{item.title}</h3>
+                    <h3 className="text-xl font-bold">{item.title}</h3>
                   </div>
                   <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <div className="flex items-center justify-center mb-4 w-16 h-16 mx-auto bg-blue-500/10 rounded-full">
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
                       {item.icon}
                     </div>
                     <p className="text-gray-300 text-center">{item.description}</p>
@@ -180,6 +180,55 @@ export default function Ingenieros() {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Características */}
+          <div className="mt-20">
+            <h2 className="text-3xl font-bold text-white text-center mb-12">Características</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: <FaLock className="text-4xl text-blue-400" />,
+                  title: "Seguridad",
+                  description: "Protección de datos técnicos."
+                },
+                {
+                  icon: <FaCloudUploadAlt className="text-4xl text-blue-400" />,
+                  title: "Almacenamiento",
+                  description: "Respaldo seguro en la nube."
+                },
+                {
+                  icon: <FaMobile className="text-4xl text-blue-400" />,
+                  title: "Accesibilidad",
+                  description: "Acceso desde cualquier dispositivo."
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+                  <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                    <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                      <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                        {item.icon}
+                      </div>
+                      <h3 className="text-xl font-bold">{item.title}</h3>
+                    </div>
+                    <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                      <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                        {item.icon}
+                      </div>
+                      <p className="text-gray-300 text-center">{item.description}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

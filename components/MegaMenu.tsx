@@ -45,6 +45,7 @@ interface MenuItem {
   icon?: React.ElementType;
   description?: string;
   href?: string;
+  onClick?: () => void;
 }
 
 interface MenuSection {
@@ -208,8 +209,15 @@ const menuData: MenuSection[] = [
       {
         title: 'Contactos',
         description: 'Ponte en contacto con nosotros',
-        href: '#recursos',
-        icon: HiOutlineMail
+        href: '/footer#contacto',
+        icon: HiOutlineMail,
+        onClick: () => {
+          const contactoSection = document.getElementById('footer-contacto');
+          if (contactoSection) {
+            contactoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+          return false;
+        }
       },
       {
         title: 'Soporte',
@@ -321,7 +329,7 @@ export default function MegaMenu() {
               >
                 <Link
                   href={section.title === 'RECURSOS' ? '#recursos' : (section.href || '#')}
-                  className="px-4 py-2 text-gray-300 hover:text-white transition-colors"
+                  className="px-4 py-2 text-gray-300 hover:text-white transition-colors font-bold"
                   onClick={section.title === 'RECURSOS' ? handleResourcesClick : undefined}
                 >
                   {section.title}
@@ -362,7 +370,12 @@ export default function MegaMenu() {
                                 ? 'w-full text-sm' 
                                 : 'w-[300px]'
                             }`}
-                          onClick={() => {
+                          onClick={(e) => {
+                            if (item.onClick) {
+                              e.preventDefault();
+                              item.onClick();
+                              setIsMobileMenuOpen(false);
+                            }
                             setActiveMenu(null);
                             setIsMobileMenuOpen(false);
                           }}
@@ -396,92 +409,74 @@ export default function MegaMenu() {
             </button>
           </div>
 
-          {/* Menú móvil */}
-          <div className={`md:hidden fixed inset-0 bg-gray-900/50 backdrop-blur-sm transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-            <div className={`fixed inset-y-0 right-0 w-full max-w-sm bg-gray-900 shadow-xl transition-transform duration-300 overflow-y-auto
-              ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          {/* Mobile menu */}
+          <div
+            className={`fixed inset-0 z-50 lg:hidden bg-black/80 backdrop-blur-sm transition-opacity duration-300
+              ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <div
+              className={`fixed inset-y-0 right-0 w-full max-w-sm bg-[#111827] shadow-xl transform transition-transform duration-300
+                ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+              onClick={e => e.stopPropagation()}
+            >
               <div className="flex items-center justify-between p-4 border-b border-gray-800">
+                <a href="/" className="block">
+                  <img src="/images/logo.webp" alt="Firme Digital Logo" className="h-16 w-auto" />
+                </a>
                 <button
-                  className="text-white p-2 transition-colors"
-                  onClick={toggleMobileMenu}
+                  className="p-2 text-gray-400 hover:text-white transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <HiOutlineX className="w-6 h-6 text-[#fff]" />
+                  <HiOutlineX className="w-6 h-6" />
                 </button>
               </div>
-              {menuData.map((section) => (
-                <div 
-                  key={section.title} 
-                  className="mb-6"
-                >
-                  <Link
-                    href={section.href || '#'}
-                    className="w-full text-left px-4 py-3 text-lg font-medium text-gray-300 rounded-lg
-                      hover:text-white hover:bg-gradient-to-br hover:from-gray-800/50 hover:via-gray-800/30 hover:to-transparent
-                      transition-colors flex items-center justify-between"
-                    onClick={() => setActiveMenu(activeMenu === section.title ? null : section.title)}
-                  >
-                    <span>{section.title}</span>
-                    {section.subItems && (
-                      <HiChevronDown 
-                        className={`w-5 h-5 transition-transform duration-300
-                          ${activeMenu === section.title ? 'rotate-180' : 'rotate-0'}`}
-                      />
-                    )}
-                  </Link>
 
-                  <div
-                    className={`transition-all duration-300 ease-out overflow-y-auto
-                      ${activeMenu === section.title ? 'max-h-[70vh] opacity-100' : 'max-h-0 opacity-0'}
-                      ${['SECTORES', 'PRODUCTOS'].includes(section.title) 
-                        ? 'grid md:grid-cols-2 gap-2 px-4' 
-                        : 'space-y-1 px-4'}
-                      scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-600/50 hover:scrollbar-thumb-gray-500`}
-                  >
-                    {section.subItems?.map((item, index) => (
-                      <Link
-                        key={item.title}
-                        href={item.href || '#'}
-                        className={`flex items-center space-x-2 px-3 py-2 text-gray-300 rounded-lg
-                          hover:text-white hover:bg-gradient-to-r hover:from-gray-800/50 hover:to-transparent
-                          transition-colors relative group cursor-pointer ${
-                            ['SECTORES', 'PRODUCTOS'].includes(section.title) 
-                              ? 'text-sm' 
-                              : ''
-                          }`}
-                        onClick={(e) => {
-                          if (section.title === 'RECURSOS' && item.title === 'Contactos') {
-                            e.preventDefault();
-                            handleResourcesClick();
-                          }
-                          e.stopPropagation();
+              <nav className="p-4 space-y-2">
+                {menuData.map((section) => (
+                  <div key={section.title} className="relative">
+                    <Link
+                      href={section.href || '#'}
+                      className="w-full text-left px-4 py-3 text-lg font-bold text-gray-300 rounded-lg hover:text-white hover:bg-gradient-to-br hover:from-gray-800/50 hover:via-gray-800/30 hover:to-transparent transition-colors flex items-center justify-between"
+                      onClick={() => {
+                        if (section.title === 'RECURSOS') {
+                          handleResourcesClick(e);
+                        }
+                        if (!section.subItems) {
                           setIsMobileMenuOpen(false);
-                        }}
-                        style={{
-                          transform: activeMenu === section.title ? 'translateY(0)' : 'translateY(-10px)',
-                          opacity: activeMenu === section.title ? 1 : 0,
-                          transition: `transform 0.3s ease ${index * 0.05}s, opacity 0.3s ease ${index * 0.05}s`
-                        }}
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 
-                          rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        {item.icon && (
-                          <span className="relative flex-shrink-0">
-                            <item.icon className="w-5 h-5 text-gray-300" />
-                          </span>
-                        )}
-                        <div className="relative min-w-0 flex-1">
-                          <div className="font-medium">{item.title}</div>
-                          {item.description && ['SECTORES', 'PRODUCTOS'].includes(section.title) ? (
-                            <div className="text-xs text-gray-400 group-hover:text-gray-300">
-                              {item.description}
+                        } else {
+                          setActiveMenu(activeMenu === section.title ? null : section.title);
+                        }
+                      }}
+                    >
+                      <span>{section.title}</span>
+                      {section.subItems && (
+                        <HiChevronDown 
+                          className={`w-5 h-5 transition-transform duration-300 ${activeMenu === section.title ? 'rotate-180' : 'rotate-0'}`}
+                        />
+                      )}
+                    </Link>
+
+                    {section.subItems && activeMenu === section.title && (
+                      <div className="pl-4 py-2 space-y-1">
+                        {section.subItems.map((item) => (
+                          <Link
+                            key={item.title}
+                            href={item.href || '#'}
+                            className="block px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            <div className="flex items-center gap-3">
+                              {item.icon && <item.icon className="w-5 h-5" />}
+                              <span>{item.title}</span>
                             </div>
-                          ) : null}
-                        </div>
-                      </Link>
-                    ))}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                ))}
+              </nav>
             </div>
           </div>
         </div>

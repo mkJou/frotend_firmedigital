@@ -39,29 +39,29 @@ export default function Analisis() {
       <MegaMenu />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 px-4 md:px-8">
+      <section className="relative pt-20 md:pt-32 pb-12 md:pb-16 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             <div>
-              <div className="flex items-center gap-4 mb-8">
-                <HiOutlineChartBar className="text-5xl text-blue-500" />
-                <h1 className="text-4xl md:text-6xl font-bold">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6 md:mb-8">
+                <HiOutlineChartBar className="text-4xl md:text-5xl text-blue-500" />
+                <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
                   Análisis Personalizable
                 </h1>
               </div>
-              <p className="text-xl text-gray-300 max-w-3xl mb-8">
-                La Solución Perfecta para tus Necesidades
+              <p className="text-lg md:text-xl text-gray-300 max-w-3xl mb-6 md:mb-8">
+                Análisis inteligente adaptado a tu negocio
               </p>
-              <div className="text-gray-300 max-w-3xl mb-8">
+              <div className="text-sm md:text-base text-gray-300 max-w-3xl mb-6 md:mb-8">
                 <p className="mb-4">
-                  En Firmedigital, entendemos que cada negocio tiene sus propias necesidades y desafíos. Por eso, hemos desarrollado un análisis personalizable que se adapta a tus requerimientos específicos. Nuestro sistema te permite configurar y ajustar los parámetros de análisis según tus necesidades, ofreciendo una visión detallada y precisa de tus datos.
+                  Personaliza tus análisis según las necesidades específicas de tu empresa. Configura parámetros, crea informes detallados y visualiza datos de forma clara y efectiva.
                 </p>
                 <p>
-                  Con Firmedigital, puedes personalizar los informes y dashboards para que reflejen exactamente lo que necesitas ver. Ya sea que estés monitoreando el rendimiento, evaluando riesgos, o analizando la productividad, nuestro análisis personalizable te da las herramientas para hacerlo de manera eficiente y efectiva.
+                  Obtén insights valiosos con dashboards personalizables que te permiten monitorear el rendimiento y tomar decisiones informadas en tiempo real.
                 </p>
               </div>
-              <div className="bg-gray-900/50 p-6 rounded-xl border border-blue-500/20 mb-8">
-                <p className="text-2xl text-blue-400 font-semibold italic text-center">
+              <div className="bg-gray-900/50 p-4 md:p-6 rounded-xl border border-blue-500/20 mb-6 md:mb-8">
+                <p className="text-xl md:text-2xl text-blue-400 font-semibold italic text-center">
                   "Descubre el poder del análisis personalizable: Datos que hablan, decisiones que brillan."
                 </p>
               </div>
@@ -70,7 +70,8 @@ export default function Analisis() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="relative w-full h-[400px]"
+              className="relative w-full h-[300px] md:h-[400px] mt-4 md:mt-0 pb-16 md:pb-24"
+              style={{ opacity: 1, transform: 'none' }}
             >
               <Image
                 src="/images/ap.svg"
@@ -85,10 +86,10 @@ export default function Analisis() {
       </section>
 
       {/* Ventajas */}
-      <section className="px-4 md:px-8 py-16">
+      <section className="px-4 md:px-8 py-12 md:py-16">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Ventajas del Análisis Personalizable</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center">Ventajas del Análisis Personalizable</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <div className="bg-gray-900 p-8 rounded-xl hover:bg-gray-800 transition-all duration-300 flex flex-col items-center text-center group">
               <div className="bg-blue-500/10 p-4 rounded-full mb-4 group-hover:bg-blue-500/20 transition-all duration-300">
                 <HiOutlineAdjustments className="text-4xl text-blue-400" />
@@ -142,27 +143,27 @@ export default function Analisis() {
       </section>
 
       {/* Timeline */}
-      <section className="px-4 md:px-8 py-16 bg-gray-900">
+      <section className="px-4 md:px-8 py-12 md:py-16 bg-gray-900">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-16"
+            className="text-center mb-12 md:mb-16"
           >
-            <h1 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
               Análisis Personalizable
             </h1>
-            <p className="text-gray-300 max-w-3xl mx-auto">
+            <p className="text-sm md:text-base text-gray-300 max-w-3xl mx-auto px-4">
               Transforme sus datos financieros en insights accionables con nuestra plataforma de análisis avanzado
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             {timelineSteps.map((step, index) => (
               <div
                 key={index}
-                className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
+                className="group relative h-[160px] md:h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-4 md:p-6 overflow-hidden transition-all duration-500"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
                 <div className="flex flex-col items-center justify-center text-center h-full relative z-10">

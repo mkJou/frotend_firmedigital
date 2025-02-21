@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MegaMenu from '@/components/MegaMenu';
-import { FaGraduationCap, FaBook, FaUserGraduate, FaChalkboardTeacher, FaCalendarAlt, FaClipboardCheck, FaUsers, FaShieldAlt, FaClock, FaAward, FaTrophy } from 'react-icons/fa';
+import { FaGraduationCap, FaBook, FaUserGraduate, FaChalkboardTeacher, FaCalendarAlt, FaClipboardCheck, FaUsers, FaShieldAlt, FaClock, FaAward, FaTrophy, FaLock, FaCloudUploadAlt, FaMobile } from 'react-icons/fa';
 
 const SkeletonHero = () => (
   <div className="space-y-8">
@@ -97,22 +97,22 @@ export default function Educacion() {
           <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
             Beneficios
           </h2>
-          <div className="flex flex-col md:flex-row gap-4 justify-center items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 icon: <FaGraduationCap className="text-4xl text-blue-400" />,
                 title: "Gestión Académica",
-                description: "Control integral de procesos educativos."
+                description: "Firma digital de documentos educativos."
               },
               {
-                icon: <FaBook className="text-4xl text-blue-400" />,
-                title: "Material Digital",
-                description: "Organización eficiente de recursos educativos."
+                icon: <FaChalkboardTeacher className="text-4xl text-blue-400" />,
+                title: "Docencia Digital",
+                description: "Documentación académica segura."
               },
               {
                 icon: <FaUserGraduate className="text-4xl text-blue-400" />,
-                title: "Seguimiento Estudiantil",
-                description: "Monitoreo del progreso y desempeño académico."
+                title: "Servicios Estudiantiles",
+                description: "Gestión digital de certificados."
               }
             ].map((item, index) => (
               <motion.div
@@ -125,14 +125,14 @@ export default function Educacion() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
                 <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
-                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0 flex flex-col items-center justify-center">
-                    <div className="flex items-center justify-center mb-4 w-16 h-16 bg-blue-500/10 rounded-full">
+                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
                       {item.icon}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-200">{item.title}</h3>
+                    <h3 className="text-xl font-bold">{item.title}</h3>
                   </div>
                   <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <div className="flex items-center justify-center mb-4 w-16 h-16 mx-auto bg-blue-500/10 rounded-full">
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
                       {item.icon}
                     </div>
                     <p className="text-gray-300 text-center">{item.description}</p>
@@ -144,36 +144,29 @@ export default function Educacion() {
         </div>
       </section>
 
-      {/* Características Adicionales */}
+      {/* Características */}
       <section className="py-16 px-4 bg-gradient-to-b from-black to-gray-900 relative">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
         <div className="max-w-6xl mx-auto relative z-10">
-          <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-            Características Destacadas
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold text-white text-center mb-12">Características</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                icon: <FaChalkboardTeacher className="text-4xl text-blue-400" />,
-                title: "Gestión Docente",
-                description: "Herramientas para planificación y evaluación."
+                icon: <FaLock className="text-4xl text-blue-400" />,
+                title: "Seguridad",
+                description: "Protección de datos académicos."
               },
               {
-                icon: <FaCalendarAlt className="text-4xl text-blue-400" />,
-                title: "Calendario Académico",
-                description: "Organización de eventos y actividades escolares."
+                icon: <FaCloudUploadAlt className="text-4xl text-blue-400" />,
+                title: "Almacenamiento",
+                description: "Respaldo seguro en la nube."
               },
               {
-                icon: <FaClipboardCheck className="text-4xl text-blue-400" />,
-                title: "Evaluaciones",
-                description: "Sistema integral de evaluación y calificaciones."
-              },
-              {
-                icon: <FaUsers className="text-4xl text-blue-400" />,
-                title: "Comunidad Educativa",
-                description: "Conexión entre estudiantes, docentes y padres."
+                icon: <FaMobile className="text-4xl text-blue-400" />,
+                title: "Accesibilidad",
+                description: "Acceso desde cualquier dispositivo."
               }
-            ].map((caracteristica, index) => (
+            ].map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -184,17 +177,17 @@ export default function Educacion() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
                 <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
-                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0 flex flex-col items-center justify-center">
-                    <div className="flex items-center justify-center mb-4 w-16 h-16 bg-blue-500/10 rounded-full">
-                      {caracteristica.icon}
+                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                      {item.icon}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-200">{caracteristica.title}</h3>
+                    <h3 className="text-xl font-bold">{item.title}</h3>
                   </div>
                   <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <div className="flex items-center justify-center mb-4 w-16 h-16 mx-auto bg-blue-500/10 rounded-full">
-                      {caracteristica.icon}
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                      {item.icon}
                     </div>
-                    <p className="text-gray-300 text-center">{caracteristica.description}</p>
+                    <p className="text-gray-300 text-center">{item.description}</p>
                   </div>
                 </div>
               </motion.div>

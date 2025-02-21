@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { FaIdCard, FaQrcode, FaUserEdit, FaSync, FaShieldAlt, FaMobileAlt, FaTablet, FaLeaf, FaPaw } from 'react-icons/fa';
 import { TitleSkeleton, CardSkeleton } from '@/components/ui/Skeletons';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function CarnetDigital() {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,63 +19,63 @@ export default function CarnetDigital() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#000000] text-white">
+    <main className="min-h-screen bg-[#000000] text-white flex-1">
       <MegaMenu />
-      {/* Carnet Digital Section */}
-      <section className="px-4 md:px-8 py-16 bg-gray-900">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start pt-8">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="space-y-6"
-            >
-              <br />
-              <br />
-              <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
-                Carnet Digital personalizado
-              </h2>
-              <p className="text-gray-300 text-lg md:text-xl">
-                Un carnet digital personalizado es una identificación digital que contiene información específica de una persona, como su nombre, fotografía, cargo, empresa u organización a la que pertenece, y otros datos relevantes. Estos carnets pueden ser diseñados y adaptados según las necesidades de cada organización, permitiendo una mayor flexibilidad y funcionalidad.
-              </p>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+      {/* Hero Section */}
+      <section className="relative min-h-[80vh] flex items-center justify-center px-6 sm:px-8 py-16 sm:py-24">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero-bg.webp"
+            alt="Background"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/80"></div>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto space-y-6 px-6 sm:px-8"
+          >
+            <br />
+            <br />
+            <br />
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
+              Carnet Personalizable
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-300 mb-8">
+              Un carnet digital personalizado es una identificación digital que contiene información específica de una persona, como su nombre, fotografía, cargo, empresa u organización a la que pertenece, y otros datos relevantes.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/contacto"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 w-full sm:w-auto"
               >
-                <button className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
-                  Solicitar Demo
-                </button>
-              </motion.div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="relative w-full h-[400px] mt-12"
-            >
-              <br />
-              <br />
-              <Image
-                src="/images/cp.svg"
-                alt="Carnet Digital"
-                fill
-                className="object-contain"
-                priority
-              />
-            </motion.div>
-          </div>
+                Solicitar Demo
+              </Link>
+              <Link
+                href="/productos"
+                className="border border-white/20 hover:bg-white/10 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 w-full sm:w-auto"
+              >
+                Más Información
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Características Section */}
-      <section className="px-4 md:px-8 py-16">
+      <section className="px-4 md:px-8 py-12 md:py-16">
         <div className="max-w-7xl mx-auto">
           {isLoading ? (
-            <div className="space-y-12">
+            <div className="space-y-8 md:space-y-12">
               <TitleSkeleton />
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                 {[...Array(9)].map((_, i) => (
                   <CardSkeleton key={i} />
                 ))}
@@ -86,12 +87,12 @@ export default function CarnetDigital() {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className="text-3xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500"
+                className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500"
               >
                 Características de los Carnets Digitales
               </motion.h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                 {[
                   {
                     icon: <FaIdCard className="text-4xl text-blue-500" />,
@@ -145,9 +146,9 @@ export default function CarnetDigital() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
+                    className="group relative h-[160px] md:h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6 overflow-hidden transition-all duration-500"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-xl md:rounded-2xl"></div>
                     <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
                       <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0 flex flex-col items-center">
                         {feature.icon}
@@ -167,12 +168,12 @@ export default function CarnetDigital() {
       </section>
 
       {/* Beneficios Section */}
-      <section className="px-4 md:px-8 py-16 bg-gray-900">
+      <section className="px-4 md:px-8 py-12 md:py-16 bg-gray-900">
         <div className="max-w-7xl mx-auto">
           {isLoading ? (
-            <div className="space-y-12">
+            <div className="space-y-8 md:space-y-12">
               <TitleSkeleton />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8">
                 {[...Array(5)].map((_, i) => (
                   <CardSkeleton key={i} />
                 ))}
@@ -184,12 +185,12 @@ export default function CarnetDigital() {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className="text-3xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500"
+                className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500"
               >
                 Beneficios de los Carnets Digitales
               </motion.h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8">
                 {[
                   {
                     icon: <FaSync className="text-4xl text-blue-500" />,
@@ -223,9 +224,9 @@ export default function CarnetDigital() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
+                    className="group relative h-[160px] md:h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6 overflow-hidden transition-all duration-500"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-xl md:rounded-2xl"></div>
                     <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
                       <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0 flex flex-col items-center">
                         {benefit.icon}

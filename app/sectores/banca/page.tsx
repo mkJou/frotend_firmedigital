@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MegaMenu from '@/components/MegaMenu';
-import { FaSignature, FaFolder, FaSyncAlt, FaShieldAlt, FaBolt, FaUserCheck, FaUniversity, FaBuilding, FaUsers, FaFileContract, FaLock, FaChartLine, FaHandshake } from 'react-icons/fa';
+import { FaSignature, FaFolder, FaSyncAlt, FaShieldAlt, FaBolt, FaUserCheck, FaUniversity, FaBuilding, FaUsers, FaFileContract, FaLock, FaChartLine, FaHandshake, FaMoneyBillWave, FaUserShield } from 'react-icons/fa';
 
 export default function SectorBanca() {
   const [isLoading, setIsLoading] = useState(true);
@@ -109,27 +109,22 @@ export default function SectorBanca() {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl font-bold text-white text-center mb-12">Beneficios</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                icon: <FaShieldAlt className="text-4xl text-blue-400" />,
-                title: "Mayor Seguridad",
-                description: "Protección avanzada contra fraudes y accesos no autorizados."
+                icon: <FaMoneyBillWave className="text-4xl text-blue-400" />,
+                title: "Operaciones Bancarias",
+                description: "Firma digital de transacciones y contratos."
               },
               {
-                icon: <FaBolt className="text-4xl text-blue-400" />,
-                title: "Eficiencia Operativa",
-                description: "Procesos ágiles y reducción de tiempos de respuesta."
-              },
-              {
-                icon: <FaUserCheck className="text-4xl text-blue-400" />,
-                title: "Mejor Experiencia",
-                description: "Transacciones rápidas y seguras para clientes."
+                icon: <FaUserShield className="text-4xl text-blue-400" />,
+                title: "Seguridad Financiera",
+                description: "Protección avanzada en documentos bancarios."
               },
               {
                 icon: <FaHandshake className="text-4xl text-blue-400" />,
-                title: "Cumplimiento",
-                description: "Conformidad con regulaciones bancarias y financieras."
+                title: "Servicio al Cliente",
+                description: "Gestión digital de documentación bancaria."
               }
             ].map((item, index) => (
               <motion.div
@@ -142,14 +137,14 @@ export default function SectorBanca() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
                 <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
-                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0 flex flex-col items-center justify-center">
-                    <div className="flex items-center justify-center mb-4 w-16 h-16 bg-blue-500/10 rounded-full">
+                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
                       {item.icon}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-200">{item.title}</h3>
+                    <h3 className="text-xl font-bold">{item.title}</h3>
                   </div>
                   <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <div className="flex items-center justify-center mb-4 w-16 h-16 mx-auto bg-blue-500/10 rounded-full">
+                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
                       {item.icon}
                     </div>
                     <p className="text-gray-300 text-center">{item.description}</p>
