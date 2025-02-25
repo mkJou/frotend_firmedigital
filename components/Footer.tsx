@@ -99,10 +99,18 @@ const Footer = () => {
                  target="_blank"
                  rel="noopener noreferrer"
                >
-                 DPC
+                 Declaración de Prácticas de Certificación
                </a>
              </li>
-            
+             <li className='hover:text-white transition-colors duration-200'>
+               <a 
+                 href="https://www.suscerte.gob.ve/wp-content/uploads/2025/02/Gaceta-Oficial.pdf"
+                 target="_blank"
+                 rel="noopener noreferrer"
+               >
+                 Gaceta Oficial
+               </a>
+             </li>
             </ul>
           </div>
 
