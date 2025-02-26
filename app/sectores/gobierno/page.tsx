@@ -105,9 +105,6 @@ export default function SectorGobierno() {
               <p className="text-xl text-gray-300 max-w-3xl mb-8">
                 Transforma y agiliza de manera segura documentos, formularios y contratos, asegurando que los servicios sean fácilmente accesibles y que los procesos se ejecuten sin contratiempos. Con Firmedigital, proporcionamos soluciones que permiten a las entidades gubernamentales ofrecer experiencias fluidas y eficientes.
               </p>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300">
-                Solicitar Demo
-              </button>
             </div>
             <div className="relative h-[400px] w-full">
               <motion.div

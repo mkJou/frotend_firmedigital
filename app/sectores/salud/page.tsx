@@ -26,9 +26,6 @@ export default function SectorSalud() {
               <p className="text-xl text-gray-300 max-w-3xl mb-8">
                 El sector salud está experimentando una transformación digital significativa. La E-salud representa una oportunidad para modernizar y optimizar los procesos hospitalarios en Venezuela. La gestión digital segura de datos médicos es clave para mejorar la eficiencia y competitividad de los centros de salud, cumpliendo con los requisitos legales y preparándose para el futuro digital.
               </p>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300">
-                Solicitar Demo
-              </button>
             </div>
             <div className="relative h-[400px] w-full">
               <motion.div

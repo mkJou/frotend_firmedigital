@@ -149,9 +149,6 @@ export default function SectorLegal() {
               <p className="hero-description text-xl text-gray-300 max-w-3xl mb-8">
                 Imagina tener un despacho legal a tu disposición las 24 horas del día, los 7 días de la semana, sin importar dónde te encuentras. Firmedigital  transforma esta visión en realidad, ofreciéndote una plataforma integral que optimiza y automatiza todos los aspectos de la gestión legal
               </p>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300">
-                Solicitar Demo
-              </button>
             </div>
             <div className="relative h-[400px] w-full">
               <motion.div
