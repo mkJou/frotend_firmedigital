@@ -37,9 +37,6 @@ export default function CuentasMultiples() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <button className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
-                  Solicitar Demo
-                </button>
               </motion.div>
             </motion.div>
             <motion.div

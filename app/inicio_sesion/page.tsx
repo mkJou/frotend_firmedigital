@@ -80,7 +80,7 @@ export default function InicioSesion() {
               </div>
 
               <Link
-                href="/recuperar-password"
+                href="#"
                 className="block text-sm text-blue-400 hover:text-blue-300 transition-colors text-right"
               >
                 ¿Olvidaste tu contraseña?

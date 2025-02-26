@@ -52,18 +52,6 @@ export default function CarnetDigital() {
               Un carnet digital personalizado es una identificación digital que contiene información específica de una persona, como su nombre, fotografía, cargo, empresa u organización a la que pertenece, y otros datos relevantes.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/contacto"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 w-full sm:w-auto"
-              >
-                Solicitar Demo
-              </Link>
-              <Link
-                href="/productos"
-                className="border border-white/20 hover:bg-white/10 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 w-full sm:w-auto"
-              >
-                Más Información
-              </Link>
             </div>
           </motion.div>
         </div>
