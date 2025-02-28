@@ -290,7 +290,7 @@ export default function Home() {
                 <>
                   <div className="hero-overlay inline-flex items-center space-x-2 bg-white/5 rounded-full px-3 py-1">
                     <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-                    <span className="text-sm text-gray-400">Firma Digital Avanzada</span>
+                    <span className="text-sm text-gray-400">Logística Digital</span>
                   </div>
                   
                   <h1 className="hero-title text-4xl lg:text-6xl font-bold tracking-tight">
