@@ -1,0 +1,1658 @@
+'use client';
+
+import React, { useEffect, useLayoutEffect, useRef, Suspense, useState } from 'react';
+import dynamic from 'next/dynamic';
+import MegaMenu from '@/components/MegaMenu';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { TextPlugin } from 'gsap/TextPlugin';
+import { 
+  TitleSkeleton, 
+  TextSkeleton, 
+  ButtonSkeleton,
+  CardSkeleton 
+} from '@/components/ui/Skeletons';
+import styles from './styles/FlipCard.module.css';
+import Image from 'next/image';
+import Modal from '@/components/Modal';
+import { IoShieldCheckmarkOutline, IoHeadsetOutline } from 'react-icons/io5';
+import { HiOutlineLockClosed } from 'react-icons/hi';
+
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, TextPlugin);
+}
+
+// Lazy load the features card component
+const FeaturesCard = dynamic(() => Promise.resolve(() => {
+  return (
+    <div className="relative feature-card">
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl blur-2xl" />
+      <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+        <h3 className="text-xl font-semibold mb-6">Características Principales</h3>
+        <div className="space-y-4">
+          {[
+            'Firma Electrónica',
+            'Gestor de Documentos',
+            'Tecnología Blockchain',
+            'Validación Instantánea',
+            'Almacenamiento Seguro'
+          ].map((feature, index) => (
+            <div 
+              key={index}
+              className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/5 transition-colors"
+            >
+              <div className="w-2 h-2 rounded-full bg-blue-400" />
+              <span>{feature}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}), {
+  loading: () => <CardSkeleton />
+});
+
+export default function Home() {
+  const mainRef = useRef<HTMLElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const featuresRef = useRef<HTMLElement>(null);
+  const textRef = useRef<HTMLElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showFeatures, setShowFeatures] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState({
+    title: '',
+    description: ''
+  });
+
+  const handleOpenModal = (title: string, description: string) => {
+    setModalContent({ title, description });
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    let ctx = gsap.context(() => {
+      if (!isLoading) {
+        // Animación inicial del hero
+        const heroTl = gsap.timeline({
+          defaults: { duration: 1, ease: 'power3.out' }
+        });
+        
+        if (document.querySelector('.hero-overlay')) {
+          heroTl
+            .from('.hero-overlay', {
+              opacity: 0,
+            })
+            .from('.hero-title', {
+              y: 100,
+              opacity: 0,
+              ease: 'power4.out'
+            })
+            .from('.hero-subtitle', {
+              y: 50,
+              opacity: 0,
+              duration: 0.8,
+            }, '-=0.5')
+            .from('.hero-button', {
+              scale: 0,
+              opacity: 0,
+              duration: 0.6,
+              ease: 'back.out(1.7)'
+            }, '-=0.3');
+        }
+
+        // Animación de texto typewriter
+        if (document.querySelector('.typewriter')) {
+          const words = ['Segura', 'Confiable', 'Innovadora'];
+          const typewriterTl = gsap.timeline({ repeat: -1 });
+          
+          words.forEach(word => {
+            typewriterTl
+              .to('.typewriter', {
+                duration: 1,
+                text: word,
+                ease: 'none'
+              })
+              .to('.typewriter', {
+                duration: 1,
+                opacity: 1
+              })
+              .to('.typewriter', {
+                duration: 1,
+                opacity: 0
+              });
+          });
+        }
+
+        // Animaciones scroll
+        const scrollAnimations = () => {
+          // Cards animación
+          if (document.querySelector('.feature-card')) {
+            gsap.from('.feature-card', {
+              scrollTrigger: {
+                trigger: '.feature-card',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              },
+              y: 50,
+              opacity: 0,
+              duration: 0.8,
+              stagger: 0.2
+            });
+          }
+
+          // Pricing cards animación
+          if (document.querySelector('.pricing-card')) {
+            gsap.from('.pricing-card', {
+              scrollTrigger: {
+                trigger: '.pricing-section',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              },
+              y: 50,
+              opacity: 0,
+              duration: 0.8,
+              stagger: 0.2
+            });
+          }
+
+          // Features animación
+          if (document.querySelector('.features-section')) {
+            gsap.from('.feature', {
+              scrollTrigger: {
+                trigger: '.features-section',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              },
+              y: 30,
+              opacity: 0,
+              duration: 0.6,
+              stagger: 0.2
+            });
+          }
+          
+          // Misión y Visión animación
+          if (document.querySelector('.mission-vision-section')) {
+            gsap.from('.mission-card', {
+              scrollTrigger: {
+                trigger: '.mission-vision-section',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              },
+              x: -50,
+              opacity: 0,
+              duration: 0.8,
+              ease: 'power3.out'
+            });
+            
+            gsap.from('.vision-card', {
+              scrollTrigger: {
+                trigger: '.mission-vision-section',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              },
+              x: 50,
+              opacity: 0,
+              duration: 0.8,
+              ease: 'power3.out'
+            });
+          }
+
+          // Contact section animación
+          if (document.querySelector('.contact-section')) {
+            gsap.from('.contact-section', {
+              scrollTrigger: {
+                trigger: '.contact-section',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+              },
+              y: 50,
+              opacity: 0,
+              duration: 1
+            });
+          }
+        };
+
+        // Iniciar animaciones de scroll
+        scrollAnimations();
+      }
+
+      // Cleanup
+      return () => {
+        ScrollTrigger.getAll().forEach(t => t.kill());
+      };
+    }, mainRef);
+
+    return () => {
+      ctx.revert();
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
+    // Efecto de seguimiento del mouse para el glow
+    const cards = document.querySelectorAll('.plan-card');
+    
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        card.style.setProperty('--mouse-x', `${x}%`);
+        card.style.setProperty('--mouse-y', `${y}%`);
+      });
+    });
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+  };
+
+  const CheckIcon = () => (
+    <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-500/20 text-green-500">
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+      </svg>
+    </span>
+  );
+
+  const XIcon = () => (
+    <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-500/20 text-red-500">
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </span>
+  );
+
+  return (
+    <main ref={mainRef} className="min-h-screen bg-[#000000] text-white overflow-hidden">
+      <MegaMenu />
+      
+      {/* Hero Section */}
+      <section ref={heroRef} className="relative pt-[200px] pb-[100px] overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 -left-4 w-[500px] h-[500px] bg-blue-500/20 rounded-full mix-blend-normal filter blur-[128px]" />
+          <div className="absolute bottom-0 -right-4 w-[500px] h-[500px] bg-purple-500/20 rounded-full mix-blend-normal filter blur-[128px]" />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-4 w-full pt-20">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left Content */}
+            <div className="space-y-8">
+              {isLoading ? (
+                <>
+                  <div className="w-40">
+                    <TextSkeleton />
+                  </div>
+                  <div className="space-y-4">
+                    <TitleSkeleton />
+                    <TitleSkeleton />
+                  </div>
+                  <div className="max-w-xl">
+                    <TextSkeleton />
+                  </div>
+                  <div className="w-40">
+                    <ButtonSkeleton />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="hero-overlay inline-flex items-center space-x-2 bg-white/5 rounded-full px-3 py-1">
+                    <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                    <span className="text-sm text-gray-400">Logística Digital</span>
+                  </div>
+                  
+                  <h1 className="hero-title text-4xl lg:text-6xl font-bold tracking-tight">
+                    Firma Digital
+                    <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                      Simple y Segura
+                    </span>
+                  </h1>
+
+                  <p className="hero-subtitle text-lg text-gray-400 max-w-xl">
+                    La solución perfecta para todas las empresas que necesitan una firma digital
+                    <span className="typewriter ml-2 inline-block min-w-[150px]"></span>
+                  </p>
+
+                  <div className="flex flex-wrap gap-4">
+                    <button className="hero-button w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                      Comenzar Ahora
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Right Content */}
+            <Suspense fallback={<CardSkeleton />}>
+              <FeaturesCard />
+            </Suspense>
+          </div>
+        </div>
+      </section>
+
+       {/* Misión y Visión Section */}
+       <section className="relative py-20 border-t border-white/5 mission-vision-section">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 -right-4 w-[400px] h-[400px] bg-blue-500/10 rounded-full mix-blend-normal filter blur-[100px]" />
+          <div className="absolute bottom-0 -left-4 w-[400px] h-[400px] bg-purple-500/10 rounded-full mix-blend-normal filter blur-[100px]" />
+        </div>
+        
+        <div className="mx-auto max-w-7xl px-4 relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 items-stretch">
+            {/* Misión */}
+            <div className="mission-card relative bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all duration-300 flex flex-col hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transform hover:-translate-y-1">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-gradient-to-br from-blue-500/20 to-blue-700/20 rounded-lg">
+                  <svg className="w-8 h-8 text-blue-400" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Nuestra Misión</h3>
+              </div>
+              <p className="text-gray-300 text-lg leading-relaxed flex-grow">
+              Proporcionar soluciones de certificación y firma electrónica innovadoras y seguras que faciliten la gestión de documentos digitales en Venezuela.
+
+              </p>
+              <div className="mt-6 w-1/3 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+            </div>
+            
+            {/* Visión */}
+            <div className="vision-card relative bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all duration-300 flex flex-col hover:shadow-[0_0_30px_rgba(147,51,234,0.2)] transform hover:-translate-y-1">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-gradient-to-br from-purple-500/20 to-purple-700/20 rounded-lg">
+                  <svg className="w-8 h-8 text-purple-400" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" strokeWidth="2"/>
+                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" strokeWidth="2"/>
+                    <path d="M12 8v1m0 6v1m4-4h-1m-6 0H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Nuestra Visión</h3>
+              </div>
+              <p className="text-gray-300 text-lg leading-relaxed flex-grow">
+              Ser la plataforma líder en certificación y firma electrónica en América Latina, reconocida por nuestra innovación continua y por brindar soluciones digitales que transforman la manera en que las empresas y los individuos gestionan y autenticar sus documentos. 
+              </p>
+              <div className="mt-6 w-1/3 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="relative border-t border-white/5 pricing-section">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+              Planes y Precios
+            </h2>
+            <p className="mt-4 text-xl text-gray-400">Soluciones flexibles para todas tus necesidades</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Emisión de Firma Electrónica */}
+            <div className={`${styles['flip-card']} relative group pricing-card`}
+                 onMouseMove={handleMouseMove}>
+              {isLoading ? (
+                <CardSkeleton />
+              ) : (
+                <div className={styles['flip-card-inner']}>
+                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
+                    <p className="text-gray-400 text-sm">Impulso al siguiente Nivel</p>
+                    <p className="text-gray-400 text-sm">Hasta 10 Creditos Anuales</p>
+                  </div>
+                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="flex flex-col h-full">
+                      <div className="flex-grow">
+                        <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
+                        <p className="text-gray-400 text-sm">Carga, publica y gestiona miles de docs.</p>
+                        <div className="flex flex-col items-center space-y-6 mb-8 mt-5">
+                          <div className="flex items-center justify-between w-full max-w-[280px]">
+                            <div className="flex items-center">
+                              <div className="relative">
+                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400/40 to-purple-400/40 relative">
+                                  <span className="absolute top-1/2 left-0 right-0 border-t-[3px] border-dashed border-purple-400/30 transform -rotate-6"></span>
+                                  $1
+                                </span>
+                              </div>
+                              <div className="ml-2 flex flex-col">
+                                <span className="text-gray-400/80 text-base">al mes</span>
+                                <span className="text-xs text-gray-500">precio regular</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-between w-full max-w-[280px]">
+                            <div className="flex items-center">
+                              <div className="relative">
+                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                  $10
+                                </span>
+                              </div>
+                              <div className="ml-2 flex flex-col">
+                                <span className="text-gray-400 text-base">anual</span>
+                                <span className="text-green-400 text-sm">¡Ahorra con el plan anual!</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-sm font-medium mb-4 text-blue-400 mt-10">¿QUÉ INCLUYE?</div>
+                        <ul className="space-y-4 mb-8">
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Firma Electrónica</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Gestor de Documentos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Trazabilidad</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Flujos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Multifirma</span>
+                          </li>
+                          
+                         
+                          
+                        </ul>
+                      </div>
+                      <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                        Comenzar Ahora
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Valor del Bloque */}
+            <div className={`${styles['flip-card']} relative group pricing-card`}
+                 onMouseMove={handleMouseMove}>
+              {isLoading ? (
+                <CardSkeleton />
+              ) : (
+                <div className={styles['flip-card-inner']}>
+                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/efficiency.svg" width="24" height="24" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
+                    <p className="text-gray-400 text-sm">Gestión Eficiente de Documentos</p>
+                    <p className="text-gray-400 text-sm">Hasta 200 Creditos Anuales</p>
+                  </div>
+                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/efficiency.svg" width="24" height="24" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="flex flex-col h-full">
+                      <div className="flex-grow">
+                        <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
+                        <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
+                        <div className="flex flex-col items-center space-y-6 mb-8">
+                          <div className="flex items-center justify-between w-full max-w-[280px]">
+                            <div className="flex items-center">
+                              <div className="relative">
+                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400/40 to-purple-400/40 relative">
+                                  <span className="absolute top-1/2 left-0 right-0 border-t-[3px] border-dashed border-purple-400/30 transform -rotate-6"></span>
+                                  $10
+                                </span>
+                              </div>
+                              <div className="ml-2 flex flex-col">
+                                <span className="text-gray-400/80 text-base">al mes</span>
+                                <span className="text-xs text-gray-500">precio regular</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-between w-full max-w-[280px]">
+                            <div className="flex items-center">
+                              <div className="relative">
+                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                  $100
+                                </span>
+                              </div>
+                              <div className="ml-2 flex flex-col">
+                                <span className="text-gray-400 text-base">anual</span>
+                                <span className="text-green-400 text-sm">¡Ahorra con el plan anual!</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
+                        <ul className="space-y-4 mb-8">
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Firma Electrónica</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Gestor de Documentos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Trazabilidad</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Flujos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Multifirma</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                        Comenzar Ahora
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Renovación de Certificados */}
+            <div className={`${styles['flip-card']} relative group pricing-card`}
+                 onMouseMove={handleMouseMove}>
+              {isLoading ? (
+                <CardSkeleton />
+              ) : (
+                <div className={styles['flip-card-inner']}>
+                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/organizacion.svg" width="24" height="24" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
+                    <p className="text-gray-400 text-sm">Mantén tus certificados emitidos al día.</p>
+                    <p className="text-gray-400 text-sm">Creditos Ilimitados.</p>
+                  </div>
+                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/organizacion.svg" width="24" height="24" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="flex flex-col h-full">
+                      <div className="flex-grow">
+                        <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
+                        <p className="text-gray-400 text-sm mb-2">Creditos Ilimitados</p>
+                        <div className="flex flex-col items-center space-y-6 mb-8">
+                          <div className="flex items-center justify-between w-full max-w-[280px]">
+                            <div className="flex items-center">
+                              <div className="relative">
+                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400/40 to-purple-400/40 relative">
+                                  <span className="absolute top-1/2 left-0 right-0 border-t-[3px] border-dashed border-purple-400/30 transform -rotate-6"></span>
+                                 
+                                </span>
+                              </div>
+                           
+                            </div>
+                          </div>
+                          <p className="text-gray-400 text-sm mb-6">Te ofrecemos soluciones personalizadas y eficientes para la seguridad y validación de tus documentos, adaptándonos a tus requerimientos específicos</p>
+                        </div>
+                        <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
+                        <ul className="space-y-4 mb-8">
+                        
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Firma Electrónica</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Gestor de Documentos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Trazabilidad</span>
+                          </li>
+                          
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Multifirma</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Flujos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>IA</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                        Comenzar Ahora
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Corporativo */}
+
+          </div>
+        </div>
+      </section>
+
+      {/* Sección de características detalladas */}
+      <div className="mt-16 max-w-7xl mx-auto px-4">
+        <div className="flex justify-center mb-8">
+          <button
+            onClick={() => setShowFeatures(!showFeatures)}
+            className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-[#0A0A0A] via-[#1A1A1A] to-[#0A0A0A] hover:from-blue-500/10 hover:via-purple-500/10 hover:to-blue-500/10 text-white rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 relative overflow-hidden group"
+          >
+            <span className="text-lg font-medium bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              {showFeatures ? 'Ocultar' : 'Mostrar'} todas las características
+            </span>
+            <svg
+              className={`w-5 h-5 transition-transform duration-300 ${
+                showFeatures ? 'rotate-180' : ''
+              }`}
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 9L12 15L18 9"
+                stroke="url(#arrow-gradient)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <defs>
+                <linearGradient id="arrow-gradient" x1="6" y1="9" x2="18" y2="15" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#60A5FA" />
+                  <stop offset="1" stopColor="#A78BFA" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-purple-500/5 to-blue-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </button>
+        </div>
+        <div
+          className={`transition-all duration-500 overflow-hidden ${
+            showFeatures ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="w-full overflow-x-auto rounded-none border border-white/10">
+          
+            <table className="w-full min-w-[800px] border-collapse">
+              
+              <thead>
+              <tr>
+                  <td colSpan={5} className="py-4 px-4 text-lg font-semibold text-white bg-[#1A1A1A] border-b border-white/10">
+                  Características principales de FIRMEDIGITAL
+                  </td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <th className="py-3 px-4 text-left text-base font-semibold">Características principales de Planes</th>
+                  <th className="py-3 px-4 text-center">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs text-purple-400 whitespace-nowrap">Plan Despegue</span>                     
+                      
+                    </div>
+                  </th>
+                  <th className="py-3 px-4 text-center bg-[#1A1A1A]/50">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs text-purple-400 whitespace-nowrap">Plan Élite</span>           
+                      
+                    </div>
+                  </th>
+                  <th className="py-3 px-4 text-center">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs text-purple-400 whitespace-nowrap">Plan Max</span>                   
+                    </div>
+                  </th>
+                  <th className="py-3 px-4 text-center">
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs text-purple-400 whitespace-nowrap">Creditos Adicionales</span>                      
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="text-sm titulo">
+                
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Sistema AR",
+                      `Facilita a los usuarios la gestión de certificados digitales y firmas electrónicas mediante una plataforma en línea intuitiva. Permite la emisión, renovación y verificación de documentos con seguridad avanzada, optimizando procesos de registro y validación para un acceso más rápido y eficiente.`
+                    )}
+                  >
+                    Sistema AR
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Módulo de Firma",
+                      `Nuestro módulo de firma ofrece:
+                      • Firma electrónica
+                      • Firma digital
+                      • Firma de documentos
+                      • Firma de contratos
+                      • Firma de acuerdos
+                      • Firma de informes
+                      • Firma de certificados
+                      • Firma de diplomas`
+                    )}
+                  >
+                    Módulo de Firma
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Firma Electrónica",
+                      `Nuestra firma electrónica ofrece:
+                      • Firma electrónica avanzada
+                      • Firma electrónica segura
+                      • Firma electrónica eficiente
+                      • Firma electrónica personalizada
+                      • Firma electrónica para documentos
+                      • Firma electrónica para contratos
+                      • Firma electrónica para acuerdos
+                      • Firma electrónica para informes`
+                    )}
+                  >
+                    Firma Electrónica
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>                
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Firma de Documentos",
+                      `Nuestra firma de documentos ofrece:
+                      • Firma de documentos electrónicos
+                      • Firma de documentos digitales
+                      • Firma de documentos en línea
+                      • Firma de documentos segura
+                      • Firma de documentos eficiente
+                      • Firma de documentos personalizada
+                      • Firma de documentos para empresas
+                      • Firma de documentos para individuos`
+                    )}
+                  >
+                    Firma de Documentos
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Editor de Documentos",
+                      `Nuestro editor de documentos ofrece:
+                      • Edición de documentos electrónicos
+                      • Edición de documentos digitales
+                      • Edición de documentos en línea
+                      • Edición de documentos segura
+                      • Edición de documentos eficiente
+                      • Edición de documentos personalizada
+                      • Edición de documentos para empresas
+                      • Edición de documentos para individuos`
+                    )}
+                  >
+                    Editor de Documentos
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Trazabilidad",
+                      `Nuestra trazabilidad ofrece:
+                      • Trazabilidad de documentos electrónicos
+                      • Trazabilidad de documentos digitales
+                      • Trazabilidad de documentos en línea
+                      • Trazabilidad de documentos segura
+                      • Trazabilidad de documentos eficiente
+                      • Trazabilidad de documentos personalizada
+                      • Trazabilidad de documentos para empresas
+                      • Trazabilidad de documentos para individuos`
+                    )}
+                  >
+                    Trazabilidad
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Cuentas Múltiples",
+                      `Nuestras cuentas múltiples ofrecen:
+                      • Cuentas múltiples para empresas
+                      • Cuentas múltiples para individuos
+                      • Cuentas múltiples para documentos electrónicos
+                      • Cuentas múltiples para documentos digitales
+                      • Cuentas múltiples para documentos en línea
+                      • Cuentas múltiples seguras
+                      • Cuentas múltiples eficientes
+                      • Cuentas múltiples personalizadas`
+                    )}
+                  >
+                    Cuentas Múltiples
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "IA",
+                      `Nuestra inteligencia artificial ofrece:
+                      • Inteligencia artificial para documentos electrónicos
+                      • Inteligencia artificial para documentos digitales
+                      • Inteligencia artificial para documentos en línea
+                      • Inteligencia artificial segura
+                      • Inteligencia artificial eficiente
+                      • Inteligencia artificial personalizada
+                      • Inteligencia artificial para empresas
+                      • Inteligencia artificial para individuos`
+                    )}
+                  >
+                    IA
+                  </td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+               
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Multifirma",
+                      `Nuestra multifirma ofrece:
+                      • Multifirma para documentos electrónicos
+                      • Multifirma para documentos digitales
+                      • Multifirma para documentos en línea
+                      • Multifirma segura
+                      • Multifirma eficiente
+                      • Multifirma personalizada
+                      • Multifirma para empresas
+                      • Multifirma para individuos`
+                    )}
+                  >
+                    Multifirma
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Análisis Personalizable",
+                      `Nuestro análisis personalizable ofrece:
+                      • Análisis personalizable para documentos electrónicos
+                      • Análisis personalizable para documentos digitales
+                      • Análisis personalizable para documentos en línea
+                      • Análisis personalizable seguro
+                      • Análisis personalizable eficiente
+                      • Análisis personalizable personalizado
+                      • Análisis personalizable para empresas
+                      • Análisis personalizable para individuos`
+                    )}
+                  >
+                    Análisis Personalizable
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Aplicaciones de Acceso",
+                      `Nuestras aplicaciones de acceso ofrecen:
+                      • Aplicaciones de acceso para documentos electrónicos
+                      • Aplicaciones de acceso para documentos digitales
+                      • Aplicaciones de acceso para documentos en línea
+                      • Aplicaciones de acceso seguras
+                      • Aplicaciones de acceso eficientes
+                      • Aplicaciones de acceso personalizadas
+                      • Aplicaciones de acceso para empresas
+                      • Aplicaciones de acceso para individuos`
+                    )}
+                  >
+                    Aplicaciones de Acceso
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Flujos e Integraciones",
+                      `Nuestros flujos e integraciones ofrecen:
+                      • Flujos e integraciones para documentos electrónicos
+                      • Flujos e integraciones para documentos digitales
+                      • Flujos e integraciones para documentos en línea
+                      • Flujos e integraciones seguras
+                      • Flujos e integraciones eficientes
+                      • Flujos e integraciones personalizadas
+                      • Flujos e integraciones para empresas
+                      • Flujos e integraciones para individuos`
+                    )}
+                  >
+                    Flujos e Integraciones
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className=" border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Almacenamiento de Documentos",
+                      `Nuestro almacenamiento de documentos ofrece:
+                      • Almacenamiento de documentos electrónicos
+                      • Almacenamiento de documentos digitales
+                      • Almacenamiento de documentos en línea
+                      • Almacenamiento de documentos seguro
+                      • Almacenamiento de documentos eficiente
+                      • Almacenamiento de documentos personalizado
+                      • Almacenamiento de documentos para empresas
+                      • Almacenamiento de documentos para individuos`
+                    )}
+                  >
+                    Almacenamiento de Documentos
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className=" border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Conoce a tus Clientes (KYC)",
+                      `el KYC es un proceso fundamental para garantizar la seguridad y la integridad del sistema financiero. Al conocer a sus clientes, las empresas pueden protegerse contra el fraude, el lavado de dinero y otros delitos financieros, al tiempo que cumplen con las regulaciones y construyen relaciones comerciales sólidas y confiables.`
+                    )}
+                  >
+                    Conoce a tus Clientes (KYC) 
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className=" border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Conozca a su Empresa (KYB)",
+                      `El KYB es un requisito legal para muchas empresas, especialmente en el sector financiero. También es una buena práctica para cualquier empresa que quiera protegerse de riesgos y construir relaciones comerciales seguras.`
+                    )}
+                  >
+                    Conozca a su Empresa (KYB) 
+                  </td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><XIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+              </tbody>
+              <thead>
+              <tr>
+                  <td colSpan={5} className="py-4 px-4 text-lg font-semibold text-white bg-[#1A1A1A] border-b border-white/10">
+                  Gestor de Documentos
+                  </td>
+                </tr>
+                
+                
+              </thead>
+              <tbody className="text-sm titulo">
+                
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Gestión de Condiciones",
+                      `Otorgue control legal sobre cada versión de sus términos en línea`
+                    )}
+                  >
+                    Gestión de Condiciones
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "API",
+                      `Acceso a tus Documentos de manera facil facilitando la integración de tus documentos con otras aplicaciones.`
+                    )}
+                  >
+                    API
+                  </td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><XIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Formatos de Documentos Soportados",
+                      `Nuestro gestor de documentos soporta los formatos más populares para la gestión online de documentos:
+                      • Documentos de Office: DOC, DOCX, XLS, XLSX, PPT, PPTX
+                      • PDF y PDF/A
+                      • Imágenes: JPG, JPEG, PNG, TIFF, BMP
+                      • Documentos de texto: TXT, RTF
+                      • Documentos web: HTML
+                      • Documentos comprimidos: ZIP, RAR
+                      • Documentos de diseño: DWG, DXF
+                      • Documentos de correo: EML, MSG
+                      
+                      Todos los documentos son procesados y optimizados para su visualización online, manteniendo la integridad y seguridad del documento original.`
+                    )}
+                  >
+                    Formatos de Documentos Soportados
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Asistentes (agentes IA)",
+                      `Accede a agentes especializados, diseñados para cada tipo de documento y estructura organizacional, optimizando así la gestión documental en cada etapa del proceso.`
+                    )}
+                  >
+                    Asistentes (agentes IA)
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td 
+                    className="py-3 px-4"
+                    onClick={() => handleOpenModal(
+                      "Ciclo de Vida de Documento (CML)",
+                      `Sigue el proceso que atraviesa un documento desde su creación hasta su archivo o destrucción. Comprender y gestionar este ciclo es fundamental para cualquier organización, ya que permite optimizar el manejo de la información, reducir costos y garantizar el cumplimiento normativo.`
+                    )}
+                  >
+                    Ciclo de Vida de Documento (CML)
+                  </td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                </tr>
+
+               
+              </tbody>
+            </table>
+          </div>
+        
+        </div>
+      </div>
+{/* Banner Validador de Documentos */}
+<section className="relative mt-24 mb-16">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="relative overflow-hidden rounded-2xl bg-[#0A0A0A] border border-white/10">
+            <div className="absolute inset-0">
+              <div className="absolute top-0 -left-4 w-[500px] h-[500px] bg-blue-500/20 rounded-full mix-blend-normal filter blur-[128px]" />
+              <div className="absolute bottom-0 -right-4 w-[500px] h-[500px] bg-purple-500/20 rounded-full mix-blend-normal filter blur-[128px]" />
+            </div>
+            <div className="relative grid lg:grid-cols-2 gap-8 items-center p-8 lg:p-12">
+              <div className="space-y-6">
+                <h2 className="text-3xl lg:text-4xl font-bold">
+                  Validador de
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                    Documentos Digitales
+                  </span>
+                </h2>
+                <p className="text-gray-400 text-lg">
+                  Verifica la autenticidad de tus documentos firmados digitalmente de manera rápida y segura.
+                </p>
+                
+              </div>
+              <div className="relative flex justify-center">
+                <div className="relative w-full max-w-[400px] aspect-square">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl blur-2xl" />
+                  <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 h-full flex items-center justify-center">
+                    <Image
+                      src="/images/Validador de documentos.jpeg"
+                      alt="Validador de documentos"
+                      width={400}
+                      height={400}
+                      className="rounded-xl object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Nuestras Soluciones Digitales Section */}
+      <div className="max-w-7xl mx-auto py-10 px-4">
+        <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text">
+          Nuestras Soluciones Digitales
+        </h2>
+        <div className="tag-list mx-auto">
+          <div className="loop-slider" style={{ "--duration": "15951ms", "--direction": "normal" } as React.CSSProperties}>
+            <div className="inner">
+              <div className="tag  rounded-xl"><span>#</span> Firma Digital</div>
+              <div className="tag  rounded-xl"><span>#</span> Certificados</div>
+              <div className="tag  rounded-xl"><span>#</span> Seguridad</div>
+              <div className="tag  rounded-xl"><span>#</span> Blockchain</div>
+              <div className="tag  rounded-xl"><span>#</span> Trazabilidad</div>
+              <div className="tag  rounded-xl"><span>#</span> Firma Digital</div>
+              <div className="tag  rounded-xl"><span>#</span> Certificados</div>
+              <div className="tag  rounded-xl"><span>#</span> Seguridad</div>
+              <div className="tag  rounded-xl"><span>#</span> Blockchain</div>
+              <div className="tag  rounded-xl"><span>#</span> Trazabilidad</div>
+            </div>
+          </div>
+          <div className="loop-slider" style={{ "--duration": "19260ms", "--direction": "reverse" } as React.CSSProperties}>
+            <div className="inner">
+              <div className="tag rounded-xl"><span>#</span> Autenticación</div>
+              <div className="tag rounded-xl"><span>#</span> Validación</div>
+              <div className="tag rounded-xl"><span>#</span> Documentos</div>
+              <div className="tag rounded-xl"><span>#</span> Encriptación</div>
+              <div className="tag rounded-xl"><span>#</span> Seguridad</div>
+              <div className="tag rounded-xl"><span>#</span> Autenticación</div>
+              <div className="tag rounded-xl"><span>#</span> Validación</div>
+              <div className="tag rounded-xl"><span>#</span> Documentos</div>
+              <div className="tag rounded-xl"><span>#</span> Encriptación</div>
+              <div className="tag rounded-xl"><span>#</span> Seguridad</div>
+            </div>
+          </div>
+          <div className="loop-slider" style={{ "--duration": "10449ms", "--direction": "normal" } as React.CSSProperties}>
+            <div className="inner">
+              <div className="tag"><span>#</span> Innovación</div>
+              <div className="tag"><span>#</span> Digital</div>
+              <div className="tag"><span>#</span> Confianza</div>
+              <div className="tag"><span>#</span> Eficiencia</div>
+              <div className="tag"><span>#</span> Futuro</div>
+              <div className="tag"><span>#</span> Innovación</div>
+              <div className="tag"><span>#</span> Digital</div>
+              <div className="tag"><span>#</span> Confianza</div>
+              <div className="tag"><span>#</span> Eficiencia</div>
+              <div className="tag"><span>#</span> Futuro</div>
+            </div>
+          </div>
+          <div className="fade"></div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .tag-list {
+          width: 90%;
+          max-width: 1200px;
+          display: flex;
+          flex-shrink: 0;
+          flex-direction: column;
+          gap: 1rem 0;
+          position: relative;
+          padding: 1.5rem 0;
+          overflow: hidden;
+          mask-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 1) 85%,
+            rgba(0, 0, 0, 0) 100%
+          );
+        }
+
+        .loop-slider .inner {
+          display: flex;
+          width: fit-content;
+          animation-name: loop;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-direction: var(--direction);
+          animation-duration: var(--duration);
+        }
+
+        .tag {
+          display: flex;
+          align-items: center;
+          gap: 0 0.2rem;
+          color: #e2e8f0;
+          font-size: 1rem;
+          background-color: rgba(15, 23, 42, 0.5);
+          border-radius: 0;
+          padding: 0.7rem 1rem;
+          margin-right: 1rem;
+          box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2),
+            0 0.1rem 0.5rem rgba(0, 0, 0, 0.3),
+            0 0.2rem 1.5rem rgba(0, 0, 0, 0.4);
+          backdrop-filter: blur(10px);
+          transition: all 0.3s ease;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          position: relative;
+          isolation: isolate;
+          overflow: hidden;
+        }
+
+        .tag::before {
+          content: '';
+          position: absolute;
+          inset: -1px;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(96, 165, 250, 0.1),
+            rgba(168, 85, 247, 0.1),
+            transparent
+          );
+          z-index: -1;
+          animation: border-glow 3s linear infinite;
+        }
+
+        .tag::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: rgba(15, 23, 42, 0.5);
+          border-radius: 0;
+          z-index: -1;
+        }
+
+        .tag:hover {
+          transform: translateY(-2px);
+          background-color: rgba(15, 23, 42, 0.7);
+          box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.3),
+            0 0.2rem 1rem rgba(0, 0, 0, 0.4),
+            0 0.4rem 2rem rgba(0, 0, 0, 0.5);
+        }
+
+        .tag:hover::before {
+          animation: border-glow 1.5s linear infinite;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(96, 165, 250, 0.2),
+            rgba(168, 85, 247, 0.2),
+            transparent
+          );
+        }
+
+        .tag span {
+          font-size: 1.2rem;
+          color: #60a5fa;
+          position: relative;
+          z-index: 1;
+        }
+
+        .fade {
+          pointer-events: none;
+          background: linear-gradient(
+              to bottom,
+              #000,
+              transparent 30%,
+              transparent 70%,
+              #000
+            ),
+            linear-gradient(to right, transparent 0%, transparent 85%, #000);
+          position: absolute;
+          inset: 0;
+        }
+
+        @keyframes border-glow {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        @keyframes loop {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        title={modalContent.title}
+      >
+        <div className="whitespace-pre-line">
+          {modalContent.description}
+        </div>
+      </Modal>
+
+      {/* Contact Section */}
+      <section className="relative border-t border-white/5 contact-section my-10  ">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-none blur-xl" />
+            <div className="relative bg-[#0A0A0A] border border-white/10 rounded-1xl p-8 lg:p-12">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                  <h2 className="text-3xl font-bold mb-4">Conecta con nosotros</h2>
+                  <p className="text-gray-400 mb-8">
+                    Cuéntanos tus necesidades.
+                  </p>
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center">
+                        <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <span className="text-gray-300">info@firmedigital.com</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center">
+                        <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                      </div>
+                      <span className="text-gray-300">(+58) 424-7100380</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-2xl blur-xl" />
+                  <div className="relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-6">
+                    <form className="space-y-4">
+                      {isLoading ? (
+                        <>
+                          <input
+                            type="text"
+                            placeholder="Nombre Completo"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            disabled
+                          />
+                          <input
+                            type="email"
+                            placeholder="Correo Electronico"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            disabled
+                          />
+                          <textarea
+                            placeholder="Mensaje"
+                            rows={4}
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            disabled
+                          />
+                          <button
+                            type="submit"
+                            className="w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-2xl hover:opacity-90 transition-opacity"
+                            disabled
+                          >
+                            Enviar Mensaje
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <input
+                            type="text"
+                            placeholder="Nombre Completo"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                          />
+                          <input
+                            type="email"
+                            placeholder="Correo Electronico"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                          />
+                          <textarea
+                            placeholder="Mensaje"
+                            rows={4}
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                          />
+                          <button
+                            type="submit"
+                            className="w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-2xl hover:opacity-90 transition-opacity"
+                          >
+                            Enviar Mensaje
+                          </button>
+                        </>
+                      )}
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+{/* Por qué elegirnos */}
+      <section className="px-4 md:px-8 py-16 bg-gray-900">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold mb-12 text-center">Por qué Elegir Firmedigital</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                  <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                    <IoShieldCheckmarkOutline className="text-4xl text-blue-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold">Tecnología Avanzada</h3>
+                </div>
+                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                    <IoShieldCheckmarkOutline className="text-4xl text-blue-400" />
+                  </div>
+                  <p className="text-gray-300 text-center">Tecnología de punta para máxima seguridad.</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                  <div className="w-16 h-16 mx-auto bg-purple-500/10 rounded-full flex items-center justify-center mb-4">
+                    <HiOutlineLockClosed className="text-4xl text-purple-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold">Confianza y Confiabilidad</h3>
+                </div>
+                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="w-16 h-16 mx-auto bg-purple-500/10 rounded-full flex items-center justify-center mb-4">
+                    <HiOutlineLockClosed className="text-4xl text-purple-400" />
+                  </div>
+                  <p className="text-gray-300 text-center">Años de experiencia y éxito comprobado.</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
+                  <div className="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center mb-4">
+                    <IoHeadsetOutline className="text-4xl text-green-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold">Soporte Dedicado</h3>
+                </div>
+                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center mb-4">
+                    <IoHeadsetOutline className="text-4xl text-green-400" />
+                  </div>
+                  <p className="text-gray-300 text-center">Soporte experto disponible cuando lo necesites.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Footer */}
+    </main>
+  );
+}
