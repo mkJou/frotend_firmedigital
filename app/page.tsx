@@ -33,10 +33,10 @@ const FeaturesCard = dynamic(() => Promise.resolve(() => {
         <div className="space-y-4">
           {[
             'Firma Electrónica',
-            'Gestor de Documentos',
-            'Tecnología Blockchain',
             'Validación Instantánea',
-            'Almacenamiento Seguro'
+            'Verificación de identidad',
+            'Autenticación + Uso compartido de datos',
+            'Gestor de Documentos',          
           ].map((feature, index) => (
             <div 
               key={index}
