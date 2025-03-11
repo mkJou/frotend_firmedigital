@@ -365,15 +365,7 @@ export default function CuentasMultiples() {
                 <FaQuestionCircle className="text-4xl text-blue-500 mr-4" />
                 <h2 className="text-3xl font-bold">Preguntas Frecuentes</h2>
               </div>
-              <motion.a 
-                href="#"
-                whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(59,130,246,0.4)" }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                className="px-4 sm:px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium rounded-lg transition-all duration-300 text-center whitespace-nowrap"
-              >
-                Preguntas Personalizadas
-              </motion.a>
+             
             </div>
             <div className="space-y-4">
               {faqs.map((faq, index) => (

@@ -88,7 +88,7 @@ export default function Analisis() {
       {/* Hero Section */}
       <section className="relative pt-20 md:pt-32 pb-12 md:pb-16 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col items-center justify-center text-center mb-12">
+          <div className="flex flex-col items-center justify-center text-center mb-12" style={{ paddingTop: '4rem' }}>
             <div className="flex items-center gap-4 mb-6">
               <FaChartLine className="text-4xl md:text-5xl text-blue-500" />
               <motion
@@ -280,12 +280,7 @@ export default function Analisis() {
                 <FaQuestionCircle className="text-4xl text-blue-500 mr-4" />
                 <h2 className="text-3xl font-bold">Preguntas Frecuentes</h2>
               </div>
-              <a 
-                href="#"
-                className="px-4 sm:px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium rounded-lg hover:opacity-90 transition-all duration-300 transform hover:scale-105 text-center whitespace-nowrap"
-              >
-                Preguntas Personalizadas
-              </a>
+              
             </div>
             <div className="space-y-4">
               {faqs.map((faq, index) => (

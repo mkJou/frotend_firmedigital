@@ -74,31 +74,9 @@ export default function GestorDocumentos() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 blur-3xl" />
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="mb-8">
-            <nav className="flex" aria-label="Breadcrumb">
-              <ol className="inline-flex items-center space-x-1 md:space-x-3">
-                <li className="inline-flex items-center">
-                  <Link href="/" className="text-gray-400 hover:text-white">
-                    Inicio
-                  </Link>
-                </li>
-                <li>
-                  <div className="flex items-center">
-                    <span className="text-gray-400 mx-2">/</span>
-                    <Link href="/productos" className="text-gray-400 hover:text-white">
-                      Productos
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center">
-                    <span className="text-gray-400 mx-2">/</span>
-                    <span className="text-white">Gestor de Documentos</span>
-                  </div>
-                </li>
-              </ol>
-            </nav>
+            
           </div>
-          <div className="flex flex-col items-center justify-center gap-12">
+          <div className="flex flex-col items-center justify-center gap-12"  style={{ paddingTop: '3rem' }}>
             <div className="text-center">
               <div className="flex flex-col items-center justify-center gap-4 mb-6 md:mb-8">
                 <HiOutlineDocumentText className="text-4xl md:text-5xl text-blue-500" />

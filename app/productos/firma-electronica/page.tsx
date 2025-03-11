@@ -686,12 +686,7 @@ export default function FirmaElectronica() {
                 <FaQuestionCircle className="text-4xl text-blue-500 mr-4" />
                 <h2 className="text-3xl font-bold">Preguntas Frecuentes</h2>
               </div>
-              <a 
-                href="#"
-                className="px-4 sm:px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium rounded-lg hover:opacity-90 transition-all duration-300 transform hover:scale-105 text-center whitespace-nowrap"
-              >
-                Preguntas Personalizadas
-              </a>
+              
             </div>
             <div className="space-y-4">
               {faqs.map((faq, index) => (
