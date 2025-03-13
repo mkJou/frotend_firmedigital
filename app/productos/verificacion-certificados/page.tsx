@@ -276,27 +276,37 @@ export default function VerificacionCertificados() {
                     {searchResult.message}
                   </h3>
                   {searchResult.valid && searchResult.details && (
-                    <div className="mt-4 overflow-x-auto">
-                      <table className="min-w-full divide-y divide-gray-700">
-                        <thead>
-                          <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Estado</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Expiración</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Serial</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Nombre</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-700">
-                          {searchResult.details.map((cert, index) => (
-                            <tr key={index} className={index % 2 === 0 ? 'bg-gray-900/50' : 'bg-gray-800/50'}>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{cert.state}</td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{cert.expirationTime}</td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{cert.serial}</td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{cert.name}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                    <div className="mt-4 space-y-4">
+                      {searchResult.details.map((cert, index) => {
+                        const numberWords = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+                        const numberWord = index < numberWords.length ? numberWords[index] : (index + 1).toString();
+                        
+                        return (
+                          <div key={index} className="p-4 bg-gray-800/50 rounded-lg border border-gray-700/50 hover:border-blue-500/30 transition-colors">
+                            <div className="flex items-center gap-4">
+                              <span className="text-blue-400 font-medium capitalize">{numberWord}</span>
+                              <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                  <span className="text-gray-400">Estado: </span>
+                                  <span className="text-white">{cert.state}</span>
+                                </div>
+                                <div>
+                                  <span className="text-gray-400">Expiración: </span>
+                                  <span className="text-white">{cert.expirationTime}</span>
+                                </div>
+                                <div>
+                                  <span className="text-gray-400">Serial: </span>
+                                  <span className="text-white">{cert.serial}</span>
+                                </div>
+                                <div>
+                                  <span className="text-gray-400">Nombre: </span>
+                                  <span className="text-white">{cert.name}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                   {searchResult && !searchResult.valid && (
