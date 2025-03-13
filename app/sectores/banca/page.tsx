@@ -220,7 +220,7 @@ export default function SectorBanca() {
           <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">¿Cómo se Integra?</h2>
           <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
             <p className="text-gray-300 text-lg text-center leading-relaxed">
-              "Banca y Finanzas" se basa en la plataforma de Firmedigital, aprovechando sus funcionalidades de firma electrónica, gestión documental y flujo de trabajo. Se agregan módulos y herramientas específicas para el sector bancario y financiero, creando una solución integral y personalizada que se adapta a las necesidades de cada institución.
+              "Banca y Finanzas" se basa en la plataforma de FIRMEDIGITAL, aprovechando sus funcionalidades de firma electrónica, gestión documental y flujo de trabajo. Se agregan módulos y herramientas específicas para el sector bancario y financiero, creando una solución integral y personalizada que se adapta a las necesidades de cada institución.
             </p>
           </div>
         </div>

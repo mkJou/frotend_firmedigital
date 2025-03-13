@@ -319,12 +319,6 @@ export default function Ingenieros() {
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 0.5 + index * 0.1 }}
                   >
-                    <span className="text-blue-400 text-sm font-medium inline-flex items-center group-hover:text-white transition-colors duration-300">
-                      Ver caso completo
-                      <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </span>
                   </motion.div>
                 </div>
               </motion.div>
@@ -339,13 +333,6 @@ export default function Ingenieros() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-gray-300 mb-6">¿Quieres conocer más casos de éxito en el sector de ingeniería?</p>
-            <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-colors duration-300 shadow-lg hover:shadow-blue-500/30 flex items-center mx-auto">
-              Solicitar demostración
-              <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </button>
           </motion.div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useLayoutEffect, useRef, Suspense, useState } from 'react';
+import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import MegaMenu from '@/components/MegaMenu';
 import gsap from 'gsap';
@@ -333,9 +334,9 @@ export default function Home() {
                   </p>
 
                   <div className="flex flex-wrap gap-4">
-                    <button className="hero-button w-full lg:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
-                      Comenzar Ahora
-                    </button>
+                    <Link href="https://appdev.firmedigital.com.ve/api/auth/signup" className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-200 transform hover:scale-105">
+                     Comenzar Ahora
+                    </Link>
                   </div>
                 </>
               )}
@@ -516,9 +517,9 @@ export default function Home() {
                           
                         </ul>
                       </div>
-                      <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                      <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
                         Comenzar Ahora
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -631,9 +632,9 @@ export default function Home() {
                           </li>
                         </ul>
                       </div>
-                      <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                      <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
                         Comenzar Ahora
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -739,9 +740,9 @@ export default function Home() {
                           </li>
                         </ul>
                       </div>
-                      <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                      <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
                         Comenzar Ahora
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -1278,6 +1279,9 @@ export default function Home() {
                 <p className="text-gray-400 text-lg">
                   Verifica la autenticidad de tus documentos firmados digitalmente de manera rápida y segura.
                 </p>
+                <Link href="/productos/verificacion-certificados" className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-200 transform hover:scale-105">
+                  Validar Documento
+                </Link>
                 
               </div>
               <div className="relative flex justify-center">

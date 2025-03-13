@@ -389,9 +389,9 @@ export default function FirmaElectronica() {
                           
                         </ul>
                       </div>
-                      <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                      <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
                         Comenzar Ahora
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -504,9 +504,9 @@ export default function FirmaElectronica() {
                           </li>
                         </ul>
                       </div>
-                      <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                      <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
                         Comenzar Ahora
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -612,9 +612,9 @@ export default function FirmaElectronica() {
                           </li>
                         </ul>
                       </div>
-                      <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                      <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
                         Comenzar Ahora
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>

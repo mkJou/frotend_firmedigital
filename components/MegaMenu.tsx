@@ -47,12 +47,14 @@ interface MenuItem {
   description?: string;
   href?: string;
   onClick?: () => void;
+  target?: string;
 }
 
 interface MenuSection {
   title: string;
   subItems?: MenuItem[];
   href?: string;
+  target?: string;
 }
 
 const menuData: MenuSection[] = [
@@ -213,7 +215,8 @@ const menuData: MenuSection[] = [
   },
   {
     title: 'BLOG',
-    href: '/blog'
+    href: 'https://blog.firmedigital.com.ve/firmedigital',
+    target: '_blank'
   },
   {
     title: 'RECURSOS',
@@ -426,13 +429,13 @@ export default function MegaMenu() {
             {/* Desktop Auth Buttons */}
             <div className="flex items-center space-x-4">
               <Link 
-                href="/inicio_sesion" 
+                href="https://appdev.firmedigital.com.ve/api/auth/signup" 
                 className="px-6 py-2 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
               >
                 Iniciar Sesión
               </Link>
               <Link 
-                href="/registro" 
+                href="https://appdev.firmedigital.com.ve/api/auth/signup" 
                 className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
               >
                 Registrarse

@@ -80,36 +80,79 @@ export default function VerificacionCertificados() {
     setActiveQuestion(activeQuestion === index ? null : index);
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (!searchType || !searchCode) {
       return;
     }
 
     setIsSearching(true);
-    
-    // Simulación de búsqueda - en un entorno real, esto sería una llamada a una API
-    setTimeout(() => {
-      // Ejemplo de resultado - en producción esto vendría del backend
-      if (searchCode === '12345678') {
+    setSearchResult(null);
+
+    const queryTypes = {
+      '0': 'ci',
+      '1': 'name',
+      '2': 'serial',
+      '3': 'email'
+    };
+
+    try {
+      const queryParam = queryTypes[searchType];
+      console.log('Search Parameters:', { type: queryTypes[searchType], code: searchCode });
+      const apiUrl = `https://ca.firmedigital.com/api/v1/certificate/list?${queryParam}=${encodeURIComponent(searchCode.toLowerCase())}`;
+      console.log('API URL:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Origin': 'http://localhost:4200'
+        }
+      });
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Server Error:', { status: response.status, statusText: response.statusText, body: errorText });
+        throw new Error(`Error del servidor: ${response.status} - ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('Raw API Response:', data);
+
+      let certificates = [];
+      if (data && data.certificates && data.certificates.certs) {
+        certificates = data.certificates.certs;
+      }
+
+      if (certificates.length > 0) {
         setSearchResult({
           valid: true,
-          message: 'Certificado válido',
-          details: {
-            nombre: 'Juan Pérez',
-            tipo: 'Certificado de Persona Física',
-            emision: '01/01/2023',
-            caducidad: '01/01/2025',
-            emisor: 'FIRMEDIGITAL PSC'
-          }
+          message: 'Certificados encontrados',
+          details: certificates.map(cert => ({
+            state: cert.state || 'No disponible',
+            expirationTime: cert.expirationTime || 'No disponible',
+            serial: cert.serial || 'No disponible',
+            name: cert.additional?.O || 'No disponible'
+          }))
         });
       } else {
         setSearchResult({
           valid: false,
-          message: 'No se encontró ningún certificado con los datos proporcionados'
+          message: 'No se encontraron certificados',
+          details: null
         });
       }
+    } catch (error) {
+      console.error('Error en la verificación:', error);
+      setSearchResult({
+        valid: false,
+        message: `Error al verificar el certificado: ${error.message || 'Por favor, intente nuevamente.'}`
+      });
+    } finally {
       setIsSearching(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -198,7 +241,7 @@ export default function VerificacionCertificados() {
                       placeholder="Introduce tu código" 
                       type="text" 
                       name="certificate-code"
-                      value={searchCode}
+                      value={searchCode.toLowerCase()}
                       onChange={(e) => setSearchCode(e.target.value)}
                     />
                     <button 
@@ -228,28 +271,46 @@ export default function VerificacionCertificados() {
                 ) : (
                   <FaTimesCircle className="text-3xl text-red-500 flex-shrink-0 mt-1" />
                 )}
-                <div>
+                <div className="w-full">
                   <h3 className={`text-xl font-bold ${searchResult.valid ? 'text-green-400' : 'text-red-400'}`}>
                     {searchResult.message}
                   </h3>
                   {searchResult.valid && searchResult.details && (
-                    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <p className="text-gray-300"><span className="font-semibold">Nombre:</span> {searchResult.details.nombre}</p>
-                        <p className="text-gray-300"><span className="font-semibold">Tipo:</span> {searchResult.details.tipo}</p>
-                        <p className="text-gray-300"><span className="font-semibold">Emisor:</span> {searchResult.details.emisor}</p>
-                      </div>
-                      <div className="space-y-2">
-                        <p className="text-gray-300"><span className="font-semibold">Fecha de emisión:</span> {searchResult.details.emision}</p>
-                        <p className="text-gray-300"><span className="font-semibold">Fecha de caducidad:</span> {searchResult.details.caducidad}</p>
-                        <p className="text-green-400 font-semibold">Certificado válido y vigente</p>
-                      </div>
+                    <div className="mt-4 overflow-x-auto">
+                      <table className="min-w-full divide-y divide-gray-700">
+                        <thead>
+                          <tr>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Estado</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Expiración</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Serial</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Nombre</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-700">
+                          {searchResult.details.map((cert, index) => (
+                            <tr key={index} className={index % 2 === 0 ? 'bg-gray-900/50' : 'bg-gray-800/50'}>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{cert.state}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{cert.expirationTime}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{cert.serial}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{cert.name}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
                   )}
-                  {!searchResult.valid && (
-                    <p className="mt-2 text-gray-300">
-                      No se ha encontrado ningún certificado con los datos proporcionados. Por favor, verifica la información e intenta nuevamente.
-                    </p>
+                  {searchResult && !searchResult.valid && (
+                    <div className="mt-4 p-4 bg-red-900/20 border border-red-500/30 rounded-lg flex items-start gap-3">
+                      <FaTimesCircle className="text-red-500 text-xl flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="text-red-400 font-medium mb-2">No se encontraron certificados</p>
+                        <p className="text-gray-300 text-sm">
+                          No se ha encontrado ningún certificado con los datos proporcionados. 
+                          Por favor, verifica que la información ingresada sea correcta e intenta nuevamente.
+                          Si el problema persiste, puedes intentar con otro tipo de búsqueda.
+                        </p>
+                      </div>
+                    </div>
                   )}
                 </div>
               </div>
