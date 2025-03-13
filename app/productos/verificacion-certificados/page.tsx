@@ -125,17 +125,42 @@ export default function VerificacionCertificados() {
       if (data && data.certificates && data.certificates.certs) {
         certificates = data.certificates.certs;
       }
-
-      if (certificates.length > 0) {
+      console.log(data.certs.length)
+      let certificateDetails = []
+      var i
+      if (data.certs.length > 0) {
+        for (i=0; i<data.certs.length; i++) {
+          for (var j = 0; j < data.certs[i].aditional.length; j++) {
+            if (data.certs[i].aditional[j].O) { // Verifica si la clave 'O' existe
+              var name = data.certs[i].aditional[j].O; // Captura el valor de 'O'
+              console.log("El valor de O es:", name);
+              break; // Salir del bucle si se encuentra
+            }
+          }
+          for (var j = 0; j < data.certs[i].aditional.length; j++) {
+            if (data.certs[i].aditional[j].serialNumber) { // Verifica si la clave 'O' existe
+              var serial = data.certs[i].aditional[j].serialNumber; // Captura el valor de 'O'
+              console.log("El valor de O es:", name);
+              break; // Salir del bucle si se encuentra
+            }
+          }
+          if(data.certs[i].state=="V"){
+            var s="Vigente"
+          }else{
+            var s="Revocado"
+          }
+          certificateDetails.push({
+            state: s || 'No disponible',
+            expirationTime: data.certs[i].expirationTime || 'No disponible',
+            serial: data.certs[i].serial || 'No disponible',
+            name: name || 'No disponible'
+          });
+      }
+      console.log(certificateDetails)
         setSearchResult({
           valid: true,
           message: 'Certificados encontrados',
-          details: certificates.map(cert => ({
-            state: cert.state || 'No disponible',
-            expirationTime: cert.expirationTime || 'No disponible',
-            serial: cert.serial || 'No disponible',
-            name: cert.additional?.O || 'No disponible'
-          }))
+          details: certificateDetails
         });
       } else {
         setSearchResult({
@@ -277,36 +302,31 @@ export default function VerificacionCertificados() {
                   </h3>
                   {searchResult.valid && searchResult.details && (
                     <div className="mt-4 space-y-4">
-                      {searchResult.details.map((cert, index) => {
-                        const numberWords = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
-                        const numberWord = index < numberWords.length ? numberWords[index] : (index + 1).toString();
-                        
-                        return (
-                          <div key={index} className="p-4 bg-gray-800/50 rounded-lg border border-gray-700/50 hover:border-blue-500/30 transition-colors">
-                            <div className="flex items-center gap-4">
-                              <span className="text-blue-400 font-medium capitalize">{numberWord}</span>
-                              <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                  <span className="text-gray-400">Estado: </span>
-                                  <span className="text-white">{cert.state}</span>
-                                </div>
-                                <div>
-                                  <span className="text-gray-400">Expiración: </span>
-                                  <span className="text-white">{cert.expirationTime}</span>
-                                </div>
-                                <div>
-                                  <span className="text-gray-400">Serial: </span>
-                                  <span className="text-white">{cert.serial}</span>
-                                </div>
-                                <div>
-                                  <span className="text-gray-400">Nombre: </span>
-                                  <span className="text-white">{cert.name}</span>
-                                </div>
+                      {searchResult.details.map((cert, index) => (
+                        <div key={index} className="p-4 bg-gray-800/50 rounded-lg border border-gray-700/50 hover:border-blue-500/30 transition-colors">
+                          <div className="flex items-center gap-4">
+                            <span className="text-blue-400 font-medium">#{index + 1}</span>
+                            <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <span className="text-gray-400">Estado: </span>
+                                <span className="text-white">{cert.state}</span>
+                              </div>
+                              <div>
+                                <span className="text-gray-400">Expiración: </span>
+                                <span className="text-white">{cert.expirationTime}</span>
+                              </div>
+                              <div>
+                                <span className="text-gray-400">Serial: </span>
+                                <span className="text-white">{cert.serial}</span>
+                              </div>
+                              <div>
+                                <span className="text-gray-400">Nombre: </span>
+                                <span className="text-white">{cert.name}</span>
                               </div>
                             </div>
                           </div>
-                        );
-                      })}
+                        </div>
+                      ))}
                     </div>
                   )}
                   {searchResult && !searchResult.valid && (
