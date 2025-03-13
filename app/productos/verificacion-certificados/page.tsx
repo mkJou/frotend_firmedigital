@@ -159,7 +159,7 @@ export default function VerificacionCertificados() {
       console.log(certificateDetails)
         setSearchResult({
           valid: true,
-          message: 'Certificados encontrados',
+          message: `Certificados encontrados (${certificateDetails.length})`,
           details: certificateDetails
         });
       } else {
@@ -173,7 +173,7 @@ export default function VerificacionCertificados() {
       console.error('Error en la verificación:', error);
       setSearchResult({
         valid: false,
-        message: `Error al verificar el certificado: ${error.message || 'Por favor, intente nuevamente.'}`
+        message: `Error al verificar el certificado`
       });
     } finally {
       setIsSearching(false);
@@ -288,7 +288,7 @@ export default function VerificacionCertificados() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className={`mt-8 p-6 rounded-lg border ${searchResult.valid ? 'bg-green-900/20 border-green-500/30' : 'bg-red-900/20 border-red-500/30'}`}
+              className="mt-8 p-6 rounded-lg border bg-gradient-to-br from-gray-900 to-black"
             >
               <div className="flex items-start gap-4">
                 {searchResult.valid ? (
@@ -297,48 +297,53 @@ export default function VerificacionCertificados() {
                   <FaTimesCircle className="text-3xl text-red-500 flex-shrink-0 mt-1" />
                 )}
                 <div className="w-full">
-                  <h3 className={`text-xl font-bold ${searchResult.valid ? 'text-green-400' : 'text-red-400'}`}>
+                  <h3 className={`text-xl font-bold mb-6 ${searchResult.valid ? 'text-green-400' : 'text-red-400'}`}>
                     {searchResult.message}
                   </h3>
                   {searchResult.valid && searchResult.details && (
-                    <div className="mt-4 space-y-4">
-                      {searchResult.details.map((cert, index) => (
-                        <div key={index} className="p-4 bg-gray-800/50 rounded-lg border border-gray-700/50 hover:border-blue-500/30 transition-colors">
-                          <div className="flex items-center gap-4">
-                            <span className="text-blue-400 font-medium">#{index + 1}</span>
-                            <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <span className="text-gray-400">Estado: </span>
-                                <span className="text-white">{cert.state}</span>
-                              </div>
-                              <div>
-                                <span className="text-gray-400">Expiración: </span>
-                                <span className="text-white">{cert.expirationTime}</span>
-                              </div>
-                              <div>
-                                <span className="text-gray-400">Serial: </span>
-                                <span className="text-white">{cert.serial}</span>
-                              </div>
-                              <div>
-                                <span className="text-gray-400">Nombre: </span>
-                                <span className="text-white">{cert.name}</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
+                    <div className="overflow-x-auto">
+                      <table className="w-full border-collapse border border-gray-700/50 rounded-lg overflow-hidden">
+                        <thead>
+                          <tr className="bg-gray-800/50 border-b border-gray-700">
+                            <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 border-r border-gray-700/50">Estado</th>
+                            <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 border-r border-gray-700/50">Fecha de Expiración</th>
+                            <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300 border-r border-gray-700/50">Serial</th>
+                            <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Nombre</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {searchResult.details.map((cert, index) => (
+                            <tr 
+                              key={index}
+                              className="border-b border-gray-700/50 hover:bg-gray-800/30 transition-colors duration-200"
+                            >
+                              <td className="px-6 py-4 border-r border-gray-700/50">
+                                <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${cert.state === 'Vigente' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}`}>
+                                  {cert.state}
+                                </span>
+                              </td>
+                              <td className="px-6 py-4 text-gray-300 border-r border-gray-700/50">{cert.expirationTime}</td>
+                              <td className="px-6 py-4 text-gray-300 border-r border-gray-700/50">
+                                <span className="font-mono">{cert.serial}</span>
+                              </td>
+                              <td className="px-6 py-4 text-gray-300">{cert.name}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
                   )}
                   {searchResult && !searchResult.valid && (
-                    <div className="mt-4 p-4 bg-red-900/20 border border-red-500/30 rounded-lg flex items-start gap-3">
-                      <FaTimesCircle className="text-red-500 text-xl flex-shrink-0 mt-1" />
-                      <div>
-                        <p className="text-red-400 font-medium mb-2">No se encontraron certificados</p>
-                        <p className="text-gray-300 text-sm">
-                          No se ha encontrado ningún certificado con los datos proporcionados. 
-                          Por favor, verifica que la información ingresada sea correcta e intenta nuevamente.
-                          Si el problema persiste, puedes intentar con otro tipo de búsqueda.
-                        </p>
+                    <div className="mt-4 p-6 bg-gradient-to-br from-red-900/20 to-black border border-red-500/30 rounded-xl backdrop-blur-sm">
+                      <div className="flex items-start gap-4">
+                        <div>
+                          <p className="text-red-400 font-medium mb-3 text-lg"></p>
+                          <p className="text-gray-300 leading-relaxed">
+                            No se ha encontrado ningún certificado con los datos proporcionados. 
+                            Por favor, verifica que la información ingresada sea correcta e intenta nuevamente.
+                            Si el problema persiste, puedes intentar con otro tipo de búsqueda o consulte al soporte@firmedigital.com, para encontrar el posible fallo.
+                          </p>
+                        </div>
                       </div>
                     </div>
                   )}
