@@ -215,7 +215,7 @@ const menuData: MenuSection[] = [
   },
   {
     title: 'BLOG',
-    href: 'https://blog.firmedigital.com.ve/firmedigital',
+    href: '/blog',
     target: '_blank'
   },
   {

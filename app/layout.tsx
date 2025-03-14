@@ -7,8 +7,8 @@ import Footer from '../components/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Firme Digital',
-  description: 'Soluciones digitales para tu empresa',
+  title: 'FIRMEDIGITAL: Soluciones de Firma Electrónica',
+  description: 'Soluciones digitales para tu empresa y documentos digitales',
 }
 
 export default function RootLayout({
