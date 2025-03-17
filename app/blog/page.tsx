@@ -16,6 +16,7 @@ interface BlogPost {
   imageUrl: string;
   author: string;
   isVisible: boolean;
+  isFeatured: boolean;
   comments: Comment[];
 }
 
@@ -50,7 +51,8 @@ export default function Blog() {
             id: post._id,
             comments: post.comments || [],
             excerpt: post.excerpt || post.content.substring(0, 150) + '...',
-            isVisible: true
+            isVisible: post.isVisible ?? true,
+            isFeatured: post.isFeatured ?? false
           }));
           setPosts(formattedPosts);
         } else {
@@ -130,6 +132,9 @@ export default function Blog() {
   const totalPages = Math.ceil(sortedAndFilteredPosts.length / postsPerPage);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  const featuredPosts = filteredPosts.filter(post => post.isFeatured);
+  const regularPosts = filteredPosts.filter(post => !post.isFeatured);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-gray-100">
@@ -225,10 +230,6 @@ export default function Blog() {
                         <FaCalendar className="text-blue-400" />
                         {new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </span>
-                      <span className="flex items-center gap-1">
-                        <FaComment className="text-blue-400" />
-                        {post.comments.length}
-                      </span>
                     </div>
                     <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{post.title}</h3>
                     <p className="text-sm sm:text-base text-gray-400 mb-4 line-clamp-2">{post.excerpt}</p>
@@ -264,10 +265,6 @@ export default function Blog() {
                       <span className="flex items-center gap-1">
                         <FaCalendar className="text-blue-400" />
                         {new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <FaComment className="text-blue-400" />
-                        {post.comments.length}
                       </span>
                     </div>
                     <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{post.title}</h3>
