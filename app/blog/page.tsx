@@ -51,8 +51,8 @@ export default function Blog() {
             id: post._id,
             comments: post.comments || [],
             excerpt: post.excerpt || post.content.substring(0, 150) + '...',
-            isVisible: post.isVisible ?? true,
-            isFeatured: post.isFeatured ?? false
+            isVisible: true,
+            isFeatured: post.isFeatured || false
           }));
           setPosts(formattedPosts);
         } else {
@@ -133,9 +133,6 @@ export default function Blog() {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const featuredPosts = filteredPosts.filter(post => post.isFeatured);
-  const regularPosts = filteredPosts.filter(post => !post.isFeatured);
-
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-gray-100">
       <MegaMenu />
@@ -210,7 +207,7 @@ export default function Blog() {
             Artículos Destacados
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            {filteredPosts.slice(0, 2).map((post) => (
+            {filteredPosts.filter(post => post.isFeatured).map((post) => (
               <Link href={`/blog/${post.id}`} key={post.id}>
                 <motion.article
                   className="group bg-gray-800/50 rounded-xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300 shadow-xl border border-gray-700/50 h-full"
@@ -230,6 +227,7 @@ export default function Blog() {
                         <FaCalendar className="text-blue-400" />
                         {new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </span>
+                      
                     </div>
                     <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{post.title}</h3>
                     <p className="text-sm sm:text-base text-gray-400 mb-4 line-clamp-2">{post.excerpt}</p>
@@ -266,6 +264,7 @@ export default function Blog() {
                         <FaCalendar className="text-blue-400" />
                         {new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </span>
+                     
                     </div>
                     <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{post.title}</h3>
                     <p className="text-sm sm:text-base text-gray-400 mb-4 line-clamp-2">{post.excerpt}</p>
