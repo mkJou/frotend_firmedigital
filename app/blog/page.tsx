@@ -45,12 +45,21 @@ export default function Blog() {
         }
         const data = await response.json();
         if (data.success && Array.isArray(data.data)) {
-          const formattedPosts = data.data.map(post => ({
-            ...post,
-            id: post._id,
-            comments: post.comments || [],
-            excerpt: post.excerpt || post.content.substring(0, 150) + '...',
-            isVisible: post.isVisible
+          const formattedPosts = await Promise.all(data.data.map(async post => {
+            // Obtener los comentarios para este artículo
+            const commentsResponse = await fetch(`/api/comments/${post._id}`);
+            const commentsData = await commentsResponse.json();
+            const comments = commentsData.success ? commentsData.data : [];
+            
+
+            
+            return {
+              ...post,
+              id: post._id,
+              comments: comments,
+              excerpt: post.excerpt || post.content.substring(0, 150) + '...',
+              isVisible: post.isVisible
+            };
           }));
           setPosts(formattedPosts);
         } else {
