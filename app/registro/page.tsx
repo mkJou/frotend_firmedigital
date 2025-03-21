@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import MegaMenu from '@/components/MegaMenu';
 
 export default function Registro() {
+  const [verificationCode, setVerificationCode] = useState<string>('');
+  const [userInputCode, setUserInputCode] = useState<string>('');
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
@@ -25,8 +27,25 @@ export default function Registro() {
     }));
   };
 
+  useEffect(() => {
+    // Generar un código aleatorio de 6 dígitos
+    const randomCode = Math.floor(100000 + Math.random() * 900000).toString();
+    setVerificationCode(randomCode);
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!userInputCode) {
+      alert('Por favor, ingrese el código de verificación.');
+      return;
+    }
+
+    if (userInputCode !== verificationCode) {
+      alert('Código de verificación incorrecto. Por favor, inténtelo de nuevo.');
+      return;
+    }
+
     // Aquí iría la lógica de registro
     console.log('Datos del formulario:', formData);
   };
@@ -202,6 +221,24 @@ export default function Registro() {
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
                     placeholder="Confirme su contraseña"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="md:col-span-2 mb-6">
+                <label htmlFor="verificationCode" className="block text-sm font-medium text-gray-300 mb-2">
+                  Código de Verificación
+                </label>
+                <div className="flex flex-col space-y-2">
+                  <p className="text-sm text-gray-400">Código de verificación: {verificationCode}</p>
+                  <input
+                    type="text"
+                    id="verificationCode"
+                    value={userInputCode}
+                    onChange={(e) => setUserInputCode(e.target.value)}
+                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
+                    placeholder="Ingrese el código de verificación"
                     required
                   />
                 </div>

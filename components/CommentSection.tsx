@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { FaUser, FaClock } from 'react-icons/fa';
 
@@ -60,15 +60,59 @@ export default function CommentSection({ articleId, initialComments = [] }: Comm
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  const [isSpamming, setIsSpamming] = useState(false);
+  const [lastCommentTime, setLastCommentTime] = useState<number>(0);
+  const [commentCount, setCommentCount] = useState<number>(0);
+  const [isVerified, setIsVerified] = useState(false);
+  const [verificationCode, setVerificationCode] = useState<string>('');
+  const [userCode, setUserCode] = useState<string>('');
+
+  useEffect(() => {
+    setIsVerified(userCode === verificationCode && userCode !== '');
+  }, [userCode, verificationCode]);
+
+  useEffect(() => {
+    // Generar un código aleatorio de 6 dígitos
+    const randomCode = Math.floor(100000 + Math.random() * 900000).toString();
+    setVerificationCode(randomCode);
+  }, []);
+
   const validateEmail = (email: string) => {
     const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return re.test(email);
+  };
+
+  const validateContent = (content: string) => {
+    // Lista de palabras prohibidas
+    const bannedWords = ['spam', 'publicidad', 'casino', 'xxx', 'viagra'];
+    const contentLower = content.toLowerCase();
+    return !bannedWords.some(word => contentLower.includes(word));
+  };
+
+  const checkSpamming = () => {
+    const now = Date.now();
+    const timeSinceLastComment = now - lastCommentTime;
+    const isSpamming = timeSinceLastComment < 30000; // 30 segundos entre comentarios
+    const tooManyComments = commentCount >= 5; // Máximo 5 comentarios por sesión
+
+    return isSpamming || tooManyComments;
+  };
+
+
+
+  const validateVerificationCode = () => {
+    return userCode === verificationCode;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess('');
+
+    if (!validateVerificationCode()) {
+      setError('El código de verificación no es correcto.');
+      return;
+    }
 
     // Validaciones básicas
     if (!newComment.name.trim() || !newComment.email.trim() || !newComment.content.trim()) {
@@ -81,8 +125,20 @@ export default function CommentSection({ articleId, initialComments = [] }: Comm
       return;
     }
 
-    if (newComment.content.length < 10) {
-      setError('El comentario debe tener al menos 10 caracteres.');
+    if (newComment.content.length < 10 || newComment.content.length > 500) {
+      setError('El comentario debe tener entre 10 y 500 caracteres.');
+      return;
+    }
+
+    if (!validateContent(newComment.content)) {
+      setError('El comentario contiene contenido inapropiado.');
+      return;
+    }
+
+
+
+    if (checkSpamming()) {
+      setError('Por favor, espera un momento antes de publicar otro comentario.');
       return;
     }
 
@@ -107,6 +163,7 @@ export default function CommentSection({ articleId, initialComments = [] }: Comm
       setComments([...comments, data]);
       setNewComment({ name: '', email: '', content: '' });
       setSuccess('¡Comentario publicado exitosamente!');
+      setIsVerified(false);
     } catch (error) {
       setError('Error al publicar el comentario. Por favor, intenta nuevamente.');
     } finally {
@@ -164,6 +221,7 @@ export default function CommentSection({ articleId, initialComments = [] }: Comm
               className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
               placeholder="Tu nombre"
               maxLength={50}
+              required
             />
           </div>
           <div>
@@ -178,6 +236,7 @@ export default function CommentSection({ articleId, initialComments = [] }: Comm
               className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
               placeholder="tu@email.com"
               maxLength={100}
+              required
             />
           </div>
         </div>
@@ -192,8 +251,57 @@ export default function CommentSection({ articleId, initialComments = [] }: Comm
             onChange={(e) => setNewComment({ ...newComment, content: e.target.value })}
             className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white min-h-[100px]"
             placeholder="Escribe tu comentario aquí..."
-            maxLength={1000}
+            maxLength={500}
+            required
           />
+        </div>
+
+        <div>
+          <div className="mt-4">
+            <div className="flex flex-col space-y-2">
+              <div className="flex items-center justify-between">
+                <div 
+                  className="bg-gray-700 p-4 rounded-lg select-none cursor-default"
+                  style={{
+                    fontFamily: 'monospace',
+                    letterSpacing: '0.25em',
+                    userSelect: 'none',
+                    WebkitUserSelect: 'none',
+                    msUserSelect: 'none',
+                    background: 'linear-gradient(45deg, #1a1a1a, #2d2d2d)',
+                    border: '1px solid #3a3a3a',
+                    color: '#fff',
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  {verificationCode}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newCode = Math.floor(100000 + Math.random() * 900000).toString();
+                    setVerificationCode(newCode);
+                    setUserCode('');
+                  }}
+                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors ml-4"
+                >
+                  Regenerar
+                </button>
+              </div>
+              <input
+                type="text"
+                placeholder="Ingrese el código de verificación"
+                value={userCode}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setUserCode(value);
+                }}
+                className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
+                maxLength={6}
+              />
+            </div>
+          </div>
         </div>
 
         {error && (
@@ -206,8 +314,8 @@ export default function CommentSection({ articleId, initialComments = [] }: Comm
 
         <button
           type="submit"
-          disabled={isSubmitting}
-          className={`w-full md:w-auto px-6 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+          disabled={isSubmitting || !isVerified}
+          className={`w-full md:w-auto px-6 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors ${(isSubmitting || !isVerified) ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           {isSubmitting ? 'Enviando...' : 'Publicar comentario'}
         </button>
