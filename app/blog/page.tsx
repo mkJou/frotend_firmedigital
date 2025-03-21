@@ -16,7 +16,6 @@ interface BlogPost {
   imageUrl: string;
   author: string;
   isVisible: boolean;
-  isFeatured: boolean;
   comments: Comment[];
 }
 
@@ -51,8 +50,7 @@ export default function Blog() {
             id: post._id,
             comments: post.comments || [],
             excerpt: post.excerpt || post.content.substring(0, 150) + '...',
-            isVisible: true,
-            isFeatured: post.isFeatured || false
+            isVisible: post.isVisible
           }));
           setPosts(formattedPosts);
         } else {
@@ -119,12 +117,7 @@ export default function Blog() {
   const postsPerPage = 6;
 
   const sortedAndFilteredPosts = filteredPosts
-    .sort((a, b) => {
-      if (sortBy === 'date') {
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
-      }
-      return a.title.localeCompare(b.title);
-    });
+    .sort((a, b) => a.title.localeCompare(b.title));
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -207,7 +200,7 @@ export default function Blog() {
             Artículos Destacados
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            {filteredPosts.filter(post => post.isFeatured).map((post) => (
+            {filteredPosts.slice(0, 2).map((post) => (
               <Link href={`/blog/${post.id}`} key={post.id}>
                 <motion.article
                   className="group bg-gray-800/50 rounded-xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300 shadow-xl border border-gray-700/50 h-full"
@@ -227,7 +220,10 @@ export default function Blog() {
                         <FaCalendar className="text-blue-400" />
                         {new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </span>
-                      
+                      <span className="flex items-center gap-1">
+                        <FaComment className="text-blue-400" />
+                        {post.comments.length}
+                      </span>
                     </div>
                     <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{post.title}</h3>
                     <p className="text-sm sm:text-base text-gray-400 mb-4 line-clamp-2">{post.excerpt}</p>
@@ -264,7 +260,10 @@ export default function Blog() {
                         <FaCalendar className="text-blue-400" />
                         {new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </span>
-                     
+                      <span className="flex items-center gap-1">
+                        <FaComment className="text-blue-400" />
+                        {post.comments.length}
+                      </span>
                     </div>
                     <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{post.title}</h3>
                     <p className="text-sm sm:text-base text-gray-400 mb-4 line-clamp-2">{post.excerpt}</p>

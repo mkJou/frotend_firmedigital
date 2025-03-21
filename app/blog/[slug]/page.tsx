@@ -8,6 +8,7 @@ import { FaCalendar, FaUser, FaTag, FaShare, FaArrowLeft } from 'react-icons/fa'
 import Link from 'next/link';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
+import CommentSection from '@/components/CommentSection';
 
 interface BlogPost {
   id: string;
@@ -144,6 +145,8 @@ export default function BlogPost() {
           <div className="prose !prose-invert prose-base md:prose-lg max-w-none mb-12 md:mb-16 text-black bg-white rounded-lg p-4 md:p-8 prose-headings:text-black prose-h1:text-black prose-h2:text-black prose-h3:text-black prose-p:text-black prose-a:text-black-600 hover:prose-a:text-black-700 prose-blockquote:border-black-600 prose-strong:text-black prose-ul:text-black prose-ol:text-black prose-li:text-black prose-pre:bg-black-100 prose-pre:border prose-pre:border-black-300 prose-code:text-blue-600 space-y-4 md:space-y-6">
             <ReactMarkdown>{post.content}</ReactMarkdown>
           </div>
+
+          <CommentSection articleId={post.id} />
         </motion.div>
       </article>
     </main>
