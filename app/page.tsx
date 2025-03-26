@@ -293,8 +293,10 @@ export default function Home() {
       {/* Hero Section */}
       <section ref={heroRef} className="relative pt-[200px] pb-[100px] overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 -left-4 w-[500px] h-[500px] bg-blue-500/20 rounded-full mix-blend-normal filter blur-[128px]" />
-          <div className="absolute bottom-0 -right-4 w-[500px] h-[500px] bg-purple-500/20 rounded-full mix-blend-normal filter blur-[128px]" />
+          <div className="absolute top-0 -left-4 w-[500px] h-[500px] bg-blue-500/30 rounded-full mix-blend-normal filter blur-[128px] animate-pulse" />
+          <div className="absolute bottom-0 -right-4 w-[500px] h-[500px] bg-purple-500/30 rounded-full mix-blend-normal filter blur-[128px] animate-pulse" />
+          <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-cyan-500/20 rounded-full mix-blend-normal filter blur-[100px] animate-pulse" />
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-10" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 w-full pt-20">
@@ -321,21 +323,29 @@ export default function Home() {
                 <>
 
                   
-                  <h1 className="hero-title text-4xl lg:text-6xl font-bold tracking-tight">
-                    FIRMEDIGITAL
-                    <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                      Acreditada y Segura
+                  <h1 className="hero-title">
+                    <span className="text-4xl lg:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 drop-shadow-lg">
+                      FIRMEDIGITAL 
+                    </span>
+                    <span className="block mt-4 text-2xl lg:text-3xl font-semibold">
+                      Plataforma de Firma Electrónica Acreditada y Segura
+                    </span>
+                    <span className="block mt-3 text-xl lg:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400">
+                      Certificación y Firma Digital
                     </span>
                   </h1>
 
-                  <p className="hero-subtitle text-lg text-gray-400 max-w-xl">
+                  <p className="hero-subtitle text-lg text-gray-300 max-w-xl backdrop-blur-sm bg-black/10 p-4 rounded-lg border border-white/5 shadow-lg">
                     La solución perfecta para todas las empresas que necesitan una firma digital
-                    <span className="typewriter ml-2 inline-block min-w-[150px]"></span>
+                    <span className="typewriter ml-2 inline-block min-w-[150px] font-semibold"></span>
                   </p>
 
-                  <div className="flex flex-wrap gap-4">
-                    <Link href="https://appdev.firmedigital.com.ve/api/auth/signup" className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-200 transform hover:scale-105">
-                     Comenzar Ahora
+                  <div className="flex flex-wrap gap-4 mt-6">
+                    <Link href="https://appdev.firmedigital.com.ve/api/auth/signup" className="hero-button inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10">
+                      <span className="mr-2">Comenzar Ahora</span>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
                     </Link>
                   </div>
                 </>
@@ -451,54 +461,23 @@ export default function Home() {
                       <div className="flex-grow">
                         <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
                         <p className="text-gray-400 text-sm">Carga, publica y gestiona miles de docs.</p>
-                        <div className="flex flex-col items-center space-y-6 mb-8 mt-5">
-                          <div className="flex items-center justify-between w-full max-w-[280px]">
-                            <div className="flex items-center">
-                              <div className="relative">
-                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400/40 to-purple-400/40 relative">
-                                  <span className="absolute top-1/2 left-0 right-0 border-t-[3px] border-dashed border-purple-400/30 transform -rotate-6"></span>
-                                  $1
-                                </span>
-                              </div>
-                              <div className="ml-2 flex flex-col">
-                                <span className="text-gray-400/80 text-base">al mes</span>
-                                <span className="text-xs text-gray-500">precio regular</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex items-center justify-between w-full max-w-[280px]">
-                            <div className="flex items-center">
-                              <div className="relative">
-                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                                  $10
-                                </span>
-                              </div>
-                              <div className="ml-2 flex flex-col">
-                                <span className="text-gray-400 text-base">anual</span>
-                                <span className="text-green-400 text-sm">¡Ahorra con el plan anual!</span>
-                              </div>
+                        <div className="flex flex-col items-center space-y-6 mb-8" style={{ paddingTop: '1rem' }}>
+                          <div className="flex flex-col items-center justify-center w-full max-w-[280px] h-[100px]">
+                            <div className="flex flex-col items-center">
+                              <span className="text-gray-400 text-base mb-2 pt-8">Inversión anual:</span>
+                              <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                10$
+                              </span>
                             </div>
                           </div>
                         </div>
-                        <div className="text-sm font-medium mb-4 text-blue-400 mt-10">¿QUÉ INCLUYE?</div>
+                        <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
                         <ul className="space-y-4 mb-8">
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firma Electrónica</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Gestor de Documentos</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Trazabilidad</span>
+                            <span>Firmas ilimitadas</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -510,8 +489,15 @@ export default function Home() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Multifirma</span>
+                            <span>Editor de imagenes</span>
                           </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Editor de Documentos</span>
+                          </li>
+                         
                           
                          
                           
@@ -570,31 +556,12 @@ export default function Home() {
                         <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
                         <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8">
-                          <div className="flex items-center justify-between w-full max-w-[280px]">
-                            <div className="flex items-center">
-                              <div className="relative">
-                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400/40 to-purple-400/40 relative">
-                                  <span className="absolute top-1/2 left-0 right-0 border-t-[3px] border-dashed border-purple-400/30 transform -rotate-6"></span>
-                                  $10
-                                </span>
-                              </div>
-                              <div className="ml-2 flex flex-col">
-                                <span className="text-gray-400/80 text-base">al mes</span>
-                                <span className="text-xs text-gray-500">precio regular</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex items-center justify-between w-full max-w-[280px]">
-                            <div className="flex items-center">
-                              <div className="relative">
-                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                                  $100
-                                </span>
-                              </div>
-                              <div className="ml-2 flex flex-col">
-                                <span className="text-gray-400 text-base">anual</span>
-                                <span className="text-green-400 text-sm">¡Ahorra con el plan anual!</span>
-                              </div>
+                          <div className="flex flex-col items-center justify-center w-full max-w-[280px] h-[100px]">
+                            <div className="flex flex-col items-center">
+                              <span className="text-gray-400 text-base mb-2 pt-8">Inversión anual:</span>
+                              <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                30$
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -604,7 +571,19 @@ export default function Home() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firma Electrónica</span>
+                            <span>Firmas ilimitadas</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Editor de Documentos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Editor de imagenes</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -616,19 +595,7 @@ export default function Home() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Trazabilidad</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
                             <span>Flujos</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Multifirma</span>
                           </li>
                         </ul>
                       </div>
@@ -705,7 +672,7 @@ export default function Home() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firma Electrónica</span>
+                            <span>Firmas ilimitadas</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -958,7 +925,7 @@ export default function Home() {
                   >
                     Trazabilidad
                   </td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
                   <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
@@ -981,7 +948,7 @@ export default function Home() {
                   >
                     Cuentas Múltiples
                   </td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
                   <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
@@ -1005,7 +972,7 @@ export default function Home() {
                     IA
                   </td>
                   <td className="py-3 px-4 text-center"><XIcon /></td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><XIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
@@ -1051,7 +1018,7 @@ export default function Home() {
                   >
                     Análisis Personalizable
                   </td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
                   <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
@@ -1074,8 +1041,8 @@ export default function Home() {
                   >
                     Aplicaciones de Acceso
                   </td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><XIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
@@ -1097,8 +1064,8 @@ export default function Home() {
                   >
                     Flujos e Integraciones
                   </td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><XIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
@@ -1150,8 +1117,8 @@ export default function Home() {
                   >
                     Conozca a su Empresa (KYB) 
                   </td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
                   <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><XIcon /></td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
@@ -1177,7 +1144,7 @@ export default function Home() {
                   >
                     Gestión de Condiciones
                   </td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
                   <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
@@ -1232,8 +1199,8 @@ export default function Home() {
                   >
                     Asistentes (agentes IA)
                   </td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
-                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
+                  <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><XIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                 </tr>
@@ -1247,7 +1214,7 @@ export default function Home() {
                   >
                     Ciclo de Vida de Documento (CML)
                   </td>
-                  <td className="py-3 px-4 text-center"><CheckIcon /></td>
+                  <td className="py-3 px-4 text-center"><XIcon /></td>
                   <td className="py-3 px-4 text-center bg-[#1A1A1A]/50"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>
                   <td className="py-3 px-4 text-center"><CheckIcon /></td>

@@ -1,8 +1,33 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
+import dynamic from 'next/dynamic';
+
+// Carga dinámica del MegaMenu
+const MegaMenu = dynamic(() => import('../../../components/MegaMenu'), {
+  loading: () => <div className="h-16 bg-gray-800 animate-pulse"></div>
+});
+
+// Precarga de imágenes críticas
+const preloadImages = () => {
+  const images = [
+    '/images/bg-hero.webp',
+    '/images/logo.webp',
+    '/images/Multifirma.svg'
+  ];
+  images.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+};
 import { motion,AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import MegaMenu from '../../../components/MegaMenu';
+// Optimización de importaciones de iconos
+const IconComponents = {
+  FaFileSignature: dynamic(() => import('react-icons/fa').then(mod => mod.FaFileSignature)),
+  FaUserCheck: dynamic(() => import('react-icons/fa').then(mod => mod.FaUserCheck)),
+  FaUserShield: dynamic(() => import('react-icons/fa').then(mod => mod.FaUserShield)),
+  FaMoneyBillWave: dynamic(() => import('react-icons/fa').then(mod => mod.FaMoneyBillWave))
+};
 import { GiCookingPot } from 'react-icons/gi';
 import { FaQuestionCircle, FaChevronDown } from 'react-icons/fa';
 import { FaFileSignature, FaUserCheck, FaUserShield, FaMoneyBillWave, FaDatabase, FaHistory, FaLeaf, FaGraduationCap, FaTools, FaBolt, FaLock, FaRocket, FaClipboardCheck, FaBuilding, FaUser, FaBell } from 'react-icons/fa';

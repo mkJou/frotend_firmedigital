@@ -149,7 +149,7 @@ const Footer = () => {
                 <a href="mailto:info@firmedigital.com.ve">info@firmedigital.com.ve</a>
               </li>
               <li className='hover:text-white transition-colors duration-200'>
-                <a href="https://www.instagram.com/firmedigital" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.instagram.com/firmedigitalve" target="_blank" rel="noopener noreferrer">
                   Instagram
                 </a>
               </li>

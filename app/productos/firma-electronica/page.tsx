@@ -1,7 +1,22 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import { HiOutlineDocumentText } from 'react-icons/hi';
-import MegaMenu from '@/components/MegaMenu';
+const MegaMenu = dynamic(() => import('@/components/MegaMenu'), {
+  loading: () => <div className="h-16 bg-gray-800 animate-pulse"></div>
+});
+
+// Preload critical images
+const preloadImages = () => {
+  const images = [
+    '/images/bg-hero.webp',
+    '/images/logo.webp'
+  ];
+  images.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+};
 import styles from '@/app/styles/FlipCard.module.css';
 import { BsFillShieldLockFill, BsSpeedometer2 } from 'react-icons/bs';
 import { FaQuestionCircle, FaChevronDown } from 'react-icons/fa';
@@ -321,56 +336,35 @@ export default function FirmaElectronica() {
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
+                      <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
                         <p className="text-gray-400 text-sm">Carga, publica y gestiona miles de docs.</p>
-                        <div className="flex flex-col items-center space-y-6 mb-8 mt-6">
+                        <div className="flex flex-col items-center space-y-6 mb-8 mt-5">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
                               <div className="relative">
-                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400/40 to-purple-400/40 relative">
-                                  <span className="absolute top-1/2 left-0 right-0 border-t-[3px] border-dashed border-purple-400/30 transform -rotate-6"></span>
-                                  $1
-                                </span>
+                                
                               </div>
                               <div className="ml-2 flex flex-col">
-                                <span className="text-gray-400/80 text-base">al mes</span>
-                                <span className="text-xs text-gray-500">precio regular</span>
+                                
                               </div>
                             </div>
                           </div>
-                          <div className="flex items-center justify-between w-full max-w-[280px]">
-                            <div className="flex items-center">
-                              <div className="relative">
-                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                                  $10
-                                </span>
-                              </div>
-                              <div className="ml-2 flex flex-col">
-                                <span className="text-gray-400 text-base">anual</span>
-                                <span className="text-green-400 text-sm">¡Ahorra con el plan anual!</span>
-                              </div>
+                          <div className="flex flex-col items-center justify-center w-full max-w-[280px]">
+                            <div className="flex flex-col items-center">
+                              <span className="text-gray-400 text-base mb-2">Inversión anual:</span>
+                              <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                10$
+                              </span>
                             </div>
                           </div>
                         </div>
-                        <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
+                        <div className="text-sm font-medium mb-4 text-blue-400 mt-10">¿QUÉ INCLUYE?</div>
                         <ul className="space-y-4 mb-8">
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firma Electrónica</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Gestor de Documentos</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Trazabilidad</span>
+                            <span>Firmas ilimitadas</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -382,7 +376,13 @@ export default function FirmaElectronica() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Multifirma</span>
+                            <span>Editor de imagenes</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Editor de Documentos</span>
                           </li>
                           
                          
@@ -441,32 +441,16 @@ export default function FirmaElectronica() {
                       <div className="flex-grow">
                         <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
                         <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
-                        <div className="flex flex-col items-center space-y-6 mb-8">
-                          <div className="flex items-center justify-between w-full max-w-[280px]">
-                            <div className="flex items-center">
-                              <div className="relative">
-                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400/40 to-purple-400/40 relative">
-                                  <span className="absolute top-1/2 left-0 right-0 border-t-[3px] border-dashed border-purple-400/30 transform -rotate-6"></span>
-                                  $10
-                                </span>
-                              </div>
-                              <div className="ml-2 flex flex-col">
-                                <span className="text-gray-400/80 text-base">al mes</span>
-                                <span className="text-xs text-gray-500">precio regular</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex items-center justify-between w-full max-w-[280px]">
-                            <div className="flex items-center">
-                              <div className="relative">
-                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                                  $100
-                                </span>
-                              </div>
-                              <div className="ml-2 flex flex-col">
-                                <span className="text-gray-400 text-base">anual</span>
-                                <span className="text-green-400 text-sm">¡Ahorra con el plan anual!</span>
-                              </div>
+                        <div className="flex flex-col items-center space-y-6 mb-8" style={{ paddingTop: '1rem' }}>
+                          <div className="flex flex-col items-center justify-center w-full max-w-[280px]">
+                          <div className="ml-2 flex flex-col">
+                                
+                                </div>
+                            <div className="flex flex-col items-center">
+                              <span className="text-gray-400 text-base mb-2">Inversión anual:</span>
+                              <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                30$
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -476,7 +460,19 @@ export default function FirmaElectronica() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firma Electrónica</span>
+                            <span>Firmas ilimitadas</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Editor de Documentos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Editor de imagenes</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -488,19 +484,7 @@ export default function FirmaElectronica() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Trazabilidad</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
                             <span>Flujos</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>Multifirma</span>
                           </li>
                         </ul>
                       </div>
@@ -577,7 +561,7 @@ export default function FirmaElectronica() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firma Electrónica</span>
+                            <span>Firmas ilimitadas</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">

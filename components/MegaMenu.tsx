@@ -492,7 +492,7 @@ export default function MegaMenu() {
                     </Link>
 
                     {section.subItems && activeMenu === section.title && (
-                      <div className="pl-4 py-2 space-y-1">
+                      <div className="pl-4 py-2 space-y-1 max-h-[60vh] overflow-y-auto">
                         {section.subItems.map((item) => (
                           <Link
                             key={item.title}
@@ -512,14 +512,14 @@ export default function MegaMenu() {
                 ))}
                 <div className="mt-6 space-y-3">
                   <Link 
-                    href="/inicio_sesion"
+                    href="https://appdev.firmedigital.com.ve/api/auth/login"
                     className="block w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity text-center"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Iniciar Sesión
                   </Link>
                   <Link 
-                    href="/registro"
+                    href="https://appdev.firmedigital.com.ve/api/auth/signup"
                     className="block w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity text-center"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >

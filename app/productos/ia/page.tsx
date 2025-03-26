@@ -1,9 +1,36 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+
+// Carga dinámica del MegaMenu
+const MegaMenu = dynamic(() => import('../../../components/MegaMenu'), {
+  loading: () => <div className="h-16 bg-gray-800 animate-pulse"></div>
+});
+
+// Precarga de imágenes críticas
+const preloadImages = () => {
+  const images = [
+    '/images/bg-hero.webp',
+    '/images/logo.webp',
+    '/images/ia.png'
+  ];
+  images.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+};
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaRobot, FaCogs, FaFileAlt, FaChartLine, FaShieldAlt, FaHeadset, FaExpandArrowsAlt, FaQuestionCircle, FaChevronDown } from 'react-icons/fa';
-import MegaMenu from '../../../components/MegaMenu';
+// Optimización de importaciones de iconos
+const IconComponents = {
+  FaRobot: dynamic(() => import('react-icons/fa').then(mod => mod.FaRobot)),
+  FaCogs: dynamic(() => import('react-icons/fa').then(mod => mod.FaCogs)),
+  FaFileAlt: dynamic(() => import('react-icons/fa').then(mod => mod.FaFileAlt)),
+  FaChartLine: dynamic(() => import('react-icons/fa').then(mod => mod.FaChartLine)),
+  FaShieldAlt: dynamic(() => import('react-icons/fa').then(mod => mod.FaShieldAlt)),
+  FaHeadset: dynamic(() => import('react-icons/fa').then(mod => mod.FaHeadset))
+};
 import Image from "next/image";
 
 const features = [
