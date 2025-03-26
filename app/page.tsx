@@ -328,7 +328,7 @@ export default function Home() {
                       FIRMEDIGITAL 
                     </span>
                     <span className="block mt-4 text-2xl lg:text-3xl font-semibold">
-                      Plataforma de Firma Electrónica Acreditada y Segura
+                      Plataforma de Firma Electrónica Acreditada y Segura en Venezuela
                     </span>
                     <span className="block mt-3 text-xl lg:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400">
                       Certificación y Firma Digital
