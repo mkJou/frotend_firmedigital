@@ -1,68 +1,86 @@
 import './globals.css'
+import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import dynamic from 'next/dynamic'
 import ClientLayout from './components/ClientLayout'
-import AnimatedBackground from './components/AnimatedBackground'
 import Footer from '../components/Footer'
 import JsonLd from './jsonld'
 
+// Cargar el fondo animado de forma dinámica para mejorar el rendimiento inicial
+const AnimatedBackground = dynamic(
+  () => import('./components/AnimatedBackground'),
+  { ssr: false, loading: () => null }
+)
+
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  metadataBase: new URL('https://firmedigital.com'),
-  title: 'FirmeDigital | Firma Digital y Electrónica con Validez Legal en Venezuela',
-  description: 'FirmeDigital: Solución integral de firma digital y electrónica certificada para empresas. Gestión documental segura, validación de identidad y certificados digitales con respaldo legal.',
-  keywords: 'FIRMEDIGITAL, firme digital, firmedigital, firma digital, firma electrónica, certificado digital, firma en línea, documento digital, comprar firma digital online, firma electrónica para empresas, cómo obtener una firma digital, firma digital para documentos legales, firma electrónica segura, adquirir firma electrónica, precio de firma digital, certificación digital segura, servicios de firma electrónica, firma digital con validez legal, diferencias entre firma digital y electrónica, qué es una firma digital y cómo funciona, beneficios de la firma electrónica, cómo firmar documentos en línea, regulaciones de la firma digital',
+export const metadata: Metadata = {
+  title: {
+    default: 'FIRMEDIGITAL PSC - Firma Electrónica Certificada',
+    template: '%s | FIRMEDIGITAL PSC'
+  },
+  description: 'FIRMEDIGITAL PSC es un Proveedor de Servicios de Certificación que ofrece soluciones de firma electrónica certificada para empresas y personas.',
+  keywords: ['firma electrónica', 'firma digital', 'certificado digital', 'firma electrónica certificada', 'firma electrónica avanzada', 'firma electrónica simple', 'firma electrónica cualificada', 'firma electrónica reconocida', 'firma electrónica legal', 'firma electrónica segura', 'firma electrónica validez legal', 'firma electrónica documentos', 'firma electrónica contratos', 'firma electrónica facturas', 'firma electrónica documentos legales', 'firma electrónica documentos oficiales', 'firma electrónica documentos privados', 'firma electrónica documentos públicos', 'firma electrónica documentos comerciales', 'firma electrónica documentos administrativos'],
+  authors: [{ name: 'FIRMEDIGITAL PSC' }],
+  creator: 'FIRMEDIGITAL PSC',
+  publisher: 'FIRMEDIGITAL PSC',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://firmedigital.cl'),
   alternates: {
     canonical: '/',
-    languages: {
-      'es-ES': '/es',
-      'en-US': '/en'
-    }
   },
   openGraph: {
-    title: 'FirmeDigital | Servicios de Firma Digital y Electrónica Certificada',
-    description: 'Adquiera su firma digital con validez legal. Soluciones avanzadas de firma electrónica y gestión documental para empresas. Certificación digital segura y confiable.',
+    title: 'FIRMEDIGITAL PSC - Firma Electrónica Certificada',
+    description: 'FIRMEDIGITAL PSC es un Proveedor de Servicios de Certificación que ofrece soluciones de firma electrónica certificada para empresas y personas.',
+    url: 'https://firmedigital.cl',
+    siteName: 'FIRMEDIGITAL PSC',
+    images: [
+      {
+        url: 'https://firmedigital.cl/images/logo.webp',
+        width: 800,
+        height: 600,
+        alt: 'FIRMEDIGITAL PSC Logo',
+      },
+    ],
+    locale: 'es_CL',
     type: 'website',
-    locale: 'es_ES',
-    url: 'https://firmedigital.com',
-    siteName: 'FIRMEDIGITAL',
-    images: [{
-      url: '/images/og-image.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'FirmeDigital - Soluciones de Firma Digital'
-    }]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'FirmeDigital - Servicios de Firma Digital y Electrónica en Venezuela',
-    description: 'Descubra cómo obtener su firma digital certificada. Servicios profesionales de firma electrónica y gestión documental para empresas. Validez legal garantizada.',
-    images: ['/images/twitter-image.jpg']
+    title: 'FIRMEDIGITAL PSC - Firma Electrónica Certificada',
+    description: 'FIRMEDIGITAL PSC es un Proveedor de Servicios de Certificación que ofrece soluciones de firma electrónica certificada para empresas y personas.',
+    images: ['https://firmedigital.cl/images/logo.webp'],
   },
   robots: {
     index: true,
     follow: true,
+    nocache: true,
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      noimageindex: false,
     },
-    nocache: true,
-    'max-image-preview': 'large',
-    'max-snippet': -1
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   verification: {
-    google: '7nVAcCtirB6GZWkont8CS1hV0saFlFwX2Ly3Bo5aUHc',
-    yandex: 'verificación-yandex',
-    yahoo: 'verificación-yahoo'
+    google: 'google-site-verification=FIRMEDIGITAL',
   },
   other: {
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'black',
-    'format-detection': 'telephone=no'
-  }
+    'apple-mobile-web-app-title': 'FIRMEDIGITAL PSC',
+    'cache-control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+    'pragma': 'no-cache',
+    'expires': '0'
+  },
 }
 
 export default function RootLayout({

@@ -23,7 +23,7 @@ const AnimatedBackground = () => {
 
     // Crear partículas
     const particles: Particle[] = [];
-    const particleCount = 50;
+    const particleCount = 20; // Reducido de 50 a 30 para mejorar rendimiento
 
     interface Particle {
       x: number;
@@ -38,17 +38,25 @@ const AnimatedBackground = () => {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 2 + 1,
-        speedX: Math.random() * 2 - 1,
-        speedY: Math.random() * 2 - 1,
-        opacity: Math.random() * 0.5 + 0.2
+        size: Math.random() * 1 + 0.25, // Tamaño reducido para mejor rendimiento
+        speedX: Math.random() * 1 - 0.5, // Velocidad reducida
+        speedY: Math.random() * 1 - 0.5, // Velocidad reducida
+        opacity: Math.random() * 0.4 + 0.1 // Opacidad reducida
       });
     }
 
+    // Variables para throttling
+    let lastConnectionsUpdate = 0;
+    const connectionsUpdateInterval = 20; // Actualizar conexiones cada 50ms
+    
     // Animar partículas
     const animate = () => {
+      const now = Date.now();
+      const shouldUpdateConnections = now - lastConnectionsUpdate > connectionsUpdateInterval;
+      
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Actualizar posiciones y dibujar partículas
       particles.forEach((particle, index) => {
         // Actualizar posición
         particle.x += particle.speedX;
@@ -65,24 +73,33 @@ const AnimatedBackground = () => {
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(66, 153, 225, ${particle.opacity})`;
         ctx.fill();
-
-        // Conectar partículas cercanas
-        particles.forEach((particle2, index2) => {
-          if (index === index2) return;
-          const dx = particle.x - particle2.x;
-          const dy = particle.y - particle2.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 150) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(66, 153, 225, ${0.2 * (1 - distance / 150)})`;
-            ctx.lineWidth = 1;
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(particle2.x, particle2.y);
-            ctx.stroke();
+        
+        // Solo actualizar conexiones según el intervalo de throttling
+        if (shouldUpdateConnections) {
+          // Conectar partículas cercanas - optimizado para reducir cálculos
+          for (let j = index + 1; j < particles.length; j++) {
+            const particle2 = particles[j];
+            const dx = particle.x - particle2.x;
+            const dy = particle.y - particle2.y;
+            // Usar distancia al cuadrado para evitar cálculo de raíz cuadrada
+            const distanceSquared = dx * dx + dy * dy;
+            
+            if (distanceSquared < 22500) { // 150^2 = 22500
+              const distance = Math.sqrt(distanceSquared);
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(66, 153, 225, ${0.15 * (1 - distance / 150)})`;
+              ctx.lineWidth = 0.5; // Línea más delgada
+              ctx.moveTo(particle.x, particle.y);
+              ctx.lineTo(particle2.x, particle2.y);
+              ctx.stroke();
+            }
           }
-        });
+        }
       });
+      
+      if (shouldUpdateConnections) {
+        lastConnectionsUpdate = now;
+      }
 
       requestAnimationFrame(animate);
     };

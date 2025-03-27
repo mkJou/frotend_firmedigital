@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Habilitar compresión para mejorar la velocidad de carga
+  compress: true,
+  // Optimizar para producción
+  reactStrictMode: true,
+  // Optimizar imágenes
+  optimizeFonts: true,
   headers: async () => [
     {
       source: '/:all*(svg|jpg|png|webp)',
@@ -7,7 +13,15 @@ const nextConfig = {
       headers: [
         {
           key: 'Cache-Control',
-          value: 'public, max-age=31536000, must-revalidate'
+          value: 'no-store, no-cache, must-revalidate, proxy-revalidate'
+        },
+        {
+          key: 'Pragma',
+          value: 'no-cache'
+        },
+        {
+          key: 'Expires',
+          value: '0'
         }
       ]
     },
@@ -16,7 +30,15 @@ const nextConfig = {
       headers: [
         {
           key: 'Cache-Control',
-          value: 'public, max-age=31536000, immutable'
+          value: 'no-store, no-cache, must-revalidate, proxy-revalidate'
+        },
+        {
+          key: 'Pragma',
+          value: 'no-cache'
+        },
+        {
+          key: 'Expires',
+          value: '0'
         }
       ]
     },
@@ -25,17 +47,33 @@ const nextConfig = {
       headers: [
         {
           key: 'Cache-Control',
-          value: 'public, max-age=3600, must-revalidate'
+          value: 'no-store, no-cache, must-revalidate, proxy-revalidate'
+        },
+        {
+          key: 'Pragma',
+          value: 'no-cache'
+        },
+        {
+          key: 'Expires',
+          value: '0'
         }
       ]
     }
   ],
   images: {
     domains: ['i.imgur.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**'
+      }
+    ],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     formats: ['image/webp'],
-    minimumCacheTTL: 60
+    minimumCacheTTL: 0,
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
   },
   webpack: (config, { dev, isServer }) => {
     config.resolve.fallback = {

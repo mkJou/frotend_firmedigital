@@ -7,7 +7,7 @@ import MegaMenu from '@/components/MegaMenu';
 import Link from 'next/link';
 
 interface BlogPost {
-  id: number;
+  _id: string;
   title: string;
   excerpt: string;
   content: string;
@@ -16,6 +16,7 @@ interface BlogPost {
   imageUrl: string;
   author: string;
   isVisible: boolean;
+  isFeatured: boolean;
   comments: Comment[];
 }
 
@@ -37,33 +38,57 @@ export default function Blog() {
   const categories = ['all', 'Tutoriales', 'Normativas', 'Casos de Éxito', 'Seguridad'];
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchPostsAndComments = async () => {
       try {
-        const response = await fetch('/api/articles');
-        if (!response.ok) {
+        // Obtener todos los artículos y comentarios en paralelo
+        const [articlesResponse, commentsResponse] = await Promise.all([
+          fetch('/api/articles'),
+          fetch('/api/comments')
+        ]);
+
+        if (!articlesResponse.ok) {
           throw new Error('Error al obtener los artículos');
         }
-        const data = await response.json();
-        if (data.success && Array.isArray(data.data)) {
-          const formattedPosts = await Promise.all(data.data.map(async post => {
-            // Obtener los comentarios para este artículo
-            const commentsResponse = await fetch(`/api/comments/${post._id}`);
-            const commentsData = await commentsResponse.json();
-            const comments = commentsData.success ? commentsData.data : [];
-            
 
-            
-            return {
-              ...post,
-              id: post._id,
-              comments: comments,
-              excerpt: post.excerpt || post.content.substring(0, 150) + '...',
-              isVisible: post.isVisible
-            };
-          }));
+        const articlesData = await articlesResponse.json();
+        let commentsData = { success: false, data: [] };
+        
+        if (commentsResponse.ok) {
+          commentsData = await commentsResponse.json();
+        }
+
+        // Organizar comentarios por ID de artículo para acceso rápido
+        const commentsByArticleId = {};
+        if (commentsData.success && Array.isArray(commentsData.data)) {
+          commentsData.data.forEach(comment => {
+            if (comment.articleId) {
+              if (!commentsByArticleId[comment.articleId]) {
+                commentsByArticleId[comment.articleId] = [];
+              }
+              commentsByArticleId[comment.articleId].push(comment);
+            }
+          });
+        }
+
+        if (articlesData.success && Array.isArray(articlesData.data)) {
+          const formattedPosts = articlesData.data
+            .filter(post => post._id && post.title)
+            .map(post => {
+              // Obtener comentarios para este artículo del objeto mapeado
+              const postComments = commentsByArticleId[post._id] || [];
+              
+              return {
+                ...post,
+                id: post._id.toString(),
+                comments: postComments,
+                excerpt: post.excerpt || (post.content ? post.content.substring(0, 150) + '...' : ''),
+                isVisible: typeof post.isVisible === 'boolean' ? post.isVisible : true,
+                isFeatured: typeof post.isFeatured === 'boolean' ? post.isFeatured : false
+              };
+            });
           setPosts(formattedPosts);
         } else {
-          console.error('Formato de datos inválido:', data);
+          console.error('Formato de datos inválido:', articlesData);
           setPosts([]);
         }
       } catch (error) {
@@ -74,7 +99,7 @@ export default function Blog() {
       }
     };
 
-    fetchPosts();
+    fetchPostsAndComments();
   }, []);
 
   const handleAddComment = async (postId: number) => {
@@ -115,8 +140,9 @@ export default function Blog() {
   };
 
   const filteredPosts = posts.filter(post => {
+    if (!post || !post.title) return false;
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+                         (post.excerpt || '').toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
     return matchesSearch && matchesCategory && post.isVisible;
   });
@@ -126,7 +152,10 @@ export default function Blog() {
   const postsPerPage = 6;
 
   const sortedAndFilteredPosts = filteredPosts
-    .sort((a, b) => a.title.localeCompare(b.title));
+    .filter(post => post !== null)
+    .sort((a, b) => sortBy === 'date' ? 
+      new Date(b.date).getTime() - new Date(a.date).getTime() : 
+      a.title.localeCompare(b.title));
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
