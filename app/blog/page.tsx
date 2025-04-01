@@ -35,7 +35,7 @@ export default function Blog() {
   const [newComment, setNewComment] = useState('');
   const [posts, setPosts] = useState<BlogPost[]>([]);
 
-  const categories = ['all', 'Tutoriales', 'Normativas', 'Casos de Éxito', 'Seguridad'];
+  const categories = ['all', 'Legal', 'Ingenieria', 'salud', 'contadores', 'Gubernamentales','Tecnologia Financiera','Industria y comercio','Educativo','RRHH','Banca y Finanzas','Agropecuario','Eventos'];
 
   useEffect(() => {
     const fetchPostsAndComments = async () => {
@@ -258,10 +258,7 @@ export default function Blog() {
                         <FaCalendar className="text-blue-400" />
                         {new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </span>
-                      <span className="flex items-center gap-1">
-                        <FaComment className="text-blue-400" />
-                        {post.comments.length}
-                      </span>
+                     
                     </div>
                     <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{post.title}</h3>
                     <p className="text-sm sm:text-base text-gray-400 mb-4 line-clamp-2">{post.excerpt}</p>
@@ -298,10 +295,7 @@ export default function Blog() {
                         <FaCalendar className="text-blue-400" />
                         {new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
                       </span>
-                      <span className="flex items-center gap-1">
-                        <FaComment className="text-blue-400" />
-                        {post.comments.length}
-                      </span>
+                   
                     </div>
                     <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{post.title}</h3>
                     <p className="text-sm sm:text-base text-gray-400 mb-4 line-clamp-2">{post.excerpt}</p>

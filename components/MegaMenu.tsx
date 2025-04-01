@@ -2,7 +2,8 @@
 
 import { useState, useRef, useEffect, memo, useCallback } from 'react';
 import Link from 'next/link';
-import { 
+// Importamos los iconos desde nuestro archivo centralizado
+import {
   HiOutlineChartBar, 
   HiOutlineUserGroup,
   HiOutlineLockClosed,
@@ -13,32 +14,23 @@ import {
   HiChevronDown,
   HiOutlineSupport,
   HiOutlineMail,
-  HiOutlineDocumentReport
-} from 'react-icons/hi';
-import { AiOutlineFileDone, AiOutlineFileSync } from 'react-icons/ai';
-import { 
+  HiOutlineDocumentReport,
+  AiOutlineFileDone, 
+  AiOutlineFileSync,
   BsBuilding, 
-  BsStars, 
-  BsRocket,
-  BsDiamond,
-  BsBank,
   BsHospital,
   BsShop,
-  BsBuildings,
   BsBook,
-  BsGear,
   BsTools,
   BsCalculator,
-  BsGlobe,
   BsCurrencyDollar,
   BsCpu,
   BsPeople,
   BsBoxes,
   BsClipboard,
-  BsShieldLock,
-  BsCalendar
-} from 'react-icons/bs';
-import { FiTruck } from 'react-icons/fi';
+  BsCalendar,
+  FiTruck
+} from '../components/icons';
 
 interface MenuItem {
   title: string;

@@ -129,7 +129,14 @@ const nextConfig = {
   },
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['react-icons']
+    optimizePackageImports: ['react-icons'],
+    // Configuración adicional para mejorar la optimización de paquetes
+    modularizeImports: {
+      'react-icons/?(((\\w*)?/?)*)': {
+        transform: 'react-icons/{{ matches.[1] }}/{{member}}',
+        skipDefaultConversion: true
+      }
+    }
   },
   swcMinify: true,
   compress: true

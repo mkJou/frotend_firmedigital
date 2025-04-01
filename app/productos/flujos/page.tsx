@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import MegaMenu from '../../../components/MegaMenu';
-import { HiOutlineLightningBolt, HiOutlineCog, HiOutlineChartBar, HiOutlinePuzzle, HiOutlineDocumentText, HiOutlineSparkles } from 'react-icons/hi';
+import { HiOutlineCog, HiOutlineChartBar, HiOutlinePuzzle, HiOutlineDocumentText, HiOutlineSparkles } from 'react-icons/hi';
 import { IoRocketOutline, IoFlashOutline } from 'react-icons/io5';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -17,9 +17,9 @@ export default function WorkflowPage() {
   const numbersRef = useRef([]);
   const titleRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeQuestion, setActiveQuestion] = useState(null);
+  const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
 
-  const toggleQuestion = (index) => {
+  const toggleQuestion = (index: number) => {
     setActiveQuestion(activeQuestion === index ? null : index);
   };
 
@@ -235,7 +235,7 @@ export default function WorkflowPage() {
       );
 
       // Efecto de escritura
-      const text = mainTitle.textContent;
+      const text = mainTitle.textContent || '';
       mainTitle.textContent = '';
       const chars = text.split('');
       chars.forEach((char, index) => {
@@ -293,13 +293,13 @@ export default function WorkflowPage() {
     const cards = document.querySelectorAll('.timeline-card');
     
     cards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
+      card.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = (card as Element).getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
         
-        card.style.setProperty('--mouse-x', `${x}%`);
-        card.style.setProperty('--mouse-y', `${y}%`);
+        (card as HTMLElement).style.setProperty('--mouse-x', `${x}%`);
+        (card as HTMLElement).style.setProperty('--mouse-y', `${y}%`);
       });
     });
   }, []);

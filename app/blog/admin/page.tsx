@@ -45,7 +45,7 @@ export default function BlogAdmin() {
   });
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const categories = ['Tutoriales', 'Normativas', 'Casos de Éxito', 'Seguridad'];
+  const categories = ['Normativas','Legal', 'Ingenieria', 'salud', 'contadores', 'Gubernamentales','Tecnologia Financiera','Industria y comercio','Educativo','RRHH','Banca y Finanzas','Agropecuario','Eventos',];
 
   const validateForm = (post: Partial<BlogPost>) => {
     const errors: {[key: string]: string} = {};
@@ -104,7 +104,19 @@ export default function BlogAdmin() {
   const handleUpdatePost = async () => {
     if (!editingPost?._id) return;
 
+    const errors = validateForm(editingPost);
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
     try {
+      // Actualizar el estado local inmediatamente para mejor UX
+      const updatedPosts = posts.map(post =>
+        post._id === editingPost._id ? { ...post, ...editingPost } : post
+      );
+      setPosts(updatedPosts);
+
       const response = await fetch(`/api/articles/${editingPost._id}`, {
         method: 'PUT',
         headers: {
@@ -116,14 +128,18 @@ export default function BlogAdmin() {
       const data = await response.json();
 
       if (!response.ok) {
+        // Revertir cambios si hay error
+        setPosts(posts);
         throw new Error(data.error || 'Error al actualizar el artículo');
       }
 
+      // Confirmar actualización con datos del servidor
       setPosts(posts.map(post =>
-        post._id === editingPost._id ? data.data : post
+        post._id === editingPost._id ? { ...data.data, comments: post.comments } : post
       ));
       setShowEditModal(false);
       setEditingPost(null);
+      setFormErrors({});
       setShowSuccessMessage(true);
       setTimeout(() => setShowSuccessMessage(false), 3000);
     } catch (error) {

@@ -4,7 +4,22 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MegaMenu from '@/components/MegaMenu';
-import { FaProjectDiagram, FaClipboardCheck, FaUsers, FaBuilding, FaHardHat, FaCheckSquare, FaUsersCog, FaCogs, FaDrawPolygon, FaTools, FaLock, FaCloudUploadAlt, FaMobile } from 'react-icons/fa';
+import { FaProjectDiagram, FaClipboardCheck, FaCalendar, FaUsers, FaBuilding, FaHardHat, FaCheckSquare, FaUsersCog, FaCogs, FaDrawPolygon, FaTools, FaLock, FaCloudUploadAlt, FaMobile } from 'react-icons/fa';
+import Link from 'next/link';
+
+interface BlogPost {
+  _id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  date: string;
+  imageUrl: string;
+  author: string;
+  isVisible: boolean;
+  isFeatured: boolean;
+  tags?: string[];
+}
 
 const SkeletonHero = () => (
   <div className="space-y-8">
@@ -21,6 +36,7 @@ const SkeletonHero = () => (
 
 export default function Ingenieros() {
   const [isLoading, setIsLoading] = useState(true);
+  const [engineeringArticles, setEngineeringArticles] = useState<BlogPost[]>([]);
 
   useEffect(() => {
     const loadingTimeout = setTimeout(() => {
@@ -31,6 +47,28 @@ export default function Ingenieros() {
       clearTimeout(loadingTimeout);
     };
   }, [isLoading]);
+  
+  useEffect(() => {
+    // Obtener artículos con categoría 'ingenieria' desde la API
+    const fetchEngineeringArticles = async () => {
+      try {
+        const response = await fetch('/api/articles/category/ingenieria');
+        const data = await response.json();
+        
+        if (data.success) {
+          setEngineeringArticles(data.data);
+        } else {
+          console.error('Error al obtener artículos:', data.error);
+        }
+      } catch (error) {
+        console.error('Error al obtener artículos:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchEngineeringArticles();
+  }, []);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-gray-100">
@@ -47,25 +85,20 @@ export default function Ingenieros() {
               ) : (
                 <>
                   <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                    La Herramienta para la Coordinación Exitosa de Proyectos de Ingeniería y Construcción
+                  Transporta la Gestión Documental en Proyectos de Ingeniería con FIRMEDIGITAL
                   </h1>
-                  <p className="text-xl text-gray-300 leading-relaxed mb-8">
-                  FIRMEDIGITAL facilita la coordinación de tus proyectos al centralizar toda la información en una sola herramienta. Olvídate de buscar entre cientos de correos electrónicos. Con FIRMEDIGITAL, todos los documentos y datos están organizados y accesibles, asegurando una gestión eficiente y colaboración sin complicaciones, desde la planificación hasta la ejecución.
+                  <p className="text-xl bg-gradient-to-r from-gray-300 to-blue-300 bg-clip-text text-transparent font-medium leading-relaxed mb-8 px-1 border-l-4 border-blue-400 pl-4 shadow-sm">
+                  Mejora tus flujos de trabajo y ofrece un servicio al cliente excepcional y seguro
                   </p>
+                  <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="inline-block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                    ¡Empieza Gratis!
+                  </a>
                 </>
               )}
             </div>
             <div className="flex-1 flex justify-center">
-              <motion.div
-                animate={{
-                  y: [0, -20, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
+              <div className="transform hover:scale-105 transition-transform duration-500">
+
                 <Image
                   src="/images/inge.png"
                   alt="Ingeniería y Construcción"
@@ -73,7 +106,7 @@ export default function Ingenieros() {
                   height={400}
                   className="drop-shadow-[0_0_30px_rgba(59,130,246,0.3)]"
                 />
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
@@ -81,6 +114,9 @@ export default function Ingenieros() {
 
       {/* Flujo Lineal Section */}
       <section className="py-16 px-4 bg-gradient-to-b from-[#111827] to-gray-900 relative overflow-hidden">
+      <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+      Beneficios Clave en el Sector de Ingeniería
+          </h2>
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
@@ -121,14 +157,7 @@ export default function Ingenieros() {
         </div>
       </section>
 
-      {/* Quote Section */}
-      <section className="py-12 bg-gradient-to-b from-[#111827] to-gray-900">
-        <div className="max-w-7xl mx-auto px-4">
-          <blockquote className="text-2xl lg:text-3xl font-semibold text-center italic text-gray-300">
-            "FIRMEDIGITAL: Revolucionando la Gestión de Proyectos de Ingeniería con Eficiencia, Precisión y Control Total."
-          </blockquote>
-        </div>
-      </section>
+      
 
       {/* Flujo de Revisión Section */}
       <section className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black relative">
@@ -334,6 +363,63 @@ export default function Ingenieros() {
             transition={{ duration: 0.5 }}
           >
           </motion.div>
+        </div>
+      </section>
+       {/* Recursos Adicionales Section */}
+       <section className="py-20 bg-gradient-to-b from-gray-900 to-black relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+            Aprende Más con Nuestros Recursos
+          </h2>
+          
+          {isLoading ? (
+            <div className="flex justify-center items-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+          ) : engineeringArticles.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-xl text-gray-400">No se encontraron artículos en la categoría ingeniería.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {engineeringArticles.map((article, index) => (
+              <Link href={`/blog/${article._id}`} key={article._id}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group bg-gray-800/50 rounded-xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300 shadow-xl border border-gray-700/50 h-full"
+                >
+                  <div className="h-48 overflow-hidden relative">
+                    <div className="w-full h-full bg-gradient-to-br from-blue-500/30 to-purple-500/30 absolute z-10"></div>
+                    <img
+                      src={article.imageUrl}
+                      alt={article.title}
+                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent opacity-60"></div>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 mb-4 text-sm text-gray-400">
+                      <span className="flex items-center gap-1">
+                        <FaCalendar className="text-blue-400" />
+                        {new Date(article.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{article.title}</h3>
+                    <p className="text-gray-400 mb-4 line-clamp-2">{article.excerpt}</p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-500">Por {article.author}</span>
+                      <span className="text-blue-400 group-hover:translate-x-2 transition-transform duration-300">Leer más →</span>
+                    </div>
+                  </div>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+          )}
         </div>
       </section>
     </main>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo, memo } from 'react';
 import { motion } from 'framer-motion';
-import { FaUser, FaClock } from 'react-icons/fa';
+import { FaUser, FaClock } from '../icons/comment-icons';
 
 interface Comment {
   id: string;

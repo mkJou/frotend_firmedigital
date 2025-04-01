@@ -16,8 +16,7 @@ import {
 import styles from './styles/FlipCard.module.css';
 import Image from 'next/image';
 import Modal from '@/components/Modal';
-import { IoShieldCheckmarkOutline, IoHeadsetOutline } from 'react-icons/io5';
-import { HiOutlineLockClosed } from 'react-icons/hi';
+import { IoShieldCheckmarkOutline, IoHeadsetOutline, HiOutlineLockClosed } from '../components/icons/home-icons';
 
 
 if (typeof window !== 'undefined') {
@@ -251,11 +250,12 @@ export default function Home() {
     cards.forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        const mouseEvent = e as MouseEvent;
+        const x = ((mouseEvent.clientX - rect.left) / rect.width) * 100;
+        const y = ((mouseEvent.clientY - rect.top) / rect.height) * 100;
         
-        card.style.setProperty('--mouse-x', `${x}%`);
-        card.style.setProperty('--mouse-y', `${y}%`);
+        (card as HTMLElement).style.setProperty('--mouse-x', `${x}%`);
+        (card as HTMLElement).style.setProperty('--mouse-y', `${y}%`);
       });
     });
   }, []);
@@ -266,8 +266,8 @@ export default function Home() {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     
-    card.style.setProperty('--mouse-x', `${x}px`);
-    card.style.setProperty('--mouse-y', `${y}px`);
+    (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+    (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
   };
 
   const CheckIcon = () => (
