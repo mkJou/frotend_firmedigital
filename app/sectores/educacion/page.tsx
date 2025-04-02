@@ -91,7 +91,7 @@ export default function Educacion() {
                   Eficiencia, seguridad y sostenibilidad para procesos académicos y administrativos. ¡Lleva la transformación digital a tu institución educativa!
                   </p>
                   <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="hero-button inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10">
-                  ¡Implementa FIRMEDIGITAL Hoy!
+                  ¡Comienza ahora!
               </a>
                 </>
               )}

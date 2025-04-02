@@ -91,7 +91,7 @@ export default function Ingenieros() {
                   Mejora tus flujos de trabajo y ofrece un servicio al cliente excepcional y seguro
                   </p>
                   <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="inline-block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                    ¡Empieza Gratis!
+                  ¡Comienza ahora!
                   </a>
                 </>
               )}

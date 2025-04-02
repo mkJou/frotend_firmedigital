@@ -92,7 +92,7 @@ export default function Contadores() {
                   Acelera procesos, asegura tus documentos y cumple con las normativas fiscales.
                   </p>
                   <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="hero-button inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10">
-                  ¡Obtén tu Firma Ahora! 
+                  ¡Comienza ahora!
               </a>
                 </>
               )}

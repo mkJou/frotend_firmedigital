@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import MegaMenu from '../../../components/MegaMenu';
 import { BsGlobe, BsShieldCheck, BsPeople, BsGear, BsFolder, BsFileEarmark, BsPerson } from 'react-icons/bs';
-import { FaLandmark, FaUserTie, FaShieldAlt, FaCalendar } from 'react-icons/fa';
+import { FaLandmark, FaUserTie, FaShieldAlt, FaCalendar, } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -134,7 +134,7 @@ export default function SectorGobierno() {
               Eficiencia, transparencia y seguridad para trámites y procesos públicos ¡Lleva la transformación digital a tu institución! 
                   </p>
               <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="hero-button inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10">
-                ¡Comienza ahora!
+                 ¡Comienza ahora!
               </a>
             </div>
             <div className="relative h-[400px] w-full">

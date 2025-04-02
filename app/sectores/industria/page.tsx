@@ -82,7 +82,7 @@ export default function SectorIndustria() {
               Firma, organiza y protege tus documentos clave para optimizar tus procesos industriales y comerciales
               </p>
               <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="hero-button inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10">
-                ¡Empieza Gratis!
+              ¡Comienza ahora!
               </a>
             </div>
             <div className="w-full md:w-1/2 flex justify-center">
