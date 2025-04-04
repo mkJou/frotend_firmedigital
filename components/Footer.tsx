@@ -146,7 +146,7 @@ const Footer = () => {
                 <a href="tel:+584247100380">Telf: +58 424-7100380</a>
               </li>
               <li className='hover:text-white transition-colors duration-200'>
-                <a href="mailto:info@firmedigital.com.ve">info@firmedigital.com.ve</a>
+                <a href="mailto:info@firmedigital.com">info@firmedigital.com</a>
               </li>
               <li className='hover:text-white transition-colors duration-200'>
                 <a href="https://www.instagram.com/firmedigitalve" target="_blank" rel="noopener noreferrer">

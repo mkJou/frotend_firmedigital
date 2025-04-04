@@ -5,6 +5,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import MegaMenu from '@/components/MegaMenu';
 import gsap from 'gsap';
+import { motion } from 'framer-motion';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TextPlugin } from 'gsap/TextPlugin';
 import { 
@@ -17,6 +18,7 @@ import styles from './styles/FlipCard.module.css';
 import Image from 'next/image';
 import Modal from '@/components/Modal';
 import { IoShieldCheckmarkOutline, IoHeadsetOutline, HiOutlineLockClosed } from '../components/icons/home-icons';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 
 if (typeof window !== 'undefined') {
@@ -67,6 +69,12 @@ export default function Home() {
     description: ''
   });
 
+  // Estados para el verificador de certificados
+  const [searchType, setSearchType] = useState('');
+  const [searchCode, setSearchCode] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchResult, setSearchResult] = useState<null | { valid: boolean; message: string; details?: any }>(null);
+
   const handleOpenModal = (title: string, description: string) => {
     setModalContent({ title, description });
     setIsModalOpen(true);
@@ -74,6 +82,104 @@ export default function Home() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  // Función para manejar la búsqueda de certificados
+  const handleSearch = async () => {
+    if (!searchType || !searchCode) {
+      return;
+    }
+
+    setIsSearching(true);
+    setSearchResult(null);
+
+    const queryTypes: Record<string, string> = {
+      '0': 'ci',
+      '1': 'name',
+      '2': 'serial',
+      '3': 'email'
+    };
+
+    try {
+      const queryParam = queryTypes[searchType] || '';
+      console.log('Search Parameters:', { type: queryParam, code: searchCode });
+      const apiUrl = `https://ca.firmedigital.com/api/v1/certificate/list?${queryParam}=${encodeURIComponent(searchCode.toLowerCase())}`;
+      console.log('API URL:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Origin': 'http://localhost:4200'
+        }
+      });
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Server Error:', { status: response.status, statusText: response.statusText, body: errorText });
+        throw new Error(`Error del servidor: ${response.status} - ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('Raw API Response:', data);
+
+      let certificateDetails = [];
+      if (data.certs && data.certs.length > 0) {
+        for (let i = 0; i < data.certs.length; i++) {
+          let name = 'No disponible';
+          let serial = 'No disponible';
+          
+          // Buscar el nombre en los datos adicionales
+          for (let j = 0; j < data.certs[i].aditional.length; j++) {
+            if (data.certs[i].aditional[j].O) {
+              name = data.certs[i].aditional[j].O;
+              break;
+            }
+          }
+          
+          // Buscar el número de serie en los datos adicionales
+          for (let j = 0; j < data.certs[i].aditional.length; j++) {
+            if (data.certs[i].aditional[j].serialNumber) {
+              serial = data.certs[i].aditional[j].serialNumber;
+              break;
+            }
+          }
+          
+          // Determinar el estado del certificado
+          const state = data.certs[i].state === "V" ? "Vigente" : "Revocado";
+          
+          certificateDetails.push({
+            state: state,
+            expirationTime: data.certs[i].expirationTime || 'No disponible',
+            serial: data.certs[i].serial || serial,
+            name: name
+          });
+        }
+        
+        setSearchResult({
+          valid: true,
+          message: `Certificados encontrados (${certificateDetails.length})`,
+          details: certificateDetails
+        });
+      } else {
+        setSearchResult({
+          valid: false,
+          message: 'No se encontraron certificados',
+          details: null
+        });
+      }
+    } catch (error) {
+      console.error('Error en la verificación:', error);
+      setSearchResult({
+        valid: false,
+        message: `Error al verificar el certificado`
+      });
+    } finally {
+      setIsSearching(false);
+    }
   };
 
   useEffect(() => {
@@ -359,9 +465,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-       {/* Misión y Visión Section */}
-       <section className="relative py-20 border-t border-white/5 mission-vision-section">
+      {/* Misión y Visión Section */}
+      <section className="relative py-20 border-t border-white/5 mission-vision-section">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 -right-4 w-[400px] h-[400px] bg-blue-500/10 rounded-full mix-blend-normal filter blur-[100px]" />
           <div className="absolute bottom-0 -left-4 w-[400px] h-[400px] bg-purple-500/10 rounded-full mix-blend-normal filter blur-[100px]" />
@@ -1227,45 +1332,138 @@ export default function Home() {
         
         </div>
       </div>
-{/* Banner Validador de Documentos */}
-<section className="relative mt-24 mb-16">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="relative overflow-hidden rounded-2xl bg-[#0A0A0A] border border-white/10">
-            <div className="absolute inset-0">
-              <div className="absolute top-0 -left-4 w-[500px] h-[500px] bg-blue-500/20 rounded-full mix-blend-normal filter blur-[128px]" />
-              <div className="absolute bottom-0 -right-4 w-[500px] h-[500px] bg-purple-500/20 rounded-full mix-blend-normal filter blur-[128px]" />
-            </div>
-            <div className="relative grid lg:grid-cols-2 gap-8 items-center p-8 lg:p-12">
-              <div className="space-y-6">
-                <h2 className="text-3xl lg:text-4xl font-bold">
-                  Validador de
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                    Documentos Digitales
-                  </span>
-                </h2>
-                <p className="text-gray-400 text-lg">
-                  Verifica la autenticidad de tus documentos firmados digitalmente de manera rápida y segura.
-                </p>
-                <Link href="/productos/verificacion-certificados" className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-200 transform hover:scale-105">
-                  Validar Documento
-                </Link>
+ {/* Verificación de Documentos Section */}
+ <section className="relative py-12 sm:py-16 border-t border-white/5 verificacion-section">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 -right-4 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-blue-500/10 rounded-full mix-blend-normal filter blur-[100px]" />
+          <div className="absolute bottom-0 -left-4 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-purple-500/10 rounded-full mix-blend-normal filter blur-[100px]" />
+        </div>
+        
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, type: "spring", stiffness: 100 }}
+            className="text-center mb-8 sm:mb-12"
+          >
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 mb-3 sm:mb-4">
+              Verificación de Documentos
+            </h2>
+            <p className="text-gray-300 text-base sm:text-lg max-w-3xl mx-auto px-2">
+              Verifica la autenticidad de documentos firmados digitalmente con nuestra herramienta de verificación rápida y segura.
+            </p>
+          </motion.div>
+
+          <div className="max-w-3xl mx-auto">
+            {/* Formulario y Resultados en un solo div */}
+            <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm border border-white/5 rounded-2xl p-5 sm:p-8 hover:border-white/10 transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)]">
+              <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-white">Verificar Documento</h3>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
+                <div>
+                  <label htmlFor="searchType" className="block text-sm font-medium text-gray-300 mb-1 sm:mb-2">Tipo de Búsqueda</label>
+                  <select
+                    id="searchType"
+                    value={searchType}
+                    onChange={(e) => setSearchType(e.target.value)}
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white text-sm sm:text-base"
+                  >
+                    <option value="">Seleccionar tipo de búsqueda</option>
+                    <option value="0">Cédula</option>
+                    <option value="1">Nombre</option>
+                    <option value="2">Serial</option>
+                    <option value="3">Correo Electrónico</option>
+                  </select>
+                </div>
                 
-              </div>
-              <div className="relative flex justify-center">
-                <div className="relative w-full max-w-[400px] aspect-square">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl blur-2xl" />
-                  <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 h-full flex items-center justify-center">
-                    <Image
-                      src="/images/Validador de documentos.jpeg"
-                      alt="Validador de documentos"
-                      width={400}
-                      height={400}
-                      className="rounded-xl object-cover"
-                    />
-                  </div>
+                <div>
+                  <label htmlFor="searchCode" className="block text-sm font-medium text-gray-300 mb-1 sm:mb-2">Código de Búsqueda</label>
+                  <input
+                    type="text"
+                    id="searchCode"
+                    value={searchCode}
+                    onChange={(e) => setSearchCode(e.target.value)}
+                    placeholder="Ingrese el código de búsqueda"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white text-sm sm:text-base"
+                  />
                 </div>
               </div>
+              
+              <button
+                onClick={handleSearch}
+                disabled={isSearching || !searchType || !searchCode}
+                className="w-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
+              >
+                {isSearching ? (
+                  <span className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Verificando...
+                  </span>
+                ) : "Verificar"}
+              </button>
+              
+              {/* Resultados de Verificación - Solo visibles después de buscar */}
+              {searchResult && (
+                <div className="mt-8 pt-6 border-t border-gray-800">
+                  <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-white">Resultados</h3>
+                  
+                  <div className="space-y-4">
+                    <div className={`flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-lg ${searchResult.valid ? 'bg-green-900/30' : 'bg-red-900/30'}`}>
+                      {searchResult.valid ? (
+                        <FaCheckCircle className="text-green-400 text-lg sm:text-xl flex-shrink-0" />
+                      ) : (
+                        <FaTimesCircle className="text-red-400 text-lg sm:text-xl flex-shrink-0" />
+                      )}
+                      <p className="text-white text-sm sm:text-base">{searchResult.message}</p>
+                    </div>
+                    
+                    {searchResult.valid && searchResult.details && (
+                      <div className="mt-3 sm:mt-4 space-y-3 sm:space-y-4 max-h-[250px] sm:max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                        {searchResult.details.map((cert: any, index: number) => (
+                          <div key={index} className="bg-gray-800/50 border border-gray-700 rounded-lg p-3 sm:p-4">
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-2">
+                              <h4 className="font-medium text-white text-sm sm:text-base">Certificado {index + 1}</h4>
+                              <span className={`px-2 py-1 rounded text-xs font-medium w-fit ${cert.state === 'Vigente' ? 'bg-green-900/50 text-green-400' : 'bg-red-900/50 text-red-400'}`}>
+                                {cert.state}
+                              </span>
+                            </div>
+                            <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
+                              <p className="text-gray-300 break-words"><span className="text-gray-400">Nombre:</span> {cert.name}</p>
+                              <p className="text-gray-300 break-words"><span className="text-gray-400">Serial:</span> {cert.serial}</p>
+                              <p className="text-gray-300 break-words"><span className="text-gray-400">Expiración:</span> {cert.expirationTime}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
+          </div>
+          
+          <div className="mt-6 sm:mt-8 text-center">
+            <Link 
+              href="/productos/verificacion-certificados" 
+              className="group inline-flex items-center justify-center px-4 py-1.5 sm:px-5 sm:py-2 rounded-md bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 border border-white/10 hover:border-white/20 transition-all duration-300 transform hover:scale-105 shadow-sm shadow-blue-500/5 hover:shadow-blue-500/10"
+            >
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-medium text-xs sm:text-sm">
+                Ver herramienta completa de verificación
+              </span>
+              <svg 
+                className="w-2.5 h-2.5 sm:w-3 sm:h-3 ml-1.5 sm:ml-2 text-blue-400 group-hover:text-purple-400 transition-all duration-300 transform group-hover:translate-x-0.5" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>
