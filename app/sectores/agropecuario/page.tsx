@@ -75,7 +75,7 @@ export default function Agropecuario() {
     setFormStatus(null);
     
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/contact/sectores', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

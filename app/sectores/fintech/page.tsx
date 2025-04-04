@@ -52,7 +52,7 @@ export default function SectorFintech() {
     setFormStatus(null);
     
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/contact/sectores', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
