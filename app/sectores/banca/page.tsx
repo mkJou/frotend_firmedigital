@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MegaMenu from '@/components/MegaMenu';
-import { FaBell, FaSignature, FaFolder, FaSyncAlt, FaShieldAlt, FaBolt, FaUserCheck, FaUniversity, FaBuilding, FaUsers, FaFileContract, FaLock, FaChartLine, FaHandshake, FaMoneyBillWave, FaUserShield, FaCalendar } from 'react-icons/fa';
+import {FaSignature, FaFolder, FaSyncAlt, FaShieldAlt, FaBolt, FaUserCheck, FaUniversity, FaBuilding, FaUsers, FaFileContract, FaLock, FaChartLine, FaHandshake, FaMoneyBillWave, FaUserShield, FaCalendar, FaEnvelope, FaPaperPlane } from 'react-icons/fa';
 import Link from 'next/link';
 
 interface BlogPost {
@@ -24,6 +24,15 @@ interface BlogPost {
 export default function SectorBanca() {
   const [isLoading, setIsLoading] = useState(true);
   const [educationArticles, setEducationArticles] = useState<BlogPost[]>([]);
+  const [email, setEmail] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState<{success?: boolean; message?: string} | null>(null);
+
+  const heroRef = useRef<HTMLDivElement>(null);
+  const benefitsRef = useRef<HTMLDivElement>(null);
+  const featuresRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,6 +41,37 @@ export default function SectorBanca() {
 
     return () => clearTimeout(timer);
   }, [isLoading]);
+  
+  // Función para manejar el envío del formulario
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFormStatus(null);
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, companyName, section: 'Banca' }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        setFormStatus({ success: true, message: 'Información recibida correctamente. Nos pondremos en contacto pronto.' });
+        setEmail('');
+        setCompanyName('');
+      } else {
+        setFormStatus({ success: false, message: data.message || 'Ocurrió un error al enviar el formulario.' });
+      }
+    } catch (error) {
+      setFormStatus({ success: false, message: 'Error de conexión. Por favor, inténtelo de nuevo.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   
   useEffect(() => {
     // Obtener artículos con categoría 'Banca y Finanzas' desde la API
@@ -60,29 +100,209 @@ export default function SectorBanca() {
       <MegaMenu />
       
       {/* Hero Section */}
-      <section className="relative py-12 lg:py-20 overflow-hidden mt-[100px]">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 pointer-events-none" style={{ paddingTop: '5rem' }}></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-              ¡Moderniza tus operaciones bancarias y financieras con FIRMEDIGITAL!
-              </h1>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8 max-w-3xl p-6 bg-gradient-to-r from-gray-800/50 to-blue-900/10 border-l-4 border-blue-500 rounded-lg shadow-lg hover:shadow-blue-500/20 hover:border-blue-400 transition-all duration-300 backdrop-blur-sm">
-              Agilidad, seguridad y cumplimiento normativo en la firma de documentos clave. 
+      <section ref={heroRef} className="relative py-16 px-4 md:px-8 overflow-hidden mt-[120px] min-h-[80vh] md:min-h-[85vh] lg:min-h-[90vh] flex items-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 pointer-events-none"></div>
+        
+        {/* Fondo oscuro */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/80"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            {/* Columna izquierda: Título y subtítulo */}
+            <div className="flex flex-col">
+              <div className="flex flex-col mb-8">
+                <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.8)] leading-tight p-4 rounded-lg backdrop-blur-sm bg-black/30 shadow-xl text-left">
+                ¡Moderniza tus operaciones<br /> bancarias y financieras<br /> con FIRMEDIGITAL!
+                </h1>
+              
+                <div className="bg-gradient-to-r from-gray-800/50 to-blue-900/10 border-l-4 border-blue-500 rounded-lg shadow-lg hover:shadow-blue-500/20 hover:border-blue-400 transition-all duration-300 backdrop-blur-sm p-6 mb-8">
+                  <p className="text-lg md:text-xl text-gray-300 leading-relaxed text-left">
+                  Agilidad, seguridad y cumplimiento normativo en la firma de documentos clave. 
                   </p>
-                  <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="hero-button inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10">
-                  ¡Comienza ahora!
-              </a>
+                </div>
+                
+                {/* Formulario de contacto */}
+                <div className="bg-gradient-to-br from-gray-900/80 to-black/80 p-6 rounded-xl border border-blue-500/30 shadow-lg shadow-blue-500/10 mb-8 backdrop-blur-sm">
+                  <div className="flex flex-col md:flex-row justify-between items-center mb-4">
+                    <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 md:mb-0">Solicita más información</h3>
+                  </div>
+                  
+                  {formStatus && (
+                    <div className={`mb-4 p-3 rounded-lg ${formStatus.success ? 'bg-green-500/20 border border-green-500/30 text-green-400' : 'bg-red-500/20 border border-red-500/30 text-red-400'}`}>
+                      {formStatus.message}
+                    </div>
+                  )}
+                  
+                  <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FaEnvelope className="text-gray-400" />
+                        </div>
+                        <input
+                          type="email"
+                          id="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          className="w-full pl-10 pr-3 py-2 bg-gray-800/80 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-lg text-white placeholder-gray-400"
+                          placeholder="tu@email.com"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="companyName" className="block text-sm font-medium text-gray-300 mb-1">Nombre del la Organización</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FaBuilding className="text-gray-400" />
+                        </div>
+                        <input
+                          type="text"
+                          id="companyName"
+                          value={companyName}
+                          onChange={(e) => setCompanyName(e.target.value)}
+                          required
+                          className="w-full pl-10 pr-3 py-2 bg-gray-800/80 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-lg text-white placeholder-gray-400"
+                          placeholder="Nombre de tu organización"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="md:col-span-2">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full flex items-center justify-center px-6 py-2 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg shadow-blue-500/20 border border-white/10 disabled:opacity-70 disabled:cursor-not-allowed h-[42px]"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Enviando...
+                          </>
+                        ) : (
+                          <>
+                            <FaPaperPlane className="mr-2" /> Enviar
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
-            <div className="relative h-[400px]">
+            
+            {/* Columna derecha: Imagen */}
+            <div className="relative h-[300px] lg:h-[500px] rounded-xl overflow-hidden shadow-2xl shadow-blue-500/20 border border-blue-500/30 transform hover:scale-[1.02] transition-all duration-500">
               <Image
-                src="/images/banca.png"
-                alt="Banca y Finanzas"
+                src="/images/bancaa.jpg"
+                alt="Sector Banca"
                 fill
-                className="object-contain"
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 priority
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+          </div>
+          
+
+        </div>
+      </section>
+
+      {/* Cómo se integra Section */}
+      <section className="py-16 px-4 bg-black relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">¿Cómo se Integra?</h2>
+          <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
+            <p className="text-gray-300 text-lg text-center leading-relaxed mb-8">
+              El sector bancario se integra perfectamente con la plataforma de FIRMEDIGITAL, aprovechando sus funcionalidades de firma electrónica, gestión documental y flujo de trabajo. Se implementan módulos específicos para operaciones bancarias, creando una solución integral que se adapta a las necesidades de cada institución financiera.
+            </p>
+            <div className="flex justify-center">
+              <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="hero-button inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10">
+                ¡Comienza ahora!
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Beneficios Section */}
+      <section ref={benefitsRef} className="py-20 bg-gradient-to-b from-black to-gray-900 relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+            Beneficios para el Sector Bancario
+          </h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
+            <div className="lg:col-span-5 order-2 lg:order-1 relative mx-auto w-full flex items-center">
+              <div className="w-full h-[600px] md:h-[650px] lg:h-[700px] relative">
+                <img 
+                  src="/images/benebanca.jpg" 
+                  alt="Beneficios Banca" 
+                  className="w-full h-full object-contain"
+                  style={{paddingBottom: '6rem'}}
+                />
+              </div>
+            </div>
+            
+            <div className="lg:col-span-7 order-1 lg:order-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                {[
+                  {
+                    icon: <FaMoneyBillWave className="text-4xl text-blue-400" />,
+                    title: "Operaciones Bancarias",
+                    description: "Firma digital de transacciones y contratos con validez legal, agilizando procesos críticos."
+                  },
+                  {
+                    icon: <FaUserShield className="text-4xl text-blue-400" />,
+                    title: "Seguridad Financiera",
+                    description: "Protección avanzada en documentos bancarios con encriptación y autenticación multifactor."
+                  },
+                  {
+                    icon: <FaHandshake className="text-4xl text-blue-400" />,
+                    title: "Servicio al Cliente",
+                    description: "Gestión digital de documentación bancaria que mejora la experiencia del cliente."
+                  },
+                  {
+                    icon: <FaChartLine className="text-4xl text-blue-400" />,
+                    title: "Eficiencia Operativa",
+                    description: "Reducción significativa en tiempos de procesamiento y costos administrativos."
+                  },
+                  {
+                    icon: <FaFileContract className="text-4xl text-blue-400" />,
+                    title: "Cumplimiento Normativo",
+                    description: "Conformidad con regulaciones bancarias y financieras nacionales e internacionales."
+                  },
+                  {
+                    icon: <FaUniversity className="text-4xl text-blue-400" />,
+                    title: "Transformación Digital",
+                    description: "Modernización de procesos bancarios tradicionales con tecnología de vanguardia."
+                  }
+                ].map((benefit, index) => (
+                  <div
+                    key={index}
+                    className="group relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-4 md:p-6 overflow-hidden transition-all duration-500 hover:border-blue-500/30"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+                    <div className="flex items-start gap-3 md:gap-4 relative z-10">
+                      <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-blue-500/10 rounded-full flex items-center justify-center">
+                        {benefit.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2">{benefit.title}</h3>
+                        <p className="text-sm md:text-base text-gray-300">{benefit.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -145,57 +365,7 @@ export default function SectorBanca() {
         </div>
       </section>
 
-      {/* Beneficios Section */}
-      <section className="py-16 px-4 bg-black relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">Beneficios</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: <FaMoneyBillWave className="text-4xl text-blue-400" />,
-                title: "Operaciones Bancarias",
-                description: "Firma digital de transacciones y contratos."
-              },
-              {
-                icon: <FaUserShield className="text-4xl text-blue-400" />,
-                title: "Seguridad Financiera",
-                description: "Protección avanzada en documentos bancarios."
-              },
-              {
-                icon: <FaHandshake className="text-4xl text-blue-400" />,
-                title: "Servicio al Cliente",
-                description: "Gestión digital de documentación bancaria."
-              }
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
-                <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
-                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
-                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
-                      {item.icon}
-                    </div>
-                    <h3 className="text-xl font-bold">{item.title}</h3>
-                  </div>
-                  <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
-                      {item.icon}
-                    </div>
-                    <p className="text-gray-300 text-center">{item.description}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* A Quién está Dirigido Section */}
       <section className="py-16 px-4 bg-gradient-to-b from-black to-gray-900 relative">
@@ -254,18 +424,7 @@ export default function SectorBanca() {
         </div>
       </section>
 
-      {/* Integración Section */}
-      <section className="py-16 px-4 bg-black relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10 pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">¿Cómo se Integra?</h2>
-          <div className="bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
-            <p className="text-gray-300 text-lg text-center leading-relaxed">
-              "Banca y Finanzas" se basa en la plataforma de FIRMEDIGITAL, aprovechando sus funcionalidades de firma electrónica, gestión documental y flujo de trabajo. Se agregan módulos y herramientas específicas para el sector bancario y financiero, creando una solución integral y personalizada que se adapta a las necesidades de cada institución.
-            </p>
-          </div>
-        </div>
-      </section>
+    
 
       {/* Recursos Adicionales Section */}
       <section className="py-20 bg-gradient-to-b from-gray-900 to-black relative">

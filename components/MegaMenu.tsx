@@ -442,7 +442,7 @@ export default function MegaMenu() {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <div
-              className={`fixed inset-y-0 right-0 w-full max-w-sm bg-[#111827] shadow-xl transform transition-transform duration-300
+              className={`fixed inset-y-0 right-0 w-full max-w-sm bg-[#111827] shadow-xl transform transition-transform duration-300 flex flex-col
                 ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
               onClick={e => e.stopPropagation()}
             >
@@ -458,67 +458,76 @@ export default function MegaMenu() {
                 </button>
               </div>
 
-              <nav className="p-4 space-y-2">
-                {menuData.map((section) => (
-                  <div key={section.title} className="relative">
-                    <Link
-                      href={section.href || '#'}
-                      className="w-full text-left px-4 py-3 text-lg font-bold text-gray-300 rounded-lg hover:text-white hover:bg-gradient-to-br hover:from-gray-800/50 hover:via-gray-800/30 hover:to-transparent transition-colors flex items-center justify-between"
-                      onClick={(e) => {
-                        if (section.title === 'RECURSOS') {
-                          handleResourcesClick();
-                        }
-                        if (!section.subItems) {
-                          setIsMobileMenuOpen(false);
-                        } else {
-                          setActiveMenu(activeMenu === section.title ? null : section.title);
-                        }
-                      }}
-                    >
-                      <span>{section.title}</span>
-                      {section.subItems && (
-                        <HiChevronDown 
-                          className={`w-5 h-5 transition-transform duration-300 ${activeMenu === section.title ? 'rotate-180' : 'rotate-0'}`}
-                        />
-                      )}
-                    </Link>
+              <div className="flex-1 overflow-y-auto">
+                <nav className="p-4 space-y-2">
+                  {menuData.map((section) => (
+                    <div key={section.title} className="relative">
+                      <Link
+                        href={section.href || '#'}
+                        className="w-full text-left px-4 py-3 text-lg font-bold text-gray-300 rounded-lg hover:text-white hover:bg-gradient-to-br hover:from-gray-800/50 hover:via-gray-800/30 hover:to-transparent transition-colors flex items-center justify-between"
+                        onClick={(e) => {
+                          if (section.title === 'RECURSOS') {
+                            handleResourcesClick();
+                          }
+                          if (!section.subItems) {
+                            setIsMobileMenuOpen(false);
+                          } else {
+                            setActiveMenu(activeMenu === section.title ? null : section.title);
+                          }
+                        }}
+                      >
+                        <span>{section.title}</span>
+                        {section.subItems && (
+                          <HiChevronDown 
+                            className={`w-5 h-5 transition-transform duration-300 ${activeMenu === section.title ? 'rotate-180' : 'rotate-0'}`}
+                          />
+                        )}
+                      </Link>
 
-                    {section.subItems && activeMenu === section.title && (
-                      <div className="pl-4 py-2 space-y-1 max-h-[60vh] overflow-y-auto">
-                        {section.subItems.map((item) => (
-                          <Link
-                            key={item.title}
-                            href={item.href || '#'}
-                            className="block px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                          >
-                            <div className="flex items-center gap-3">
-                              {item.icon && <item.icon className="w-5 h-5" />}
-                              <span>{item.title}</span>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-                <div className="mt-6 space-y-3">
+                      {section.subItems && activeMenu === section.title && (
+                        <div className={`pl-4 py-2 space-y-1 mb-4 ${section.title === 'SECTORES' ? 'max-h-[500px] overflow-y-auto pb-8' : ''}`}>
+                          {section.subItems.map((item, index) => {
+                            // Verificar si estamos en la sección de SECTORES y si es el último elemento
+                            const isLastSectorItem = section.title === 'SECTORES' && section.subItems && index === section.subItems.length - 1;
+                            
+                            return (
+                              <Link
+                                key={item.title}
+                                href={item.href || '#'}
+                                className={`block px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors ${isLastSectorItem ? 'mb-8' : ''}`}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                              >
+                                <div className="flex items-center gap-3">
+                                  {item.icon && <item.icon className="w-5 h-5" />}
+                                  <span>{item.title}</span>
+                                </div>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </nav>
+              </div>
+
+              {/* Mobile Auth Buttons */}
+              <div className="p-4 border-t border-gray-800">
+                <div className="flex flex-col space-y-2">
                   <Link 
-                    href="https://appdev.firmedigital.com.ve/api/auth/login"
-                    className="block w-full px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity text-center"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    href="https://appdev.firmedigital.com.ve/api/auth/login" 
+                    className="w-full py-2 text-center bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
                   >
                     Iniciar Sesión
                   </Link>
                   <Link 
-                    href="https://appdev.firmedigital.com.ve/api/auth/signup"
-                    className="block w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity text-center"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    href="https://appdev.firmedigital.com.ve/api/auth/signup" 
+                    className="w-full py-2 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
                   >
                     Registrarse
                   </Link>
                 </div>
-              </nav>
+              </div>
             </div>
           </div>
         </div>
