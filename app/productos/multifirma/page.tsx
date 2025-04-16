@@ -35,6 +35,7 @@ import { motion,AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { FaCalendar } from "react-icons/fa";
+import { CardSkeleton } from '../../../components/ui/Skeletons';
 // Optimización de importaciones de iconos
 const IconComponents = {
   FaFileSignature: dynamic(() => import('react-icons/fa').then(mod => mod.FaFileSignature)),

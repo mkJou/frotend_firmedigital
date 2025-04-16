@@ -45,7 +45,7 @@ export default function BlogAdmin() {
   });
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const categories = ['Normativas','Legal', 'Ingenieria', 'salud', 'contadores', 'Gubernamentales','Tecnologia Financiera','Industria y comercio','Educativo','RRHH','Banca y Finanzas','Agropecuario','Eventos',];
+  const categories = ['Normativas','Legal', 'Ingenieria', 'salud', 'contadores', 'Gubernamentales','Tecnologia Financiera','Industria y comercio','Educativo','RRHH','Banca y Finanzas','Agropecuario','Eventos','firma electronica','analisis personalizable','validador de identidad','aplicaciones','kyc'];
 
   const validateForm = (post: Partial<BlogPost>) => {
     const errors: {[key: string]: string} = {};
