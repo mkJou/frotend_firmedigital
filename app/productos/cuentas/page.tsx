@@ -569,6 +569,7 @@ export default function CuentasMultiples() {
                     </div>
                     <div className="mt-8">
                       <Link href="https://appdev.firmedigital.com.ve/api/auth/signup" className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10 text-white">
+                        Implementar Cuentas Múltiples para Contadores
                       </Link>
                     </div>
                   </div>
@@ -625,6 +626,7 @@ export default function CuentasMultiples() {
                     </div>
                     <div className="mt-8">
                       <Link href="https://appdev.firmedigital.com.ve/api/auth/signup/" className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10 text-white">
+                        Implementar Cuentas Múltiples para Legal
                       </Link>
                     </div>
                   </div>
