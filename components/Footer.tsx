@@ -14,11 +14,11 @@ const productos = [
     href: "/productos/gestor-de-documentos",
     description: "Gestión de documentos electronicos"
   },
-  {
-    name: "IA",
-    href: "/productos/ia",
-    description: "Inteligencia artificial avanzada"
-  },
+ // {
+   // name: "IA",
+    //href: "/productos/ia",
+    //description: "Inteligencia artificial avanzada"
+  //},
   {
     name: "Multifirma",
     href: "/productos/multifirma",

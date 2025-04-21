@@ -108,12 +108,12 @@ const menuData: MenuSection[] = [
         description: 'Gestión de múltiples usuarios',
         href: '/productos/cuentas'
       },
-      {
-        title: 'IA',
-        icon: BsCpu,
-        description: 'Inteligencia artificial avanzada',
-        href: '/productos/ia'
-      },
+      //{
+        //title: 'IA',
+        //icon: BsCpu,
+        //description: 'Inteligencia artificial avanzada',
+        //href: '/productos/ia'
+      //},
       {
         title: 'MULTIFIRMA',
         icon: AiOutlineFileSync,

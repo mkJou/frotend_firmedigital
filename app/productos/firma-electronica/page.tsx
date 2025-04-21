@@ -194,7 +194,7 @@ export default function FirmaElectronica() {
                     <div className="flex flex-col mb-8">
                       <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.8)] leading-tight p-4 rounded-lg backdrop-blur-sm bg-black/30 shadow-xl text-left tracking-tight">
 
-                      Firma Digital: <br /> La Solución Más Rápida <br /> y Segura para Tu Negocio
+                      Firma electronica: <br /> La Solución Más Rápida <br /> y Segura para Tu Negocio
 
                       </h1>
                     
@@ -314,7 +314,7 @@ export default function FirmaElectronica() {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto relative z-10">
           <h2 className="text-3xl font-bold mb-10 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-            ¿Por Qué Elegir FIRMA DIGITAL?
+            ¿Por Qué Elegir FIRMEDIGITAL?
           </h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
@@ -505,7 +505,7 @@ export default function FirmaElectronica() {
           >
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold mb-4">Casos de Uso de Firma Electrónica</h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">Soluciones de firma digital con validez legal para diferentes sectores</p>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">Soluciones de FIRMEDIGITAL con validez legal para diferentes sectores</p>
             </div>
             
             {/* Filtros */}
@@ -615,7 +615,7 @@ export default function FirmaElectronica() {
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
                         </div>
-                        <p className="ml-3 text-gray-300">Autorización de créditos y préstamos con firma digital certificada</p>
+                        <p className="ml-3 text-gray-300">Autorización de créditos y préstamos con FIRMEDIGITAL certificada</p>
                       </div>
                       <div className="flex items-start">
                         <div className="flex-shrink-0 mt-1">
@@ -672,7 +672,7 @@ export default function FirmaElectronica() {
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
                         </div>
-                        <p className="ml-3 text-gray-300">Gestión de contrataciones públicas con firma digital certificada y trazabilidad completa</p>
+                        <p className="ml-3 text-gray-300">Gestión de contrataciones públicas con FIRMEDIGITAL certificada y trazabilidad completa</p>
                       </div>
                       <div className="flex items-start">
                         <div className="flex-shrink-0 mt-1">
@@ -729,7 +729,7 @@ export default function FirmaElectronica() {
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
                         </div>
-                        <p className="ml-3 text-gray-300">Autorización de facturas y órdenes de compra con firma digital certificada</p>
+                        <p className="ml-3 text-gray-300">Autorización de facturas y órdenes de compra con FIREMDIGITAL certificada</p>
                       </div>
                       <div className="flex items-start">
                         <div className="flex-shrink-0 mt-1">
