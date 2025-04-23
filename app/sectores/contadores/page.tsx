@@ -6,16 +6,17 @@ import { motion } from 'framer-motion';
 import MegaMenu from '@/components/MegaMenu';
 import { FaBuilding, FaUsersCog, FaMagic, FaSync, FaFileInvoiceDollar, FaChartLine, FaCalculator, FaChartPie, FaChartBar, FaBullseye, FaFileAlt, FaBook, FaBrain, FaCalendar, FaEnvelope, FaPaperPlane } from 'react-icons/fa';
 import Link from 'next/link';
+import styles from '../../styles/FlipCard.module.css';
 
-const SkeletonHero = () => (
-  <div className="space-y-8">
-    <div className="flex justify-center">
-      <div className="animate-pulse h-16 w-16 bg-gray-700 rounded-full"></div>
-    </div>
-    <div className="space-y-6">
-      <div className="animate-pulse h-14 max-w-3xl mx-auto bg-gray-700 rounded"></div>
-      <div className="animate-pulse h-4 max-w-2xl mx-auto bg-gray-700 rounded"></div>
-      <div className="animate-pulse h-4 max-w-xl mx-auto bg-gray-700 rounded"></div>
+
+const CardSkeleton = () => (
+  <div className="w-full h-[400px] bg-gray-800/30 rounded-2xl overflow-hidden animate-pulse">
+    <div className="h-1/2 bg-gray-700/50"></div>
+    <div className="p-6 space-y-4">
+      <div className="h-6 bg-gray-700/50 rounded w-3/4"></div>
+      <div className="h-4 bg-gray-700/50 rounded w-full"></div>
+      <div className="h-4 bg-gray-700/50 rounded w-5/6"></div>
+      <div className="h-10 bg-gray-700/50 rounded w-1/2 mx-auto mt-6"></div>
     </div>
   </div>
 );
@@ -48,6 +49,9 @@ export default function Contadores() {
   const benefitsRef = useRef<HTMLElement>(null);
   const featuresRef = useRef<HTMLElement>(null);
   const resultsRef = useRef<HTMLElement>(null);
+  const pricingRef = useRef<HTMLElement>(null);
+  
+  // Referencias para la sección de precios
 
   useEffect(() => {
     const loadingTimeout = setTimeout(() => {
@@ -58,7 +62,16 @@ export default function Contadores() {
       clearTimeout(loadingTimeout);
     };
   }, [isLoading]);
-  
+    // Función para manejar el movimiento del ratón sobre las tarjetas de precios
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+      const card = e.currentTarget;
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    };
   // Función para manejar el envío del formulario
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -368,6 +381,321 @@ export default function Contadores() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Planes y Precios Section */}
+      <section className="relative border-t border-white/5 pricing-section">
+        <div className="mx-auto max-w-7xl px-4 py-16">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+              Planes y Precios
+            </h2>
+            <p className="mt-4 text-xl text-gray-400">Soluciones flexibles para todas tus necesidades</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Emisión de Firma Electrónica */}
+            <div className={`${styles['flip-card']} relative group pricing-card`}
+                 onMouseMove={handleMouseMove}>
+              {isLoading ? (
+                <CardSkeleton />
+              ) : (
+                <div className={styles['flip-card-inner']}>
+                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
+                    <p className="text-gray-400 text-sm">Impulso al siguiente Nivel</p>
+                    <p className="text-gray-400 text-sm">Hasta 10 Creditos Anuales</p>
+                  </div>
+                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="flex flex-col h-full">
+                      <div className="flex-grow">
+                        <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
+                        <p className="text-gray-400 text-sm">Carga, publica y gestiona miles de docs.</p>
+                        <div className="flex flex-col items-center space-y-6 mb-8" style={{ paddingTop: '1rem' }}>
+                          <div className="flex flex-col items-center justify-center w-full max-w-[280px] h-[100px]">
+                            <div className="flex flex-col items-center">
+                              <span className="text-gray-400 text-base mb-2 pt-8">Inversión anual:</span>
+                              <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                10$
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
+                        <ul className="space-y-4 mb-8">
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Firmas ilimitadas</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Flujos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Editor de imagenes</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Editor de Documentos</span>
+                          </li>
+                         
+                          
+                         
+                          
+                        </ul>
+                      </div>
+                      <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                        Comenzar Ahora
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Valor del Bloque */}
+            <div className={`${styles['flip-card']} relative group pricing-card`}
+                 onMouseMove={handleMouseMove}>
+              {isLoading ? (
+                <CardSkeleton />
+              ) : (
+                <div className={styles['flip-card-inner']}>
+                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/efficiency.svg" width="24" height="24" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
+                    <p className="text-gray-400 text-sm">Gestión Eficiente de Documentos</p>
+                    <p className="text-gray-400 text-sm">Hasta 200 Creditos Anuales</p>
+                  </div>
+                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/efficiency.svg" width="24" height="24" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="flex flex-col h-full">
+                      <div className="flex-grow">
+                        <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
+                        <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
+                        <div className="flex flex-col items-center space-y-6 mb-8">
+                          <div className="flex flex-col items-center justify-center w-full max-w-[280px] h-[100px]">
+                            <div className="flex flex-col items-center">
+                              <span className="text-gray-400 text-base mb-2 pt-8">Inversión anual:</span>
+                              <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                30$
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
+                        <ul className="space-y-4 mb-8">
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Firmas ilimitadas</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Editor de Documentos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Editor de imagenes</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Gestor de Documentos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Flujos</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                        Comenzar Ahora
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Renovación de Certificados */}
+            <div className={`${styles['flip-card']} relative group pricing-card`}
+                 onMouseMove={handleMouseMove}>
+              {isLoading ? (
+                <CardSkeleton />
+              ) : (
+                <div className={styles['flip-card-inner']}>
+                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/organizacion.svg" width="24" height="24" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
+                    <p className="text-gray-400 text-sm">Mantén tus certificados emitidos al día.</p>
+                    <p className="text-gray-400 text-sm">Creditos Ilimitados.</p>
+                  </div>
+                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
+                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <image href="/images/organizacion.svg" width="24" height="24" />
+                          <defs>
+                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+                              <stop stopColor="#60A5FA" />
+                              <stop offset="1" stopColor="#A78BFA" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="flex flex-col h-full">
+                      <div className="flex-grow">
+                        <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
+                        <p className="text-gray-400 text-sm mb-2">Creditos Ilimitados</p>
+                        <div className="flex flex-col items-center space-y-6 mb-8">
+                          <div className="flex items-center justify-between w-full max-w-[280px]">
+                            <div className="flex items-center">
+                              <div className="relative">
+                                <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400/40 to-purple-400/40 relative">
+                                  <span className="absolute top-1/2 left-0 right-0 border-t-[3px] border-dashed border-purple-400/30 transform -rotate-6"></span>
+                                 
+                                </span>
+                              </div>
+                           
+                            </div>
+                          </div>
+                          <p className="text-gray-400 text-sm mb-6">Te ofrecemos soluciones personalizadas y eficientes para la seguridad y validación de tus documentos, adaptándonos a tus requerimientos específicos</p>
+                        </div>
+                        <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
+                        <ul className="space-y-4 mb-8">
+                        
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Firmas ilimitadas</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Gestor de Documentos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Trazabilidad</span>
+                          </li>
+                          
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Multifirma</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Flujos</span>
+                          </li>
+                          <li className="flex items-center gap-3">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>IA</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                        Comenzar Ahora
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Corporativo */}
+
           </div>
         </div>
       </section>
