@@ -453,7 +453,7 @@ export default function Eventos() {
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
                     <p className="text-gray-400 text-sm">Gestión Eficiente de Documentos</p>
-                    <p className="text-gray-400 text-sm">Hasta 200 Creditos Anuales</p>
+                    <p className="text-gray-400 text-sm">Creditos Ilimitados</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
