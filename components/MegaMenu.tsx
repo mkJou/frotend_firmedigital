@@ -421,13 +421,14 @@ export default function MegaMenu() {
             {/* Desktop Auth Buttons */}
             <div className="flex items-center space-x-4">
               <Link 
-                href="https://appdev.firmedigital.com.ve/api/auth/login" 
+                href="https://app.firmedigital.com/auth/signin" 
                 className="px-6 py-2 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
               >
                 Iniciar Sesión
               </Link>
               <Link 
-                href="https://appdev.firmedigital.com.ve/api/auth/signup" 
+             
+                href="https://app.firmedigital.com/auth/signup" 
                 className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
               >
                 Registrarse

@@ -316,7 +316,7 @@ export default function SectorGobierno() {
               El sector gubernamental se integra perfectamente con la plataforma de FIRMEDIGITAL, aprovechando sus funcionalidades de firma electrónica, gestión documental y flujo de trabajo. Se implementan módulos específicos para trámites administrativos, documentación oficial y procesos internos, creando una solución integral que se adapta a las necesidades de cada institución pública.
             </p>
             <div className="flex justify-center">
-              <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="hero-button inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10">
+              <a href="https://app.firmedigital.com/auth/signup" className="hero-button inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10">
                 ¡Comienza ahora!
               </a>
             </div>
@@ -493,7 +493,7 @@ export default function SectorGobierno() {
                           
                         </ul>
                       </div>
-                      <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                      <a href="https://app.firmedigital.com/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
                         Comenzar Ahora
                       </a>
                     </div>
@@ -589,7 +589,7 @@ export default function SectorGobierno() {
                           </li>
                         </ul>
                       </div>
-                      <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                      <a href="https://app.firmedigital.com/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
                         Comenzar Ahora
                       </a>
                     </div>
@@ -697,7 +697,7 @@ export default function SectorGobierno() {
                           </li>
                         </ul>
                       </div>
-                      <a href="https://appdev.firmedigital.com.ve/api/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                      <a href="https://app.firmedigital.com/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
                         Comenzar Ahora
                       </a>
                     </div>
