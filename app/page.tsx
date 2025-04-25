@@ -754,10 +754,10 @@ export default function Home() {
       </section>
 
       {/* Pricing Section */}
-      <section className="relative border-t border-white/5 pricing-section">
-        <div className="mx-auto max-w-7xl px-4">
+      <section className="relative border-t border-white/5 pricing-section bg-gradient-to-b from-blue-950 to-blue-950">
+        <div className="mx-auto max-w-7xl px-4 py-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+          <h2 className="text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-400">
               Planes y Precios
             </h2>
             <p className="mt-4 text-xl text-gray-400">Soluciones flexibles para todas tus necesidades</p>
@@ -786,8 +786,8 @@ export default function Home() {
                       </div>
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                    <p className="text-gray-400 text-sm">Impulso al siguiente Nivel</p>
-                    <p className="text-gray-400 text-sm">Hasta 10 Creditos Anuales</p>
+                    <p className="text-gray-400 text-sm">¡Impulso al siguiente nivel!</p>
+                    <p className="text-gray-400 text-sm">Para persona natural</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
@@ -805,19 +805,29 @@ export default function Home() {
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
+                      <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
                         <p className="text-gray-400 text-sm">Carga, publica y gestiona miles de docs.</p>
-                        <div className="flex flex-col items-center space-y-6 mb-8" style={{ paddingTop: '1rem' }}>
-                          <div className="flex flex-col items-center justify-center w-full max-w-[280px] h-[100px]">
+                        <div className="flex flex-col items-center space-y-6 mb-8 mt-5">
+                          <div className="flex items-center justify-between w-full max-w-[280px]">
+                            <div className="flex items-center">
+                              <div className="relative">
+                                
+                              </div>
+                              <div className="ml-2 flex flex-col">
+                                
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex flex-col items-center justify-center w-full max-w-[280px]">
                             <div className="flex flex-col items-center">
-                              <span className="text-gray-400 text-base mb-2 pt-8">Inversión anual:</span>
+                              <span className="text-gray-400 text-base mb-2">Inversión anual:</span>
                               <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
                                 10$
                               </span>
                             </div>
                           </div>
                         </div>
-                        <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
+                        <div className="text-sm font-medium mb-4 text-blue-400 mt-10">¿QUÉ INCLUYE?</div>
                         <ul className="space-y-4 mb-8">
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -843,7 +853,6 @@ export default function Home() {
                             </svg>
                             <span>Editor de Documentos</span>
                           </li>
-                         
                           
                          
                           
@@ -880,8 +889,8 @@ export default function Home() {
                       </div>
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
-                    <p className="text-gray-400 text-sm">Gestión Eficiente de Documentos</p>
-                    <p className="text-gray-400 text-sm">Creditos Ilimitados</p>
+                    <p className="text-gray-400 text-sm">¡Gestión eficiente de Documentos!</p>
+                    <p className="text-gray-400 text-sm">Para persona jurídica</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
@@ -901,10 +910,13 @@ export default function Home() {
                       <div className="flex-grow">
                         <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
                         <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
-                        <div className="flex flex-col items-center space-y-6 mb-8">
-                          <div className="flex flex-col items-center justify-center w-full max-w-[280px] h-[100px]">
+                        <div className="flex flex-col items-center space-y-6 mb-8" style={{ paddingTop: '1rem' }}>
+                          <div className="flex flex-col items-center justify-center w-full max-w-[280px]">
+                          <div className="ml-2 flex flex-col">
+                                
+                                </div>
                             <div className="flex flex-col items-center">
-                              <span className="text-gray-400 text-base mb-2 pt-8">Inversión anual:</span>
+                              <span className="text-gray-400 text-base mb-2">Inversión anual:</span>
                               <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
                                 30$
                               </span>
@@ -976,8 +988,8 @@ export default function Home() {
                       </div>
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                    <p className="text-gray-400 text-sm">Mantén tus certificados emitidos al día.</p>
-                    <p className="text-gray-400 text-sm">Creditos Ilimitados.</p>
+                    <p className="text-gray-400 text-sm"> ¡Mantén tus certificados emitidos al día!</p>
+                    <p className="text-gray-400 text-sm">Para corporaciones</p>
                   </div>
                   <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
