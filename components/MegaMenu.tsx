@@ -511,18 +511,19 @@ export default function MegaMenu() {
                   ))}
                 </nav>
               </div>
+              
 
               {/* Mobile Auth Buttons */}
               <div className="p-4 border-t border-gray-800">
                 <div className="flex flex-col space-y-2">
                   <Link 
-                    href="https://appdev.firmedigital.com.ve/api/auth/login" 
+                    href="https://app.firmedigital.com/auth/signin" 
                     className="w-full py-2 text-center bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
                   >
                     Iniciar Sesión
                   </Link>
                   <Link 
-                    href="https://appdev.firmedigital.com.ve/api/auth/signup" 
+                    href="https://app.firmedigital.com/auth/signup" 
                     className="w-full py-2 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
                   >
                     Registrarse
