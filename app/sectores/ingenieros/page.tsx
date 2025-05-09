@@ -265,6 +265,78 @@ export default function Ingenieros() {
           </div>
         </div>
       </section>
+      <section ref={benefitsRef} className="py-20 bg-gradient-to-b from-gray-900 to-black">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+            Beneficios Clave en el Sector de Ingeniería
+          </h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
+            <div className="lg:col-span-5 order-2 lg:order-1 relative mx-auto w-full">
+              <div className="w-full h-[500px] md:h-[550px] lg:h-[600px] relative">
+                <img 
+                  src="/images/beneinge.jpg" 
+                  alt="Beneficios Ingeniería" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </div>
+            
+            <div className="lg:col-span-7 order-1 lg:order-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                {[
+                  {
+                    icon: <FaProjectDiagram className="text-4xl text-blue-400" />,
+                    title: "Gestión de Proyectos",
+                    description: "Genera y envía transmittals de forma automática para una gestión eficiente."
+                  },
+                  {
+                    icon: <FaUsers className="text-4xl text-blue-400" />,
+                    title: "Colaboración en Equipo",
+                    description: "Permite a todas las personas involucradas en el proyecto tener acceso a lo que necesitan."
+                  },
+                  {
+                    icon: <FaClipboardCheck className="text-4xl text-blue-400" />,
+                    title: "Documentación Permanente",
+                    description: "Ten tus documentos e información disponibles para siempre y de forma segura."
+                  },
+                  {
+                    icon: <FaHardHat className="text-4xl text-blue-400" />,
+                    title: "Supervisión de Obra",
+                    description: "Control y seguimiento digital de avances en proyectos de construcción."
+                  },
+                  {
+                    icon: <FaTools className="text-4xl text-blue-400" />,
+                    title: "Gestión de Recursos",
+                    description: "Administración eficiente de materiales y equipos para cada proyecto."
+                  },
+                  {
+                    icon: <FaCogs className="text-4xl text-blue-400" />,
+                    title: "Procesos Automatizados",
+                    description: "Optimización de flujos de trabajo mediante automatización digital."
+                  }
+                ].map((benefit, index) => (
+                  <div
+                    key={index}
+                    className="group relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-4 md:p-6 overflow-hidden transition-all duration-500 hover:border-blue-500/30"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
+                    <div className="flex items-start gap-3 md:gap-4 relative z-10">
+                      <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
+                        {benefit.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2">{benefit.title}</h3>
+                        <p className="text-sm md:text-base text-gray-300">{benefit.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="relative border-t border-white/5 pricing-section bg-gradient-to-b from-blue-950 to-blue-950">
         <div className="mx-auto max-w-7xl px-4 py-4">
           <div className="text-center mb-16">
@@ -591,78 +663,7 @@ export default function Ingenieros() {
         </div>
       </section>
       {/* Flujo Lineal Section */}
-      <section ref={benefitsRef} className="py-20 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-            Beneficios Clave en el Sector de Ingeniería
-          </h2>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">
-            <div className="lg:col-span-5 order-2 lg:order-1 relative mx-auto w-full">
-              <div className="w-full h-[500px] md:h-[550px] lg:h-[600px] relative">
-                <img 
-                  src="/images/beneinge.jpg" 
-                  alt="Beneficios Ingeniería" 
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </div>
-            
-            <div className="lg:col-span-7 order-1 lg:order-2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                {[
-                  {
-                    icon: <FaProjectDiagram className="text-4xl text-blue-400" />,
-                    title: "Gestión de Proyectos",
-                    description: "Genera y envía transmittals de forma automática para una gestión eficiente."
-                  },
-                  {
-                    icon: <FaUsers className="text-4xl text-blue-400" />,
-                    title: "Colaboración en Equipo",
-                    description: "Permite a todas las personas involucradas en el proyecto tener acceso a lo que necesitan."
-                  },
-                  {
-                    icon: <FaClipboardCheck className="text-4xl text-blue-400" />,
-                    title: "Documentación Permanente",
-                    description: "Ten tus documentos e información disponibles para siempre y de forma segura."
-                  },
-                  {
-                    icon: <FaHardHat className="text-4xl text-blue-400" />,
-                    title: "Supervisión de Obra",
-                    description: "Control y seguimiento digital de avances en proyectos de construcción."
-                  },
-                  {
-                    icon: <FaTools className="text-4xl text-blue-400" />,
-                    title: "Gestión de Recursos",
-                    description: "Administración eficiente de materiales y equipos para cada proyecto."
-                  },
-                  {
-                    icon: <FaCogs className="text-4xl text-blue-400" />,
-                    title: "Procesos Automatizados",
-                    description: "Optimización de flujos de trabajo mediante automatización digital."
-                  }
-                ].map((benefit, index) => (
-                  <div
-                    key={index}
-                    className="group relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-4 md:p-6 overflow-hidden transition-all duration-500 hover:border-blue-500/30"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
-                    <div className="flex items-start gap-3 md:gap-4 relative z-10">
-                      <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
-                        {benefit.icon}
-                      </div>
-                      <div>
-                        <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2">{benefit.title}</h3>
-                        <p className="text-sm md:text-base text-gray-300">{benefit.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Flujo de Revisión Section */}
       <section className="py-16 px-4 bg-gradient-to-b from-gray-900 to-black relative">
