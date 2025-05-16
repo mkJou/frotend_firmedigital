@@ -675,7 +675,8 @@ export default function Home() {
                       FIRMEDIGITAL 
                     </span>
                     <span className="block mt-4 text-2xl lg:text-3xl font-semibold">
-                      Plataforma de Firma Electrónica Acreditada y Segura en Venezuela
+                    Plataforma de firma electrónica
+                    Acreditada por SUSCERTE y con soberanía de datos en la República Bolviariana de Venezuela
                     </span>
                     <span className="block mt-3 text-xl lg:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400">
                       Certificación y Firma Digital
@@ -753,9 +754,73 @@ export default function Home() {
         </div>
       </section>
 
+      {/* SUSCERTE Certification Banner */}
+      <section className="relative py-16 border-t border-white/5 suscerte-banner-section bg-gradient-to-b from-black to-[#050A20]">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 -right-4 w-[400px] h-[400px] bg-blue-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
+          <div className="absolute bottom-0 -left-4 w-[400px] h-[400px] bg-purple-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5" />
+          
+          {/* Abstract Background Elements */}
+          <div className="absolute right-1/4 top-1/3 w-[250px] h-[250px] bg-blue-600/3 rounded-full mix-blend-normal filter blur-[80px]" />
+          <div className="absolute left-1/4 bottom-1/3 w-[200px] h-[200px] bg-purple-600/3 rounded-full mix-blend-normal filter blur-[60px]" />
+          
+          {/* Stars in arc formation like Venezuelan flag */}
+          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] opacity-25">
+            <svg width="600" height="300" viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* 8 stars in an arc formation - larger size */}
+              <path d="M75,150 L85,120 L95,150 L65,130 L105,130 Z" fill="white" />
+              <path d="M150,120 L160,90 L170,120 L140,100 L180,100 Z" fill="white" />
+              <path d="M225,100 L235,70 L245,100 L215,80 L255,80 Z" fill="white" />
+              <path d="M300,90 L310,60 L320,90 L290,70 L330,70 Z" fill="white" />
+              <path d="M375,100 L385,70 L395,100 L365,80 L405,80 Z" fill="white" />
+              <path d="M450,120 L460,90 L470,120 L440,100 L480,100 Z" fill="white" />
+              <path d="M525,150 L535,120 L545,150 L515,130 L555,130 Z" fill="white" />
+              <path d="M300,180 L310,150 L320,180 L290,160 L330,160 Z" fill="white" />
+            </svg>
+          </div>
+        </div>
+        
+        <div className="relative mx-auto max-w-7xl px-4 z-10">
+          <div className="flex flex-col items-center justify-center text-center">
+            <div className="inline-block mb-6 px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">
+              <span className="text-white font-semibold">Certificación Oficial</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 leading-tight">
+              Proveedor certificado por SUSCERTE
+            </h2>
+            <p className="text-xl md:text-2xl text-white max-w-3xl mb-8">
+              Te aseguramos la soberanía de tus datos en Venezuela
+            </p>
+            <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 max-w-3xl mx-auto mb-8">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg className="w-8 h-8 text-blue-400" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <p className="text-gray-300 text-lg">
+                  Nuestra certificación por SUSCERTE garantiza que todos sus documentos y firmas electrónicas cumplen con los más altos estándares de seguridad y validez legal en  la República Bolivariana de Venezuela.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <a href="https://app.firmedigital.com/auth/signup" className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
+                Comenzar ahora
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {/* Pricing Section */}
-      <section className="relative border-t border-white/5 pricing-section bg-gradient-to-b from-blue-950 to-blue-950">
-        <div className="mx-auto max-w-7xl px-4 py-4">
+      <section className="relative border-t border-white/5 pricing-section bg-gradient-to-b from-black to-[#050A20]">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 -right-4 w-[400px] h-[400px] bg-blue-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
+          <div className="absolute bottom-0 -left-4 w-[400px] h-[400px] bg-purple-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5" />
+        </div>
+        <div className="mx-auto max-w-7xl px-4 py-4 relative z-10">
           <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-400">
               Planes y Precios
@@ -1914,6 +1979,100 @@ export default function Home() {
           {modalContent.description}
         </div>
       </Modal>
+
+      {/* Why Choose FIRMEDIGITAL Banner */}
+      <section className="relative py-16 border-t border-white/5 why-choose-banner bg-gradient-to-b from-black to-[#050A20]">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 -right-4 w-[400px] h-[400px] bg-blue-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
+          <div className="absolute bottom-0 -left-4 w-[400px] h-[400px] bg-purple-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5" />
+          
+          {/* Venezuela Map Background */}
+          <div className="absolute right-10 top-1/2 transform -translate-y-1/2 opacity-10">
+            <svg width="400" height="400" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M250,50 C350,100 400,200 350,300 C300,400 200,450 100,400 C50,350 50,250 100,150 C150,100 200,75 250,50 Z" fill="url(#map-gradient)" />
+              <defs>
+                <linearGradient id="map-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#FCDF52" />
+                  <stop offset="33%" stopColor="#5470C6" />
+                  <stop offset="66%" stopColor="#EE6666" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+        
+        <div className="relative mx-auto max-w-7xl px-4 z-10">
+          <div className="flex flex-col items-center justify-center text-center mb-10">
+            <div className="inline-block mb-6 px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">
+              <span className="text-white font-semibold">¿Por qué elegir FIRMEDIGITAL?</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 leading-tight max-w-4xl">
+              Soberanía digital y cumplimiento legal garantizado
+            </h2>
+          </div>
+          
+          <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12 max-w-5xl mx-auto">
+            <div className="flex flex-col md:flex-row items-start gap-8">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0 mx-auto md:mx-0">
+                <svg className="w-10 h-10 text-blue-400" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="space-y-6 text-left">
+                <p className="text-xl md:text-2xl text-white leading-relaxed">
+                  En FirmeDigital, garantizamos que sus documentos y firmas electrónicas cumplen con las leyes venezolanas y se gestionan 100% dentro del territorio nacional, respaldados por SUSCERTE.
+                </p>
+                <p className="text-lg text-gray-300 leading-relaxed">
+                  Nuestra plataforma ofrece una solución integral que asegura la validez legal de sus documentos electrónicos, cumpliendo con todos los requisitos establecidos en la Ley de Mensajes de Datos y Firmas Electrónicas de Venezuela. Al elegir FIRMEDIGITAL, usted obtiene:
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-gray-300">Certificación oficial por SUSCERTE</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-gray-300">Validez legal en todo el territorio nacional</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-gray-300">Protección de datos bajo legislación venezolana</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-gray-300">Infraestructura 100% en territorio nacional</span>
+                  </div>
+                </div>
+                <p className="text-lg text-gray-300 leading-relaxed">
+                  Al mantener todos sus datos dentro del territorio venezolano, garantizamos no solo el cumplimiento legal sino también la soberanía digital de su información, evitando riesgos asociados con el almacenamiento de datos en servidores extranjeros que podrían estar sujetos a legislaciones diferentes.
+                </p>
+                <div className="flex flex-wrap gap-4 pt-4">
+                  <a href="https://app.firmedigital.com/auth/signup" className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
+                    Comenzar ahora
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Contact Section */}
       <section className="relative border-t border-white/5 contact-section my-10  ">

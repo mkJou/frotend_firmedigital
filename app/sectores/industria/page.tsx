@@ -333,6 +333,102 @@ export default function SectorIndustria() {
           </div>
         </div>
       </section>
+
+       {/* Why Choose FIRMEDIGITAL Banner */}
+       <section className="relative py-16 border-t border-white/5 why-choose-banner bg-gradient-to-b from-black to-[#050A20]">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 -right-4 w-[400px] h-[400px] bg-blue-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
+          <div className="absolute bottom-0 -left-4 w-[400px] h-[400px] bg-purple-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5" />
+          
+          {/* Stars in arc formation like Venezuelan flag */}
+          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] opacity-25">
+            <svg width="600" height="300" viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* 8 stars in an arc formation - larger size */}
+              <path d="M75,150 L85,120 L95,150 L65,130 L105,130 Z" fill="white" />
+              <path d="M150,120 L160,90 L170,120 L140,100 L180,100 Z" fill="white" />
+              <path d="M225,100 L235,70 L245,100 L215,80 L255,80 Z" fill="white" />
+              <path d="M300,90 L310,60 L320,90 L290,70 L330,70 Z" fill="white" />
+              <path d="M375,100 L385,70 L395,100 L365,80 L405,80 Z" fill="white" />
+              <path d="M450,120 L460,90 L470,120 L440,100 L480,100 Z" fill="white" />
+              <path d="M525,150 L535,120 L545,150 L515,130 L555,130 Z" fill="white" />
+              <path d="M300,180 L310,150 L320,180 L290,160 L330,160 Z" fill="white" />
+            </svg>
+          </div>
+        </div>
+        
+        <div className="relative mx-auto max-w-7xl px-4 z-10">
+          <div className="flex flex-col items-center justify-center text-center mb-10">
+            <div className="inline-block mb-6 px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">
+              <span className="text-white font-semibold">¿Por qué elegir FIRMEDIGITAL para el sector industrial?</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 leading-tight max-w-4xl">
+              Documentos industriales con validez legal garantizada
+            </h2>
+          </div>
+          
+          <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12 max-w-5xl mx-auto">
+            <div className="flex flex-col md:flex-row items-start gap-8">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0 mx-auto md:mx-0">
+                <svg className="w-10 h-10 text-blue-400" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="space-y-6 text-left">
+                <p className="text-xl md:text-2xl text-white leading-relaxed">
+                  En FirmeDigital, garantizamos que sus contratos de producción, certificaciones de calidad y documentos industriales cumplen con las leyes venezolanas y se gestionan 100% dentro del territorio nacional, respaldados por SUSCERTE.
+                </p>
+                <p className="text-lg text-gray-300 leading-relaxed">
+                  Nuestra plataforma ofrece una solución integral para el sector industrial que asegura la validez legal de sus documentos electrónicos, cumpliendo con todos los requisitos establecidos por los entes reguladores industriales. Al elegir FIRMEDIGITAL para su operación industrial, usted obtiene:
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-gray-300">Firmas digitales en contratos de producción</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-gray-300">Validez legal en certificaciones de calidad</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-gray-300">Autenticación de identidad para procesos industriales</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-gray-300">Almacenamiento seguro de documentación técnica</span>
+                  </div>
+                </div>
+                <p className="text-lg text-gray-300 leading-relaxed">
+                  Al digitalizar sus procesos industriales con una plataforma certificada por SUSCERTE, garantizamos no solo el cumplimiento legal sino también la integridad y confidencialidad de la información técnica y operativa de su empresa, reduciendo el riesgo de falsificaciones y permitiendo una gestión más eficiente de la documentación industrial en la República Bolivariana de Venezuela.
+                </p>
+                <div className="flex flex-wrap gap-4 pt-4">
+                  <a href="https://app.firmedigital.com/auth/signup" className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
+                    Comenzar ahora
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="relative border-t border-white/5 pricing-section bg-gradient-to-b from-blue-950 to-blue-950">
         <div className="mx-auto max-w-7xl px-4 py-4">
           <div className="text-center mb-16">
