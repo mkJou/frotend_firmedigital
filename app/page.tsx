@@ -674,10 +674,7 @@ export default function Home() {
                     <span className="text-4xl lg:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 drop-shadow-lg">
                       FIRMEDIGITAL 
                     </span>
-                    <span className="block mt-4 text-2xl lg:text-3xl font-semibold">
-                    Plataforma de firma electrónica
-                    Acreditada por SUSCERTE y con soberanía de datos en la República Bolviariana de Venezuela
-                    </span>
+                    <span className="block mt-4 text-xl lg:text-2xl font-semibold">Plataforma de firma electrónica<br/>Acreditada por SUSCERTE y con soberanía de datos en la República Bolviariana de Venezuela</span>
                     <span className="block mt-3 text-xl lg:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400">
                       Certificación y Firma Digital
                     </span>
@@ -2170,65 +2167,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-{/* Por qué elegirnos */}
-      <section className="px-4 md:px-8 py-16 bg-gray-900">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">Por qué Elegir Firmedigital</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
-              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
-                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
-                  <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
-                    <IoShieldCheckmarkOutline className="text-4xl text-blue-400" />
-                  </div>
-                  <h3 className="text-2xl font-bold">Tecnología Avanzada</h3>
-                </div>
-                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <div className="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
-                    <IoShieldCheckmarkOutline className="text-4xl text-blue-400" />
-                  </div>
-                  <p className="text-gray-300 text-center">Tecnología de punta para máxima seguridad.</p>
-                </div>
-              </div>
-            </div>
-            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
-              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
-                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
-                  <div className="w-16 h-16 mx-auto bg-purple-500/10 rounded-full flex items-center justify-center mb-4">
-                    <HiOutlineLockClosed className="text-4xl text-purple-400" />
-                  </div>
-                  <h3 className="text-2xl font-bold">Confianza y Confiabilidad</h3>
-                </div>
-                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <div className="w-16 h-16 mx-auto bg-purple-500/10 rounded-full flex items-center justify-center mb-4">
-                    <HiOutlineLockClosed className="text-4xl text-purple-400" />
-                  </div>
-                  <p className="text-gray-300 text-center">Años de experiencia y éxito comprobado.</p>
-                </div>
-              </div>
-            </div>
-            <div className="group relative h-[180px] bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 overflow-hidden transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
-              <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
-                <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0">
-                  <div className="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center mb-4">
-                    <IoHeadsetOutline className="text-4xl text-green-400" />
-                  </div>
-                  <h3 className="text-2xl font-bold">Soporte Dedicado</h3>
-                </div>
-                <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                  <div className="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center mb-4">
-                    <IoHeadsetOutline className="text-4xl text-green-400" />
-                  </div>
-                  <p className="text-gray-300 text-center">Soporte experto disponible cuando lo necesites.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
       
       {/* Footer */}
     </main>
