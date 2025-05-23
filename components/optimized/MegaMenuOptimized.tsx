@@ -216,6 +216,12 @@ const menuData: MenuSection[] = [
     href: '#recursos',
     subItems: [
       {
+        title: 'Academia',
+        icon: BsBook,
+        description: 'Videos educativos',
+        href: '/academia'
+      },
+      {
         title: 'Contactos',
         description: 'Ponte en contacto con nosotros',
         href: '/footer#contacto',
