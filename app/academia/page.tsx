@@ -334,6 +334,18 @@ export default function AcademiaPage() {
         <div className="absolute bottom-10 right-10 w-80 h-80 bg-purple-600/10 rounded-full filter blur-3xl opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Logo en la esquina superior izquierda */}
+          <div className="fixed top-4 left-4 md:absolute md:top-0 md:left-8 lg:left-10 z-50">
+            <Link href="/">
+              <Image 
+                src="/images/logo.webp" 
+                alt="FIRMEDIGITAL Logo" 
+                width={220} 
+                height={73} 
+                className="w-[140px] md:w-[190px] lg:w-[220px] h-auto object-contain transition-all duration-300 bg-black/40 p-1 md:bg-transparent md:p-0"
+              />
+            </Link>
+          </div>
           <div className="text-center relative">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}

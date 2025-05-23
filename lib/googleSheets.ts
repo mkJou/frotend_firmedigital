@@ -9,13 +9,15 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 // Debes reemplazar esto con el ID de tu hoja de cálculo
 const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID || '1O5xkDy4pDiC524B19pOvWbfENYK5ZS__aHHZMqm4mSw';
 
-// Nombre de la hoja dentro del documento de Google Sheets
+// Nombres de las hojas dentro del documento de Google Sheets
 const SHEET_NAME = 'Contactos';
+const FEDEINDUSTRIA_SHEET_NAME = 'Fedeindustria';
 
 // Imprimir información de configuración al iniciar
 console.log('Configuración de Google Sheets:');
 console.log('- ID de la hoja de cálculo:', SPREADSHEET_ID);
-console.log('- Nombre de la hoja:', SHEET_NAME);
+console.log('- Nombre de la hoja de contactos:', SHEET_NAME);
+console.log('- Nombre de la hoja de Fedeindustria:', FEDEINDUSTRIA_SHEET_NAME);
 
 /**
  * Configura la autenticación con Google usando una cuenta de servicio
@@ -174,6 +176,123 @@ export async function saveContactToGoogleSheet(contactData: { email: string; com
 /**
  * Verifica la conexión con Google Sheets
  */
+/**
+ * Guarda los datos del formulario de Fedeindustria en Google Sheets
+ */
+export async function saveFedeindustriaToGoogleSheet(formData: { 
+  nombre: string; 
+  tipoPersona: string; 
+  empresa: string; 
+  email: string; 
+  telefono: string 
+}) {
+  try {
+    console.log('Iniciando guardado en Google Sheets para Fedeindustria con datos:', formData);
+    
+    // Obtener cliente autenticado
+    const auth = await getAuthClient();
+    console.log('Cliente de autenticación obtenido correctamente');
+    
+    // Crear cliente de Google Sheets
+    const sheets = google.sheets({ version: 'v4', auth });
+    console.log('Cliente de Google Sheets creado correctamente');
+    
+    // Verificar si existe la hoja "Fedeindustria"
+    console.log(`Verificando si existe la hoja "${FEDEINDUSTRIA_SHEET_NAME}" en el documento con ID: ${SPREADSHEET_ID}`);
+    
+    try {
+      const spreadsheet = await sheets.spreadsheets.get({
+        spreadsheetId: SPREADSHEET_ID,
+      });
+      
+      const sheetsInfo = spreadsheet.data.sheets || [];
+      const fedeindustriaSheet = sheetsInfo.find(sheet => 
+        sheet.properties?.title === FEDEINDUSTRIA_SHEET_NAME
+      );
+      
+      if (!fedeindustriaSheet) {
+        console.log(`La hoja "${FEDEINDUSTRIA_SHEET_NAME}" no existe. Intentando crearla...`);
+        
+        // Crear la hoja si no existe
+        await sheets.spreadsheets.batchUpdate({
+          spreadsheetId: SPREADSHEET_ID,
+          requestBody: {
+            requests: [
+              {
+                addSheet: {
+                  properties: {
+                    title: FEDEINDUSTRIA_SHEET_NAME,
+                  },
+                },
+              },
+            ],
+          },
+        });
+        
+        console.log(`Hoja "${FEDEINDUSTRIA_SHEET_NAME}" creada correctamente`);
+        
+        // Añadir encabezados
+        await sheets.spreadsheets.values.update({
+          spreadsheetId: SPREADSHEET_ID,
+          range: `${FEDEINDUSTRIA_SHEET_NAME}!A1:F1`,
+          valueInputOption: 'RAW',
+          requestBody: {
+            values: [['Fecha', 'Nombre', 'Tipo de Persona', 'Empresa', 'Email', 'Teléfono']],
+          },
+        });
+        
+        console.log(`Encabezados añadidos a la hoja "${FEDEINDUSTRIA_SHEET_NAME}"`);
+      } else {
+        console.log(`Hoja "${FEDEINDUSTRIA_SHEET_NAME}" encontrada con ID: ${fedeindustriaSheet.properties?.sheetId}`);
+      }
+    } catch (error) {
+      console.error('Error al verificar/crear la hoja:', error);
+      throw error;
+    }
+    
+    // Preparar los datos para insertar
+    const values = [
+      [
+        new Date().toISOString(), 
+        formData.nombre,
+        formData.tipoPersona,
+        formData.empresa,
+        formData.email,
+        formData.telefono
+      ]
+    ];
+    
+    console.log('Datos a insertar:', values);
+    console.log('Verificación de datos:');
+    console.log('- Fecha:', new Date().toISOString());
+    console.log('- Nombre:', formData.nombre);
+    console.log('- Tipo de Persona:', formData.tipoPersona);
+    console.log('- Empresa:', formData.empresa);
+    console.log('- Email:', formData.email);
+    console.log('- Teléfono:', formData.telefono);
+    
+    // Insertar datos en la hoja de cálculo
+    const response = await sheets.spreadsheets.values.append({
+      spreadsheetId: SPREADSHEET_ID,
+      range: `${FEDEINDUSTRIA_SHEET_NAME}!A:F`,
+      valueInputOption: 'RAW',
+      insertDataOption: 'INSERT_ROWS',
+      requestBody: {
+        values,
+      },
+    });
+    
+    console.log('Datos de Fedeindustria guardados en Google Sheets:', response.data);
+    console.log('URL de la hoja de cálculo:', `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/edit#gid=${response.data.updates?.spreadsheetId}`);
+    console.log('Rango actualizado:', response.data.updates?.updatedRange);
+    
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error('Error al guardar datos de Fedeindustria en Google Sheets:', error);
+    return { success: false, error };
+  }
+}
+
 export async function testGoogleSheetsConnection() {
   try {
     console.log('Iniciando prueba de conexión con Google Sheets...');

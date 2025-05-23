@@ -74,6 +74,15 @@ export default function Home() {
   const [searchCode, setSearchCode] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [searchResult, setSearchResult] = useState<null | { valid: boolean; message: string; details?: any }>(null);
+  
+  // Estados para el formulario de Fedeindustria
+  const [nombre, setNombre] = useState('');
+  const [tipoPersona, setTipoPersona] = useState('');
+  const [empresa, setEmpresa] = useState('');
+  const [emailFedeindustria, setEmailFedeindustria] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [isSubmittingFedeindustria, setIsSubmittingFedeindustria] = useState(false);
+  const [formStatusFedeindustria, setFormStatusFedeindustria] = useState<null | { success: boolean; message: string }>(null);
 
   const handleOpenModal = (title: string, description: string) => {
     setModalContent({ title, description });
@@ -2116,7 +2125,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="relative border-t border-white/5 contact-section my-10  ">
+  {/*   <section className="relative border-t border-white/5 contact-section my-10">
         <div className="mx-auto max-w-7xl px-4">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-none blur-xl" />
@@ -2210,8 +2219,295 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section>*/}
 
+      {/* Fedeindustria Form Section */}
+      <section id="fedeindustria-form" className="relative border-t border-white/5 fedeindustria-form-section my-10">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-none blur-xl" />
+            <div className="relative bg-[#0A0A0A] border border-white/10 rounded-1xl p-8 lg:p-12">
+              <div className="flex flex-col items-center mb-8">
+                <div className="w-full max-w-2xl mb-6">
+                  <Image 
+                    src="https://www.fedeindustria.org/wp-content/uploads/slider/cache/147eb574aadc7580e5eea80725668938/BANNER-EXPOFEDEINDUSTRIA.jpg" 
+                    alt="Fedeindustria Logo" 
+                    width={800} 
+                    height={200} 
+                    className="w-full h-auto rounded-lg object-contain"
+                  />
+                </div>
+                <h2 className="text-3xl font-bold mb-4 text-center">Formulario de Registro</h2>
+                <p className="text-gray-400 mb-8 text-center max-w-3xl">
+                  Complete el siguiente formulario para recibir mas información acerca de nuestros servicios digitales.  
+                </p>
+              </div>
+              
+              <div className="max-w-3xl mx-auto">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-2xl blur-xl" />
+                  <div className="relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-6">
+                    {formStatusFedeindustria && (
+                      <div className={`mb-6 p-4 rounded-lg ${formStatusFedeindustria.success ? 'bg-green-500/20 border border-green-500/30' : 'bg-red-500/20 border border-red-500/30'}`}>
+                        <div className="flex items-center">
+                          {formStatusFedeindustria.success ? (
+                            <svg className="w-5 h-5 mr-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                          ) : (
+                            <svg className="w-5 h-5 mr-3 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          )}
+                          <p className={`text-sm ${formStatusFedeindustria.success ? 'text-green-400' : 'text-red-400'}`}>
+                            {formStatusFedeindustria.message}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                    
+                    <form 
+                      className="space-y-4" 
+                      onSubmit={async (e) => {
+                        e.preventDefault();
+                        setIsSubmittingFedeindustria(true);
+                        setFormStatusFedeindustria(null);
+                        
+                        try {
+                          // Validar campos requeridos
+                          if (!nombre || !tipoPersona || !emailFedeindustria || !telefono) {
+                            setFormStatusFedeindustria({ 
+                              success: false, 
+                              message: 'Por favor complete todos los campos requeridos.' 
+                            });
+                            setIsSubmittingFedeindustria(false);
+                            return;
+                          }
+                          
+                          // Validar que si es persona jurídica, tenga empresa
+                          if (tipoPersona === 'juridica' && !empresa) {
+                            setFormStatusFedeindustria({ 
+                              success: false, 
+                              message: 'Por favor ingrese el nombre de la empresa.' 
+                            });
+                            setIsSubmittingFedeindustria(false);
+                            return;
+                          }
+                          
+                          // Crear objeto de datos para enviar
+                          const formDataToSend = { 
+                            nombre, 
+                            tipoPersona, 
+                            empresa, 
+                            email: emailFedeindustria, 
+                            telefono 
+                          };
+                          
+                          // Log de verificación antes de enviar
+                          console.log('Enviando datos al servidor:', formDataToSend);
+                          
+                          const response = await fetch('/api/fedeindustria', {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(formDataToSend),
+                          });
+                          
+                          const data = await response.json();
+                          
+                          if (response.ok) {
+                            setFormStatusFedeindustria({ 
+                              success: true, 
+                              message: 'Información recibida correctamente. Nos pondremos en contacto pronto.' 
+                            });
+                            // Limpiar el formulario
+                            setNombre('');
+                            setTipoPersona('');
+                            setEmpresa('');
+                            setEmailFedeindustria('');
+                            setTelefono('');
+                            
+                            // Resetear el campo de empresa
+                            const empresaField = document.getElementById('empresaField');
+                            if (empresaField) {
+                              empresaField.style.display = 'none';
+                            }
+                            
+                            // Desmarcar los radio buttons
+                            const radioNatural = document.getElementById('personaNatural') as HTMLInputElement;
+                            const radioJuridica = document.getElementById('personaJuridica') as HTMLInputElement;
+                            if (radioNatural) radioNatural.checked = false;
+                            if (radioJuridica) radioJuridica.checked = false;
+                          } else {
+                            setFormStatusFedeindustria({ 
+                              success: false, 
+                              message: data.message || 'Ocurrió un error al enviar el formulario.' 
+                            });
+                          }
+                        } catch (error) {
+                          setFormStatusFedeindustria({ 
+                            success: false, 
+                            message: 'Error de conexión. Por favor, inténtelo de nuevo.' 
+                          });
+                        } finally {
+                          setIsSubmittingFedeindustria(false);
+                        }
+                      }}
+                    >
+                      {isLoading ? (
+                        <>
+                          <input
+                            type="text"
+                            placeholder="Nombre Completo"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            disabled
+                          />
+                          <div className="space-y-4">
+                            <p className="text-white text-sm">Tipo de Persona:</p>
+                            <div className="flex flex-wrap gap-4">
+                              <div className="flex items-center">
+                                <input
+                                  type="radio"
+                                  id="personaNatural"
+                                  name="tipoPersona"
+                                  value="natural"
+                                  className="mr-2"
+                                  disabled
+                                />
+                                <label htmlFor="personaNatural" className="text-gray-300">Persona Natural</label>
+                              </div>
+                              <div className="flex items-center">
+                                <input
+                                  type="radio"
+                                  id="personaJuridica"
+                                  name="tipoPersona"
+                                  value="juridica"
+                                  className="mr-2"
+                                  disabled
+                                />
+                                <label htmlFor="personaJuridica" className="text-gray-300">Persona Jurídica</label>
+                              </div>
+                            </div>
+                          </div>
+                          <input
+                            type="text"
+                            placeholder="Nombre de la Empresa"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            disabled
+                          />
+                          <input
+                            type="email"
+                            placeholder="Correo Electrónico"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            disabled
+                          />
+                          <input
+                            type="tel"
+                            placeholder="Teléfono"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            disabled
+                          />
+                          <button
+                            type="submit"
+                            className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-2xl hover:opacity-90 transition-opacity"
+                            disabled
+                          >
+                            Enviar Registro
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <input
+                            type="text"
+                            placeholder="Nombre Completo"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            value={nombre}
+                            onChange={(e) => setNombre(e.target.value)}
+                            required
+                          />
+                          <div className="space-y-4">
+                            <p className="text-white text-sm">Tipo de Persona:</p>
+                            <div className="flex flex-wrap gap-4">
+                              <div className="flex items-center">
+                                <input
+                                  type="radio"
+                                  id="personaNatural"
+                                  name="tipoPersona"
+                                  value="natural"
+                                  className="mr-2"
+                                  onChange={() => {
+                                    setTipoPersona('natural');
+                                    const empresaField = document.getElementById('empresaField');
+                                    if (empresaField) {
+                                      empresaField.style.display = 'none';
+                                    }
+                                  }}
+                                  required
+                                />
+                                <label htmlFor="personaNatural" className="text-gray-300">Persona Natural</label>
+                              </div>
+                              <div className="flex items-center">
+                                <input
+                                  type="radio"
+                                  id="personaJuridica"
+                                  name="tipoPersona"
+                                  value="juridica"
+                                  className="mr-2"
+                                  onChange={() => {
+                                    setTipoPersona('juridica');
+                                    const empresaField = document.getElementById('empresaField');
+                                    if (empresaField) {
+                                      empresaField.style.display = 'block';
+                                    }
+                                  }}
+                                />
+                                <label htmlFor="personaJuridica" className="text-gray-300">Persona Jurídica</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="empresaField" style={{ display: 'none' }}>
+                            <input
+                              type="text"
+                              placeholder="Nombre de la Empresa"
+                              className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                              value={empresa}
+                              onChange={(e) => setEmpresa(e.target.value)}
+                            />
+                          </div>
+                          <input
+                            type="email"
+                            placeholder="Correo Electrónico"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            value={emailFedeindustria}
+                            onChange={(e) => setEmailFedeindustria(e.target.value)}
+                            required
+                          />
+                          <input
+                            type="tel"
+                            placeholder="Teléfono"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            value={telefono}
+                            onChange={(e) => setTelefono(e.target.value)}
+                            required
+                          />
+                          <button
+                            type="submit"
+                            className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-2xl hover:opacity-90 transition-opacity"
+                            disabled={isSubmittingFedeindustria}
+                          >
+                            {isSubmittingFedeindustria ? 'Enviando...' : 'Enviar Registro'}
+                          </button>
+                        </>
+                      )}
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       
       {/* Footer */}
     </main>
