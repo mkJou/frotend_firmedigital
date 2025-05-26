@@ -183,6 +183,7 @@ export async function saveFedeindustriaToGoogleSheet(formData: {
   nombre: string; 
   tipoPersona: string; 
   empresa: string; 
+  sector: string; 
   email: string; 
   telefono: string 
 }) {
@@ -234,10 +235,10 @@ export async function saveFedeindustriaToGoogleSheet(formData: {
         // Añadir encabezados
         await sheets.spreadsheets.values.update({
           spreadsheetId: SPREADSHEET_ID,
-          range: `${FEDEINDUSTRIA_SHEET_NAME}!A1:F1`,
+          range: `${FEDEINDUSTRIA_SHEET_NAME}!A1:G1`,
           valueInputOption: 'RAW',
           requestBody: {
-            values: [['Fecha', 'Nombre', 'Tipo de Persona', 'Empresa', 'Email', 'Teléfono']],
+            values: [['Fecha', 'Nombre', 'Tipo de Persona', 'Empresa', 'Sector', 'Email', 'Teléfono']],
           },
         });
         
@@ -257,6 +258,7 @@ export async function saveFedeindustriaToGoogleSheet(formData: {
         formData.nombre,
         formData.tipoPersona,
         formData.empresa,
+        formData.sector,
         formData.email,
         formData.telefono
       ]
@@ -268,13 +270,14 @@ export async function saveFedeindustriaToGoogleSheet(formData: {
     console.log('- Nombre:', formData.nombre);
     console.log('- Tipo de Persona:', formData.tipoPersona);
     console.log('- Empresa:', formData.empresa);
+    console.log('- Sector:', formData.sector);
     console.log('- Email:', formData.email);
     console.log('- Teléfono:', formData.telefono);
     
     // Insertar datos en la hoja de cálculo
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: `${FEDEINDUSTRIA_SHEET_NAME}!A:F`,
+      range: `${FEDEINDUSTRIA_SHEET_NAME}!A:G`,
       valueInputOption: 'RAW',
       insertDataOption: 'INSERT_ROWS',
       requestBody: {

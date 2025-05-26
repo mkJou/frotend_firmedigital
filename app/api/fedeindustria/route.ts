@@ -4,10 +4,10 @@ import { saveFedeindustriaToGoogleSheet } from '@/lib/googleSheets';
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    const { nombre, tipoPersona, empresa, email, telefono } = data;
+    const { nombre, tipoPersona, empresa, sector, email, telefono } = data;
     
     // Validación básica
-    if (!nombre || !email || !telefono || !tipoPersona) {
+    if (!nombre || !email || !telefono || !tipoPersona || !sector) {
       return NextResponse.json(
         { success: false, message: 'Todos los campos son requeridos' },
         { status: 400 }
@@ -19,6 +19,7 @@ export async function POST(request: Request) {
       nombre, 
       tipoPersona, 
       empresa: empresa || 'N/A', 
+      sector,
       email, 
       telefono 
     });

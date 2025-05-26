@@ -79,6 +79,7 @@ export default function Home() {
   const [nombre, setNombre] = useState('');
   const [tipoPersona, setTipoPersona] = useState('');
   const [empresa, setEmpresa] = useState('');
+  const [sector, setSector] = useState('');
   const [emailFedeindustria, setEmailFedeindustria] = useState('');
   const [telefono, setTelefono] = useState('');
   const [isSubmittingFedeindustria, setIsSubmittingFedeindustria] = useState(false);
@@ -2275,7 +2276,7 @@ export default function Home() {
                         
                         try {
                           // Validar campos requeridos
-                          if (!nombre || !tipoPersona || !emailFedeindustria || !telefono) {
+                          if (!nombre || !tipoPersona || !sector || !emailFedeindustria || !telefono) {
                             setFormStatusFedeindustria({ 
                               success: false, 
                               message: 'Por favor complete todos los campos requeridos.' 
@@ -2299,6 +2300,7 @@ export default function Home() {
                             nombre, 
                             tipoPersona, 
                             empresa, 
+                            sector,
                             email: emailFedeindustria, 
                             telefono 
                           };
@@ -2325,6 +2327,7 @@ export default function Home() {
                             setNombre('');
                             setTipoPersona('');
                             setEmpresa('');
+                            setSector('');
                             setEmailFedeindustria('');
                             setTelefono('');
                             
@@ -2393,6 +2396,12 @@ export default function Home() {
                           <input
                             type="text"
                             placeholder="Nombre de la Empresa"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            disabled
+                          />
+                          <input
+                            type="text"
+                            placeholder="Sector al que pertenece"
                             className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                             disabled
                           />
@@ -2475,6 +2484,14 @@ export default function Home() {
                               onChange={(e) => setEmpresa(e.target.value)}
                             />
                           </div>
+                          <input
+                            type="text"
+                            placeholder="Sector al que pertenece"
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                            value={sector}
+                            onChange={(e) => setSector(e.target.value)}
+                            required
+                          />
                           <input
                             type="email"
                             placeholder="Correo Electrónico"
