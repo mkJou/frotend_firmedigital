@@ -2217,6 +2217,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-none blur-xl" />
             <div className="relative bg-[#0A0A0A] border border-white/10 rounded-1xl p-8 lg:p-12">
               <div className="flex flex-col items-center mb-8">
+               {/* imagen de banner 
                 <div className="w-full max-w-2xl mb-6">
                   <Image 
                     src="https://www.fedeindustria.org/wp-content/uploads/slider/cache/147eb574aadc7580e5eea80725668938/BANNER-EXPOFEDEINDUSTRIA.jpg" 
@@ -2225,7 +2226,7 @@ export default function Home() {
                     height={200} 
                     className="w-full h-auto rounded-lg object-contain"
                   />
-                </div>
+                </div>*/}
                 <h2 className="text-3xl font-bold mb-4 text-center">Formulario de Registro</h2>
                 <p className="text-gray-400 mb-8 text-center max-w-3xl">
                   Complete el siguiente formulario para recibir mas información acerca de nuestros servicios digitales.  
