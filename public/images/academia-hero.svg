@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bg-gradient)" />
+  
+  <!-- Abstract grid pattern -->
+  <g opacity="0.15">
+    <path d="M0,0 L1920,0 L1920,1080 L0,1080 L0,0 Z" fill="none" stroke="#ffffff" stroke-width="1" />
+    <path d="M0,108 L1920,108" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M0,216 L1920,216" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M0,324 L1920,324" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M0,432 L1920,432" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M0,540 L1920,540" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M0,648 L1920,648" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M0,756 L1920,756" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M0,864 L1920,864" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M0,972 L1920,972" stroke="#ffffff" stroke-width="0.5" />
+    
+    <path d="M192,0 L192,1080" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M384,0 L384,1080" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M576,0 L576,1080" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M768,0 L768,1080" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M960,0 L960,1080" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M1152,0 L1152,1080" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M1344,0 L1344,1080" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M1536,0 L1536,1080" stroke="#ffffff" stroke-width="0.5" />
+    <path d="M1728,0 L1728,1080" stroke="#ffffff" stroke-width="0.5" />
+  </g>
+  
+  <!-- Abstract digital elements -->
+  <g opacity="0.8" filter="url(#glow)">
+    <!-- Digital signature path -->
+    <path d="M300,600 C400,550 450,650 550,600 C650,550 700,650 800,600 C900,550 950,650 1050,600 C1150,550 1200,650 1300,600" 
+          stroke="url(#accent-gradient)" stroke-width="6" fill="none" stroke-linecap="round" />
+    
+    <!-- Digital certificate -->
+    <rect x="1400" y="400" width="240" height="320" rx="20" fill="none" stroke="url(#accent-gradient)" stroke-width="4" />
+    <rect x="1440" y="440" width="160" height="40" rx="5" fill="url(#accent-gradient)" opacity="0.7" />
+    <rect x="1440" y="500" width="160" height="20" rx="5" fill="#ffffff" opacity="0.5" />
+    <rect x="1440" y="540" width="160" height="20" rx="5" fill="#ffffff" opacity="0.5" />
+    <rect x="1440" y="580" width="160" height="20" rx="5" fill="#ffffff" opacity="0.5" />
+    <circle cx="1520" cy="650" r="30" fill="url(#accent-gradient)" opacity="0.7" />
+    
+    <!-- Digital nodes -->
+    <circle cx="300" y="600" r="10" fill="url(#accent-gradient)" />
+    <circle cx="550" y="600" r="10" fill="url(#accent-gradient)" />
+    <circle cx="800" y="600" r="10" fill="url(#accent-gradient)" />
+    <circle cx="1050" y="600" r="10" fill="url(#accent-gradient)" />
+    <circle cx="1300" y="600" r="10" fill="url(#accent-gradient)" />
+    
+    <!-- Abstract data points -->
+    <g opacity="0.7">
+      <circle cx="400" y="400" r="5" fill="#ffffff" />
+      <circle cx="450" y="380" r="3" fill="#ffffff" />
+      <circle cx="500" y="420" r="4" fill="#ffffff" />
+      <circle cx="600" y="350" r="6" fill="#ffffff" />
+      <circle cx="650" y="430" r="3" fill="#ffffff" />
+      <circle cx="700" y="390" r="5" fill="#ffffff" />
+      <circle cx="750" y="410" r="4" fill="#ffffff" />
+      <circle cx="850" y="370" r="3" fill="#ffffff" />
+      <circle cx="900" y="430" r="5" fill="#ffffff" />
+      <circle cx="950" y="380" r="4" fill="#ffffff" />
+      <circle cx="1000" y="420" r="3" fill="#ffffff" />
+      <circle cx="1100" y="400" r="5" fill="#ffffff" />
+      <circle cx="1150" y="370" r="4" fill="#ffffff" />
+      <circle cx="1200" y="430" r="3" fill="#ffffff" />
+    </g>
+    
+    <!-- Connection lines -->
+    <g opacity="0.4">
+      <path d="M400,400 L450,380" stroke="#ffffff" stroke-width="1" />
+      <path d="M450,380 L500,420" stroke="#ffffff" stroke-width="1" />
+      <path d="M500,420 L600,350" stroke="#ffffff" stroke-width="1" />
+      <path d="M600,350 L650,430" stroke="#ffffff" stroke-width="1" />
+      <path d="M650,430 L700,390" stroke="#ffffff" stroke-width="1" />
+      <path d="M700,390 L750,410" stroke="#ffffff" stroke-width="1" />
+      <path d="M750,410 L850,370" stroke="#ffffff" stroke-width="1" />
+      <path d="M850,370 L900,430" stroke="#ffffff" stroke-width="1" />
+      <path d="M900,430 L950,380" stroke="#ffffff" stroke-width="1" />
+      <path d="M950,380 L1000,420" stroke="#ffffff" stroke-width="1" />
+      <path d="M1000,420 L1100,400" stroke="#ffffff" stroke-width="1" />
+      <path d="M1100,400 L1150,370" stroke="#ffffff" stroke-width="1" />
+      <path d="M1150,370 L1200,430" stroke="#ffffff" stroke-width="1" />
+    </g>
+  </g>
+  
+  <!-- Overlay gradient -->
+  <rect width="1920" height="1080" fill="url(#bg-gradient)" opacity="0.3" />
+  
+  <!-- Left side gradient overlay -->
+  <linearGradient id="overlay-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" style="stop-color:#000000;stop-opacity:0.9" />
+    <stop offset="60%" style="stop-color:#000000;stop-opacity:0.5" />
+    <stop offset="100%" style="stop-color:#000000;stop-opacity:0" />
+  </linearGradient>
+  <rect width="1200" height="1080" fill="url(#overlay-gradient)" />
+</svg>

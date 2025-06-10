@@ -60,10 +60,23 @@ export async function PUT(
     
     const body = await request.json();
     
+    console.log('Datos recibidos en PUT /api/videos/' + id + ':', body);
+    console.log('Tipo de category:', typeof body.category, 'Valor:', body.category);
+    
     // Validar los campos requeridos
-    if (!body.title || !body.description || !body.category || !body.youtubeId) {
+    if (!body.title || !body.description || !body.youtubeId) {
+      console.log('Error: Campos requeridos faltantes');
       return NextResponse.json(
         { success: false, error: 'Todos los campos son requeridos' },
+        { status: 400 }
+      );
+    }
+    
+    // Validar que la categoría principal no esté vacía
+    if (!body.category || body.category.trim() === '') {
+      console.log('Error: categoría principal vacía');
+      return NextResponse.json(
+        { success: false, error: 'Debe seleccionar al menos una categoría' },
         { status: 400 }
       );
     }
@@ -83,11 +96,28 @@ export async function PUT(
     
     console.log('Actualizando video con datos:', videoData);
     
-    const updatedVideo = await Video.findByIdAndUpdate(
-      id,
-      videoData,
-      { new: true, runValidators: true }
+    // Primero obtenemos el documento actual para ver su estructura
+    const existingVideo = await Video.findById(id);
+    if (!existingVideo) {
+      return NextResponse.json(
+        { success: false, error: 'Video no encontrado' },
+        { status: 404 }
+      );
+    }
+    
+    console.log('Video existente:', existingVideo);
+    
+    // Actualizar directamente usando updateOne para evitar problemas de casting
+    const updateResult = await Video.updateOne(
+      { _id: id },
+      { $set: videoData },
+      { runValidators: false } // Desactivamos validadores para evitar problemas de tipo
     );
+    
+    console.log('Resultado de la actualización:', updateResult);
+    
+    // Obtener el video actualizado
+    const updatedVideo = await Video.findById(id);
     
     if (!updatedVideo) {
       return NextResponse.json(
@@ -97,12 +127,25 @@ export async function PUT(
     }
     
     return NextResponse.json({ success: true, data: updatedVideo });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Database error:', error);
-    return NextResponse.json(
-      { success: false, error: 'Error al actualizar el video' },
-      { status: 500 }
-    );
+    // Mostrar el mensaje de error específico para depuración
+    const errorMessage = error.message || 'Error desconocido';
+    console.error('Mensaje de error específico:', errorMessage);
+    
+    if (error.name === 'ValidationError') {
+      console.error('Error de validación de Mongoose:', error.errors);
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Error de validación: ' + errorMessage,
+        validationErrors: error.errors 
+      }, { status: 400 });
+    }
+    
+    return NextResponse.json({ 
+      success: false, 
+      error: 'Error al actualizar el video: ' + errorMessage 
+    }, { status: 500 });
   }
 }
 

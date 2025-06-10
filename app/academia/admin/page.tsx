@@ -28,7 +28,7 @@ export default function AdminPage() {
   // State for form inputs
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [sector, setSector] = useState('');
+  const [sectors, setSectors] = useState<string[]>([]);
   const [youtubeId, setYoutubeId] = useState('');
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [blogArticleId, setBlogArticleId] = useState('');
@@ -139,10 +139,10 @@ export default function AdminPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!title || !description || !sector || !youtubeId) {
+    if (!title || !description || sectors.length === 0 || !youtubeId) {
       setFormStatus({
         type: 'error',
-        message: 'Por favor, completa todos los campos requeridos.',
+        message: 'Por favor, completa todos los campos requeridos y selecciona al menos una categoría.',
       });
       return;
     }
@@ -151,10 +151,13 @@ export default function AdminPage() {
     setFormStatus({ type: null, message: '' });
 
     try {
+      // Convertimos el array de sectores a una cadena separada por comas
+      const categoryString = sectors.join(',');
+      
       const videoData = {
         title,
         description,
-        category: sector, // Usamos el sector como categoría
+        category: categoryString, // Usamos todas las categorías como una cadena separada por comas
         youtubeId,
         blogArticleUrl: blogArticleUrl.trim() || null,
         isVisible: true,
@@ -236,16 +239,18 @@ export default function AdminPage() {
       // Reset form
       setTitle('');
       setDescription('');
-      setSector('');
+      setSectors([]);
       setYoutubeId('');
       setYoutubeUrl('');
       setBlogArticleUrl('');
       setEditingVideo(null);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving video:', error);
+      // Mostrar mensaje de error más detallado si está disponible
+      const errorMessage = error.message || 'Ha ocurrido un error al guardar el video. Por favor, inténtalo de nuevo.';
       setFormStatus({
         type: 'error',
-        message: 'Ha ocurrido un error al guardar el video. Por favor, inténtalo de nuevo.',
+        message: errorMessage,
       });
     } finally {
       setIsSubmitting(false);
@@ -257,16 +262,17 @@ export default function AdminPage() {
     setEditingVideo(video);
     setTitle(video.title);
     setDescription(video.description);
-    setSector(video.category); // Usamos la categoría como sector
+    
+    // Convertir la cadena de categorías separada por comas a un array
+    if (video.category && typeof video.category === 'string') {
+      setSectors(video.category.split(','));
+    } else {
+      setSectors([]);
+    }
+    
     setYoutubeId(video.youtubeId);
     setYoutubeUrl(`https://www.youtube.com/watch?v=${video.youtubeId}`);
-    
-    // Set blog article URL if available
-    if (video.blogArticleUrl) {
-      setBlogArticleUrl(video.blogArticleUrl);
-    } else {
-      setBlogArticleUrl('');
-    }
+    setBlogArticleUrl(video.blogArticleUrl || '');
     
     // Scroll to form
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -291,7 +297,7 @@ export default function AdminPage() {
           if (editingVideo && editingVideo.id === id) {
             setTitle('');
             setDescription('');
-            setSector('');
+            setSectors([]);
             setYoutubeId('');
             setYoutubeUrl('');
             setEditingVideo(null);
@@ -390,23 +396,31 @@ export default function AdminPage() {
                 </div>
                 
                 <div>
-                  <label htmlFor="sector" className="block text-sm font-medium text-gray-300 mb-2">
-                    Sector *
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Sectores * (selecciona uno o más)
                   </label>
-                  <select
-                    id="sector"
-                    value={sector}
-                    onChange={(e) => setSector(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
-                    required
-                  >
-                    <option value="">Selecciona un sector</option>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
                     {sectores.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
-                      </option>
+                      <div key={s} className="flex items-center">
+                        <input
+                          type="checkbox"
+                          id={`sector-${s}`}
+                          checked={sectors.includes(s)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSectors([...sectors, s]);
+                            } else {
+                              setSectors(sectors.filter(sector => sector !== s));
+                            }
+                          }}
+                          className="mr-2 h-4 w-4 accent-blue-500"
+                        />
+                        <label htmlFor={`sector-${s}`} className="text-sm text-gray-300">
+                          {s}
+                        </label>
+                      </div>
                     ))}
-                  </select>
+                  </div>
                 </div>
                 
                 <div>
@@ -473,7 +487,7 @@ export default function AdminPage() {
                       onClick={() => {
                         setTitle('');
                         setDescription('');
-                        setSector('');
+                        setSectors([]);
                         setYoutubeId('');
                         setYoutubeUrl('');
                         setEditingVideo(null);
@@ -525,9 +539,12 @@ export default function AdminPage() {
                         <h3 className="text-lg font-semibold text-white">{video.title}</h3>
                         <p className="text-gray-400 mt-1 line-clamp-2">{video.description}</p>
                         <div className="flex flex-wrap items-center mt-2 gap-2">
-                          <span className="px-3 py-1 bg-gradient-to-r from-blue-600/30 to-purple-600/30 rounded-full text-sm text-blue-400">
-                            {video.category}
-                          </span>
+                          {/* Dividimos la categoría por comas y mostramos cada una */}
+                          {video.category && video.category.split(',').map((cat: string, index: number) => (
+                            <span key={index} className="px-3 py-1 bg-gradient-to-r from-blue-600/30 to-purple-600/30 rounded-full text-sm text-blue-400">
+                              {cat}
+                            </span>
+                          ))}
                           <span className="text-gray-500 text-sm">
                             ID: {video.youtubeId}
                           </span>

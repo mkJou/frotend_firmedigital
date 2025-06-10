@@ -797,7 +797,7 @@ export default function Home() {
                 <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Nuestra Visión</h3>
               </div>
               <p className="text-gray-300 text-lg leading-relaxed flex-grow">
-              Ser la plataforma líder en certificación y firma electrónica en América Latina, reconocida por nuestra innovación continua y por brindar soluciones digitales que transforman la manera en que las empresas y los individuos gestionan y autenticar sus documentos. 
+              Ser la plataforma líder en certificación y firma electrónica en La República Bolivariana de Venezuela, reconocida por nuestra innovación continua y por brindar soluciones digitales que transforman la manera en que las empresas y los individuos gestionan y autentican sus documentos. 
               </p>
               <div className="mt-6 w-1/3 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
             </div>
@@ -2227,7 +2227,7 @@ export default function Home() {
                     className="w-full h-auto rounded-lg object-contain"
                   />
                 </div>*/}
-                <h2 className="text-3xl font-bold mb-4 text-center">Formulario de Registro</h2>
+                <h2 className="text-3xl font-bold mb-4 text-center">Formulario de contacto</h2>
                 <p className="text-gray-400 mb-8 text-center max-w-3xl">
                   Complete el siguiente formulario para recibir mas información acerca de nuestros servicios digitales.  
                 </p>

@@ -1,11 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FiSearch, FiX, FiExternalLink } from 'react-icons/fi';
 import { BsPlayCircleFill } from 'react-icons/bs';
+import VideoCard from '../components/VideoCard';
 
 // Define the video type
 interface Video {
@@ -19,14 +22,14 @@ interface Video {
   blogArticleUrl?: string;
 }
 
-// Video modal component
+// Video modal component - Estilo Netflix
 const VideoModal = ({ video, isOpen, onClose }: { video: Video | null, isOpen: boolean, onClose: () => void }) => {
   if (!video || !isOpen) return null;
   
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95">
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -35,76 +38,90 @@ const VideoModal = ({ video, isOpen, onClose }: { video: Video | null, isOpen: b
             className="absolute inset-0" 
             onClick={onClose}
           />
+          
+          {/* Botón de cerrar en la esquina superior derecha */}
+          <div className="absolute top-4 right-4 z-50">
+            <button 
+              onClick={onClose}
+              className="text-gray-400 hover:text-white transition-all hover:scale-110 bg-black/40 hover:bg-black/60 rounded-full p-2"
+              aria-label="Cerrar"
+            >
+              <FiX className="h-6 w-6" />
+            </button>
+          </div>
+          
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.3, type: 'spring', damping: 25 }}
-            className="relative w-full max-w-6xl bg-gradient-to-br from-[#0A0A0A] to-[#121212] border border-white/10 rounded-2xl z-10 overflow-hidden my-8 max-h-[90vh] shadow-2xl shadow-blue-900/20"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.3 }}
+            className="relative w-full max-w-6xl z-10 overflow-hidden"
           >
-            {/* Botón de cerrar fijo en la esquina superior derecha */}
-            <div className="sticky top-0 right-0 flex justify-end p-4 bg-gradient-to-b from-[#0A0A0A] to-transparent backdrop-blur-sm z-20">
-              <button 
-                onClick={onClose}
-                className="text-gray-400 hover:text-white transition-all hover:scale-110 bg-white/5 hover:bg-white/10 rounded-full p-2"
-                aria-label="Cerrar"
-              >
-                <FiX className="h-6 w-6" />
-              </button>
+            {/* Video de YouTube */}
+            <div className="aspect-video w-full overflow-hidden shadow-2xl">
+              <iframe
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`}
+                title={video.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              ></iframe>
             </div>
             
-            {/* Contenido del modal con scroll */}
-            <div className="px-6 pb-6 overflow-y-auto max-h-[calc(90vh-80px)]">
-              {/* Video de YouTube */}
-              <div className="aspect-video w-full mb-8 rounded-xl overflow-hidden ring-1 ring-white/10 shadow-lg">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`}
-                  title={video.title}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                ></iframe>
-              </div>
-              
-              {/* Información del video */}
-              <div className="p-4">
-                <h2 className="text-3xl font-bold mb-4 text-white bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">{video.title}</h2>
-                <p className="text-gray-300 mb-8 leading-relaxed">{video.description}</p>
-                
-                <div className="flex flex-wrap justify-between items-center mb-8">
-                  <span className="px-4 py-2 bg-gradient-to-r from-blue-600/30 to-purple-600/30 rounded-full text-sm font-medium text-blue-300 shadow-lg shadow-blue-900/10 border border-blue-500/20">
-                    {video.category}
-                  </span>
-                  <span className="text-gray-400 text-sm font-medium">
-                    {new Date(video.createdAt).toLocaleDateString('es-ES', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </span>
+            {/* Información del video - Estilo Netflix */}
+            <div className="bg-gradient-to-b from-[#141414] to-black p-8">
+              <div className="flex flex-wrap items-start justify-between gap-6">
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-3 text-white">{video.title}</h2>
+                  
+                  <div className="flex flex-wrap items-center gap-4 mb-6 text-sm">
+                    <span className="text-green-500 font-medium">97% coincidencia</span>
+                    <span className="text-gray-400">
+                      {new Date(video.createdAt).getFullYear()}
+                    </span>
+                    <span className="px-2 py-0.5 border border-gray-600 text-gray-300 text-xs">
+                      HD
+                    </span>
+                  </div>
+                  
+                  <p className="text-gray-300 mb-6 leading-relaxed max-w-3xl">{video.description}</p>
                 </div>
                 
-                {/* Mostrar el botón 'Saber más' solo si hay una URL de blog disponible */}
-                {video.blogArticleUrl && video.blogArticleUrl.trim() !== '' && (
-                  <motion.div 
-                    className="mt-8"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                  >
+                <div className="flex flex-col space-y-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-400 text-sm">Categoría:</span>
+                    <span className="text-white text-sm font-medium">{video.category}</span>
+                  </div>
+                  
+                  {/* Mostrar el botón 'Saber más' solo si hay una URL de blog disponible */}
+                  {video.blogArticleUrl && video.blogArticleUrl.trim() !== '' && (
                     <Link 
                       href={video.blogArticleUrl}
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-blue-600/20 transition-all duration-300 transform hover:-translate-y-1"
+                      className="inline-flex items-center px-5 py-2 bg-white text-black font-medium rounded hover:bg-gray-200 transition-all duration-300"
                       target="_blank"
                     >
-                      Saber más
-                      <FiExternalLink className="h-5 w-5 ml-2" />
+                      <FiExternalLink className="h-4 w-4 mr-2" />
+                      Artículo relacionado
                     </Link>
-                  </motion.div>
-                )}
+                  )}
+                </div>
+              </div>
+              
+              {/* Botones de acción estilo Netflix */}
+              <div className="flex items-center gap-3 mt-8">
+                <button className="flex items-center gap-2 px-5 py-2 bg-white text-black font-medium rounded hover:bg-gray-200 transition-all duration-300">
+                  <BsPlayCircleFill className="h-5 w-5" />
+                  Reproducir
+                </button>
+                <button className="flex items-center gap-2 px-5 py-2 bg-gray-600/40 text-white font-medium rounded hover:bg-gray-600/60 transition-all duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  Mi lista
+                </button>
               </div>
             </div>
           </motion.div>
@@ -114,68 +131,101 @@ const VideoModal = ({ video, isOpen, onClose }: { video: Video | null, isOpen: b
   );
 };
 
-// Video card component
-const VideoCard = ({ video, onClick }: { video: Video, onClick: (video: Video) => void }) => {
+// El componente VideoCard ahora se importa desde '../components/VideoCard'
+
+// Video row component with navigation buttons
+const VideoRow = ({ title, videos }: { title: string, videos: Video[] }) => {
+  const rowRef = React.useRef<HTMLDivElement>(null);
+  
+  const scrollLeft = () => {
+    if (rowRef.current) {
+      const scrollAmount = rowRef.current.clientWidth * 0.75;
+      rowRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
+  };
+  
+  const scrollRight = () => {
+    if (rowRef.current) {
+      const scrollAmount = rowRef.current.clientWidth * 0.75;
+      rowRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const [showLeftButton, setShowLeftButton] = useState(false);
+  const [showRightButton, setShowRightButton] = useState(true);
+
+  const handleScroll = () => {
+    if (rowRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = rowRef.current;
+      setShowLeftButton(scrollLeft > 0);
+      setShowRightButton(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  useEffect(() => {
+    const currentRow = rowRef.current;
+    if (currentRow) {
+      currentRow.addEventListener('scroll', handleScroll);
+      // Check initial state
+      handleScroll();
+      return () => currentRow.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
+  
   return (
-    <motion.div 
-      className="relative rounded-2xl overflow-hidden cursor-pointer group h-full"
-      onClick={() => onClick(video)}
-      whileHover={{ scale: 1.02 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl blur-xl transform group-hover:scale-110 transition-transform duration-700" />
-      <div className="relative bg-gradient-to-br from-[#0A0A0A]/90 to-[#121212]/90 backdrop-blur-sm border border-white/10 hover:border-white/20 rounded-2xl p-6 h-full transition-all duration-300 group-hover:shadow-xl group-hover:shadow-blue-900/20">
-        {/* Thumbnail con overlay de play */}
-        <div className="aspect-video w-full bg-gray-900 rounded-xl mb-5 relative overflow-hidden shadow-lg shadow-black/30 ring-1 ring-white/5">
-          <img 
-            src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
-            alt={video.title}
-            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
-            onError={(e) => {
-              // Si la imagen maxresdefault no está disponible, usar la hqdefault
-              const target = e.target as HTMLImageElement;
-              target.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-center justify-center opacity-70 group-hover:opacity-90 transition-all duration-300">
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              className="bg-white/10 backdrop-blur-sm p-4 rounded-full"
+    <div className="mb-4 relative group">
+      <h3 className="text-xl font-medium text-white mb-2">{title}</h3>
+      
+      <div className="relative">
+        {/* Left navigation button */}
+        {showLeftButton && (
+          <div className="hidden md:flex absolute left-0 top-0 bottom-0 z-30 items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <button 
+              onClick={scrollLeft}
+              className="h-full px-3 flex items-center justify-center"
+              aria-label="Scroll left"
+              style={{ 
+                background: 'linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7))', 
+                backdropFilter: 'blur(4px)' 
+              }}
             >
-              <BsPlayCircleFill className="h-12 w-12 text-white drop-shadow-lg" />
-            </motion.div>
-          </div>
-        </div>
-        
-        {/* Título y descripción */}
-        <h3 className="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 transition-all duration-300">{video.title}</h3>
-        <p className="text-gray-400 text-sm mb-5 line-clamp-3 leading-relaxed">{video.description}</p>
-        
-        {/* Categoría y fecha */}
-        <div className="flex justify-between items-center mt-auto">
-          <span className="px-3 py-1 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-full text-xs font-medium text-blue-300 border border-blue-500/20">
-            {video.category}
-          </span>
-          <span className="text-gray-500 text-xs font-medium">
-            {new Date(video.createdAt).toLocaleDateString('es-ES', {
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric'
-            })}
-          </span>
-        </div>
-        
-        {/* Indicador de artículo relacionado */}
-        {video.blogArticleUrl && video.blogArticleUrl.trim() !== '' && (
-          <div className="absolute top-4 right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs px-3 py-1 rounded-full shadow-lg shadow-purple-900/30 font-medium flex items-center space-x-1">
-            <FiExternalLink className="h-3 w-3" />
-            <span>Blog</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
           </div>
         )}
+        
+        {/* Right navigation button */}
+        {showRightButton && (
+          <div className="hidden md:flex absolute right-0 top-0 bottom-0 z-30 items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <button 
+              onClick={scrollRight}
+              className="h-full px-3 flex items-center justify-center"
+              aria-label="Scroll right"
+              style={{ 
+                background: 'linear-gradient(to left, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7))', 
+                backdropFilter: 'blur(4px)' 
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        )}
+        
+        <div 
+          ref={rowRef}
+          className="flex space-x-4 overflow-x-auto scrollbar-hide scroll-smooth overflow-y-hidden py-2"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {videos.map((video) => (
+            <VideoCard key={video.id} video={{...video, isFree: true}} />
+          ))}
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -189,35 +239,126 @@ const CategoryFilter = ({
   selectedCategory: string, 
   onCategoryChange: (category: string) => void 
 }) => {
+  // Estado para controlar la apertura del menú desplegable
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  
+  // Separar las categorías principales de las secundarias
+  const mainCategories = ['Todos', 'General', 'Tutorial'];
+  const otherCategories = categories.filter(cat => 
+    !mainCategories.includes(cat) && cat !== 'Todos'
+  );
+  
+  // Referencia para el menú desplegable
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+  
+  // Cerrar el menú desplegable al hacer clic fuera de él
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+  
   return (
-    <div className="flex flex-wrap gap-3 mb-8">
+    <div className="flex items-center gap-3 mb-8">
+      {/* Botón Todos */}
       <motion.button
         onClick={() => onCategoryChange('all')}
-        className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+        className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
           selectedCategory === 'all'
-            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-600/20'
-            : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5 hover:border-white/20'
+            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+            : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
         }`}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
         Todos
       </motion.button>
-      {categories.map((category) => (
+      
+      {/* Botón General */}
+      <motion.button
+        onClick={() => onCategoryChange('General')}
+        className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+          selectedCategory === 'General'
+            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+            : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+        }`}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        General
+      </motion.button>
+      
+      {/* Botón Tutorial */}
+      <motion.button
+        onClick={() => onCategoryChange('Tutorial')}
+        className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+          selectedCategory === 'Tutorial'
+            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+            : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+        }`}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        Tutorial
+      </motion.button>
+      
+      {/* Menú desplegable para otras categorías */}
+      <div className="relative" ref={dropdownRef}>
         <motion.button
-          key={category}
-          onClick={() => onCategoryChange(category)}
-          className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-            selectedCategory === category
-              ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-600/20'
-              : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5 hover:border-white/20'
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
+            otherCategories.includes(selectedCategory)
+              ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+              : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
           }`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          {category}
+          {otherCategories.includes(selectedCategory) ? selectedCategory : 'Más categorías'}
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className={`h-4 w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
         </motion.button>
-      ))}
+        
+        {/* Menú desplegable */}
+        {isDropdownOpen && (
+          <motion.div 
+            className="absolute z-50 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 max-h-60 overflow-y-auto"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="py-1">
+              {otherCategories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => {
+                    onCategoryChange(category);
+                    setIsDropdownOpen(false);
+                  }}
+                  className={`block w-full text-left px-4 py-2 text-sm ${selectedCategory === category ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 };
@@ -232,6 +373,12 @@ export default function AcademiaPage() {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
+  
+  // Estado para los videos destacados en la Hero Section
+  const [heroVideos, setHeroVideos] = useState<Video[]>([]);
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+  const [isMuted, setIsMuted] = useState(true);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   useEffect(() => {
     // Fetch videos from API
@@ -239,33 +386,99 @@ export default function AcademiaPage() {
       try {
         setIsLoading(true);
         
-        // Fetch videos from the API
         const response = await fetch('/api/videos');
         const result = await response.json();
         
+        console.log('API response:', result);
+        
         if (result.success) {
           // Mapear los videos de la API y asegurarse de que todos los campos estén presentes
-          const apiVideos: Video[] = result.data.map((video: any) => ({
-            id: video._id,
-            title: video.title,
-            description: video.description,
-            category: video.category,
-            youtubeId: video.youtubeId,
-            createdAt: video.createdAt,
-            blogArticleId: video.blogArticleId || '',
-            blogArticleUrl: video.blogArticleUrl || ''
-          }));
+          const apiVideos: Video[] = result.data.map((video: any) => {
+            // Asegurarse de que la categoría esté presente y sea una cadena
+            let category = video.category || '';
+            
+            // Si la categoría está vacía, asignar 'General' por defecto
+            if (!category || category.trim() === '') {
+              category = 'General';
+            }
+            
+            return {
+              id: video._id,
+              title: video.title,
+              description: video.description,
+              category: category,
+              youtubeId: video.youtubeId,
+              createdAt: video.createdAt,
+              blogArticleId: video.blogArticleId || '',
+              blogArticleUrl: video.blogArticleUrl || ''
+            };
+          });
           
           console.log('Videos cargados:', apiVideos);
           
           setVideos(apiVideos);
           setFilteredVideos(apiVideos);
           
-          // Extraer sectores únicos de los videos
-          const uniqueSectors = Array.from(new Set(apiVideos.map(video => video.category)));
-          setSectors(['Todos', ...uniqueSectors]);
-        } else {
-          console.error('Error fetching videos:', result.error);
+          // Seleccionar los 5 videos más recientes como destacados para la Hero Section
+          const sortedByDate = [...apiVideos].sort((a, b) => 
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+          setHeroVideos(sortedByDate.slice(0, 5));
+          
+          // Extraer categorías únicas directamente de los videos
+          const categoriesFromVideos = new Set<string>();
+          
+          // Extraer todas las categorías de los videos
+          apiVideos.forEach(video => {
+            if (video.category) {
+              const videoCategories = video.category.split(',');
+              videoCategories.forEach(cat => {
+                const trimmedCat = cat.trim();
+                if (trimmedCat) {
+                  categoriesFromVideos.add(trimmedCat);
+                }
+              });
+            }
+          });
+          
+          console.log('Categorías extraídas de videos:', Array.from(categoriesFromVideos));
+          
+          // Categorías predefinidas para asegurar que siempre estén disponibles
+          const predefinedCategories = [
+            'Legal y jurídico',
+            'Ingenieros',
+            'Salud',
+            'Contadores',
+            'Gubernamentales',
+            'Educación',
+            'Comercio',
+            'Financiero',
+            'Tecnología',
+            'Recursos Humanos',
+            'Tutorial',
+            'Eventos',
+            'Agropecuario',
+            'Banca y Finanzas',
+            'General'
+          ];
+          
+          // Combinar categorías de videos y predefinidas
+          const allCategories = new Set<string>();
+          
+          // Primero añadir las categorías de los videos (prioridad)
+          categoriesFromVideos.forEach(cat => allCategories.add(cat));
+          
+          // Luego añadir las predefinidas que no existan ya
+          predefinedCategories.forEach(cat => allCategories.add(cat));
+          
+          // Convertir a array y ordenar alfabéticamente
+          const sortedCategories = Array.from(allCategories).sort();
+          
+          // Añadir 'Todos' al principio
+          const uniqueSectors = ['Todos', ...sortedCategories];
+          
+          console.log('Categorías finales disponibles:', uniqueSectors);
+          setSectors(uniqueSectors);
         }
       } catch (error) {
         console.error('Error fetching videos:', error);
@@ -273,21 +486,36 @@ export default function AcademiaPage() {
         setIsLoading(false);
       }
     };
-
+    
     fetchVideos();
   }, []);
-
+  
   // Filtrar videos por sector y término de búsqueda
   const filterVideos = () => {
-    let result = videos;
+    console.log('filterVideos called, videos length:', videos.length);
+    let result = [...videos];
     
-    // Filtrar por sector si no es 'Todos'
+    // Filtrar por sector
     if (selectedSector !== 'Todos') {
-      result = result.filter(video => video.category === selectedSector);
+      console.log('Filtering by sector:', selectedSector);
+      result = result.filter(video => {
+        // Verificar si la categoría está incluida en la cadena de categorías separadas por comas
+        if (video.category) {
+          const categories = video.category.split(',').map(cat => cat.trim());
+          return categories.includes(selectedSector);
+        }
+        return false;
+      });
     }
     
-    // Filtrar por término de búsqueda si no está vacío
-    if (searchTerm.trim() !== '') {
+    // Si no hay resultados para la categoría seleccionada, mostrar un mensaje en consola
+    if (result.length === 0 && selectedSector !== 'Todos') {
+      console.log(`No hay videos en la categoría: ${selectedSector}`);
+    }
+    
+    // Filtrar por término de búsqueda
+    if (searchTerm) {
+      console.log('Filtering by search term:', searchTerm);
       const term = searchTerm.toLowerCase();
       result = result.filter(video => 
         video.title.toLowerCase().includes(term) || 
@@ -295,8 +523,28 @@ export default function AcademiaPage() {
       );
     }
     
+    console.log('Filtered videos result:', result.length, 'items');
     setFilteredVideos(result);
   };
+  
+  // Aplicar filtros cuando cambia el sector o el término de búsqueda
+  useEffect(() => {
+    filterVideos();
+  }, [selectedSector, searchTerm, videos]);
+  
+  // Efecto para cambiar el video destacado cada 15 segundos
+  useEffect(() => {
+    if (heroVideos.length === 0) return;
+    
+    const interval = setInterval(() => {
+      setCurrentHeroIndex(prevIndex => {
+        // Animación de transición con framer-motion se maneja en el componente
+        return (prevIndex + 1) % heroVideos.length;
+      });
+    }, 15000); // Cambiar cada 15 segundos
+    
+    return () => clearInterval(interval);
+  }, [heroVideos.length]);
   
   // Manejar cambio de sector
   const handleSectorChange = (sector: string) => {
@@ -307,200 +555,369 @@ export default function AcademiaPage() {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
-  
-  // Aplicar filtros cuando cambia el sector o el término de búsqueda
-  useEffect(() => {
-    filterVideos();
-  }, [selectedSector, searchTerm, videos]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-black to-[#050510] text-white">
-      {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden">
-        {/* Imagen de fondo */}
-        <div className="absolute inset-0 z-0">
-          <Image 
-            src="/images/beneeduca.jpg" 
-            alt="Academia FIRMEDIGITAL" 
-            fill 
-            className="object-cover opacity-20 blur-sm"
-            priority
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/30 via-purple-900/30 to-black/80 z-0" />
-        
-        {/* Partículas decorativas */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/10 rounded-full filter blur-3xl opacity-30 animate-pulse" />
-        <div className="absolute bottom-10 right-10 w-80 h-80 bg-purple-600/10 rounded-full filter blur-3xl opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Logo en la esquina superior izquierda */}
-          <div className="fixed top-4 left-4 md:absolute md:top-0 md:left-8 lg:left-10 z-50">
+      {/* Header - Estilo Netflix */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-transparent py-3 px-4 md:px-8 transition-all duration-300">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-6">
             <Link href="/">
               <Image 
                 src="/images/logo.webp" 
                 alt="FIRMEDIGITAL Logo" 
-                width={220} 
-                height={73} 
-                className="w-[140px] md:w-[190px] lg:w-[220px] h-auto object-contain transition-all duration-300 bg-black/40 p-1 md:bg-transparent md:p-0"
+                width={150} 
+                height={50} 
+                className="w-[120px] md:w-[150px] h-auto object-contain"
               />
             </Link>
+            <nav className="hidden md:flex space-x-4">
+              <Link href="/" className="text-gray-300 hover:text-white text-sm font-medium">Inicio</Link>
+              <Link href="/academia" className="text-white text-sm font-medium">Academia</Link>
+              <Link href="/blog" className="text-gray-300 hover:text-white text-sm font-medium">Blog</Link>
+            </nav>
           </div>
-          <div className="text-center relative">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
-              className="inline-block mb-4 px-6 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-blue-300 font-medium"
+          <div>
+            <Link 
+              href="https://firmedigital.com/" 
+              className="px-4 py-1.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded hover:shadow-lg hover:shadow-blue-600/20 transition-all duration-300"
             >
-              Recursos Educativos
-            </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-blue-300"
-            >
-              Academia FIRMEDIGITAL
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="mt-6 text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
-            >
-              Explora nuestra colección de videos educativos sobre firma electrónica, 
-              certificados digitales y seguridad documental.
-            </motion.p>
+              Ir a FIRMEDIGITAL
+            </Link>
           </div>
         </div>
+      </header>
+
+      {/* Hero Section - Estilo Netflix */}
+      <section className="relative h-screen overflow-hidden">
+        {/* Video de fondo con reproductor de YouTube */}
+        <AnimatePresence mode="wait">
+          {heroVideos.length > 0 && (
+            <motion.div 
+              key={`hero-video-${currentHeroIndex}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              className="absolute inset-0 w-full h-full z-0"
+            >
+              <div className="absolute inset-0 w-full h-full overflow-hidden">
+                <iframe 
+                  src={`https://www.youtube.com/embed/${heroVideos[currentHeroIndex]?.youtubeId}?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&playlist=${heroVideos[currentHeroIndex]?.youtubeId}&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1`}
+                  title={heroVideos[currentHeroIndex]?.title}
+                  className="absolute inset-0 w-full h-full"
+                  style={{ 
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    transform: 'scale(1.5)' // Escalar para eliminar bordes negros
+                  }}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  onLoad={() => setIsVideoLoaded(true)}
+                />
+              </div>
+              
+              {/* Gradientes para mejorar legibilidad */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/80 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent pointer-events-none" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+        
+        {/* El botón de Mute/Unmute para pantallas grandes ha sido eliminado */}
+        
+        {/* Contenido superpuesto al estilo Netflix */}
+        {heroVideos.length > 0 && (
+          <div className="absolute inset-0 flex items-end sm:items-center pb-16 sm:pb-0 z-10">
+            <div className="container mx-auto px-4 md:px-8 lg:px-12 pt-16">
+              <div className="max-w-2xl mb-16 sm:mb-0">
+                <motion.div
+                  key={`hero-content-${currentHeroIndex}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="mb-4 text-blue-300 font-medium">
+                    {heroVideos[currentHeroIndex]?.category}
+                  </div>
+                  
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+                    {heroVideos[currentHeroIndex]?.title}
+                  </h1>
+                  
+                  <p className="text-base md:text-lg text-gray-300 mb-8 max-w-lg line-clamp-3">
+                    {heroVideos[currentHeroIndex]?.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap items-center gap-4">
+                    <Link 
+                      href={`/academia/${heroVideos[currentHeroIndex]?.id}`}
+                      className="px-6 py-3 bg-white text-black font-medium rounded hover:bg-opacity-80 transition-all flex items-center space-x-2"
+                      aria-label="Reproducir video"
+                    >
+                      <BsPlayCircleFill className="h-5 w-5" />
+                      <span>Reproducir</span>
+                    </Link>
+                    
+                    {/* Botón de Mute/Unmute para todos los dispositivos */}
+                    <button 
+                      onClick={() => setIsMuted(!isMuted)}
+                      className="flex items-center justify-center bg-black/60 hover:bg-black/80 p-3 rounded-full transition-all duration-300"
+                      aria-label={isMuted ? "Activar sonido" : "Silenciar"}
+                    >
+                      {isMuted ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                        </svg>
+                      ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Videos Section */}
-      <section className="py-16 bg-transparent">
+      <section id="videos-section" className="pt-2 md:pt-6 pb-4 bg-transparent mt-0 md:mt-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
-            <motion.h2 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-3xl font-bold mb-6 md:mb-0 flex items-center"
-            >
-              <span className="mr-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white">Videos</span>
-              <span className="relative">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">Educativos</span>
-                <span className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></span>
-              </span>
-            </motion.h2>
-            {isLoading ? null : (
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Link 
-                  href="https://firmedigital.com/" 
-                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-blue-600/20 transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  Ir a FIRMEDIGITAL
-                  <FiExternalLink className="h-5 w-5 ml-2" />
-                </Link>
-              </motion.div>
-            )}
-          </div>
 
+          {/* Encabezado y título */}
+          <div className="mb-6">
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-white">Videos Educativos</h2>
+            </div>
+            
+            {/* Filtros y barra de búsqueda - Responsive */}
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+              {/* Barra de búsqueda */}
+              <div className="relative w-full md:w-64 order-1 md:order-2">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FiSearch className={`h-4 w-4 transition-colors duration-300 ${searchFocused ? 'text-blue-400' : 'text-gray-400'}`} />
+                </div>
+                <input
+                  id="search-videos"
+                  type="text"
+                  placeholder="Títulos, categorías..."
+                  className={`w-full bg-black/40 border text-sm rounded-sm pl-9 pr-4 py-2 focus:outline-none transition-all duration-300 text-white ${searchFocused 
+                    ? 'border-blue-500 bg-black/60' 
+                    : 'border-white/20 hover:border-white/40'}`}
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  onFocus={() => setSearchFocused(true)}
+                  onBlur={() => setSearchFocused(false)}
+                />
+              </div>
+            </div>
+            
+            {/* Filtro por sectores con selector para categorías adicionales - Responsive */}
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 md:gap-4 order-2 md:order-1">
+              {/* Botón Todos */}
+              <button
+                onClick={() => handleSectorChange('Todos')}
+                className={`px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${selectedSector === 'Todos' 
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' 
+                  : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'}`}
+              >
+                Todos
+              </button>
+              
+              {/* Botón General */}
+              <button
+                onClick={() => handleSectorChange('General')}
+                className={`px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${selectedSector === 'General' 
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' 
+                  : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'}`}
+              >
+                General
+              </button>
+              
+              {/* Selector para otras categorías - Con click para móviles */}
+              <div className="relative">
+                {(() => {
+                  const [isOpen, setIsOpen] = useState(false);
+                  const buttonRef = React.useRef<HTMLButtonElement>(null);
+                  const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0, width: 0, height: 0 });
+                  const [isMounted, setIsMounted] = useState(false);
+                  
+                  // Detectar cuando el componente está montado para usar createPortal
+                  useEffect(() => {
+                    setIsMounted(true);
+                    return () => setIsMounted(false);
+                  }, []);
+                  
+                  // Actualizar posición del botón cuando se abre el menú
+                  useEffect(() => {
+                    if (isOpen && buttonRef.current) {
+                      const rect = buttonRef.current.getBoundingClientRect();
+                      setButtonPosition({
+                        top: rect.top + window.scrollY,
+                        left: rect.left + window.scrollX,
+                        width: rect.width,
+                        height: rect.height
+                      });
+                    }
+                  }, [isOpen]);
+                  
+                  // Cerrar el menú al hacer clic en cualquier parte
+                  useEffect(() => {
+                    const handleClickOutside = (e: MouseEvent) => {
+                      if (isOpen && buttonRef.current && !buttonRef.current.contains(e.target as Node)) {
+                        setIsOpen(false);
+                      }
+                    };
+                    
+                    document.addEventListener('click', handleClickOutside);
+                    return () => document.removeEventListener('click', handleClickOutside);
+                  }, [isOpen]);
+                  
+                  // Cerrar el menú al presionar Escape
+                  useEffect(() => {
+                    const handleEscape = (e: KeyboardEvent) => {
+                      if (e.key === 'Escape' && isOpen) {
+                        setIsOpen(false);
+                      }
+                    };
+                    
+                    document.addEventListener('keydown', handleEscape);
+                    return () => document.removeEventListener('keydown', handleEscape);
+                  }, [isOpen]);
+                  
+                  return (
+                    <>
+                      <button
+                        ref={buttonRef}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIsOpen(!isOpen);
+                        }}
+                        className={`px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 flex items-center gap-1 sm:gap-2 ${!['Todos', 'General'].includes(selectedSector) 
+                          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' 
+                          : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'}`}
+                      >
+                        <span className="truncate max-w-[80px] sm:max-w-[120px] md:max-w-[150px]">
+                          {!['Todos', 'General'].includes(selectedSector) ? selectedSector : 'Más categorías'}
+                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" className={`h-3 w-3 sm:h-4 sm:w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                      
+                      {/* Menú desplegable usando Portal para evitar problemas de recorte */}
+                      {isOpen && isMounted && createPortal(
+                        <div 
+                          style={{
+                            position: 'absolute',
+                            top: `${buttonPosition.top + buttonPosition.height + 8}px`,
+                            left: `${buttonPosition.left + buttonPosition.width - 224}px`, // 224px = ancho del menú (w-56)
+                            zIndex: 9999,
+                            maxHeight: '300px',
+                            overflowY: 'auto',
+                            width: '224px' // Equivalente a w-56
+                          }}
+                          className="rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 overflow-hidden"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <div className="py-1">
+                            {/* Mostrar todas las categorías excepto Todos y General */}
+                            {sectors
+                              .filter(sector => sector !== 'Todos' && sector !== 'General')
+                              .map((sector) => (
+                                <button
+                                  key={sector}
+                                  onClick={() => {
+                                    handleSectorChange(sector);
+                                    setIsOpen(false);
+                                  }}
+                                  className={`block w-full text-left px-4 py-2 text-xs sm:text-sm ${selectedSector === sector ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}
+                                >
+                                  {sector}
+                                </button>
+                              ))}
+                            {/* Si no hay categorías adicionales, mostrar mensaje */}
+                            {sectors.filter(sector => sector !== 'Todos' && sector !== 'General').length === 0 && (
+                              <div className="px-4 py-2 text-xs sm:text-sm text-gray-400">No hay categorías adicionales</div>
+                            )}
+                          </div>
+                        </div>,
+                        document.body
+                      )}
+                    </>
+                  );
+                })()}
+              </div>
+            </div>
+          </div>
+          
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[...Array(6)].map((_, index) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
+              {[...Array(12)].map((_, index) => (
                 <motion.div 
                   key={index} 
-                  className="relative rounded-2xl overflow-hidden h-full"
+                  className="relative aspect-video bg-gray-900 animate-pulse"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl blur-xl animate-pulse" style={{ animationDuration: '3s' }} />
-                  <div className="relative bg-gradient-to-br from-[#0A0A0A]/90 to-[#121212]/90 backdrop-blur-sm border border-white/10 rounded-2xl p-6 h-full">
-                    <div className="aspect-video w-full bg-gradient-to-r from-gray-800 to-gray-700 animate-pulse mb-5 rounded-xl shadow-lg shadow-black/30 ring-1 ring-white/5" />
-                    <div className="h-7 bg-gradient-to-r from-gray-800 to-gray-700 animate-pulse mb-3 rounded-md w-3/4" />
-                    <div className="h-4 bg-gradient-to-r from-gray-800 to-gray-700 animate-pulse mb-2 rounded-md w-full" />
-                    <div className="h-4 bg-gradient-to-r from-gray-800 to-gray-700 animate-pulse mb-2 rounded-md w-full" />
-                    <div className="h-4 bg-gradient-to-r from-gray-800 to-gray-700 animate-pulse mb-5 rounded-md w-4/5" />
-                    <div className="flex justify-between items-center">
-                      <div className="h-6 bg-gradient-to-r from-blue-900/30 to-purple-900/30 animate-pulse rounded-full w-1/3" />
-                      <div className="h-4 bg-gradient-to-r from-gray-800 to-gray-700 animate-pulse rounded-md w-1/4" />
-                    </div>
-                  </div>
-                </motion.div>
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                />
               ))}
             </div>
           ) : (
-            <>
-              <motion.div 
-                className="mb-10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="flex flex-col md:flex-row gap-5 mb-8">
-                  {/* Buscador */}
-                  <div className="relative flex-1">
-                    <div className={`absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl blur-lg transition-opacity duration-300 ${searchFocused ? 'opacity-100' : 'opacity-0'}`} />
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <FiSearch className={`h-5 w-5 transition-colors duration-300 ${searchFocused ? 'text-blue-400' : 'text-gray-400'}`} />
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="Buscar videos por título o descripción..."
-                        className={`w-full bg-white/5 border rounded-xl pl-12 pr-4 py-3.5 focus:outline-none transition-all duration-300 text-white ${searchFocused 
-                          ? 'border-blue-500 bg-white/10 shadow-lg shadow-blue-900/20' 
-                          : 'border-white/10 hover:border-white/20'}`}
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        onFocus={() => setSearchFocused(true)}
-                        onBlur={() => setSearchFocused(false)}
-                      />
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Filtro por sectores */}
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {sectors.map(sector => (
-                    <motion.button
-                      key={sector}
-                      onClick={() => handleSectorChange(sector)}
-                      className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${selectedSector === sector 
-                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-600/20' 
-                        : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/5 hover:border-white/20'}`}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {sector}
-                    </motion.button>
-                  ))}
-                </div>
-              </motion.div>
-              
+            <div>
               {filteredVideos.length > 0 ? (
-                <motion.div 
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {filteredVideos.map((video, index) => (
-                    <VideoCard 
-                      key={video.id} 
-                      video={video} 
-                      onClick={(video) => {
-                        setSelectedVideo(video);
-                        setIsModalOpen(true);
-                      }} 
+                <div>
+                  {/* Si hay un término de búsqueda o un sector seleccionado que no sea 'Todos', mostrar todos los videos filtrados en una cuadrícula */}
+                  {(searchTerm || selectedSector !== 'Todos') ? (
+                    <VideoRow
+                      title={searchTerm ? `Resultados para "${searchTerm}"` : `Categoría: ${selectedSector}`}
+                      videos={filteredVideos}
                     />
-                  ))}
-                </motion.div>
+                  ) : (
+                    /* Si no hay filtros, organizar por categorías */
+                    <div className="space-y-2">
+                      {/* Mostrar los videos más recientes primero */}
+                      <VideoRow
+                        title="Más recientes"
+                        videos={[...filteredVideos]
+                          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                          .slice(0, 7)
+                        }
+                      />
+                      
+                      {/* Organizar el resto por categorías */}
+                      {sectors.filter(sector => sector !== 'Todos').map(category => {
+                        // Filtrar videos que contengan esta categoría en su lista de categorías
+                        const categoryVideos = videos.filter(video => {
+                          if (video.category) {
+                            const videoCategories = video.category.split(',').map(cat => cat.trim());
+                            return videoCategories.includes(category);
+                          }
+                          return false;
+                        });
+                        
+                        // Solo mostrar categorías que tengan videos
+                        if (categoryVideos.length === 0) return null;
+                        
+                        return (
+                          <VideoRow 
+                            key={category}
+                            title={category}
+                            videos={categoryVideos}
+                          />
+                        );
+                      })}
+
+                    </div>
+                  )}
+                </div>
               ) : (
                 <motion.div 
                   className="text-center py-20 px-6"
@@ -508,13 +925,13 @@ export default function AcademiaPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-900/20 mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-900/20 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">No hay videos disponibles</h3>
-                  <p className="text-gray-400 text-lg max-w-md mx-auto">No se encontraron videos para la categoría o búsqueda actual. Intenta con otra categoría o término de búsqueda.</p>
+                  <h3 className="text-xl font-bold mb-2 text-white">No hay videos disponibles</h3>
+                  <p className="text-gray-400 max-w-md mx-auto">No se encontraron videos para la categoría o búsqueda actual. Intenta con otra categoría o término de búsqueda.</p>
                 </motion.div>
               )}
               
@@ -524,7 +941,7 @@ export default function AcademiaPage() {
                 isOpen={isModalOpen} 
                 onClose={() => setIsModalOpen(false)} 
               />
-            </>
+            </div>
           )}
         </div>
       </section>

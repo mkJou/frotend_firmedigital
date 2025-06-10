@@ -13,9 +13,16 @@ const videoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  // Usamos un campo simple de tipo String para la categoría
   category: {
     type: String,
     required: true,
+    validate: {
+      validator: function(v: string) {
+        return v && v.length > 0;
+      },
+      message: 'Debe especificar al menos una categoría'
+    }
   },
   youtubeId: {
     type: String,
