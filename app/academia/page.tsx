@@ -750,15 +750,62 @@ export default function AcademiaPage() {
                 Todos
               </button>
               
-              {/* Botón General */}
-              <button
-                onClick={() => handleSectorChange('General')}
-                className={`px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${selectedSector === 'General' 
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' 
-                  : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'}`}
-              >
-                General
-              </button>
+              {/* Selector de Cursos Externos */}
+              <div className="relative">
+                {(() => {
+                  const [isCoursesOpen, setIsCoursesOpen] = useState(false);
+                  const coursesRef = React.useRef<HTMLButtonElement>(null);
+                  
+                  // Cerrar el menú al hacer clic en cualquier parte
+                  useEffect(() => {
+                    const handleClickOutside = (e: MouseEvent) => {
+                      if (isCoursesOpen && coursesRef.current && !coursesRef.current.contains(e.target as Node)) {
+                        setIsCoursesOpen(false);
+                      }
+                    };
+                    
+                    document.addEventListener('click', handleClickOutside);
+                    return () => document.removeEventListener('click', handleClickOutside);
+                  }, [isCoursesOpen]);
+                  
+                  return (
+                    <>
+                      <button
+                        ref={coursesRef}
+                        onClick={() => setIsCoursesOpen(!isCoursesOpen)}
+                        className="px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 bg-gradient-to-r from-green-600 to-teal-600 text-white shadow-lg hover:shadow-xl flex items-center gap-1"
+                      >
+                        <span>Cursos Gratis</span>
+                        <svg 
+                          xmlns="http://www.w3.org/2000/svg" 
+                          className={`h-4 w-4 transition-transform ${isCoursesOpen ? 'rotate-180' : ''}`} 
+                          fill="none" 
+                          viewBox="0 0 24 24" 
+                          stroke="currentColor"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                      
+                      {isCoursesOpen && (
+                        <div className="absolute z-50 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5">
+                          <div className="py-1">
+                            <button
+                              onClick={() => {
+                                window.open('https://aulavirtual.suscerte.gob.ve/', '_blank');
+                                setIsCoursesOpen(false);
+                              }}
+                              className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                            >
+                              Cursos Gratis SUSCERTE
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
+              </div>
               
               {/* Selector para otras categorías - Con click para móviles */}
               <div className="relative">
@@ -929,35 +976,69 @@ export default function AcademiaPage() {
                         
                         return (
                           <VideoRow
-                            title={`Nuestros 10 Videos Imprescindibles`}
+                            title={`Top 10 Videos más vistos`}
                             videos={top10Videos}
                             isRanked={true}
                           />
                         );
                       })()}
                       
-                      {/* Organizar el resto por categorías */}
-                      {sectors.filter(sector => sector !== 'Todos').map(category => {
-                        // Filtrar videos que contengan esta categoría en su lista de categorías
-                        const categoryVideos = videos.filter(video => {
-                          if (video.category) {
-                            const videoCategories = video.category.split(',').map(cat => cat.trim());
-                            return videoCategories.includes(category);
+                      {/* Organizar el resto por categorías con Top 10 cada 5 secciones */}
+                      {(() => {
+                        // Preparar Top 10 videos para reutilizarlo
+                        const top10Videos = [...filteredVideos]
+                          .filter(video => video.top10Rank !== null && video.top10Rank !== undefined && typeof video.top10Rank === 'number')
+                          .sort((a, b) => {
+                            const rankA = typeof a.top10Rank === 'number' ? a.top10Rank : 999;
+                            const rankB = typeof b.top10Rank === 'number' ? b.top10Rank : 999;
+                            return rankA - rankB;
+                          })
+                          .slice(0, 10);
+                          
+                        // Filtrar categorías que tienen videos
+                        const validCategories = sectors
+                          .filter(sector => sector !== 'Todos')
+                          .map(category => {
+                            const categoryVideos = videos.filter(video => {
+                              if (video.category) {
+                                const videoCategories = video.category.split(',').map(cat => cat.trim());
+                                return videoCategories.includes(category);
+                              }
+                              return false;
+                            });
+                            return { category, videos: categoryVideos };
+                          })
+                          .filter(item => item.videos.length > 0);
+                        
+                        // Crear componentes para renderizar
+                        return validCategories.map((item, index) => {
+                          // Crear un array para almacenar los componentes a renderizar
+                          const components = [];
+                          
+                          // Agregar la categoría actual
+                          components.push(
+                            <VideoRow 
+                              key={`category-${item.category}`}
+                              title={item.category}
+                              videos={item.videos}
+                            />
+                          );
+                          
+                          // Si es múltiplo de 5 (después de cada 5 categorías) y hay videos en Top 10, agregar sección Top 10
+                          if ((index + 1) % 5 === 0 && top10Videos.length > 0 && index < validCategories.length - 1) {
+                            components.push(
+                              <VideoRow
+                                key={`top10-repeat-${index}`}
+                                title={`Top 10 Videos más vistos`}
+                                videos={top10Videos}
+                                isRanked={true}
+                              />
+                            );
                           }
-                          return false;
-                        });
-                        
-                        // Solo mostrar categorías que tengan videos
-                        if (categoryVideos.length === 0) return null;
-                        
-                        return (
-                          <VideoRow 
-                            key={category}
-                            title={category}
-                            videos={categoryVideos}
-                          />
-                        );
-                      })}
+                          
+                          return components;
+                        }).flat();
+                      })()}
 
                     </div>
                   )}

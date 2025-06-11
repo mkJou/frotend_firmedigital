@@ -121,14 +121,26 @@ const Top10VideoCard = ({ video, rank }: Top10VideoCardProps) => {
           {/* Fondo sólido para cubrir cualquier desbordamiento */}
           <div className="absolute -bottom-1 left-0 right-0 h-1 bg-black"></div>
           
-          {/* Netflix-style large ranking number overlay */}
-          <div className="absolute bottom-0 left-0 z-20 p-2">
-            <span className="text-[80px] font-extrabold text-white/30 leading-none" style={{ 
-              WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)',
-              textShadow: '0 0 10px rgba(0, 0, 0, 0.5)'
-            }}>
-              {rank}
-            </span>
+          {/* Número de ranking estilo grande */}
+          <div className="absolute top-0 left-0 z-20 p-0 w-full h-full flex items-center justify-center pointer-events-none">
+            <div className="relative w-full h-full">
+              <span 
+                className="absolute text-[90px] md:text-[100px] font-black text-transparent leading-none" 
+                style={{ 
+                  WebkitTextStroke: '2px rgba(255, 255, 255, 0.7)',
+                  textShadow: '0 0 15px rgba(0, 0, 0, 0.8)',
+                  opacity: 0.8,
+                  left: '5px',
+                  bottom: '10px',
+                  fontFamily: '"Arial Black", sans-serif',
+                  // Quitamos la transformación que causa la deformación
+                  filter: 'drop-shadow(0 0 8px rgba(0, 0, 0, 0.7))',
+                  zIndex: 5
+                }}
+              >
+                {rank}
+              </span>
+            </div>
           </div>
         </div>
 

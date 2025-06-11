@@ -74,7 +74,7 @@ export default function VideoDetailPage() {
     <main className="min-h-screen bg-gradient-to-b from-black to-[#050510] text-white">
       {/* Header con botón de regreso y logo */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-transparent py-3 px-4 md:px-8 transition-all duration-300">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between max-w-7xl mx-auto">
           <div className="flex items-center space-x-4">
             <button 
               onClick={goBack}
@@ -87,7 +87,7 @@ export default function VideoDetailPage() {
           </div>
           
           {/* Logo en la esquina superior derecha */}
-          <Link href="/" className="relative h-10 w-28 md:w-32 flex-shrink-0 bg-white/10 backdrop-blur-sm rounded-md px-2 py-1 hover:bg-white/20 transition-colors duration-300">
+          <Link href="/" className="relative h-10 w-28 md:w-32 flex-shrink-0 transition-opacity duration-300 hover:opacity-80">
             <Image 
               src="/images/logo.webp" 
               alt="Firma Digital Logo" 
