@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { FiSearch, FiX, FiExternalLink } from 'react-icons/fi';
 import { BsPlayCircleFill } from 'react-icons/bs';
 import VideoCard from '../components/VideoCard';
+import Top10VideoCard from '../components/Top10VideoCard';
 
 // Define the video type
 interface Video {
@@ -20,6 +21,7 @@ interface Video {
   createdAt: string;
   blogArticleId?: string;
   blogArticleUrl?: string;
+  top10Rank?: number | null;
 }
 
 // Video modal component - Estilo Netflix
@@ -134,7 +136,7 @@ const VideoModal = ({ video, isOpen, onClose }: { video: Video | null, isOpen: b
 // El componente VideoCard ahora se importa desde '../components/VideoCard'
 
 // Video row component with navigation buttons
-const VideoRow = ({ title, videos }: { title: string, videos: Video[] }) => {
+const VideoRow = ({ title, videos, isRanked = false }: { title: string, videos: Video[], isRanked?: boolean }) => {
   const rowRef = React.useRef<HTMLDivElement>(null);
   
   const scrollLeft = () => {
@@ -173,8 +175,8 @@ const VideoRow = ({ title, videos }: { title: string, videos: Video[] }) => {
   }, []);
   
   return (
-    <div className="mb-4 relative group">
-      <h3 className="text-xl font-medium text-white mb-2">{title}</h3>
+    <div className={`mb-4 relative group ${isRanked ? 'mt-8 pb-4' : ''}`}>
+      <h3 className={`text-xl font-medium mb-2 ${isRanked ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400' : 'text-white'}`}>{title}</h3>
       
       <div className="relative">
         {/* Left navigation button */}
@@ -220,8 +222,14 @@ const VideoRow = ({ title, videos }: { title: string, videos: Video[] }) => {
           className="flex space-x-4 overflow-x-auto scrollbar-hide scroll-smooth overflow-y-hidden py-2"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {videos.map((video) => (
-            <VideoCard key={video.id} video={{...video, isFree: true}} />
+          {videos.map((video, index) => (
+            isRanked ? (
+              <div key={video.id} className="relative">
+                <Top10VideoCard video={{...video, isFree: true}} rank={index + 1} />
+              </div>
+            ) : (
+              <VideoCard key={video.id} video={{...video, isFree: true}} />
+            )
           ))}
         </div>
       </div>
@@ -402,6 +410,9 @@ export default function AcademiaPage() {
               category = 'General';
             }
             
+            // Log para depurar el campo top10Rank
+            console.log(`Video ${video.title}: top10Rank = ${video.top10Rank}, tipo: ${typeof video.top10Rank}`);
+            
             return {
               id: video._id,
               title: video.title,
@@ -410,9 +421,17 @@ export default function AcademiaPage() {
               youtubeId: video.youtubeId,
               createdAt: video.createdAt,
               blogArticleId: video.blogArticleId || '',
-              blogArticleUrl: video.blogArticleUrl || ''
+              blogArticleUrl: video.blogArticleUrl || '',
+              top10Rank: video.top10Rank || null
             };
           });
+          
+          // Log para ver cuántos videos tienen top10Rank válido
+          const videosWithRank = apiVideos.filter(v => v.top10Rank !== null && v.top10Rank !== undefined && typeof v.top10Rank === 'number');
+          console.log(`Total videos: ${apiVideos.length}, Videos con top10Rank válido: ${videosWithRank.length}`);
+          if (videosWithRank.length > 0) {
+            console.log('Videos con top10Rank:', videosWithRank.map(v => ({ title: v.title, rank: v.top10Rank })));
+          }
           
           console.log('Videos cargados:', apiVideos);
           
@@ -891,6 +910,31 @@ export default function AcademiaPage() {
                           .slice(0, 7)
                         }
                       />
+                      
+                      {/* Top 10 videos de la semana */}
+                      {(() => {
+                        // Filtrar videos con top10Rank válido
+                        const top10Videos = [...filteredVideos]
+                          .filter(video => video.top10Rank !== null && video.top10Rank !== undefined && typeof video.top10Rank === 'number')
+                          .sort((a, b) => {
+                            // Ordenar por el campo top10Rank
+                            const rankA = typeof a.top10Rank === 'number' ? a.top10Rank : 999;
+                            const rankB = typeof b.top10Rank === 'number' ? b.top10Rank : 999;
+                            return rankA - rankB;
+                          })
+                          .slice(0, 10);
+                        
+                        // Log para depurar
+                        console.log('Videos filtrados para Top 10:', top10Videos.map(v => ({ title: v.title, rank: v.top10Rank })));
+                        
+                        return (
+                          <VideoRow
+                            title={`Nuestros 10 Videos Imprescindibles`}
+                            videos={top10Videos}
+                            isRanked={true}
+                          />
+                        );
+                      })()}
                       
                       {/* Organizar el resto por categorías */}
                       {sectors.filter(sector => sector !== 'Todos').map(category => {

@@ -30,17 +30,17 @@ export async function POST(request: Request) {
       );
     }
     
-    // Validar que category sea un array y tenga al menos un elemento
-    if (!Array.isArray(body.category)) {
-      console.log('Error: category no es un array:', body.category);
+    // Validar que category sea un string no vacío
+    if (typeof body.category !== 'string') {
+      console.log('Error: category no es un string:', body.category);
       return NextResponse.json(
-        { success: false, error: 'La categoría debe ser un array' },
+        { success: false, error: 'La categoría debe ser un texto' },
         { status: 400 }
       );
     }
     
-    if (body.category.length === 0) {
-      console.log('Error: category es un array vacío');
+    if (body.category.trim() === '') {
+      console.log('Error: category es un string vacío');
       return NextResponse.json(
         { success: false, error: 'Debe seleccionar al menos una categoría' },
         { status: 400 }

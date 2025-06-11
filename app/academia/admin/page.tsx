@@ -3,10 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 
-// Define the video type
+// Definir la interfaz Video
 interface Video {
   id: string;
+  _id?: string;  // MongoDB usa _id, pero en el frontend usamos id
   title: string;
   description: string;
   category: string;
@@ -14,6 +16,7 @@ interface Video {
   createdAt: string;
   blogArticleId?: string;
   blogArticleUrl?: string;
+  top10Rank?: number | null;
 }
 
 // Interfaz para los artículos del blog
@@ -62,6 +65,11 @@ export default function AdminPage() {
     message: '',
   });
   const [editingVideo, setEditingVideo] = useState<Video | null>(null);
+  
+  // Estado para manejar los videos del Top 10
+  const [top10Videos, setTop10Videos] = useState<Video[]>([]);
+  const [hasTop10Changes, setHasTop10Changes] = useState(false);
+  const [isSavingTop10, setIsSavingTop10] = useState(false);
 
   useEffect(() => {
     // Fetch videos, categories, and blog articles from API
@@ -83,10 +91,27 @@ export default function AdminPage() {
             youtubeId: video.youtubeId,
             createdAt: video.createdAt,
             blogArticleId: video.blogArticleId,
-            blogArticleUrl: video.blogArticleUrl
+            blogArticleUrl: video.blogArticleUrl,
+            top10Rank: video.top10Rank || null
           }));
           
           setVideos(apiVideos);
+          
+          // Filtrar y ordenar los videos del Top 10
+          const top10 = apiVideos
+            .filter(video => {
+              return video.top10Rank !== null && 
+                     video.top10Rank !== undefined && 
+                     typeof video.top10Rank === 'number' && 
+                     video.top10Rank > 0 && 
+                     video.top10Rank <= 10;
+            })
+            .sort((a, b) => {
+              const rankA = typeof a.top10Rank === 'number' ? a.top10Rank : 999;
+              const rankB = typeof b.top10Rank === 'number' ? b.top10Rank : 999;
+              return rankA - rankB;
+            });
+          setTop10Videos(top10);
         } else {
           console.error('Error fetching videos:', result.error);
         }
@@ -276,6 +301,163 @@ export default function AdminPage() {
     
     // Scroll to form
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Manejar el reordenamiento de los videos del Top 10
+  const handleDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+    
+    const items = Array.from(top10Videos);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    
+    // Actualizar los rankings
+    const updatedItems = items.map((video, index) => ({
+      ...video,
+      top10Rank: index + 1
+    }));
+    
+    setTop10Videos(updatedItems);
+    setHasTop10Changes(true);
+  };
+  
+  // Guardar el orden del Top 10
+  const saveTop10Order = async () => {
+    setIsSavingTop10(true);
+    try {
+      console.log('Top 10 videos antes de guardar:', top10Videos);
+      
+      // Preparar los datos para enviar a la API
+      const videosToUpdate = top10Videos.map((v, i) => {
+        // Asegurarse de que estamos usando el ID correcto (MongoDB usa _id)
+        const videoId = v.id || v._id;
+        console.log(`Video ${i+1}: ID=${videoId}, Título=${v.title}`);
+        return { id: videoId, rank: i + 1 };
+      });
+      
+      console.log('Datos a enviar a la API:', videosToUpdate);
+      
+      // Llamada real a la API
+      const response = await fetch('/api/videos/updateTop10', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ videos: videosToUpdate }),
+      });
+      
+      const result = await response.json();
+      console.log('Respuesta de la API:', result);
+      
+      if (!result.success) {
+        throw new Error(result.error || 'Error al actualizar el Top 10');
+      }
+      
+      // Actualizar el estado local de todos los videos
+      const updatedVideos = videos.map(video => {
+        const top10Video = top10Videos.find(v => v.id === video.id);
+        if (top10Video) {
+          return { ...video, top10Rank: top10Video.top10Rank };
+        }
+        // Si el video no está en el top10Videos, asegurarse de que su top10Rank sea null
+        return { ...video, top10Rank: null };
+      });
+      
+      setVideos(updatedVideos);
+      setHasTop10Changes(false);
+      
+      setFormStatus({
+        type: 'success',
+        message: `Orden del Top 10 guardado correctamente en la base de datos. ${result.updatedCount || 0} videos actualizados.`,
+      });
+      
+      // Limpiar el mensaje después de 3 segundos
+      setTimeout(() => {
+        setFormStatus({ type: null, message: '' });
+      }, 3000);
+    } catch (error) {
+      console.error('Error al guardar el orden del Top 10:', error);
+      setFormStatus({
+        type: 'error',
+        message: 'Ha ocurrido un error al guardar el orden del Top 10 en la base de datos.',
+      });
+    } finally {
+      setIsSavingTop10(false);
+    }
+  };
+  
+  // Añadir un video al Top 10
+  const addToTop10 = (video: Video) => {
+    console.log('Añadiendo video al Top 10:', video);
+    
+    // Verificar si ya hay 10 videos en el Top 10
+    if (top10Videos.length >= 10) {
+      setFormStatus({
+        type: 'error',
+        message: 'No se pueden añadir más de 10 videos al Top 10.',
+      });
+      return;
+    }
+    
+    // Verificar si el video ya está en el Top 10
+    const alreadyInTop10 = top10Videos.some(v => v.id === video.id);
+    if (alreadyInTop10) {
+      setFormStatus({
+        type: 'error',
+        message: 'Este video ya está en el Top 10.',
+      });
+      return;
+    }
+    
+    // Añadir el video al final del Top 10
+    const newRank = top10Videos.length + 1;
+    const updatedVideo = { ...video, top10Rank: newRank };
+    
+    console.log('Video actualizado con rank:', updatedVideo);
+    
+    setTop10Videos([...top10Videos, updatedVideo]);
+    setHasTop10Changes(true);
+    
+    // Actualizar el video en la lista completa
+    const updatedVideos = videos.map(v => v.id === video.id ? updatedVideo : v);
+    setVideos(updatedVideos);
+    
+    setFormStatus({
+      type: 'success',
+      message: `Video "${video.title}" añadido al Top 10 en la posición ${newRank}.`,
+    });
+    
+    // Limpiar el mensaje después de 3 segundos
+    setTimeout(() => {
+      setFormStatus({ type: null, message: '' });
+    }, 3000);
+  };
+  
+  // Quitar un video del Top 10
+  const removeFromTop10 = (videoId: string) => {
+    // Encontrar el video a quitar
+    const videoToRemove = top10Videos.find(v => v.id === videoId);
+    if (!videoToRemove) return;
+    
+    // Filtrar el video de la lista del Top 10
+    const filteredVideos = top10Videos.filter(v => v.id !== videoId);
+    
+    // Reordenar los rankings
+    const reorderedVideos = filteredVideos.map((video, index) => ({
+      ...video,
+      top10Rank: index + 1
+    }));
+    
+    setTop10Videos(reorderedVideos);
+    setHasTop10Changes(true);
+    
+    // Actualizar el video en la lista completa
+    const updatedVideos = videos.map(v => {
+      if (v.id === videoId) {
+        return { ...v, top10Rank: null };
+      }
+      return v;
+    });
+    
+    setVideos(updatedVideos);
   };
 
   // Handle delete video
@@ -504,6 +686,79 @@ export default function AdminPage() {
         </div>
       </section>
 
+      {/* Top 10 Management Section */}
+      <section className="py-8 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative mb-8">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl blur-xl" />
+            <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                  Gestionar Top 10 de la Semana
+                </h2>
+                <button
+                  onClick={saveTop10Order}
+                  disabled={!hasTop10Changes || isSavingTop10}
+                  className={`mt-4 md:mt-0 px-6 py-3 rounded-lg font-medium transition-all ${hasTop10Changes ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:opacity-90' : 'bg-gray-700/50 text-gray-400 cursor-not-allowed'}`}
+                >
+                  {isSavingTop10 ? 'Guardando...' : 'Guardar Orden del Top 10'}
+                </button>
+              </div>
+              
+              {top10Videos.length > 0 ? (
+                <DragDropContext onDragEnd={handleDragEnd}>
+                  <Droppable droppableId="top10List">
+                    {(provided) => (
+                      <div
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        className="space-y-2"
+                      >
+                        {top10Videos.map((video, index) => (
+                          <Draggable key={video.id} draggableId={video.id} index={index}>
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                className={`flex items-center p-4 rounded-lg ${snapshot.isDragging ? 'bg-gradient-to-r from-blue-900/50 to-purple-900/50 shadow-lg' : 'bg-white/5'} transition-all`}
+                              >
+                                <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full mr-4 flex-shrink-0">
+                                  <span className="text-xl font-bold text-white">{index + 1}</span>
+                                </div>
+                                <div className="flex-grow">
+                                  <h3 className="text-white font-medium truncate">{video.title}</h3>
+                                  <div className="flex items-center text-sm text-gray-400 mt-1">
+                                    <span className="mr-2">ID: {video.youtubeId}</span>
+                                    <span>{new Date(video.createdAt).toLocaleDateString()}</span>
+                                  </div>
+                                </div>
+                                <button
+                                  onClick={() => removeFromTop10(video.id)}
+                                  className="ml-4 px-3 py-1 bg-red-600/30 text-red-400 rounded-md hover:bg-red-600/50 transition-colors flex-shrink-0"
+                                >
+                                  Quitar del Top 10
+                                </button>
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
+                </DragDropContext>
+              ) : (
+                <div className="text-center py-8 border border-dashed border-gray-700 rounded-lg">
+                  <p className="text-gray-400">No hay videos en el Top 10.</p>
+                  <p className="text-gray-500 mt-2">Añade videos desde la lista inferior.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {/* Videos List Section */}
       <section className="py-8 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -571,6 +826,15 @@ export default function AdminPage() {
                         >
                           Eliminar
                         </button>
+                        {!top10Videos.some(v => v.id === video.id) && (
+                          <button
+                            onClick={() => addToTop10(video)}
+                            disabled={top10Videos.length >= 10}
+                            className={`px-4 py-2 font-medium rounded-lg transition-colors ${top10Videos.length >= 10 ? 'bg-gray-600/30 text-gray-400 cursor-not-allowed' : 'bg-green-600/30 text-green-400 hover:bg-green-600/50'}`}
+                          >
+                            Añadir al Top 10
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

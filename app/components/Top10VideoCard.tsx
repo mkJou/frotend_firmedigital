@@ -1,47 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link'; // Asumiendo Next.js Link
+import Link from 'next/link';
 import { BsPlayCircleFill } from 'react-icons/bs';
 import { FiExternalLink } from 'react-icons/fi';
-
-// Sistema de gestión de estado global para las tarjetas de video
-type ActiveCardContextType = {
-  activeCardId: string | null;
-  setActiveCardId: (id: string | null) => void;
-};
-
-// Singleton para manejar el estado global
-export class ActiveCardManager {
-  private static instance: ActiveCardManager;
-  private activeCardId: string | null = null;
-  private listeners: ((id: string | null) => void)[] = [];
-
-  private constructor() {}
-
-  public static getInstance(): ActiveCardManager {
-    if (!ActiveCardManager.instance) {
-      ActiveCardManager.instance = new ActiveCardManager();
-    }
-    return ActiveCardManager.instance;
-  }
-
-  public getActiveCardId(): string | null {
-    return this.activeCardId;
-  }
-
-  public setActiveCardId(id: string | null): void {
-    this.activeCardId = id;
-    // Notificar a todos los listeners
-    this.listeners.forEach(listener => listener(id));
-  }
-
-  public subscribe(listener: (id: string | null) => void): () => void {
-    this.listeners.push(listener);
-    return () => {
-      this.listeners = this.listeners.filter(l => l !== listener);
-    };
-  }
-}
+import { ActiveCardManager } from './VideoCard';
 
 // Define the Video type based on your usage
 interface Video {
@@ -52,16 +14,21 @@ interface Video {
   category: string;
   createdAt: string;
   blogArticleUrl?: string;
-  isFree?: boolean; // Added based on your 'gratis' tag
+  isFree?: boolean;
 }
 
-const VideoCard = ({ video }: { video: Video }) => {
+interface Top10VideoCardProps {
+  video: Video;
+  rank: number;
+}
+
+const Top10VideoCard = ({ video, rank }: Top10VideoCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const cardManager = ActiveCardManager.getInstance();
   
   // Suscribirse a cambios en la tarjeta activa
   useEffect(() => {
-    const unsubscribe = cardManager.subscribe((activeId) => {
+    const unsubscribe = cardManager.subscribe((activeId: string | null) => {
       // Si la tarjeta activa cambió y no es esta tarjeta, contraer esta tarjeta
       if (activeId !== video.id && isExpanded) {
         setIsExpanded(false);
@@ -85,17 +52,16 @@ const VideoCard = ({ video }: { video: Video }) => {
 
   return (
     // El contenedor principal de la tarjeta.
-    // Quita h-full si su padre no necesita que crezca, o si su padre no tiene overflow: hidden
     <div className="min-w-[280px] w-[280px] snap-start">
       <motion.div
-        className="relative cursor-pointer group rounded-lg overflow-hidden shadow-xl shadow-black/40" // Añadido rounded-lg y overflow-hidden aquí
+        className="relative cursor-pointer group rounded-lg overflow-hidden shadow-xl shadow-black/40"
         whileHover={{
           scale: 1.05,
           zIndex: 20,
         }}
         // Anima la altura total de la tarjeta
         animate={{
-          height: isExpanded ? 'auto' : '200px', // O la altura fija de la imagen si no hay un título fuera de ella
+          height: isExpanded ? 'auto' : '200px',
           opacity: 1,
           y: 0,
         }}
@@ -106,7 +72,6 @@ const VideoCard = ({ video }: { video: Video }) => {
           damping: 20,
         }}
         onClick={handleExpand}
-        // Desactiva onHoverStart/End si solo quieres que se expanda con click
         onHoverStart={() => handleExpand()}
         onHoverEnd={() => setIsExpanded(false)}
       >
@@ -155,19 +120,27 @@ const VideoCard = ({ video }: { video: Video }) => {
           
           {/* Fondo sólido para cubrir cualquier desbordamiento */}
           <div className="absolute -bottom-1 left-0 right-0 h-1 bg-black"></div>
+          
+          {/* Netflix-style large ranking number overlay */}
+          <div className="absolute bottom-0 left-0 z-20 p-2">
+            <span className="text-[80px] font-extrabold text-white/30 leading-none" style={{ 
+              WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)',
+              textShadow: '0 0 10px rgba(0, 0, 0, 0.5)'
+            }}>
+              {rank}
+            </span>
+          </div>
         </div>
 
         {/* Contenido expandido - ahora dentro del flujo normal */}
         <motion.div
-          className="bg-gradient-to-b from-[#1a1a2e] to-[#0f0f1a] relative" // Quitado absolute, z-10 y style top
-          initial={{ height: 0, opacity: 0, y: 0 }} // Ajustar y si quieres que deslice desde el borde
+          className="bg-gradient-to-b from-[#1a1a2e] to-[#0f0f1a] relative"
+          initial={{ height: 0, opacity: 0, y: 0 }}
           animate={{
             height: isExpanded ? 'auto' : 0,
             opacity: isExpanded ? 1 : 0,
-            // Quitado y: isExpanded ? 0 : -20 para evitar movimientos extraños
           }}
           transition={{ duration: 0.3, ease: 'easeInOut' }}
-          // Asegura que el contenido se oculte si no está expandido
           style={{ overflow: 'hidden' }}
         >
           <div className="p-5 space-y-4">
@@ -182,8 +155,6 @@ const VideoCard = ({ video }: { video: Video }) => {
                   {new Date(video.createdAt).getFullYear()}
                 </span>
               </div>
-              {/* Descripción eliminada a petición del usuario */}
-              {/* Información del tiempo del curso eliminada */}
             </div>
             {/* Botón de acción */}
             <Link href={`/academia/${video.id}`}>
@@ -204,15 +175,15 @@ const VideoCard = ({ video }: { video: Video }) => {
 
         {/* Indicador de artículo relacionado */}
         {video.blogArticleUrl && video.blogArticleUrl.trim() !== '' && (
-          <div className="absolute top-1 right-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs px-2 py-0.5 rounded-sm shadow-lg shadow-purple-900/30 font-medium flex items-center space-x-1">
+          <div className="absolute top-1 right-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs px-2 py-0.5 rounded-sm shadow-lg shadow-purple-900/30 font-medium flex items-center space-x-1 z-10">
             <FiExternalLink className="h-3 w-3" />
             <span>Blog</span>
           </div>
         )}
 
-        {/* Indicador de curso gratis (si aún lo quieres, basé la interfaz en que lo querías quitar) */}
-        {video.isFree && ( // Asumiendo que `video` tiene una propiedad `isFree`
-          <div className="absolute top-1 left-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs px-2 py-0.5 rounded-sm shadow-lg shadow-emerald-900/30 font-medium">
+        {/* Indicador de curso gratis */}
+        {video.isFree && (
+          <div className="absolute top-1 left-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs px-2 py-0.5 rounded-sm shadow-lg shadow-emerald-900/30 font-medium z-10">
             gratis
           </div>
         )}
@@ -221,4 +192,4 @@ const VideoCard = ({ video }: { video: Video }) => {
   );
 };
 
-export default VideoCard;
+export default Top10VideoCard;

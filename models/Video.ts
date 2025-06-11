@@ -17,12 +17,12 @@ const videoSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    validate: {
-      validator: function(v: string) {
+    validate: [
+      function(v: string) {
         return v && v.length > 0;
       },
-      message: 'Debe especificar al menos una categoría'
-    }
+      'Debe especificar al menos una categoría'
+    ]
   },
   youtubeId: {
     type: String,
@@ -51,6 +51,11 @@ const videoSchema = new mongoose.Schema({
   isFeatured: {
     type: Boolean,
     default: false,
+  },
+  top10Rank: {
+    type: Number,
+    required: false,
+    default: null,
   },
   tags: [String],
 }, {
