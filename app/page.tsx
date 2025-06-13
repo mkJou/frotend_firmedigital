@@ -728,7 +728,7 @@ export default function Home() {
                     <span className="text-4xl lg:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 drop-shadow-lg">
                       FIRMEDIGITAL 
                     </span>
-                    <span className="block mt-4 text-xl lg:text-2xl font-semibold">Plataforma de firma electrónica<br/>Acreditada por SUSCERTE y con soberanía de datos en la República Bolviariana de Venezuela</span>
+                    <span className="block mt-4 text-xl lg:text-2xl font-semibold">Plataforma de firma electrónica<br/>Acreditada por SUSCERTE y con soberanía de datos en la República Bolivariana de Venezuela</span>
                     <span className="block mt-3 text-xl lg:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400">
                       Certificación y Firma Digital
                     </span>
