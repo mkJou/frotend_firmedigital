@@ -24,8 +24,11 @@ const productos = [
     href: "/productos/multifirma",
     description: "Gestión de múltiples firmas"
   },
-  
-  
+  {
+    name: "Academia",
+    href: "/academia",
+    description: "Plataforma educativa"
+  }
 ];
 
 const Footer = () => {
@@ -135,6 +138,7 @@ const Footer = () => {
                  Gaceta Oficial
                </a>
              </li>
+
             </ul>
           </div>
 
