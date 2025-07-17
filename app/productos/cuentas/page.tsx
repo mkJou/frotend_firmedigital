@@ -830,6 +830,10 @@ export default function CuentasMultiples() {
                               <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
                                 10$
                               </span>
+                              <span className="text-gray-400 text-sm mt-1">Equivale a</span>
+                              <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                {(10/12).toFixed(2)}$/mes
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -925,6 +929,10 @@ export default function CuentasMultiples() {
                               <span className="text-gray-400 text-base mb-2">Inversión anual:</span>
                               <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
                                 30$
+                              </span>
+                              <span className="text-gray-400 text-sm mt-1">Equivale a</span>
+                              <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                {(30/12).toFixed(2)}$/mes
                               </span>
                             </div>
                           </div>

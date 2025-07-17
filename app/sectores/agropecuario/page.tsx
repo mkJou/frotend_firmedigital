@@ -523,6 +523,10 @@ export default function Agropecuario() {
                               <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
                                 10$
                               </span>
+                              <span className="text-gray-400 text-sm mt-1">Equivale a</span>
+                              <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                {(10/12).toFixed(2)}$/mes
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -619,7 +623,11 @@ export default function Agropecuario() {
                               <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
                                 30$
                               </span>
-                            </div>
+                              <span className="text-gray-400 text-sm mt-1">Equivale a</span>
+                              <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                                {(30/12).toFixed(2)}$/mes
+                              </span>
+                            </div>  
                           </div>
                         </div>
                         <div className="text-sm font-medium mb-4 text-blue-400">¿QUÉ INCLUYE?</div>
