@@ -88,8 +88,7 @@ const SignatureExamples: React.FC = () => {
             >
               Reproducir Animación
             </button>
-            <Signature 
-              autoPlay={false} 
+            <Signature  
               color="blue" 
               key={triggerAnimation ? 'animate' : 'static'}
               autoPlay={triggerAnimation}
