@@ -19,6 +19,7 @@ import Image from 'next/image';
 import Modal from '@/components/Modal';
 import { IoShieldCheckmarkOutline, IoHeadsetOutline, HiOutlineLockClosed } from '../components/icons/home-icons';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import Signature from '@/components/Signature';
 
 
 if (typeof window !== 'undefined') {
@@ -55,6 +56,161 @@ const FeaturesCard = dynamic(() => Promise.resolve(() => {
 }), {
   loading: () => <CardSkeleton />
 });
+
+// Componente para mostrar videos específicos de la Academia
+const AcademiaVideos = () => {
+  const [videos, setVideos] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  // IDs específicos de los videos solicitados
+  const videoIds = ['684c1e2a69c08479d1f60604', '684b2b6a0d6cf10daddc40ae', '6842ff4d744930c7b0c82973'];
+  
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const videoPromises = videoIds.map(async (id) => {
+          const response = await fetch(`/api/videos/${id}`);
+          if (response.ok) {
+            const data = await response.json();
+            return data.data;
+          }
+          return null;
+        });
+        
+        const fetchedVideos = await Promise.all(videoPromises);
+        const validVideos = fetchedVideos.filter(video => video !== null);
+        setVideos(validVideos);
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+        // Fallback con datos estáticos si no se pueden cargar los videos reales
+        setVideos([
+          {
+            _id: '684c1e2a69c08479d1f60604',
+            title: 'Introducción a la Firma Digital',
+            description: 'Conceptos básicos sobre certificados digitales y su importancia en la transformación digital.',
+            category: 'Fundamentos',
+            youtubeId: 'dQw4w9WgXcQ' // Placeholder
+          },
+          {
+            _id: '684b2b6a0d6cf10daddc40ae',
+            title: 'Seguridad en Documentos Digitales',
+            description: 'Aprende sobre encriptación, autenticación y las mejores prácticas de seguridad digital.',
+            category: 'Seguridad',
+            youtubeId: 'dQw4w9WgXcQ' // Placeholder
+          },
+          {
+            _id: '6842ff4d744930c7b0c82973',
+            title: 'Cumplimiento Legal en Venezuela',
+            description: 'Todo sobre SUSCERTE, legislación venezolana y validez legal de documentos electrónicos.',
+            category: 'Legal',
+            youtubeId: 'dQw4w9WgXcQ' // Placeholder
+          }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchVideos();
+  }, []);
+  
+  const getCategoryColor = (category: string) => {
+    const colors: { [key: string]: string } = {
+      'Fundamentos': 'blue',
+      'Seguridad': 'purple',
+      'Legal': 'green',
+      'Básico': 'blue',
+      'Avanzado': 'purple',
+      'Normativo': 'green'
+    };
+    return colors[category] || 'blue';
+  };
+  
+  const getGradientClasses = (category: string) => {
+    const color = getCategoryColor(category);
+    const gradients: { [key: string]: string } = {
+      'blue': 'from-blue-500/20 to-purple-500/20',
+      'purple': 'from-purple-500/20 to-pink-500/20',
+      'green': 'from-green-500/20 to-emerald-500/20'
+    };
+    return gradients[color] || gradients['blue'];
+  };
+  
+  const getShadowClasses = (category: string) => {
+    const color = getCategoryColor(category);
+    const shadows: { [key: string]: string } = {
+      'blue': 'hover:shadow-blue-500/20',
+      'purple': 'hover:shadow-purple-500/20',
+      'green': 'hover:shadow-green-500/20'
+    };
+    return shadows[color] || shadows['blue'];
+  };
+  
+  const getCategoryClasses = (category: string) => {
+    const color = getCategoryColor(category);
+    const classes: { [key: string]: string } = {
+      'blue': 'text-blue-400 bg-blue-500/20',
+      'purple': 'text-purple-400 bg-purple-500/20',
+      'green': 'text-green-400 bg-green-500/20'
+    };
+    return classes[color] || classes['blue'];
+  };
+  
+  if (loading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        {[1, 2, 3].map((i) => (
+          <CardSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
+  
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      {videos.map((video, index) => (
+        <div key={video._id} className={`bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:border-white/30 transition-all duration-300 shadow-2xl ${getShadowClasses(video.category)} group cursor-pointer`}>
+          <div className="relative mb-4 overflow-hidden rounded-xl">
+            {video.youtubeId && video.youtubeId !== 'dQw4w9WgXcQ' ? (
+              <img 
+                src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
+                alt={video.title}
+                className="w-full aspect-video object-cover"
+                onError={(e) => {
+                  // Fallback si la imagen no carga
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  target.nextElementSibling?.classList.remove('hidden');
+                }}
+              />
+            ) : null}
+            <div className={`aspect-video bg-gradient-to-br ${getGradientClasses(video.category)} flex items-center justify-center ${video.youtubeId && video.youtubeId !== 'dQw4w9WgXcQ' ? 'hidden' : ''}`}>
+              <svg className="w-12 h-12 text-white/80 group-hover:text-white transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
+          <h3 className="text-lg font-semibold text-white mb-2">{video.title}</h3>
+          <p className="text-gray-300 text-sm mb-4 line-clamp-3">{video.description}</p>
+          <div className="flex items-center justify-between">
+            <span className={`text-xs px-2 py-1 rounded-full ${getCategoryClasses(video.category)}`}>
+              {video.category}
+            </span>
+            <Link 
+              href={`/academia`}
+              className="text-xs px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium rounded-xl hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-blue-500/20 border border-white/20 backdrop-blur-sm flex items-center gap-1"
+            >
+              Ver video
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default function Home() {
   const mainRef = useRef<HTMLElement>(null);
@@ -385,32 +541,22 @@ export default function Home() {
         searchValue = searchCode.trim().replace(/\D/g, '');
       }
       
-      // Construimos la URL exactamente como se requiere
-      // Formato: https://ca.firmedigital.com/api/v1/certificate/list?query=valor
-      // donde query puede ser name, email, serial o ci
-      const apiUrl = `https://ca.firmedigital.com/api/v1/certificate/list?${queryParam}=${encodeURIComponent(searchValue)}`;
-      console.log('URL de la API:', apiUrl);
-      
+      // Consumimos nuestro endpoint interno para evitar CORS
+      const internalUrl = `/api/verificar?type=${encodeURIComponent(queryParam)}&value=${encodeURIComponent(searchValue)}`;
+      console.log('URL interna:', internalUrl);
+
       try {
-        // Utilizamos un proxy para evitar problemas de CORS
-        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
-        console.log('Iniciando solicitud a través del proxy:', proxyUrl);
-        
-        const response = await fetch(proxyUrl, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-        
+        const response = await fetch(internalUrl, { method: 'GET' });
         if (!response.ok) {
           throw new Error(`Error del servidor: ${response.status} - ${response.statusText}`);
         }
-        
-        const data = await response.json();
-        console.log('Respuesta de la API:', data);
-        
-        // Procesamos la respuesta
+        const wrapped = await response.json();
+        if (!wrapped?.success) {
+          throw new Error(wrapped?.message || 'Error en verificación');
+        }
+        const data = wrapped.data;
+        console.log('Respuesta de la API (interna):', data);
+
         processResponse(data, queryParam);
       } catch (error) {
         console.error('Error en la solicitud a la API:', error);
@@ -514,7 +660,26 @@ export default function Home() {
               opacity: 0,
               duration: 0.6,
               ease: 'back.out(1.7)'
-            }, '-=0.3');
+            }, '-=0.3')
+            .add(() => {
+              // Reiniciar la animación de firma
+              const signaturePaths = document.querySelectorAll('.animate-signature');
+              signaturePaths.forEach(path => {
+                path.classList.remove('animate-signature');
+                setTimeout(() => {
+                  path.classList.add('animate-signature');
+                }, 100);
+              });
+              
+              // Reiniciar la animación de partículas
+              const particles = document.querySelectorAll('.signature-particle');
+              particles.forEach((particle, index) => {
+                particle.classList.remove('signature-particle');
+                setTimeout(() => {
+                  particle.classList.add('signature-particle');
+                }, 100);
+              });
+            });
         }
 
         // Animación de texto typewriter
@@ -692,191 +857,443 @@ export default function Home() {
       <MegaMenu />
       
       {/* Hero Section */}
-      <section ref={heroRef} className="relative pt-[200px] pb-[100px] overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 -left-4 w-[500px] h-[500px] bg-blue-500/30 rounded-full mix-blend-normal filter blur-[128px] animate-pulse" />
-          <div className="absolute bottom-0 -right-4 w-[500px] h-[500px] bg-purple-500/30 rounded-full mix-blend-normal filter blur-[128px] animate-pulse" />
-          <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-cyan-500/20 rounded-full mix-blend-normal filter blur-[100px] animate-pulse" />
-          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-10" />
+      <section ref={heroRef}
+  className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black pt-[7rem]"
+>
+        {/* Background Elements */}
+        <div className="absolute inset-0 pt-[7rem]">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-4 w-full pt-20">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left Content */}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 lg:px-8">
+          {isLoading ? (
             <div className="space-y-8">
-              {isLoading ? (
-                <>
-                  <div className="w-40">
-                    <TextSkeleton />
-                  </div>
-                  <div className="space-y-4">
-                    <TitleSkeleton />
-                    <TitleSkeleton />
-                  </div>
-                  <div className="max-w-xl">
-                    <TextSkeleton />
-                  </div>
-                  <div className="w-40">
-                    <ButtonSkeleton />
-                  </div>
-                </>
-              ) : (
-                <>
-
-                  
-                  <h1 className="hero-title">
-                    <span className="text-4xl lg:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 drop-shadow-lg">
-                      FIRMEDIGITAL 
-                    </span>
-                    <span className="block mt-4 text-xl lg:text-2xl font-semibold">Plataforma de firma electrónica<br/>Acreditada por SUSCERTE y con soberanía de datos en la República Bolivariana de Venezuela</span>
-                    <span className="block mt-3 text-xl lg:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400">
-                      Certificación y Firma Digital
-                    </span>
-                  </h1>
-
-                  <p className="hero-subtitle text-lg text-gray-300 max-w-xl backdrop-blur-sm bg-black/10 p-4 rounded-lg border border-white/5 shadow-lg">
-                    La solución perfecta para todas las empresas que necesitan una firma digital
-                    <span className="typewriter ml-2 inline-block min-w-[150px] font-semibold"></span>
-                  </p>
-
-                  <div className="flex flex-wrap gap-4 mt-6">
-                    <Link href="https://app.firmedigital.com/auth/signup" className="hero-button inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10">
-                      <span className="mr-2">Comenzar Ahora</span>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                    </Link>
-                  </div>
-                </>
-              )}
+              <TitleSkeleton />
+              <TextSkeleton />
+              <ButtonSkeleton />
             </div>
+          ) : (
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left Column - Visual Element */}
+              <div className="relative order-2 lg:order-1">
+                <div className="relative">
+                  {/* Main Visual Card */}
+                  <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl p-8 lg:p-12">
+                    {/* Digital Document Illustration */}
+                    <div className="space-y-6">
+                      {/* Header with icon */}
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <h3 className="text-xl font-semibold text-white">Documento Verificado</h3>
+                      </div>
+                      
+                      {/* Document Lines */}
+                      <div className="space-y-3">
+                        <div className="h-3 bg-gradient-to-r from-blue-400/60 to-transparent rounded-full"></div>
+                        <div className="h-3 bg-gradient-to-r from-purple-400/60 to-transparent rounded-full w-4/5"></div>
+                        <div className="h-3 bg-gradient-to-r from-blue-400/40 to-transparent rounded-full w-3/5"></div>
+                        <div className="h-3 bg-gradient-to-r from-purple-400/40 to-transparent rounded-full w-4/5"></div>
+                      </div>
+                      
+                      {/* Signature Area */}
+                      <div className="mt-8 p-4 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-xl border border-green-400/30">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                            <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-green-300">Firmado Digitalmente</p>
+                            <p className="text-xs text-gray-400">Certificado por SUSCERTE</p>
+                          </div>
+                        </div>
+                        <div className="signature-animation mt-3 relative h-16">
+                          {/* Partículas brillantes */}
+                          <div className="absolute inset-0 overflow-hidden">
+                            {[...Array(6)].map((_, i) => (
+                              <div 
+                                key={i}
+                                className="absolute w-1 h-1 rounded-full bg-green-400 opacity-0 signature-particle"
+                                style={{
+                                  left: `${50 + (i * 30)}%`,
+                                  top: '50%',
+                                  animationDelay: `${2.5 + (i * 0.2)}s`
+                                }}
+                              />
+                            ))}
+                          </div>
+                          
+                          {/* Firma animada mejorada */}
+                          <div className="absolute inset-0 flex items-center">
+                            <Signature width={300} height={60} color="green" showGlow />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Floating Elements */}
+                  <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl opacity-20 animate-pulse"></div>
+                  <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl opacity-20 animate-pulse delay-1000"></div>
+                </div>
+              </div>
 
-            {/* Right Content */}
-            <Suspense fallback={<CardSkeleton />}>
-              <FeaturesCard />
-            </Suspense>
-          </div>
+              {/* Right Column - Content */}
+              <div className="order-1 lg:order-2 text-left">
+                <div className="space-y-8">
+                  {/* Badge */}
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-400/30">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                    <span className="text-sm font-medium text-blue-300">Plataforma Integral Certificada</span>
+                  </div>
+                  
+                  {/* Main Title */}
+                  <div className="space-y-6">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                      <span className="block text-white mb-2 relative inline-block">
+                        <span 
+                          className="glitch-text text-5xl md:text-6xl lg:text-7xl font-extrabold"
+                          data-text=""
+                        >
+                          FIRMEDIGITAL
+                        </span>
+                      </span>
+                      <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                      Solución Completa
+                      </span>
+                    </h1>
+                    
+                  </div>
+
+                  {/* Three Pillars */}
+                  <div className="space-y-6">
+                    <p className="text-lg text-gray-300 leading-relaxed">
+                      La solución más completa para digitalizar, proteger y certificar tus documentos con validez legal en Venezuela
+                    </p>
+                    
+                    {/* Pillars Grid */}
+                    
+                  </div>
+
+                  {/* CTA Button */}
+                  <div className="flex items-center gap-4 pt-4">
+                    <Link 
+                      href="https://app.firmedigital.com/auth/signup" 
+                      className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-blue-500/25"
+                    >
+                      <span className="relative z-10">Comenzar Ahora</span>
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300"></div>
+                    </Link>
+                    
+                    
+                  </div>
+                  
+                  {/* Trust Badge */}
+                  <div className="pt-6 border-t border-gray-700/50">
+                    <p className="text-sm text-gray-500">
+                      Acreditada por <span className="font-semibold text-blue-400">SUSCERTE</span> • Soberanía de datos en Venezuela
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
-      {/* Misión y Visión Section */}
-      <section className="relative py-20 border-t border-white/5 mission-vision-section">
+      {/* Nuestros Pilares Section */}
+      <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 -right-4 w-[400px] h-[400px] bg-blue-500/10 rounded-full mix-blend-normal filter blur-[100px]" />
-          <div className="absolute bottom-0 -left-4 w-[400px] h-[400px] bg-purple-500/10 rounded-full mix-blend-normal filter blur-[100px]" />
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
         
         <div className="mx-auto max-w-7xl px-4 relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-stretch">
-            {/* Misión */}
-            <div className="mission-card relative bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all duration-300 flex flex-col hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transform hover:-translate-y-1">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-gradient-to-br from-blue-500/20 to-blue-700/20 rounded-lg">
-                  <svg className="w-8 h-8 text-blue-400" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Nuestra Misión</h3>
-              </div>
-              <p className="text-gray-300 text-lg leading-relaxed flex-grow">
-              Proporcionar soluciones de certificación y firma electrónica innovadoras y seguras que faciliten la gestión de documentos digitales en Venezuela.
-
-              </p>
-              <div className="mt-6 w-1/3 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-400/30 mb-6">
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-blue-300">Solución Integral</span>
             </div>
-            
-            {/* Visión */}
-            <div className="vision-card relative bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-all duration-300 flex flex-col hover:shadow-[0_0_30px_rgba(147,51,234,0.2)] transform hover:-translate-y-1">
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">Nuestros</span>
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Tres Pilares
+              </span>
+            </h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              La base de nuestra plataforma digital segura
+            </p>
+          </div>
+
+          {/* Three Pillars Grid */}
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Identidad Digital */}
+            <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 hover:border-blue-400/30 transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-gradient-to-br from-purple-500/20 to-purple-700/20 rounded-lg">
-                  <svg className="w-8 h-8 text-purple-400" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" strokeWidth="2"/>
-                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" strokeWidth="2"/>
-                    <path d="M12 8v1m0 6v1m4-4h-1m-6 0H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Nuestra Visión</h3>
+                <h3 className="text-xl font-semibold text-blue-300">Identidad Digital</h3>
               </div>
-              <p className="text-gray-300 text-lg leading-relaxed flex-grow">
-              Ser la plataforma líder en certificación y firma electrónica en La República Bolivariana de Venezuela, reconocida por nuestra innovación continua y por brindar soluciones digitales que transforman la manera en que las empresas y los individuos gestionan y autentican sus documentos. 
+              <p className="text-gray-300 leading-relaxed">
+                Verificación segura y confiable de identidad con tecnología avanzada anti-fraude.
               </p>
-              <div className="mt-6 w-1/3 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+              <div className="mt-6 h-1 bg-gradient-to-r from-blue-400 to-transparent rounded-full"></div>
+            </div>
+
+            {/* Gestor Documental */}
+            <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 hover:border-purple-400/30 transition-all duration-300 transform hover:-translate-y-2">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-purple-300">Gestor Documental</h3>
+              </div>
+              <p className="text-gray-300 leading-relaxed">
+                Administración inteligente y organizada de documentos con almacenamiento seguro.
+              </p>
+              <div className="mt-6 h-1 bg-gradient-to-r from-purple-400 to-transparent rounded-full"></div>
+            </div>
+
+            {/* Firma Digital */}
+            <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 hover:border-green-400/30 transition-all duration-300 transform hover:-translate-y-2">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-green-300">Firma Electrónica</h3>
+              </div>
+              <p className="text-gray-300 leading-relaxed">
+                Firma electrónica certificada por SUSCERTE con validez legal completa.
+              </p>
+              <div className="mt-6 h-1 bg-gradient-to-r from-green-400 to-transparent rounded-full"></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SUSCERTE Certification Banner */}
-      <section className="relative py-16 border-t border-white/5 suscerte-banner-section bg-gradient-to-b from-black to-[#050A20]">
+      {/* Banner Filterven Section */}
+      <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 -right-4 w-[400px] h-[400px] bg-blue-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
-          <div className="absolute bottom-0 -left-4 w-[400px] h-[400px] bg-purple-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
-          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5" />
-          
-          {/* Abstract Background Elements */}
-          <div className="absolute right-1/4 top-1/3 w-[250px] h-[250px] bg-blue-600/3 rounded-full mix-blend-normal filter blur-[80px]" />
-          <div className="absolute left-1/4 bottom-1/3 w-[200px] h-[200px] bg-purple-600/3 rounded-full mix-blend-normal filter blur-[60px]" />
-          
-          {/* Stars in arc formation like Venezuelan flag */}
-          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] opacity-25">
-            <svg width="600" height="300" viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-              {/* 8 stars in an arc formation - larger size */}
-              <path d="M75,150 L85,120 L95,150 L65,130 L105,130 Z" fill="white" />
-              <path d="M150,120 L160,90 L170,120 L140,100 L180,100 Z" fill="white" />
-              <path d="M225,100 L235,70 L245,100 L215,80 L255,80 Z" fill="white" />
-              <path d="M300,90 L310,60 L320,90 L290,70 L330,70 Z" fill="white" />
-              <path d="M375,100 L385,70 L395,100 L365,80 L405,80 Z" fill="white" />
-              <path d="M450,120 L460,90 L470,120 L440,100 L480,100 Z" fill="white" />
-              <path d="M525,150 L535,120 L545,150 L515,130 L555,130 Z" fill="white" />
-              <path d="M300,180 L310,150 L320,180 L290,160 L330,160 Z" fill="white" />
-            </svg>
-          </div>
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
         
-        <div className="relative mx-auto max-w-7xl px-4 z-10">
-          <div className="flex flex-col items-center justify-center text-center">
-            <div className="inline-block mb-6 px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">
-              <span className="text-white font-semibold">Certificación Oficial</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 leading-tight">
-              Proveedor certificado por SUSCERTE
-            </h2>
-            <p className="text-xl md:text-2xl text-white max-w-3xl mb-8">
-              Te aseguramos la soberanía de tus datos en Venezuela
-            </p>
-            <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 max-w-3xl mx-auto mb-8">
-              <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg className="w-8 h-8 text-blue-400" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+        <div className="mx-auto max-w-7xl px-4 relative z-10">
+          <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl hover:border-white/30 transition-all duration-300">
+            <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[300px] md:min-h-[400px]">
+              {/* Left Section - Visual */}
+              <div className="relative overflow-hidden bg-gradient-to-br from-blue-900/5 to-purple-900/5 h-64 md:h-auto order-2 lg:order-1">
+                <Image
+                  src="/images/fitelven.jpg"
+                  alt="FIRMEDIGITAL en FitelVen"
+                  fill
+                  className="object-cover object-center"
+                  priority
+                />
+                {/* Subtle overlay for better text readability */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-gray-900/30"></div>
+                {/* Teal accent */}
+                <div className="absolute top-4 right-4 md:top-8 md:right-8 w-16 h-16 md:w-24 md:h-24 bg-cyan-400 rounded-full opacity-40 blur-sm"></div>
+              </div>
+              
+              {/* Right Section - Content */}
+              <div className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 p-6 md:p-8 lg:p-12 flex flex-col justify-center relative order-1 lg:order-2">
+                {/* Background pattern */}
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute inset-0" style={{
+                    backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)'
+                  }}></div>
                 </div>
-                <p className="text-gray-300 text-lg">
-                  Nuestra certificación por SUSCERTE garantiza que todos sus documentos y firmas electrónicas cumplen con los más altos estándares de seguridad y validez legal en  la República Bolivariana de Venezuela.
-                </p>
+                
+                <div className="relative z-10">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+                    <span className="block">FIRMEDIGITAL</span>
+                    <span className="block text-xl sm:text-2xl md:text-3xl font-normal text-cyan-300">
+                      en FitelVen 2025
+                    </span>
+                  </h2>
+                  
+                  <div className="space-y-3 md:space-y-4 text-white/90 text-xs sm:text-sm md:text-base">
+                    <p>Estaremos presentes en la feria más importante de tecnología de Venezuela.</p>
+                    <p>Presentando nuestra <strong>Firma Electrónica</strong> certificada por SUSCERTE.</p>
+                    <p>Conoce nuestras soluciones de <strong>Identidad Digital</strong> y <strong>Gestión Documental</strong>.</p>
+                    <p className="text-cyan-300 font-semibold">¡Visítanos en nuestro stand desde el 17 al 21 de septiembre! </p>
+                  </div>
+                  
+                  <div className="mt-4 md:mt-6 text-xs text-gray-400">
+                    <p>* FIRMEDIGITAL estará presente en Filterven 2025 con certificación SUSCERTE</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <a href="https://app.firmedigital.com/auth/signup" className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
-                Comenzar ahora
-              </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Certificación SUSCERTE Section */}
+      <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        
+        <div className="mx-auto max-w-7xl px-4 relative z-10">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 rounded-full border border-green-400/30 mb-6">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-green-300">Certificación Oficial</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">Certificados por</span>
+              <span className="block bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                SUSCERTE
+              </span>
+            </h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Garantía de soberanía de datos en Venezuela
+            </p>
+          </div>
+
+          {/* Certification Content */}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left - Visual Card */}
+            <div className="relative order-2 lg:order-1">
+              <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 lg:p-12">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-600 rounded-xl flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-semibold text-green-300">Certificación Verificada</h3>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="h-3 bg-gradient-to-r from-green-400/60 to-transparent rounded-full"></div>
+                    <div className="h-3 bg-gradient-to-r from-blue-400/60 to-transparent rounded-full w-4/5"></div>
+                    <div className="h-3 bg-gradient-to-r from-green-400/40 to-transparent rounded-full w-3/5"></div>
+                    <div className="h-3 bg-gradient-to-r from-blue-400/40 to-transparent rounded-full w-4/5"></div>
+                  </div>
+                  
+                  <div className="mt-8 p-4 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-xl border border-green-400/30">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-green-300">Validez Legal Garantizada</p>
+                        <p className="text-xs text-gray-400">República Bolivariana de Venezuela</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Floating elements */}
+                <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-green-500 to-blue-600 rounded-2xl opacity-20 animate-pulse"></div>
+                <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl opacity-20 animate-pulse delay-1000"></div>
+              </div>
+            </div>
+
+            {/* Right - Content */}
+            <div className="order-1 lg:order-2">
+              <div className="space-y-8">
+                {/* Benefits Grid */}
+                <div className="grid gap-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white mb-1">Validez Legal Completa</h4>
+                      <p className="text-gray-400 text-sm">Cumplimos con todos los estándares legales venezolanos</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white mb-1">Soberanía de Datos</h4>
+                      <p className="text-gray-400 text-sm">Tus datos permanecen seguros en territorio venezolano</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white mb-1">Máxima Seguridad</h4>
+                      <p className="text-gray-400 text-sm">Tecnología certificada para proteger tu identidad</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* CTA Button */}
+                <div className="pt-4">
+                  <a href="https://app.firmedigital.com/auth/signup" className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-green-600 to-blue-600 rounded-full hover:from-green-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-green-500/25">
+                    <span className="relative z-10">Comenzar Ahora</span>
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-600 to-blue-600 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300"></div>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
       
-      {/* Pricing Section */}
-      <section className="relative border-t border-white/5 pricing-section bg-gradient-to-b from-black to-[#050A20]">
+      {/* Planes y Precios Section */}
+      <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 -right-4 w-[400px] h-[400px] bg-blue-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
-          <div className="absolute bottom-0 -left-4 w-[400px] h-[400px] bg-purple-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
-          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5" />
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
-        <div className="mx-auto max-w-7xl px-4 py-4 relative z-10">
+        
+        <div className="mx-auto max-w-7xl px-4 relative z-10">
+          {/* Header */}
           <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-400">
-              Planes y Precios
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 rounded-full border border-purple-400/30 mb-6">
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-purple-300">Planes Flexibles</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">Planes y</span>
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Precios
+              </span>
             </h2>
-            <p className="mt-4 text-xl text-gray-400">Soluciones flexibles para todas tus necesidades</p>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Soluciones flexibles para todas tus necesidades
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -887,42 +1304,26 @@ export default function Home() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-blue-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <img src="/images/rocket-svgrepo-com.svg" alt="Rocket" className="w-8 h-8 filter brightness-0 invert" />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                    <p className="text-gray-400 text-sm">¡Impulso al siguiente nivel!</p>
-                    <p className="text-gray-400 text-sm">Para persona natural</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Despegue</h3>
+                    <p className="text-gray-300 text-sm">¡Impulso al siguiente nivel!</p>
+                    <p className="text-gray-300 text-sm">Para persona natural</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-blue-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <img src="/images/rocket-svgrepo-com.svg" alt="Rocket" className="w-8 h-8 filter brightness-0 invert" />
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                      <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                        <p className="text-gray-400 text-sm">Carga, publica y gestiona miles de docs.</p>
+                      <h3 className="text-2xl font-semibold mb-2 text-white">Plan Despegue</h3>
+                        <p className="text-gray-300 text-sm">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8 mt-5">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -953,7 +1354,7 @@ export default function Home() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>400 Documentos</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -994,42 +1395,30 @@ export default function Home() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-purple-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/efficiency.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
-                    <p className="text-gray-400 text-sm">¡Gestión eficiente de Documentos!</p>
-                    <p className="text-gray-400 text-sm">Para persona jurídica</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Élite</h3>
+                    <p className="text-gray-300 text-sm">¡Gestión eficiente de Documentos!</p>
+                    <p className="text-gray-300 text-sm">Para persona jurídica</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-purple-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/efficiency.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
-                        <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
+                        <h3 className="text-2xl font-semibold mb-2 text-white">Plan Élite</h3>
+                        <p className="text-gray-300 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8" style={{ paddingTop: '1rem' }}>
                           <div className="flex flex-col items-center justify-center w-full max-w-[280px]">
                           <div className="ml-2 flex flex-col">
@@ -1053,7 +1442,7 @@ export default function Home() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>1000 Documentos</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1091,42 +1480,30 @@ export default function Home() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-green-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/organizacion.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                    <p className="text-gray-400 text-sm"> ¡Mantén tus certificados emitidos al día!</p>
-                    <p className="text-gray-400 text-sm">Para corporaciones</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Max</h3>
+                    <p className="text-gray-300 text-sm"> ¡Mantén tus certificados emitidos al día!</p>
+                    <p className="text-gray-300 text-sm">Para corporaciones</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-green-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/organizacion.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                        <p className="text-gray-400 text-sm mb-2">Creditos Ilimitados</p>
+                        <h3 className="text-2xl font-semibold mb-2 text-white">Plan Max</h3>
+                        <p className="text-gray-300 text-sm mb-2">Créditos Ilimitados</p>
                         <div className="flex flex-col items-center space-y-6 mb-8">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -1148,7 +1525,7 @@ export default function Home() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>Documentos ilimitados</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1169,12 +1546,6 @@ export default function Home() {
                             </svg>
                             <span>Flujos</span>
                           </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>IA</span>
-                          </li>
                         </ul>
                       </div>
                       <a href="https://app.firmedigital.com/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
@@ -1193,11 +1564,17 @@ export default function Home() {
       </section>
 
       {/* Sección de características detalladas */}
-      <div className="mt-16 max-w-7xl mx-auto px-4">
+      <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4">
         <div className="flex justify-center mb-8">
           <button
             onClick={() => setShowFeatures(!showFeatures)}
-            className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-[#0A0A0A] via-[#1A1A1A] to-[#0A0A0A] hover:from-blue-500/10 hover:via-purple-500/10 hover:to-blue-500/10 text-white rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 relative overflow-hidden group"
+            className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-xl hover:from-white/15 hover:to-white/10 text-white rounded-2xl border border-white/20 hover:border-white/30 transition-all duration-300 relative overflow-hidden group shadow-2xl hover:shadow-blue-500/20"
           >
             <span className="text-lg font-medium bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               {showFeatures ? 'Ocultar' : 'Mostrar'} todas las características
@@ -1232,7 +1609,7 @@ export default function Home() {
             showFeatures ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="w-full overflow-x-auto rounded-none border border-white/10">
+          <div className="w-full overflow-x-auto rounded-2xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl shadow-2xl">
           
             <table className="w-full min-w-[800px] border-collapse">
               
@@ -1697,11 +2074,13 @@ export default function Home() {
         
         </div>
       </div>
+      </section>
  {/* Verificación de Documentos Section */}
- <section className="relative py-12 sm:py-16 border-t border-white/5 verificacion-section">
+ <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black verificacion-section">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 -right-4 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-blue-500/10 rounded-full mix-blend-normal filter blur-[100px]" />
-          <div className="absolute bottom-0 -left-4 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-purple-500/10 rounded-full mix-blend-normal filter blur-[100px]" />
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
         </div>
         
         <div className="mx-auto max-w-7xl px-4 sm:px-6 relative z-10">
@@ -1712,8 +2091,15 @@ export default function Home() {
             transition={{ duration: 0.7, type: "spring", stiffness: 100 }}
             className="text-center mb-8 sm:mb-12"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 mb-3 sm:mb-4">
-              Verificación de Documentos
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-400/30 mb-6">
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-purple-300">Verificador</span>
+            </div>
+             <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">Verificación de</span>
+              <span className="block bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                Documentos
+              </span>
             </h2>
             <p className="text-gray-300 text-base sm:text-lg max-w-3xl mx-auto px-2">
               Verifica la autenticidad de documentos firmados digitalmente con nuestra herramienta de verificación rápida y segura.
@@ -1722,7 +2108,7 @@ export default function Home() {
 
           <div className="max-w-3xl mx-auto">
             {/* Formulario y Resultados en un solo div */}
-            <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm border border-white/5 rounded-2xl p-5 sm:p-8 hover:border-white/10 transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)]">
+            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-5 sm:p-8 hover:border-white/30 transition-all duration-300 shadow-2xl hover:shadow-blue-500/20">
               <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-white">Verificar Documento</h3>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
@@ -1732,7 +2118,7 @@ export default function Home() {
                     id="searchType"
                     value={searchType}
                     onChange={(e) => setSearchType(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white text-sm sm:text-base"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-900/80 border border-white/10 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-400 text-white text-sm sm:text-base backdrop-blur-sm hover:bg-gray-900/90 transition-all duration-300"
                   >
                     <option value="">Seleccionar tipo de búsqueda</option>
                     <option value="0">Cédula</option>
@@ -1750,7 +2136,7 @@ export default function Home() {
                     value={searchCode}
                     onChange={(e) => setSearchCode(e.target.value)}
                     placeholder="Ingrese el código de búsqueda"
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white text-sm sm:text-base"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white/5 border border-white/10 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-400 text-white text-sm sm:text-base backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
                   />
                 </div>
               </div>
@@ -1758,7 +2144,7 @@ export default function Home() {
               <button
                 onClick={handleSearch}
                 disabled={isSearching || !searchType || !searchCode}
-                className="w-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
+                className="w-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-blue-500/20 border border-white/20 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
               >
                 {isSearching ? (
                   <span className="flex items-center justify-center">
@@ -1814,7 +2200,7 @@ export default function Home() {
           <div className="mt-6 sm:mt-8 text-center">
             <Link 
               href="/productos/verificacion-certificados" 
-              className="group inline-flex items-center justify-center px-4 py-1.5 sm:px-5 sm:py-2 rounded-md bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 border border-white/10 hover:border-white/20 transition-all duration-300 transform hover:scale-105 shadow-sm shadow-blue-500/5 hover:shadow-blue-500/10"
+              className="group inline-flex items-center justify-center px-4 py-1.5 rounded-md bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 border border-white/10 hover:border-white/20 transition-all duration-300 transform hover:scale-105 shadow-sm shadow-blue-500/5 hover:shadow-blue-500/10"
             >
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-medium text-xs sm:text-sm">
                 Ver herramienta completa de verificación
@@ -1832,286 +2218,163 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* Nuestras Soluciones Digitales Section */}
-      <div className="max-w-7xl mx-auto py-10 px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text">
-          Nuestras Soluciones Digitales
-        </h2>
-        <div className="tag-list mx-auto">
-          <div className="loop-slider" style={{ "--duration": "15951ms", "--direction": "normal" } as React.CSSProperties}>
-            <div className="inner">
-              <div className="tag  rounded-xl"><span>#</span> Firma Digital</div>
-              <div className="tag  rounded-xl"><span>#</span> Certificados</div>
-              <div className="tag  rounded-xl"><span>#</span> Seguridad</div>
-              <div className="tag  rounded-xl"><span>#</span> Blockchain</div>
-              <div className="tag  rounded-xl"><span>#</span> Trazabilidad</div>
-              <div className="tag  rounded-xl"><span>#</span> Firma Digital</div>
-              <div className="tag  rounded-xl"><span>#</span> Certificados</div>
-              <div className="tag  rounded-xl"><span>#</span> Seguridad</div>
-              <div className="tag  rounded-xl"><span>#</span> Blockchain</div>
-              <div className="tag  rounded-xl"><span>#</span> Trazabilidad</div>
-            </div>
-          </div>
-          <div className="loop-slider" style={{ "--duration": "19260ms", "--direction": "reverse" } as React.CSSProperties}>
-            <div className="inner">
-              <div className="tag rounded-xl"><span>#</span> Autenticación</div>
-              <div className="tag rounded-xl"><span>#</span> Validación</div>
-              <div className="tag rounded-xl"><span>#</span> Documentos</div>
-              <div className="tag rounded-xl"><span>#</span> Encriptación</div>
-              <div className="tag rounded-xl"><span>#</span> Seguridad</div>
-              <div className="tag rounded-xl"><span>#</span> Autenticación</div>
-              <div className="tag rounded-xl"><span>#</span> Validación</div>
-              <div className="tag rounded-xl"><span>#</span> Documentos</div>
-              <div className="tag rounded-xl"><span>#</span> Encriptación</div>
-              <div className="tag rounded-xl"><span>#</span> Seguridad</div>
-            </div>
-          </div>
-          <div className="loop-slider" style={{ "--duration": "10449ms", "--direction": "normal" } as React.CSSProperties}>
-            <div className="inner">
-              <div className="tag"><span>#</span> Innovación</div>
-              <div className="tag"><span>#</span> Digital</div>
-              <div className="tag"><span>#</span> Confianza</div>
-              <div className="tag"><span>#</span> Eficiencia</div>
-              <div className="tag"><span>#</span> Futuro</div>
-              <div className="tag"><span>#</span> Innovación</div>
-              <div className="tag"><span>#</span> Digital</div>
-              <div className="tag"><span>#</span> Confianza</div>
-              <div className="tag"><span>#</span> Eficiencia</div>
-              <div className="tag"><span>#</span> Futuro</div>
-            </div>
-          </div>
-          <div className="fade"></div>
-        </div>
-      </div>
-
-      <style jsx>{`
-        .tag-list {
-          width: 90%;
-          max-width: 1200px;
-          display: flex;
-          flex-shrink: 0;
-          flex-direction: column;
-          gap: 1rem 0;
-          position: relative;
-          padding: 1.5rem 0;
-          overflow: hidden;
-          mask-image: linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 1) 0%,
-            rgba(0, 0, 0, 1) 85%,
-            rgba(0, 0, 0, 0) 100%
-          );
-        }
-
-        .loop-slider .inner {
-          display: flex;
-          width: fit-content;
-          animation-name: loop;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          animation-direction: var(--direction);
-          animation-duration: var(--duration);
-        }
-
-        .tag {
-          display: flex;
-          align-items: center;
-          gap: 0 0.2rem;
-          color: #e2e8f0;
-          font-size: 1rem;
-          background-color: rgba(15, 23, 42, 0.5);
-          border-radius: 0;
-          padding: 0.7rem 1rem;
-          margin-right: 1rem;
-          box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2),
-            0 0.1rem 0.5rem rgba(0, 0, 0, 0.3),
-            0 0.2rem 1.5rem rgba(0, 0, 0, 0.4);
-          backdrop-filter: blur(10px);
-          transition: all 0.3s ease;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          position: relative;
-          isolation: isolate;
-          overflow: hidden;
-        }
-
-        .tag::before {
-          content: '';
-          position: absolute;
-          inset: -1px;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(96, 165, 250, 0.1),
-            rgba(168, 85, 247, 0.1),
-            transparent
-          );
-          z-index: -1;
-          animation: border-glow 3s linear infinite;
-        }
-
-        .tag::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: rgba(15, 23, 42, 0.5);
-          border-radius: 0;
-          z-index: -1;
-        }
-
-        .tag:hover {
-          transform: translateY(-2px);
-          background-color: rgba(15, 23, 42, 0.7);
-          box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.3),
-            0 0.2rem 1rem rgba(0, 0, 0, 0.4),
-            0 0.4rem 2rem rgba(0, 0, 0, 0.5);
-        }
-
-        .tag:hover::before {
-          animation: border-glow 1.5s linear infinite;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(96, 165, 250, 0.2),
-            rgba(168, 85, 247, 0.2),
-            transparent
-          );
-        }
-
-        .tag span {
-          font-size: 1.2rem;
-          color: #60a5fa;
-          position: relative;
-          z-index: 1;
-        }
-
-        .fade {
-          pointer-events: none;
-          background: linear-gradient(
-              to bottom,
-              #000,
-              transparent 30%,
-              transparent 70%,
-              #000
-            ),
-            linear-gradient(to right, transparent 0%, transparent 85%, #000);
-          position: absolute;
-          inset: 0;
-        }
-
-        @keyframes border-glow {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(100%);
-          }
-        }
-
-        @keyframes loop {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
-
-      <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        title={modalContent.title}
-      >
-        <div className="whitespace-pre-line">
-          {modalContent.description}
-        </div>
-      </Modal>
-
-      {/* Why Choose FIRMEDIGITAL Banner */}
-      <section className="relative py-16 border-t border-white/5 why-choose-banner bg-gradient-to-b from-black to-[#050A20]">
+      {/* Academia FIRMEDIGITAL Section */}
+      <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 -right-4 w-[400px] h-[400px] bg-blue-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
-          <div className="absolute bottom-0 -left-4 w-[400px] h-[400px] bg-purple-500/5 rounded-full mix-blend-normal filter blur-[100px]" />
-          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5" />
-          
-          {/* Venezuela Map Background */}
-          <div className="absolute right-10 top-1/2 transform -translate-y-1/2 opacity-10">
-            <svg width="400" height="400" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M250,50 C350,100 400,200 350,300 C300,400 200,450 100,400 C50,350 50,250 100,150 C150,100 200,75 250,50 Z" fill="url(#map-gradient)" />
-              <defs>
-                <linearGradient id="map-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#FCDF52" />
-                  <stop offset="33%" stopColor="#5470C6" />
-                  <stop offset="66%" stopColor="#EE6666" />
-                </linearGradient>
-              </defs>
-            </svg>
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            
+             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 rounded-full border border-purple-400/30 mb-6">
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-purple-300">Academia</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">Aprende sobre</span>
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                FIRMEDIGITAL
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Descubre todo sobre certificados digitales, seguridad documental y transformación digital con nuestros videos educativos especializados.
+            </p>
           </div>
+
+          <AcademiaVideos />
+
+          <div className="text-center">
+            <Link href="/academia" className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-blue-500/25">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              Explorar Academia Completa
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+
+
+      {/* Certificación SUSCERTE Section */}
+      <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
         
-        <div className="relative mx-auto max-w-7xl px-4 z-10">
-          <div className="flex flex-col items-center justify-center text-center mb-10">
-            <div className="inline-block mb-6 px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">
-              <span className="text-white font-semibold">¿Por qué elegir FIRMEDIGITAL?</span>
+        <div className="mx-auto max-w-7xl px-4 relative z-10">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 rounded-full border border-green-400/30 mb-6">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-green-300">Certificación Oficial</span>
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 leading-tight max-w-4xl">
-              Soberanía digital y cumplimiento legal garantizado
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">Certificados por</span>
+              <span className="block bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                SUSCERTE
+              </span>
             </h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Garantía de soberanía de datos en Venezuela
+            </p>
           </div>
-          
-          <div className="relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12 max-w-5xl mx-auto">
-            <div className="flex flex-col md:flex-row items-start gap-8">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center flex-shrink-0 mx-auto md:mx-0">
-                <svg className="w-10 h-10 text-blue-400" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div className="space-y-6 text-left">
-                <p className="text-xl md:text-2xl text-white leading-relaxed">
-                  En FirmeDigital, garantizamos que sus documentos y firmas electrónicas cumplen con las leyes venezolanas y se gestionan 100% dentro del territorio nacional, respaldados por SUSCERTE.
-                </p>
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  Nuestra plataforma ofrece una solución integral que asegura la validez legal de sus documentos electrónicos, cumpliendo con todos los requisitos establecidos en la Ley de Mensajes de Datos y Firmas Electrónicas de Venezuela. Al elegir FIRMEDIGITAL, usted obtiene:
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+
+          {/* Certification Content */}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left - Visual Card */}
+            <div className="relative order-2 lg:order-1">
+              <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 lg:p-12">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-600 rounded-xl flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                       </svg>
                     </div>
-                    <span className="text-gray-300">Certificación oficial por SUSCERTE</span>
+                    <h3 className="text-xl font-semibold text-green-300">Certificación Verificada</h3>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-gray-300">Validez legal en todo el territorio nacional</span>
+                  
+                  <div className="space-y-3">
+                    <div className="h-3 bg-gradient-to-r from-green-400/60 to-transparent rounded-full"></div>
+                    <div className="h-3 bg-gradient-to-r from-blue-400/60 to-transparent rounded-full w-4/5"></div>
+                    <div className="h-3 bg-gradient-to-r from-green-400/40 to-transparent rounded-full w-3/5"></div>
+                    <div className="h-3 bg-gradient-to-r from-blue-400/40 to-transparent rounded-full w-4/5"></div>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
+                  
+                  <div className="mt-8 p-4 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-xl border border-green-400/30">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-green-300">Validez Legal Garantizada</p>
+                        <p className="text-xs text-gray-400">República Bolivariana de Venezuela</p>
+                      </div>
                     </div>
-                    <span className="text-gray-300">Protección de datos bajo legislación venezolana</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-gray-300">Infraestructura 100% en territorio nacional</span>
                   </div>
                 </div>
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  Al mantener todos sus datos dentro del territorio venezolano, garantizamos no solo el cumplimiento legal sino también la soberanía digital de su información, evitando riesgos asociados con el almacenamiento de datos en servidores extranjeros que podrían estar sujetos a legislaciones diferentes.
-                </p>
-                <div className="flex flex-wrap gap-4 pt-4">
-                  <a href="https://app.firmedigital.com/auth/signup" className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
+                
+                {/* Floating elements */}
+                <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-green-500 to-blue-600 rounded-2xl opacity-20 animate-pulse"></div>
+                <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl opacity-20 animate-pulse delay-1000"></div>
+              </div>
+            </div>
+
+            {/* Right - Content */}
+            <div className="order-1 lg:order-2">
+              <div className="space-y-8">
+                {/* Benefits Grid */}
+                <div className="grid gap-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white mb-1">Validez Legal Completa</h4>
+                      <p className="text-gray-400 text-sm">Cumplimos con todos los estándares legales venezolanos</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white mb-1">Soberanía de Datos</h4>
+                      <p className="text-gray-400 text-sm">Tus datos permanecen seguros en territorio venezolano</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white mb-1">Máxima Seguridad</h4>
+                      <p className="text-gray-400 text-sm">Tecnología certificada para proteger tu identidad</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* CTA Button */}
+                <div className="pt-4">
+                  <a href="https://app.firmedigital.com/auth/signup" className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-green-600 to-blue-600 rounded-full hover:from-green-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-2xl shadow-green-500/25">
                     Comenzar ahora
                   </a>
                 </div>
@@ -2219,10 +2482,14 @@ export default function Home() {
       </section>*/}
 
       {/* Fedeindustria Form Section */}
-      <section id="fedeindustria-form" className="relative border-t border-white/5 fedeindustria-form-section my-10">
-        <div className="mx-auto max-w-7xl px-4">
+      <section id="fedeindustria-form" className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+        </div>
+        <div className="relative mx-auto max-w-7xl px-4">
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-none blur-xl" />
             <div className="relative bg-[#0A0A0A] border border-white/10 rounded-1xl p-8 lg:p-12">
               <div className="flex flex-col items-center mb-8">
                {/* imagen de banner 
@@ -2235,7 +2502,17 @@ export default function Home() {
                     className="w-full h-auto rounded-lg object-contain"
                   />
                 </div>*/}
-                <h2 className="text-3xl font-bold mb-4 text-center">Formulario de contacto</h2>
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 rounded-full border border-purple-400/30 mb-6">
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-purple-300">Contacto</span>
+            </div>
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+                    <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                      Formulario de contacto
+                    </span>
+                  </h2>
+                </div>
                 <p className="text-gray-400 mb-8 text-center max-w-3xl">
                   Complete el siguiente formulario para recibir mas información acerca de nuestros servicios digitales.  
                 </p>

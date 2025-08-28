@@ -206,14 +206,15 @@ const menuData: MenuSection[] = [
     ]
   },
   {
-    title: 'BLOG',
-    href: '/blog',
-    target: '_blank'
-  },
-  {
     title: 'RECURSOS',
     href: '#recursos',
     subItems: [
+      {
+        title: 'Blog',
+        icon: BsBook,
+        description: 'Artículos y noticias',
+        href: '/blog'
+      },
       {
         title: 'Academia',
         icon: BsBook,
@@ -308,238 +309,241 @@ export default function MegaMenu() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black via-black to-[#111827] border-b border-gray-800/50 shadow-lg">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-center h-[120px] relative z-[60]">
-          <a href="/" className="flex-shrink-0">
-            <img 
-              src="/images/logo.webp" 
-              alt="Firme Digital Logo" 
-              className="h-20 w-auto"
-            />
-          </a>
+    <>
+      {/* Desktop Menu */}
+      <nav className="hidden lg:block fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-auto">
+        <div className="bg-black/95 backdrop-blur-xl rounded-full border border-gray-700/50 shadow-2xl px-8 py-3">
+          <div className="flex items-center space-x-4 min-w-max">
+            {/* Logo */}
+            <div className="flex items-center flex-shrink-0">
+              <Link href="/" className="flex-shrink-0">
+                <img 
+                  src="/images/logo.webp" 
+                  alt="Firme Digital Logo" 
+                  className="h-10 w-auto"
+                />
+              </Link>
+            </div>
 
-          {/* Botón hamburguesa para móvil */}
-          <button
-            className="lg:hidden text-white p-2 transition-colors"
-            onClick={toggleMobileMenu}
-          >
-            {isMobileMenuOpen ? (
-              <HiOutlineX className="w-6 h-6 text-[#fff]" />
-            ) : (
-              <HiOutlineMenu className="w-6 h-6 text-[#fff]" />
-            )}
-          </button>
-
-          {/* Menú para desktop */}
-          <div className="hidden lg:flex items-center gap-3" ref={menuRef}>
-            {menuData.map((section) => (
-              <div
-                key={section.title}
-                className="relative"
-                onMouseEnter={() => handleMouseEnter(section.title)}
-                onMouseLeave={handleMouseLeave}
-              >
-                <Link
-                  href={section.title === 'RECURSOS' ? '#recursos' : (section.href || '#')}
-                  className="px-4 py-2 text-gray-300 hover:text-white transition-colors font-bold"
-                  onClick={(e) => {
-                    if (section.title === 'RECURSOS') {
-                      handleResourcesClick();
-                    }
-                    if (!section.subItems) {
-                      setIsMobileMenuOpen(false);
-                    } else {
-                      setActiveMenu(activeMenu === section.title ? null : section.title);
-                    }
-                  }}
+            {/* Desktop Menu Items */}
+            <div className="flex items-center space-x-4 flex-1 justify-center">
+              {menuData.map((section) => (
+                <div 
+                  key={section.title} 
+                  className="relative"
                 >
-                  {section.title}
-                </Link>
-
-                {section.subItems && activeMenu === section.title && (
-                  <div 
-                    className="absolute top-full left-1/2 -translate-x-1/2 bg-[#111827] rounded-lg shadow-xl border border-gray-800/50 overflow-hidden mx-4 max-w-[calc(100vw-2rem)] w-full md:w-auto"
-                    style={{
-                      animation: 'slideDown 0.3s ease-out forwards'
+                  <button
+                    className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 rounded-full hover:bg-white/10 whitespace-nowrap"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (section.title === 'RECURSOS') {
+                        handleResourcesClick();
+                      }
+                      if (!section.subItems) {
+                        if (section.href) {
+                          window.location.href = section.href;
+                        }
+                      } else {
+                        setActiveMenu(activeMenu === section.title ? null : section.title);
+                      }
                     }}
                   >
-                    <style jsx>{`
-                      @keyframes slideDown {
-                        from {
-                          opacity: 0;
-                          transform: translate(-50%, -10px);
-                        }
-                        to {
-                          opacity: 1;
-                          transform: translate(-50%, 0);
-                        }
+                    {section.title}
+                    {section.subItems && (
+                      <HiChevronDown 
+                        className={`w-4 h-4 transition-transform duration-300 ${
+                          activeMenu === section.title ? 'rotate-180' : 'rotate-0'
+                        }`}
+                      />
+                    )}
+                  </button>
+
+                  {section.subItems && activeMenu === section.title && (
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 bg-black/95 backdrop-blur-xl border border-gray-800/50 rounded-lg shadow-2xl z-50 overflow-hidden">
+                      <div className={`p-4 ${
+                        section.title === 'PRODUCTOS' ? 'w-[500px] max-w-[90vw]' :
+                        section.title === 'SECTORES' ? 'w-[450px] max-w-[90vw]' :
+                        'w-[300px] max-w-[90vw]'
+                      }`}>
+                        <div className={`grid gap-2 ${
+                          section.title === 'PRODUCTOS' || section.title === 'SECTORES' ? 'grid-cols-2' : 'grid-cols-1'
+                        }`}>
+                          {section.subItems.map((item, index) => (
+                            <Link
+                              key={item.title}
+                              href={item.href || '#'}
+                              className="group flex items-start gap-2 p-3 hover:bg-gray-900/50 transition-all duration-200 rounded-md"
+                            >
+                              <div className="flex-shrink-0 w-6 h-6 bg-gray-800/50 rounded-md flex items-center justify-center group-hover:bg-gray-700/50 transition-all duration-200">
+                                {item.icon && <item.icon className="w-3 h-3 text-gray-400 group-hover:text-white" />}
+                              </div>
+                              <div className="flex-1 min-w-0 space-y-0.5">
+                                <h3 className="font-medium text-white group-hover:text-blue-300 transition-colors text-xs uppercase tracking-wide">
+                                  {item.title}
+                                </h3>
+                                <p className="text-[10px] text-gray-400 group-hover:text-gray-300 transition-colors leading-tight">
+                                  {item.description}
+                                </p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+              
+              {/* Access Button */}
+              <Link 
+                href="https://app.firmedigital.com/auth/signin" 
+                className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors rounded-full hover:bg-white/10 whitespace-nowrap"
+              >
+                Acceso clientes
+              </Link>
+              
+              {/* Register Button */}
+              <Link 
+                href="https://app.firmedigital.com/auth/signup" 
+                className="relative bg-white text-gray-900 px-6 py-2 text-sm font-medium rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg whitespace-nowrap border border-gray-200 overflow-hidden group"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="relative z-10">Registrarse</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </Link>
+            </div>
+
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile/Tablet Menu */}
+      <nav className="lg:hidden fixed top-4 left-4 right-4 z-50">
+        <div className="bg-black/95 backdrop-blur-xl rounded-full border border-gray-700/50 shadow-2xl px-6 py-3">
+          <div className="flex items-center justify-between">
+            {/* Mobile Logo */}
+            <Link href="/" className="flex-shrink-0">
+              <img 
+                src="/images/logo.webp" 
+                alt="Firme Digital Logo" 
+                className="h-8 w-auto"
+              />
+            </Link>
+            
+            {/* Mobile Menu Button */}
+            <button
+              className="text-white hover:text-gray-300 transition-colors p-2 rounded-full hover:bg-white/10"
+              onClick={toggleMobileMenu}
+            >
+              {isMobileMenuOpen ? (
+                <HiOutlineX className="w-5 h-5" />
+              ) : (
+                <HiOutlineMenu className="w-5 h-5" />
+              )}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile menu overlay */}
+      <div
+        className={`fixed inset-0 z-40 lg:hidden bg-black/80 backdrop-blur-sm transition-opacity duration-300
+          ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      >
+        <div
+          className={`fixed top-20 left-4 right-4 bg-black/95 backdrop-blur-xl shadow-2xl transform transition-all duration-300 rounded-2xl border border-gray-700/50 overflow-hidden
+            ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0 pointer-events-none'}`}
+          onClick={e => e.stopPropagation()}
+        >
+          {/* Compact header - removed as we have the top nav */}
+
+          <div className="max-h-[70vh] overflow-y-auto">
+            <nav className="p-6 space-y-2">
+              {menuData.map((section) => (
+                <div key={section.title} className="relative">
+                  <button
+                    className="w-full text-left px-4 py-3 text-sm font-medium text-gray-300 rounded-xl hover:text-white hover:bg-white/5 transition-all duration-200 flex items-center justify-between group border border-transparent hover:border-gray-700/30"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (section.title === 'RECURSOS') {
+                        handleResourcesClick();
                       }
-                    `}</style>
-                    <div className={`p-4 ${
-                      ['SECTORES', 'PRODUCTOS'].includes(section.title) 
-                        ? 'grid md:grid-cols-2 gap-3 w-full md:w-[600px]' 
-                        : ''
-                    }`}>
-                      {section.subItems.map((item) => (
+                      if (!section.subItems) {
+                        if (section.href) {
+                          window.location.href = section.href;
+                        }
+                        setIsMobileMenuOpen(false);
+                      } else {
+                        setActiveMenu(activeMenu === section.title ? null : section.title);
+                      }
+                    }}
+                  >
+                    <span className="group-hover:text-blue-300 transition-colors font-medium">{section.title}</span>
+                    {section.subItems && (
+                      <HiChevronDown 
+                        className={`w-4 h-4 transition-transform duration-300 text-gray-500 group-hover:text-gray-300 ${
+                          activeMenu === section.title ? 'rotate-180' : 'rotate-0'
+                        }`}
+                      />
+                    )}
+                  </button>
+
+                  {section.subItems && activeMenu === section.title && (
+                    <div className="mt-2 space-y-1 bg-gray-900/30 rounded-xl p-3 ml-2">
+                      {section.subItems.map((item, index) => (
                         <Link
                           key={item.title}
                           href={item.href || '#'}
-                          className={`flex items-center space-x-2 px-3 py-2 text-gray-300 hover:text-white 
-                            rounded-lg hover:bg-gradient-to-r hover:from-gray-800/50 hover:to-transparent
-                            transition-colors relative group ${
-                              ['SECTORES', 'PRODUCTOS'].includes(section.title) 
-                                ? 'w-full text-sm' 
-                                : 'w-[300px]'
-                            }`}
-                          onClick={(e) => {
-                            if (item.onClick) {
-                              e.preventDefault();
-                              item.onClick();
-                              setIsMobileMenuOpen(false);
-                            }
-                            setActiveMenu(null);
-                            setIsMobileMenuOpen(false);
-                          }}
+                          className="block px-3 py-2 text-xs text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200 group"
+                          onClick={() => setIsMobileMenuOpen(false)}
                         >
-                          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 
-                            rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                          {item.icon && (
-                            <span className="relative flex-shrink-0">
-                              <item.icon className="w-5 h-5 text-gray-300" />
-                            </span>
-                          )}
-                          <div className="relative min-w-0 flex-1">
-                            <div className="font-medium whitespace-nowrap overflow-hidden text-ellipsis">{item.title}</div>
-                            {item.description && ['SECTORES', 'PRODUCTOS'].includes(section.title) ? (
-                              <div className="text-xs text-gray-400 group-hover:text-gray-300 overflow-hidden text-ellipsis whitespace-nowrap">
-                                {item.description}
+                          <div className="flex items-center gap-2">
+                            {item.icon && (
+                              <div className="w-4 h-4 flex items-center justify-center">
+                                <item.icon className="w-3 h-3 text-gray-500 group-hover:text-blue-400 transition-colors" />
                               </div>
-                            ) : null}
+                            )}
+                            <div className="flex-1">
+                              <div className="font-medium group-hover:text-blue-300 transition-colors text-xs">
+                                {item.title}
+                              </div>
+                            </div>
                           </div>
                         </Link>
                       ))}
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
-            {/* Desktop Auth Buttons */}
-            <div className="flex items-center space-x-4">
+                  )}
+                </div>
+              ))}
+            </nav>
+          </div>
+              
+
+          {/* Mobile Auth Buttons */}
+          <div className="p-6 border-t border-gray-700/30">
+            <div className="flex space-x-3">
               <Link 
                 href="https://app.firmedigital.com/auth/signin" 
-                className="px-6 py-2 bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+                className="flex-1 py-2.5 text-center text-gray-300 hover:text-white font-medium rounded-xl hover:bg-white/5 transition-all duration-200 border border-gray-600/30 text-sm"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
-                Iniciar Sesión
+                Acceso
               </Link>
               <Link 
-             
                 href="https://app.firmedigital.com/auth/signup" 
-                className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+                className="flex-1 py-2.5 text-center bg-white text-gray-900 font-semibold rounded-xl hover:bg-gray-100 transition-all duration-200 shadow-lg text-sm"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Registrarse
               </Link>
             </div>
           </div>
-
-          {/* Mobile menu */}
-          <div
-            className={`fixed inset-0 z-50 lg:hidden bg-black/80 backdrop-blur-sm transition-opacity duration-300
-              ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            <div
-              className={`fixed inset-y-0 right-0 w-full max-w-sm bg-[#111827] shadow-xl transform transition-transform duration-300 flex flex-col
-                ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
-              onClick={e => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between p-4 border-b border-gray-800">
-                <a href="/" className="block">
-                  <img src="/images/logo.webp" alt="Firme Digital Logo" className="h-16 w-auto" />
-                </a>
-                <button
-                  className="p-2 text-gray-400 hover:text-white transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <HiOutlineX className="w-6 h-6" />
-                </button>
-              </div>
-
-              <div className="flex-1 overflow-y-auto">
-                <nav className="p-4 space-y-2">
-                  {menuData.map((section) => (
-                    <div key={section.title} className="relative">
-                      <Link
-                        href={section.href || '#'}
-                        className="w-full text-left px-4 py-3 text-lg font-bold text-gray-300 rounded-lg hover:text-white hover:bg-gradient-to-br hover:from-gray-800/50 hover:via-gray-800/30 hover:to-transparent transition-colors flex items-center justify-between"
-                        onClick={(e) => {
-                          if (section.title === 'RECURSOS') {
-                            handleResourcesClick();
-                          }
-                          if (!section.subItems) {
-                            setIsMobileMenuOpen(false);
-                          } else {
-                            setActiveMenu(activeMenu === section.title ? null : section.title);
-                          }
-                        }}
-                      >
-                        <span>{section.title}</span>
-                        {section.subItems && (
-                          <HiChevronDown 
-                            className={`w-5 h-5 transition-transform duration-300 ${activeMenu === section.title ? 'rotate-180' : 'rotate-0'}`}
-                          />
-                        )}
-                      </Link>
-
-                      {section.subItems && activeMenu === section.title && (
-                        <div className={`pl-4 py-2 space-y-1 mb-4 ${section.title === 'SECTORES' ? 'max-h-[500px] overflow-y-auto pb-8' : ''}`}>
-                          {section.subItems.map((item, index) => {
-                            // Verificar si estamos en la sección de SECTORES y si es el último elemento
-                            const isLastSectorItem = section.title === 'SECTORES' && section.subItems && index === section.subItems.length - 1;
-                            
-                            return (
-                              <Link
-                                key={item.title}
-                                href={item.href || '#'}
-                                className={`block px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors ${isLastSectorItem ? 'mb-8' : ''}`}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                              >
-                                <div className="flex items-center gap-3">
-                                  {item.icon && <item.icon className="w-5 h-5" />}
-                                  <span>{item.title}</span>
-                                </div>
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </nav>
-              </div>
-              
-
-              {/* Mobile Auth Buttons */}
-              <div className="p-4 border-t border-gray-800">
-                <div className="flex flex-col space-y-2">
-                  <Link 
-                    href="https://app.firmedigital.com/auth/signin" 
-                    className="w-full py-2 text-center bg-gradient-to-r from-blue-400 to-purple-400 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
-                  >
-                    Iniciar Sesión
-                  </Link>
-                  <Link 
-                    href="https://app.firmedigital.com/auth/signup" 
-                    className="w-full py-2 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
-                  >
-                    Registrarse
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 }

@@ -169,139 +169,81 @@ export default function VerificacionIdentidad() {
       <MegaMenu />
 
       {/* Hero Section */}
-                  <section ref={heroRef} className="relative py-16 px-4 md:px-8 overflow-hidden mt-[120px] min-h-[80vh] md:min-h-[85vh] lg:min-h-[90vh] flex items-center">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 pointer-events-none"></div>
-                    
-                    {/* Fondo oscuro */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/80"></div>
-                    
-                    <div className="max-w-7xl mx-auto px-4 relative z-10 w-full">
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                        {/* Columna izquierda: Título y subtítulo */}
-                        <div className="flex flex-col">
-                          <div className="flex flex-col mb-8">
-                            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.8)] leading-tight p-4 rounded-lg backdrop-blur-sm bg-black/30 shadow-xl text-left tracking-tight">
-      
-                            Validador de Identidad:<br />Seguridad y Precisión en la Verificación de Usuarios
-      
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-[7rem]">
+        <div className="absolute inset-0">
+          <Image src="/images/portada de validador.jpg" alt="Validador de Identidad Background" fill className="object-cover" priority />
+          <div className="absolute inset-0 bg-black/70"></div>
+        </div>
+        <div className="relative z-10 mx-auto max-w-4xl px-4 lg:px-8 text-center">
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-400/30">
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-blue-300">Validador de Identidad</span>
+            </div>
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                <span className="block text-white mb-2 relative inline-block">
+                  <span className="glitch-text text-5xl md:text-6xl lg:text-7xl font-extrabold" data-text="">Validador de Identidad</span>
+                </span>
+                <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent text-xl md:text-2xl lg:text-3xl">Seguridad y precisión en segundos</span>
                             </h1>
-                          
-                            <div className="bg-gradient-to-r from-gray-800/50 to-blue-900/10 border-l-4 border-blue-500 rounded-lg shadow-lg hover:shadow-blue-500/20 hover:border-blue-400 transition-all duration-300 backdrop-blur-sm p-6 mb-8">
-                              <p className="text-lg md:text-xl text-gray-300 leading-relaxed text-left">
-                              Confirma la identidad de tus usuarios con tecnología avanzada y procesos rápidos. ¡Garantiza confianza y seguridad en cada interacción!
-                              </p>
                             </div>
-                            
-                            {/* Formulario de contacto */}
+            <div className="space-y-6">
+              <p className="text-lg text-gray-300 leading-relaxed">Confirma la identidad de tus usuarios con tecnología avanzada y procesos rápidos. Garantiza confianza y seguridad en cada interacción.</p>
+            </div>
                             <div className="bg-gradient-to-br from-gray-900/80 to-black/80 p-6 rounded-xl border border-blue-500/30 shadow-lg shadow-blue-500/10 mb-8 backdrop-blur-sm">
                               <div className="flex flex-col md:flex-row justify-between items-center mb-4">
                                 <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 md:mb-0">Solicita más información</h3>
                               </div>
-                              
                               {formStatus && (
-                                <div className={`mb-4 p-3 rounded-lg ${formStatus.success ? 'bg-green-500/20 border border-green-500/30 text-green-400' : 'bg-red-500/20 border border-red-500/30 text-red-400'}`}>
-                                  {formStatus.message}
-                                </div>
+                <div className={`mb-4 p-3 rounded-lg ${formStatus.success ? 'bg-green-500/20 border border-green-500/30 text-green-400' : 'bg-red-500/20 border border-red-500/30 text-red-400'}`}>{formStatus.message}</div>
                               )}
-                              
                               <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
                                 <div>
                                   <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">Email</label>
                                   <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                      <FaEnvelope className="text-gray-400" />
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><FaEnvelope className="text-gray-400" /></div>
+                    <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full pl-10 pr-3 py-2 bg-gray-800/80 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-lg text-white placeholder-gray-400" placeholder="tu@email.com" />
                                     </div>
-                                    <input
-                                      type="email"
-                                      id="email"
-                                      value={email}
-                                      onChange={(e) => setEmail(e.target.value)}
-                                      required
-                                      className="w-full pl-10 pr-3 py-2 bg-gray-800/80 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-lg text-white placeholder-gray-400"
-                                      placeholder="tu@email.com"
-                                    />
                                   </div>
-                                </div>
-                                
                                 <div>
                                   <label htmlFor="companyName" className="block text-sm font-medium text-gray-300 mb-1">Nombre personal o de la empresa</label>
                                   <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                      <FaBuilding className="text-gray-400" />
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><FaBuilding className="text-gray-400" /></div>
+                    <input type="text" id="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required className="w-full pl-10 pr-3 py-2 bg-gray-800/80 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-lg text-white placeholder-gray-400" placeholder="Nombre" />
                                     </div>
-                                    <input
-                                      type="text"
-                                      id="companyName"
-                                      value={companyName}
-                                      onChange={(e) => setCompanyName(e.target.value)}
-                                      required
-                                      className="w-full pl-10 pr-3 py-2 bg-gray-800/80 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-lg text-white placeholder-gray-400"
-                                      placeholder="Nombre"
-                                    />
                                   </div>
-                                </div>
-                                
                                 <div className="md:col-span-2">
-                                  <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="w-full flex items-center justify-center px-6 py-2 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg shadow-blue-500/20 border border-white/10 disabled:opacity-70 disabled:cursor-not-allowed h-[42px]"
-                                  >
-                                    {isSubmitting ? (
-                                      <>
-                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                        Enviando...
-                                      </>
-                                    ) : (
-                                      <>
-                                        <FaPaperPlane className="mr-2" /> Enviar
-                                      </>
-                                    )}
+                  <button type="submit" disabled={isSubmitting} className="w-full flex items-center justify-center px-6 py-2 text-base font-medium text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg shadow-blue-500/20 border border-white/10 disabled:opacity-70 disabled:cursor-not-allowed h-[42px]">
+                    {isSubmitting ? (<><svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Enviando...</>) : (<><FaPaperPlane className="mr-2" /> Enviar</>)}
                                   </button>
                                 </div>
                               </form>
                             </div>
                           </div>
                         </div>
-                        
-                        {/* Columna derecha: Imagen */}
-                        <div className="relative h-[300px] lg:h-[500px] rounded-xl overflow-hidden shadow-2xl shadow-blue-500/20 border border-blue-500/30 transform hover:scale-[1.02] transition-all duration-500">
-                          <Image
-                            src="/images/portada de validador.jpg"
-                            alt="Sector Banca"
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                            priority
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                        </div>
-                      </div>
-                      <div className="max-w-7xl mx-auto px-4 relative z-10" style={{ paddingTop: '2rem' }}>
-                                      <motion.div 
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.5 }}
-                                        className="bg-gradient-to-r from-gray-800/50 to-blue-900/10 border-l-4 border-blue-500 rounded-lg shadow-lg hover:shadow-blue-500/20 hover:border-blue-400 transition-all duration-300 backdrop-blur-sm p-6 text-center"
-                                      >
-                                        <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                                        "Transforma la manera en que verificas la identidad de tus usuarios"
-                                        </h2>
-                                      </motion.div>
-                                    </div>
-            
-                    </div>
-                  </section>
+      </section>
         {/* ¿Por Qué Elegir el Validador de Identidad? Section */}
-            <section className="py-12 px-4 bg-gradient-to-b from-black to-blue-950 relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
+            <section className="py-20 px-4 bg-gradient-to-br from-black via-gray-900 to-black relative">
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+                        </div>
               <div className="max-w-7xl mx-auto relative z-10">
-                <h2 className="text-3xl font-bold mb-10 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                  ¿Por Qué Elegir el Validador de Identidad?
-                </h2>
+                <div className="text-center mb-12">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-400/30 mb-6">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                    <span className="text-sm font-medium text-blue-300">Ventajas Competitivas</span>
+                      </div>
+                  <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+                    <span className="block text-white">¿Por Qué Elegir</span>
+                    <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">el Validador de Identidad?</span>
+                                        </h2>
+                  <div className="mt-2 flex justify-center">
+                    <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-full"></div>
+                                    </div>
+                    </div>
                 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
                   {/* Imagen en el lado izquierdo */}
@@ -317,43 +259,65 @@ export default function VerificacionIdentidad() {
                   
                   {/* Tarjetas en el lado derecho */}
                   <div className="lg:col-span-7 order-1 lg:order-2">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ paddingTop: '7rem' }}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" style={{ paddingTop: '7rem' }}>
                       {[
                        {
-                        icon: <FaLock className="text-4xl text-blue-500" />,
+                        icon: <FaLock className="text-3xl" />,
                         title: "Seguridad Avanzada",
-                        description: "Protege tus procesos con tecnología de encriptación y validación de datos."
+                        description: "Protege tus procesos con tecnología de encriptación y validación de datos.",
+                        gradient: "from-blue-500 to-blue-600",
+                        textColor: "text-blue-300",
+                        borderColor: "hover:border-blue-400/40",
+                        lineGradient: "from-blue-400 to-transparent"
                       },
                       {
-                        icon: <FaBolt className="text-4xl text-purple-500" />,
+                        icon: <FaBolt className="text-3xl" />,
                         title: "Verificación Rápida",
-                        description: "Confirma identidades en segundos, sin complicaciones."
+                        description: "Confirma identidades en segundos, sin complicaciones.",
+                        gradient: "from-purple-500 to-purple-600",
+                        textColor: "text-purple-300",
+                        borderColor: "hover:border-purple-400/40",
+                        lineGradient: "from-purple-400 to-transparent"
                       },
                       {
-                        icon: <FaClipboardCheck className="text-4xl text-blue-500" />,
+                        icon: <FaClipboardCheck className="text-3xl" />,
                         title: "Cumplimiento Legal",
-                        description: "Asegura que tus procesos cumplen con las normativas vigentes."
+                        description: "Asegura que tus procesos cumplen con las normativas vigentes.",
+                        gradient: "from-green-500 to-green-600",
+                        textColor: "text-green-300",
+                        borderColor: "hover:border-green-400/40",
+                        lineGradient: "from-green-400 to-transparent"
                       },
                       {
-                        icon: <FaUserShield className="text-4xl text-purple-500" />,
+                        icon: <FaUserShield className="text-3xl" />,
                         title: "Reducción de Riesgos",
-                        description: "Minimiza fraudes y errores en la validación de usuarios."
+                        description: "Minimiza fraudes y errores en la validación de usuarios.",
+                        gradient: "from-pink-500 to-pink-600",
+                        textColor: "text-pink-300",
+                        borderColor: "hover:border-pink-400/40",
+                        lineGradient: "from-pink-400 to-transparent"
                       }
                       ].map((benefit, index) => (
                         <div
                           key={index}
-                          className="group relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-4 overflow-hidden transition-all duration-500 hover:border-blue-500/30"
+                          className={`group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 transition-all duration-500 transform hover:-translate-y-3 hover:scale-105 ${benefit.borderColor}`}
                         >
-                          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
-                          <div className="flex items-start gap-3 relative z-10">
-                            <div className="flex-shrink-0 w-10 h-10 bg-blue-500/10 rounded-full flex items-center justify-center">
+                          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                          <div className="relative z-10 mb-4">
+                            <div className={`w-16 h-16 bg-gradient-to-r ${benefit.gradient} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                              <div className={benefit.textColor}>
                               {benefit.icon}
                             </div>
-                            <div>
-                              <h3 className="text-lg font-bold mb-1">{benefit.title}</h3>
-                              <p className="text-sm text-gray-300">{benefit.description}</p>
                             </div>
+                            <h3 className={`text-xl font-bold ${benefit.textColor} mb-2 group-hover:text-white transition-colors duration-300`}>
+                              {benefit.title}
+                            </h3>
                           </div>
+                          <p className="relative z-10 text-gray-300 text-sm leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
+                            {benefit.description}
+                          </p>
+                          <div className={`relative z-10 mt-6 h-1 bg-gradient-to-r ${benefit.lineGradient} rounded-full group-hover:h-2 transition-all duration-300`}></div>
+                          <div className={`absolute inset-0 bg-gradient-to-r ${benefit.gradient} rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-xl`}></div>
                         </div>
                       ))}
                     </div>
@@ -361,9 +325,19 @@ export default function VerificacionIdentidad() {
                 </div>
                 
                 <div className="mt-16">
-                  <h2 className="text-3xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                    ¿Cómo funciona el Validador de Identidad?
+                  <div className="text-center mb-8">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 rounded-full border border-green-400/30 mb-6">
+                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                      <span className="text-sm font-medium text-green-300">Proceso Simple</span>
+                    </div>
+                    <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+                      <span className="block text-white">¿Cómo Funciona</span>
+                      <span className="block bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">el Validador de Identidad?</span>
                   </h2>
+                    <div className="mt-2 flex justify-center">
+                      <div className="w-24 h-1 bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 rounded-full"></div>
+                    </div>
+                  </div>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -415,7 +389,7 @@ export default function VerificacionIdentidad() {
             </section>
             
       {/* Beneficios Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-blue-950 to-black relative">
+      <section className="py-20 px-4 bg-gradient-to-br from-black via-gray-900 to-black relative">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
@@ -425,10 +399,18 @@ export default function VerificacionIdentidad() {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-              Beneficios
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-400/30 mb-6">
+              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+              <span className="text-sm font-medium text-blue-300">Beneficios Clave</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">Beneficios del</span>
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">Validador de Identidad</span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <div className="mt-2 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-full"></div>
+            </div>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mt-6">
               Nuestra solución de verificación de identidad ofrece múltiples ventajas para tu negocio
             </p>
           </motion.div>
@@ -436,41 +418,76 @@ export default function VerificacionIdentidad() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                icon: <FaUserCheck className="text-4xl text-blue-400" />,
+                icon: <FaUserCheck className="text-3xl" />,
                 title: "Verificación de Edad",
-                description: "Asegúrate de que tus clientes cumplan con la edad mínima requerida para acceder a tus servicios."
+                description: "Asegúrate de que tus clientes cumplan con la edad mínima requerida para acceder a tus servicios.",
+                gradient: "from-blue-500 to-blue-600",
+                textColor: "text-blue-300",
+                borderColor: "hover:border-blue-400/40",
+                lineGradient: "from-blue-400 to-transparent"
               },
               {
-                icon: <FaIdCard className="text-4xl text-purple-400" />,
+                icon: <FaIdCard className="text-3xl" />,
                 title: "Verificación de Documentos",
-                description: "Valida documentos de identidad con tecnología avanzada para garantizar su autenticidad."
+                description: "Valida documentos de identidad con tecnología avanzada para garantizar su autenticidad.",
+                gradient: "from-purple-500 to-purple-600",
+                textColor: "text-purple-300",
+                borderColor: "hover:border-purple-400/40",
+                lineGradient: "from-purple-400 to-transparent"
               },
               {
-                icon: <FaHistory className="text-4xl text-blue-400" />,
+                icon: <FaHistory className="text-3xl" />,
                 title: "KYC Reutilizable",
-                description: "Simplifica el proceso de verificación al reutilizar datos de clientes ya verificados, optimizando el tiempo y los recursos."
+                description: "Simplifica el proceso de verificación al reutilizar datos de clientes ya verificados, optimizando el tiempo y los recursos.",
+                gradient: "from-green-500 to-green-600",
+                textColor: "text-green-300",
+                borderColor: "hover:border-green-400/40",
+                lineGradient: "from-green-400 to-transparent"
               },
               {
-                icon: <FaUserShield className="text-4xl text-purple-400" />,
+                icon: <FaUserShield className="text-3xl" />,
                 title: "AML Screening",
-                description: "Realiza un análisis exhaustivo para cumplir con las normativas de prevención de lavado de dinero."
+                description: "Realiza un análisis exhaustivo para cumplir con las normativas de prevención de lavado de dinero.",
+                gradient: "from-pink-500 to-pink-600",
+                textColor: "text-pink-300",
+                borderColor: "hover:border-pink-400/40",
+                lineGradient: "from-pink-400 to-transparent"
               },
               {
-                icon: <FaUser className="text-4xl text-blue-400" />,
+                icon: <FaUser className="text-3xl" />,
                 title: "Reconocimiento Facial",
-                description: "Utiliza tecnología de reconocimiento facial para autenticar la identidad de manera precisa y confiable."
-              },{
-                icon: <FaBolt className="text-4xl text-purple-400" />,
+                description: "Utiliza tecnología de reconocimiento facial para autenticar la identidad de manera precisa y confiable.",
+                gradient: "from-cyan-500 to-cyan-600",
+                textColor: "text-cyan-300",
+                borderColor: "hover:border-cyan-400/40",
+                lineGradient: "from-cyan-400 to-transparent"
+              },
+              {
+                icon: <FaBolt className="text-3xl" />,
                 title: "Verificación NFC",
-                description: "Valida documentos mediante tecnología de comunicación de campo cercano (NFC) para una autenticación rápida y segura."
-              },{
-                icon: <FaDatabase className="text-4xl text-blue-400" />,
+                description: "Valida documentos mediante tecnología de comunicación de campo cercano (NFC) para una autenticación rápida y segura.",
+                gradient: "from-amber-500 to-amber-600",
+                textColor: "text-amber-300",
+                borderColor: "hover:border-amber-400/40",
+                lineGradient: "from-amber-400 to-transparent"
+              },
+              {
+                icon: <FaDatabase className="text-3xl" />,
                 title: "Business Console",
-                description: " Accede a un panel de control intuitivo que te permite gestionar todas las verificaciones desde un solo lugar."
-              },{
-                icon: <FaBell className="text-4xl text-purple-400" />,
+                description: " Accede a un panel de control intuitivo que te permite gestionar todas las verificaciones desde un solo lugar.",
+                gradient: "from-teal-500 to-teal-600",
+                textColor: "text-teal-300",
+                borderColor: "hover:border-teal-400/40",
+                lineGradient: "from-teal-400 to-transparent"
+              },
+              {
+                icon: <FaBell className="text-3xl" />,
                 title: "Monitoreo de Documentos:",
-                description: "Realiza un seguimiento continuo de la validez de los documentos de identidad de tus clientes."
+                description: "Realiza un seguimiento continuo de la validez de los documentos de identidad de tus clientes.",
+                gradient: "from-indigo-500 to-indigo-600",
+                textColor: "text-indigo-300",
+                borderColor: "hover:border-indigo-400/40",
+                lineGradient: "from-indigo-400 to-transparent"
               },
             ].map((benefit, index) => (
               <motion.div
@@ -480,27 +497,24 @@ export default function VerificacionIdentidad() {
                 whileInView="visible"
                 whileHover="hover"
                 viewport={{ once: true }}
-                className="group relative bg-gray-800/50 rounded-xl shadow-lg border border-gray-700/50 backdrop-blur-sm overflow-hidden h-[180px] cursor-pointer hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]"
+                className={`group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 transition-all duration-500 transform hover:-translate-y-3 hover:scale-105 ${benefit.borderColor}`}
               >
-                <div className="absolute inset-0 p-6 transition-transform duration-500 transform group-hover:-translate-y-full flex flex-col items-center justify-center text-center bg-gradient-to-b from-gray-800 to-gray-900">
-                  <div className="mb-4">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative z-10 mb-4 flex flex-col items-center text-center">
+                  <div className={`w-16 h-16 bg-gradient-to-r ${benefit.gradient} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                    <div className={benefit.textColor}>
                     {benefit.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.3)] group-hover:text-blue-300 transition-colors">
+                  </div>
+                  <h3 className={`text-xl font-bold ${benefit.textColor} mb-2 group-hover:text-white transition-colors duration-300`}>
                     {benefit.title}
                   </h3>
                 </div>
-
-                <div className="absolute inset-0 p-6 transition-transform duration-500 transform translate-y-full group-hover:translate-y-0 bg-gradient-to-b from-gray-800 to-gray-900">
-                  <div className="flex flex-col items-center justify-center h-full">
-                    <div className="mb-4">
-                      {benefit.icon}
-                    </div>
-                    <p className="text-gray-300 text-center group-hover:text-gray-200 transition-colors">
+                <p className="relative z-10 text-gray-300 text-sm leading-relaxed text-center group-hover:text-gray-200 transition-colors duration-300">
                       {benefit.description}
                     </p>
-                  </div>
-                </div>
+                <div className={`relative z-10 mt-6 h-1 bg-gradient-to-r ${benefit.lineGradient} rounded-full group-hover:h-2 transition-all duration-300`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-r ${benefit.gradient} rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-xl`}></div>
               </motion.div>
             ))}
           </div>
@@ -517,36 +531,40 @@ export default function VerificacionIdentidad() {
             className="mb-16"
           >
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Casos de Uso del Validador de Identidad</h2>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-400/30 mb-6">
+                <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-blue-300">Casos de Uso</span>
+              </div>
+              <h2 className="text-5xl md:text-6xl font-bold leading-tight mb-4">
+                <span className="block text-white">Soluciones por</span>
+                <span className="block bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-500 bg-clip-text text-transparent">Sectores</span>
+              </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">Soluciones de verificación de identidad y prevención de fraude para diferentes sectores</p>
             </div>
             
             {/* Filtros */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
+              {[
+                { key: 'financiero', label: 'Sector Financiero', gradient: 'from-blue-500 to-blue-600' },
+                { key: 'legal', label: 'Sector Legal', gradient: 'from-purple-500 to-purple-600' },
+                { key: 'gobierno', label: 'Sector Gobierno', gradient: 'from-green-500 to-green-600' },
+                { key: 'salud', label: 'Sector Salud', gradient: 'from-orange-500 to-orange-600' }
+              ].map((f) => (
               <button 
-                onClick={() => setActiveFilter('financiero')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'financiero' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Financiero
+                  key={f.key}
+                  onClick={() => setActiveFilter(f.key)}
+                  className={`group relative px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-500 transform hover:scale-105 ${
+                    activeFilter === f.key
+                      ? `bg-gradient-to-r ${f.gradient} text-white shadow-2xl shadow-blue-500/25`
+                      : 'bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 text-gray-300 hover:text-white hover:border-gray-200/40'
+                  }`}
+                >
+                  {activeFilter === f.key && (
+                    <div className={`absolute inset-0 bg-gradient-to-r ${f.gradient} rounded-2xl opacity-20 blur-xl`}></div>
+                  )}
+                  <span className="relative z-10">{f.label}</span>
               </button>
-              <button 
-                onClick={() => setActiveFilter('legal')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'legal' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Legal
-              </button>
-              <button 
-                onClick={() => setActiveFilter('gobierno')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'gobierno' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Gobierno
-              </button>
-              <button 
-                onClick={() => setActiveFilter('salud')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'salud' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Salud
-              </button>
+              ))}
             </div>
             
             {/* Contenido de casos de uso */}
@@ -783,13 +801,30 @@ export default function VerificacionIdentidad() {
         </div>
       </section>
 
-      <section className="relative border-t border-white/5 pricing-section bg-gradient-to-b from-blue-950 to-blue-950">
-        <div className="mx-auto max-w-7xl px-4 py-4">
+        {/* Planes y Precios Section */}
+     <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        
+        <div className="mx-auto max-w-7xl px-4 relative z-10">
+          {/* Header */}
           <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-400">
-              Planes y Precios
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 rounded-full border border-purple-400/30 mb-6">
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-purple-300">Planes Flexibles</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">Planes y</span>
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Precios
+              </span>
             </h2>
-            <p className="mt-4 text-xl text-gray-400">Soluciones flexibles para todas tus necesidades</p>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Soluciones flexibles para todas tus necesidades
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -800,42 +835,26 @@ export default function VerificacionIdentidad() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-blue-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <img src="/images/rocket-svgrepo-com.svg" alt="Rocket" className="w-8 h-8 filter brightness-0 invert" />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                    <p className="text-gray-400 text-sm">¡Impulso al siguiente nivel!</p>
-                    <p className="text-gray-400 text-sm">Para persona natural</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Despegue</h3>
+                    <p className="text-gray-300 text-sm">¡Impulso al siguiente nivel!</p>
+                    <p className="text-gray-300 text-sm">Para persona natural</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-blue-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <img src="/images/rocket-svgrepo-com.svg" alt="Rocket" className="w-8 h-8 filter brightness-0 invert" />
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                      <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                        <p className="text-gray-400 text-sm">Carga, publica y gestiona miles de docs.</p>
+                      <h3 className="text-2xl font-semibold mb-2 text-white">Plan Despegue</h3>
+                        <p className="text-gray-300 text-sm">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8 mt-5">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -866,7 +885,7 @@ export default function VerificacionIdentidad() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>400 Documentos</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -907,42 +926,30 @@ export default function VerificacionIdentidad() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-purple-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/efficiency.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
-                    <p className="text-gray-400 text-sm">¡Gestión eficiente de Documentos!</p>
-                    <p className="text-gray-400 text-sm">Para persona jurídica</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Élite</h3>
+                    <p className="text-gray-300 text-sm">¡Gestión eficiente de Documentos!</p>
+                    <p className="text-gray-300 text-sm">Para persona jurídica</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-purple-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/efficiency.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
-                        <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
+                        <h3 className="text-2xl font-semibold mb-2 text-white">Plan Élite</h3>
+                        <p className="text-gray-300 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8" style={{ paddingTop: '1rem' }}>
                           <div className="flex flex-col items-center justify-center w-full max-w-[280px]">
                           <div className="ml-2 flex flex-col">
@@ -966,7 +973,7 @@ export default function VerificacionIdentidad() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>1000 Documentos</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1004,42 +1011,30 @@ export default function VerificacionIdentidad() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-green-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/organizacion.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                    <p className="text-gray-400 text-sm"> ¡Mantén tus certificados emitidos al día!</p>
-                    <p className="text-gray-400 text-sm">Para corporaciones</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Max</h3>
+                    <p className="text-gray-300 text-sm"> ¡Mantén tus certificados emitidos al día!</p>
+                    <p className="text-gray-300 text-sm">Para corporaciones</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-green-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/organizacion.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                        <p className="text-gray-400 text-sm mb-2">Creditos Ilimitados</p>
+                        <h3 className="text-2xl font-semibold mb-2 text-white">Plan Max</h3>
+                        <p className="text-gray-300 text-sm mb-2">Créditos Ilimitados</p>
                         <div className="flex flex-col items-center space-y-6 mb-8">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -1061,7 +1056,7 @@ export default function VerificacionIdentidad() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>Documentos ilimitados</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1081,12 +1076,6 @@ export default function VerificacionIdentidad() {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                             <span>Flujos</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>IA</span>
                           </li>
                         </ul>
                       </div>
@@ -1109,9 +1098,19 @@ export default function VerificacionIdentidad() {
       <section className="py-20 px-4 bg-gradient-to-b from-blue-950 to-black relative">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-            Aprende Más con Nuestros Recursos
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-400/30 mb-6">
+              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+              <span className="text-sm font-medium text-blue-300">Aprende Más</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">Aprende Más con</span>
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">Nuestros Recursos</span>
           </h2>
+            <div className="mt-2 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-full"></div>
+            </div>
+          </div>
           
           {isLoading ? (
             <div className="flex justify-center items-center py-12">

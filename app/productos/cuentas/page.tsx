@@ -127,25 +127,49 @@ export default function CuentasMultiples() {
         <MegaMenu />
 
          {/* Hero Section */}
-                    <section ref={heroRef} className="relative py-16 px-4 md:px-8 overflow-hidden mt-[120px] min-h-[80vh] md:min-h-[85vh] lg:min-h-[90vh] flex items-center">
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 pointer-events-none"></div>
+      <section ref={heroRef}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-[7rem]"
+      >
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/portada gestor.jpg"
+            alt="Cuentas Múltiples Background"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/70"></div>
+        </div>
+              
+        <div className="relative z-10 mx-auto max-w-4xl px-4 lg:px-8 text-center">
+          <div className="space-y-8">
+                      {/* Badge */}
+                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-400/30">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                        <span className="text-sm font-medium text-blue-300">Cuentas Múltiples</span>
+                      </div>
                       
-                      {/* Fondo oscuro */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/80"></div>
-                      
-                      <div className="max-w-7xl mx-auto px-4 relative z-10 w-full">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                          {/* Columna izquierda: Título y subtítulo */}
-                          <div className="flex flex-col">
-                            <div className="flex flex-col mb-8">
-                              <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.8)] leading-tight p-4 rounded-lg backdrop-blur-sm bg-black/30 shadow-xl text-left tracking-tight">
-        
-                              Cuentas Múltiples: <br />Gestiona Todos Tus Accesos Desde Un Solo Lugar con FIRMEDIGITAL
-        
+                      {/* Main Title */}
+                      <div className="space-y-6">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                          <span className="block text-white mb-2 relative inline-block">
+                            <span 
+                              className="glitch-text text-5xl md:text-6xl lg:text-7xl font-extrabold"
+                              data-text=""
+                            >
+                              Cuentas Múltiples
+                            </span>
+                          </span>
+                          <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent text-xl md:text-2xl lg:text-3xl">
+                            Gestiona Todos Tus Accesos Desde Un Solo Lugar
+                          </span>
                               </h1>
+                      </div>
                             
-                              <div className="bg-gradient-to-r from-gray-800/50 to-blue-900/10 border-l-4 border-blue-500 rounded-lg shadow-lg hover:shadow-blue-500/20 hover:border-blue-400 transition-all duration-300 backdrop-blur-sm p-6 mb-8">
-                                <p className="text-lg md:text-xl text-gray-300 leading-relaxed text-left">
+                      {/* Description */}
+                      <div className="space-y-6">
+                        <p className="text-lg text-gray-300 leading-relaxed">
                                 Simplifica la administración de usuarios y optimiza el control de accesos en tu organización. ¡Eficiencia y seguridad en cada cuenta!
                                 </p>
                               </div>
@@ -220,158 +244,124 @@ export default function CuentasMultiples() {
                                       )}
                                     </button>
                                   </div>
-
                                 </form>
                               </div>
-                              
                             </div>
-                            
                           </div>
-                          
-                          {/* Columna derecha: Imagen */}
-                          <div className="relative h-[300px] lg:h-[500px] rounded-xl overflow-hidden shadow-2xl shadow-blue-500/20 border border-blue-500/30 transform hover:scale-[1.02] transition-all duration-500">
-                            <Image
-                              src="/images/portada multiple.jpg"
-                              alt="Sector Banca"
-                              fill
-                              className="object-cover"
-                              sizes="(max-width: 768px) 100vw, 50vw"
-                              priority
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                          </div>
-                        </div>
-                        <div className="max-w-7xl mx-auto px-4 relative z-10" style={{ paddingTop: '2rem' }}>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-gradient-to-r from-gray-800/50 to-blue-900/10 border-l-4 border-blue-500 rounded-lg shadow-lg hover:shadow-blue-500/20 hover:border-blue-400 transition-all duration-300 backdrop-blur-sm p-6 text-center"
-          >
-            <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-              ¡Optimiza la gestión de accesos y permisos en tu organización!
-            </h2>
-          </motion.div>
+      </section>
+
+      {/* ¿Por Qué Elegir Cuentas Múltiples de FIRMEDIGITAL? Section */}
+      <section className="relative py-24 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 rounded-full blur-3xl"></div>
         </div>
               
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
+          {/* Enhanced Header */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full border border-blue-400/30 mb-8 backdrop-blur-sm">
+              <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-semibold text-transparent bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text tracking-wide uppercase">Ventajas Competitivas</span>
                       </div>
-                    </section>
-
-{/* ¿Por Qué Elegir FIRMA DIGITAL? Section */}
-      <section className="py-12 px-4 bg-gradient-to-b from-black to-blue-950 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto relative z-10">
-          <h2 className="text-3xl font-bold mb-10 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-            ¿Por Qué Elegir Cuentas Múltiples de FIRMADIGITAL?
+            
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+              <span className="block text-white mb-2">¿Por Qué Elegir</span>
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Cuentas Múltiples FIRMEDIGITAL?
+              </span>
           </h2>
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
-            {/* Imagen en el lado izquierdo */}
-            <div className="lg:col-span-5 order-2 lg:order-1 relative mx-auto w-full flex items-center">
-              <div className="w-full h-[400px] md:h-[450px] lg:h-[500px] relative">
-                <img 
-                  src="/images/porque elegir multi.jpg" 
-                  alt="¿Por Qué Elegir FIRMA DIGITAL?" 
-                  className="w-full h-full object-contain"
-                />
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Descubre las razones que nos convierten en la mejor opción para la gestión de usuarios
+            </p>
+            
+            {/* Decorative line */}
+            <div className="mt-8 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-full"></div>
               </div>
             </div>
             
-            {/* Tarjetas en el lado derecho */}
-            <div className="lg:col-span-7 order-1 lg:order-2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ paddingTop: '7rem' }}>
+          {/* Main Content - Tarjetas centradas y responsivas */}
+          <div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                 {[
                   {
+                    icon: <FaUsers className="text-3xl" />,
                     title: "Gestión Centralizada",
                     description: "Administra múltiples usuarios desde una sola plataforma intuitiva y eficiente.",
-                    icon: <FaUsers className="text-5xl text-blue-500 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+                    color: "blue",
+                    gradient: "from-blue-500 to-blue-600",
+                    textColor: "text-blue-300",
+                    borderColor: "hover:border-blue-400/40",
+                    lineGradient: "from-blue-400 to-transparent"
                   },
                   {
+                    icon: <FaUserCog className="text-3xl" />,
                     title: "Accesos Personalizables",
                     description: "Define permisos específicos para cada usuario según sus necesidades.",
-                    icon: <FaUserCog className="text-5xl text-purple-500 drop-shadow-[0_0_8px_rgba(124,58,237,0.5)]" />
+                    color: "purple",
+                    gradient: "from-purple-500 to-purple-600",
+                    textColor: "text-purple-300",
+                    borderColor: "hover:border-purple-400/40",
+                    lineGradient: "from-purple-400 to-transparent"
                   },
                   {
+                    icon: <FaShieldAlt className="text-3xl" />,
                     title: "Seguridad Avanzada",
                     description: "Protege datos sensibles y minimiza riesgos con autenticación confiable.",
-                    icon: <FaShieldAlt className="text-5xl text-blue-500 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+                    color: "green",
+                    gradient: "from-green-500 to-green-600",
+                    textColor: "text-green-300",
+                    borderColor: "hover:border-green-400/40",
+                    lineGradient: "from-green-400 to-transparent"
                   },
                   {
+                    icon: <FaChartLine className="text-3xl" />,
                     title: "Escalabilidad",
                     description: "Ideal para empresas de cualquier tamaño que necesitan coordinar múltiples perfiles de acceso.",
-                    icon: <FaChartLine className="text-5xl text-purple-500 drop-shadow-[0_0_8px_rgba(124,58,237,0.5)]" />
+                    color: "pink",
+                    gradient: "from-pink-500 to-pink-600",
+                    textColor: "text-pink-300",
+                    borderColor: "hover:border-pink-400/40",
+                    lineGradient: "from-pink-400 to-transparent"
                   }
                 ].map((benefit, index) => (
                   <div
                     key={index}
-                    className="group relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-4 overflow-hidden transition-all duration-500 hover:border-blue-500/30"
+                    className={`group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 transition-all duration-500 transform hover:-translate-y-3 hover:scale-105 ${benefit.borderColor}`}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
-                    <div className="flex items-start gap-3 relative z-10">
-                      <div className="flex-shrink-0 w-10 h-10 bg-blue-500/10 rounded-full flex items-center justify-center">
+                    {/* Card background effects */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    {/* Icon and title */}
+                    <div className="relative z-10 mb-6">
+                      <div className={`w-16 h-16 bg-gradient-to-r ${benefit.gradient} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                        <div className={benefit.textColor}>
                         {benefit.icon}
                       </div>
-                      <div>
-                        <h3 className="text-lg font-bold mb-1">{benefit.title}</h3>
-                        <p className="text-sm text-gray-300">{benefit.description}</p>
                       </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+                      <h3 className={`text-2xl font-bold ${benefit.textColor} mb-3 group-hover:text-white transition-colors duration-300`}>
+                        {benefit.title}
+                      </h3>
           </div>
           
-          <div className="max-w-6xl mx-auto relative z-10">
-          <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-            ¿Cómo Funcionan las Cuentas Múltiples de FIRMEDIGITAL?
-          </h2>
-          <p className="text-xl text-center text-gray-300 mb-16 max-w-3xl mx-auto">
-            Un proceso simple y eficiente para gestionar usuarios y permisos
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                title: "Configuración de Usuarios",
-                description: "Crea y organiza perfiles con permisos personalizados.",
-                icon: <FaUserCog className="text-4xl text-blue-500" />,
-                step: 1
-              },
-              {
-                title: "Gestión Eficiente",
-                description: "Monitorea y ajusta accesos en tiempo real desde un panel único.",
-                icon: <FaUsers className="text-4xl text-purple-500" />,
-                step: 2
-              },
-              {
-                title: "Seguridad y Control",
-                description: "Mantén el acceso protegido con autenticación avanzada.",
-                icon: <FaShieldAlt className="text-4xl text-blue-500" />,
-                step: 3
-              }
-            ].map((step, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 p-6 rounded-xl border border-gray-700/50 shadow-lg backdrop-blur-sm hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-300"
-              >
-                <div className="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                  {step.step}
+                    {/* Description */}
+                    <div className="relative z-10">
+                      <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 leading-relaxed">
+                        {benefit.description}
+                      </p>
+                    </div>
+                    
+                    {/* Decorative line with gradient and glow */}
+                    <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    {/* Hover glow effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-xl"></div>
                 </div>
-                <div className="flex flex-col items-center text-center pt-4">
-                  <div className="mb-4 p-3 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg">
-                    {step.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-blue-400 mb-3">{step.title}</h3>
-                  <p className="text-gray-300">
-                    {step.description}
-                  </p>
-                </div>
-              </motion.div>
             ))}
           </div>
         </div>
@@ -380,113 +370,96 @@ export default function CuentasMultiples() {
 
 
         {/* Beneficios Section */}
-        <section className="py-20 px-4 bg-gradient-to-b from-blue-950 to-black relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
+        <section className="relative py-20 px-4 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/3 w-[28rem] h-[28rem] bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/3 w-[28rem] h-[28rem] bg-purple-500/10 rounded-full blur-3xl"></div>
+        </div>
 
-          <div className="max-w-7xl mx-auto">
-            {isLoading ? (
-              <div className="space-y-12">
-                <TitleSkeleton />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {[...Array(4)].map((_, i) => (
-                    <CardSkeleton key={i} />
-                  ))}
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 rounded-full border border-green-400/30 mb-6">
+              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+              <span className="text-sm font-medium text-green-300">Beneficios Clave</span>
                 </div>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
+              <span className="block text-white">Beneficios de las</span>
+              <span className="block bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">Cuentas Múltiples</span>
+            </h2>
+            <div className="mt-4 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 rounded-full"></div>
               </div>
-            ) : (
-              <>
-                <div className="flex flex-col items-center mb-12">
-                  <m.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="text-4xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-white to-purple-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.5)]"
-                  >
-                    <h2>Beneficios de las Cuentas Múltiples</h2>
-                  </m.div>
-                  <m.div
-                    initial={{ width: 0, opacity: 0 }}
-                    whileInView={{ width: "100px", opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.4, ease: "easeInOut" }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="h-1 bg-gradient-to-r from-blue-500 to-purple-500 mt-4 rounded-full"
-                  />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                   {[
                     {
-                      icon: <FaUsers className="text-4xl text-blue-500" />,
+                icon: <FaUsers className="text-3xl" />,
                       title: "Gestión Centralizada",
-                      description: "Control unificado de usuarios y accesos desde una plataforma."
+                description: "Control unificado de usuarios y accesos desde una plataforma.",
+                gradient: "from-blue-500 to-blue-600",
+                textColor: "text-blue-300"
                     },
                     {
-                      icon: <FaUserShield className="text-4xl text-purple-500" />,
+                icon: <FaUserShield className="text-3xl" />,
                       title: "Asignación de Roles",
-                      description: "Definición precisa de roles y permisos por usuario."
+                description: "Definición precisa de roles y permisos por usuario.",
+                gradient: "from-purple-500 to-purple-600",
+                textColor: "text-purple-300"
                     },
                     {
-                      icon: <FaHandshake className="text-4xl text-blue-500" />,
+                icon: <FaHandshake className="text-3xl" />,
                       title: "Colaboración Eficiente",
-                      description: "Trabajo simultáneo en documentos con acceso controlado."
+                description: "Trabajo simultáneo en documentos con acceso controlado.",
+                gradient: "from-green-500 to-green-600",
+                textColor: "text-green-300"
                     },
                     {
-                      icon: <FaChartBar className="text-4xl text-purple-500" />,
+                icon: <FaChartBar className="text-3xl" />,
                       title: "Monitoreo de Actividades",
-                      description: "Registro detallado de acciones para auditoría y control."
+                description: "Registro detallado de acciones para auditoría y control.",
+                gradient: "from-pink-500 to-pink-600",
+                textColor: "text-pink-300"
                     }
                   ].map((feature, index) => (
-                    <m.div
-                      key={index}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-50px" }}
-                      transition={{ duration: 0.7, delay: index * 0.15, type: "spring", damping: 12 }}
-                      whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-                      className="group relative bg-gray-800/50 rounded-xl shadow-lg border border-gray-700/50 backdrop-blur-sm overflow-hidden h-[180px] cursor-pointer hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]"
-                    >
-                      <div>
-                        <div className="absolute inset-0 p-6 transition-transform duration-500 transform group-hover:-translate-y-full flex flex-col items-center justify-center text-center bg-gradient-to-b from-gray-800 to-gray-900">
-                          <motion.div 
-                            className="mb-4"
-                            animate={{ rotate: [0, 5, 0, -5, 0] }}
-                            transition={{ duration: 5, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
-                          >
+              <div key={index} className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-6 overflow-hidden transition-all duration-500 hover:border-blue-400/30 hover:shadow-2xl hover:shadow-blue-500/20">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-3xl"></div>
+                <div className="flex flex-col items-center justify-center text-center h-full relative z-10">
+                  <div className="transform transition-all duration-500 opacity-100 group-hover:opacity-0 flex flex-col items-center">
+                    <div className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                      <div className={feature.textColor}>
                             {feature.icon}
-                          </motion.div>
-                          <h3 className="text-xl font-bold text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.3)] group-hover:text-blue-300 transition-colors">
-                            {feature.title}
-                          </h3>
                         </div>
-
-                        <div className="absolute inset-0 p-6 transition-transform duration-500 transform translate-y-full group-hover:translate-y-0 bg-gradient-to-b from-gray-800 to-gray-900">
-                          <div className="flex flex-col items-center justify-center h-full">
-                            <motion.div 
-                              className="mb-4"
-                              animate={{ scale: [1, 1.1, 1], opacity: [0.8, 1, 0.8] }}
-                              transition={{ duration: 3, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
-                            >
+                    </div>
+                    <h3 className="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors duration-300">{feature.title}</h3>
+                  </div>
+                  <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center">
+                    <div className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                      <div className={feature.textColor}>
                               {feature.icon}
-                            </motion.div>
-                            <p className="text-gray-300 text-center group-hover:text-gray-200 transition-colors">
-                              {feature.description}
-                            </p>
                           </div>
                         </div>
+                    <p className="text-gray-300 text-center group-hover:text-gray-200 transition-colors duration-300">{feature.description}</p>
                       </div>
-                    </m.div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-xl"></div>
+              </div>
                   ))}
                 </div>
-              </>
-            )}
           </div>
         </section>
         
         
-       {/* Casos de Uso Section con filtros - Negro a Azul */}
-<section className="py-16 px-4 bg-gradient-to-b from-black via-gray-900 to-blue-950">
-        <div className="max-w-7xl mx-auto">
+       {/* Casos de Uso Section con filtros */}
+      <section className="relative py-20 px-4 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/3 w-[28rem] h-[28rem] bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/3 w-[28rem] h-[28rem] bg-purple-500/10 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -494,36 +467,40 @@ export default function CuentasMultiples() {
             className="mb-16"
           >
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Casos de Uso de Cuentas Múltiples</h2>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/20 rounded-full border border-orange-400/30 mb-6">
+                <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                <span className="text-sm font-medium text-orange-300">Casos de Uso</span>
+              </div>
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
+                <span className="block text-white">Casos de Uso de</span>
+                <span className="block bg-gradient-to-r from-orange-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">Cuentas Múltiples</span>
+              </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">Soluciones de gestión de usuarios y accesos para diferentes sectores empresariales</p>
+              <div className="mt-4 flex justify-center">
+                <div className="w-24 h-1 bg-gradient-to-r from-orange-400 via-blue-500 to-purple-500 rounded-full"></div>
+              </div>
             </div>
             
             {/* Filtros */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
+              {[
+                { id: 'financiero', label: 'Sector Financiero' },
+                { id: 'legal', label: 'Sector Legal' },
+                { id: 'gobierno', label: 'Sector Gobierno' },
+                { id: 'salud', label: 'Sector Salud' }
+              ].map((filter) => (
               <button 
-                onClick={() => setActiveFilter('financiero')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'financiero' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Financiero
+                  key={filter.id}
+                  onClick={() => setActiveFilter(filter.id)}
+                  className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${
+                    activeFilter === filter.id 
+                      ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/20 border border-blue-400/30' 
+                      : 'bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 text-gray-300 hover:border-blue-400/30 hover:shadow-lg'
+                  }`}
+                >
+                  {filter.label}
               </button>
-              <button 
-                onClick={() => setActiveFilter('legal')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'legal' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Legal
-              </button>
-              <button 
-                onClick={() => setActiveFilter('gobierno')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'gobierno' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Gobierno
-              </button>
-              <button 
-                onClick={() => setActiveFilter('salud')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'salud' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Salud
-              </button>
+              ))}
             </div>
             
             {/* Contenido de casos de uso */}
@@ -569,7 +546,7 @@ export default function CuentasMultiples() {
                     </div>
                     <div className="mt-8">
                       <Link href="https://app.firmedigital.com/auth/signup" className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10 text-white">
-                        Implementar Cuentas Múltiples para Contadores
+                        Implementar Cuentas Múltiples para Financiero
                       </Link>
                     </div>
                   </div>
@@ -760,13 +737,30 @@ export default function CuentasMultiples() {
         </div>
       </section>
 
-      <section className="relative border-t border-white/5 pricing-section bg-gradient-to-b from-blue-950 to-blue-950">
-        <div className="mx-auto max-w-7xl px-4 py-4">
+    {/* Planes y Precios Section */}
+    <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        
+        <div className="mx-auto max-w-7xl px-4 relative z-10">
+          {/* Header */}
           <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-400">
-              Planes y Precios
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 rounded-full border border-purple-400/30 mb-6">
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-purple-300">Planes Flexibles</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">Planes y</span>
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Precios
+              </span>
             </h2>
-            <p className="mt-4 text-xl text-gray-400">Soluciones flexibles para todas tus necesidades</p>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Soluciones flexibles para todas tus necesidades
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -777,42 +771,26 @@ export default function CuentasMultiples() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-blue-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <img src="/images/rocket-svgrepo-com.svg" alt="Rocket" className="w-8 h-8 filter brightness-0 invert" />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                    <p className="text-gray-400 text-sm">¡Impulso al siguiente nivel!</p>
-                    <p className="text-gray-400 text-sm">Para persona natural</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Despegue</h3>
+                    <p className="text-gray-300 text-sm">¡Impulso al siguiente nivel!</p>
+                    <p className="text-gray-300 text-sm">Para persona natural</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-blue-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <img src="/images/rocket-svgrepo-com.svg" alt="Rocket" className="w-8 h-8 filter brightness-0 invert" />
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                      <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                        <p className="text-gray-400 text-sm">Carga, publica y gestiona miles de docs.</p>
+                      <h3 className="text-2xl font-semibold mb-2 text-white">Plan Despegue</h3>
+                        <p className="text-gray-300 text-sm">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8 mt-5">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -843,7 +821,7 @@ export default function CuentasMultiples() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>400 Documentos</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -884,42 +862,30 @@ export default function CuentasMultiples() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-purple-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/efficiency.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
-                    <p className="text-gray-400 text-sm">¡Gestión eficiente de Documentos!</p>
-                    <p className="text-gray-400 text-sm">Para persona jurídica</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Élite</h3>
+                    <p className="text-gray-300 text-sm">¡Gestión eficiente de Documentos!</p>
+                    <p className="text-gray-300 text-sm">Para persona jurídica</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-purple-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/efficiency.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
-                        <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
+                        <h3 className="text-2xl font-semibold mb-2 text-white">Plan Élite</h3>
+                        <p className="text-gray-300 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8" style={{ paddingTop: '1rem' }}>
                           <div className="flex flex-col items-center justify-center w-full max-w-[280px]">
                           <div className="ml-2 flex flex-col">
@@ -943,7 +909,7 @@ export default function CuentasMultiples() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>1000 Documentos</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -981,42 +947,30 @@ export default function CuentasMultiples() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-green-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/organizacion.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                    <p className="text-gray-400 text-sm"> ¡Mantén tus certificados emitidos al día!</p>
-                    <p className="text-gray-400 text-sm">Para corporaciones</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Max</h3>
+                    <p className="text-gray-300 text-sm"> ¡Mantén tus certificados emitidos al día!</p>
+                    <p className="text-gray-300 text-sm">Para corporaciones</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-green-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/organizacion.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                        <p className="text-gray-400 text-sm mb-2">Creditos Ilimitados</p>
+                        <h3 className="text-2xl font-semibold mb-2 text-white">Plan Max</h3>
+                        <p className="text-gray-300 text-sm mb-2">Créditos Ilimitados</p>
                         <div className="flex flex-col items-center space-y-6 mb-8">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -1038,7 +992,7 @@ export default function CuentasMultiples() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>Documentos ilimitados</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1059,12 +1013,6 @@ export default function CuentasMultiples() {
                             </svg>
                             <span>Flujos</span>
                           </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>IA</span>
-                          </li>
                         </ul>
                       </div>
                       <a href="https://app.firmedigital.com/auth/signup" className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
@@ -1083,26 +1031,27 @@ export default function CuentasMultiples() {
       </section>
         
         {/* Blog Section */}
-        <section className="py-20 px-4 bg-gradient-to-b from-blue-950 to-black relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
+        <section className="relative py-20 px-4 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/3 w-[28rem] h-[28rem] bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/3 w-[28rem] h-[28rem] bg-purple-500/10 rounded-full blur-3xl"></div>
+        </div>
+        
           <div className="max-w-7xl mx-auto relative z-10">
-            <div className="flex flex-col items-center mb-12">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="text-4xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-white to-purple-500 drop-shadow-[0_0_20px_rgba(59,130,246,0.5)]"
-              >
-                <h2>Artículos Relacionados</h2>
-              </motion.div>
-              <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: "100px" }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="h-1 bg-gradient-to-r from-blue-500 to-purple-500 mt-4 rounded-full"
-              />
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/20 rounded-full border border-indigo-400/30 mb-6">
+              <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
+              <span className="text-sm font-medium text-indigo-300">Recursos Adicionales</span>
+            </div>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
+              <span className="block text-white">Artículos</span>
+              <span className="block bg-gradient-to-r from-indigo-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">Relacionados</span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">Descubre contenido valioso sobre gestión de cuentas múltiples</p>
+            <div className="mt-4 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-indigo-400 via-blue-500 to-purple-500 rounded-full"></div>
+            </div>
             </div>
             
             {isLoading ? (
@@ -1120,7 +1069,7 @@ export default function CuentasMultiples() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="group bg-gray-800/50 rounded-xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300 shadow-xl border border-gray-700/50 h-full"
+                    className="group bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300 shadow-2xl border border-gray-200/20 h-full hover:border-blue-400/30"
                     >
                       <div className="h-48 overflow-hidden relative">
                         <div className="w-full h-full bg-gradient-to-br from-blue-500/30 to-purple-500/30 absolute z-10"></div>
@@ -1164,19 +1113,29 @@ export default function CuentasMultiples() {
         </section>
 
         {/* Testimonios Section */}
-        <section className="py-12 px-4 bg-gradient-to-b from-black to-blue-950 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
+        <section className="relative py-20 px-4 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/3 w-[28rem] h-[28rem] bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/3 w-[28rem] h-[28rem] bg-purple-500/10 rounded-full blur-3xl"></div>
+        </div>
 
           <div className="max-w-6xl mx-auto relative z-10">
-            <motion.h2 
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-              className="text-3xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]"
-            >
-              Testimonios de Clientes
-            </motion.h2>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/20 rounded-full border border-yellow-400/30 mb-6">
+              <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+              <span className="text-sm font-medium text-yellow-300">Experiencias de Clientes</span>
+            </div>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
+              <span className="block text-white">Testimonios de</span>
+              <span className="block bg-gradient-to-r from-yellow-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">Clientes</span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">Descubre lo que dicen nuestros clientes sobre las cuentas múltiples</p>
+            <div className="mt-4 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 via-blue-500 to-purple-500 rounded-full"></div>
+            </div>
+          </div>
+          
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {[
                 {
@@ -1202,19 +1161,19 @@ export default function CuentasMultiples() {
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.8, delay: index * 0.2, type: "spring", damping: 15 }}
                   whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(59,130,246,0.3)", transition: { duration: 0.3 } }}
-                  className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 p-6 rounded-xl border border-gray-700/50 shadow-lg backdrop-blur-sm transition-all duration-300"
+                className="group bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl p-6 rounded-3xl border border-gray-200/20 shadow-2xl transition-all duration-300 hover:border-blue-400/30"
                 >
                   <div className="flex flex-col h-full">
                     <div className="mb-4">
-                      <div className="flex items-center justify-center w-16 h-16 mx-auto bg-blue-500/10 rounded-full mb-2">
+                    <div className="flex items-center justify-center w-16 h-16 mx-auto bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full mb-2 group-hover:scale-110 transition-transform duration-300">
                         <span className="text-2xl font-bold text-blue-400">{testimonial.client.charAt(0)}</span>
                       </div>
-                      <h3 className="text-xl font-bold text-center text-blue-400">{testimonial.client}</h3>
+                    <h3 className="text-xl font-bold text-center text-blue-400 group-hover:text-white transition-colors duration-300">{testimonial.client}</h3>
                     </div>
                     <div className="flex-grow">
-                      <p className="text-gray-300 text-center italic mb-4">"{testimonial.quote}"</p>
+                    <p className="text-gray-300 text-center italic mb-4 group-hover:text-gray-200 transition-colors duration-300">"{testimonial.quote}"</p>
                     </div>
-                    <div className="text-sm text-gray-400 text-center">
+                  <div className="text-sm text-gray-400 text-center group-hover:text-gray-300 transition-colors duration-300">
                       <span>{testimonial.role}</span>
                     </div>
                     <div className="flex justify-center mt-4">
@@ -1241,22 +1200,29 @@ export default function CuentasMultiples() {
         </section>
         
         {/* FAQ Section */}
-        <section className="py-20 px-4 bg-gradient-to-b from-blue-950 to-black relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, type: "spring", stiffness: 50 }}
-            className="mb-16"
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 px-2">
-              <div className="flex items-center">
-                <FaQuestionCircle className="text-4xl text-blue-500 mr-4" />
-                <h2 className="text-3xl font-bold">Preguntas Frecuentes</h2>
+        <section className="relative py-20 px-4 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/3 w-[28rem] h-[28rem] bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/3 w-[28rem] h-[28rem] bg-purple-500/10 rounded-full blur-3xl"></div>
               </div>
              
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-500/20 rounded-full border border-red-400/30 mb-6">
+              <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+              <span className="text-sm font-medium text-red-300">Preguntas Frecuentes</span>
             </div>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
+              <span className="block text-white">Preguntas</span>
+              <span className="block bg-gradient-to-r from-red-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">Frecuentes</span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">Resolvemos tus dudas sobre cuentas múltiples</p>
+            <div className="mt-4 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-red-400 via-blue-500 to-purple-500 rounded-full"></div>
+            </div>
+          </div>
+          
             <div className="space-y-4">
               {faqs.map((faq, index) => (
                 <motion.div
@@ -1265,15 +1231,15 @@ export default function CuentasMultiples() {
                   animate={{ opacity: 1, y: 0, x: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.15, type: "spring", stiffness: 100 }}
                   whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-                  className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden"
+                className="group bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl overflow-hidden border border-gray-200/20 hover:border-blue-400/30 transition-all duration-300"
                 >
                   <button
                     onClick={() => toggleQuestion(index)}
-                    className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-800/50 transition-colors"
+                  className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 transition-all duration-300"
                   >
-                    <h3 className="text-xl font-semibold text-blue-400">{faq.pregunta}</h3>
+                  <h3 className="text-xl font-semibold text-blue-400 group-hover:text-white transition-colors duration-300">{faq.pregunta}</h3>
                     <FaChevronDown 
-                      className={`text-blue-400 transition-transform duration-300 ${
+                    className={`text-blue-400 transition-transform duration-300 group-hover:text-white ${
                         activeQuestion === index ? 'rotate-180' : ''
                       }`}
                     />
@@ -1287,14 +1253,106 @@ export default function CuentasMultiples() {
                         transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
                         className="px-6 pb-4"
                       >
-                        <p className="text-gray-300">{faq.respuesta}</p>
+                      <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">{faq.respuesta}</p>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+        </div>
+      </section>
+
+      {/* ¿Cómo Funcionan las Cuentas Múltiples? Section */}
+      <section className="relative py-24 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          {/* Enhanced Header */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full border border-blue-400/30 mb-8 backdrop-blur-sm">
+              <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+              <span className="text-sm font-semibold text-transparent bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text tracking-wide uppercase">Proceso Simple</span>
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+              <span className="block text-white mb-2">¿Cómo Funcionan las</span>
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Cuentas Múltiples FIRMEDIGITAL?
+              </span>
+            </h2>
+            
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Un proceso simple y eficiente para gestionar usuarios y permisos
+            </p>
+            
+            {/* Decorative line */}
+            <div className="mt-8 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-full"></div>
+            </div>
+          </div>
+          
+          {/* Steps */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                step: "1",
+                title: "Configuración de Usuarios",
+                description: "Crea y organiza perfiles con permisos personalizados.",
+                icon: <FaUserCog className="w-12 h-12" />
+              },
+              {
+                step: "2",
+                title: "Gestión Eficiente",
+                description: "Monitorea y ajusta accesos en tiempo real desde un panel único.",
+                icon: <FaUsers className="w-12 h-12" />
+              },
+              {
+                step: "3",
+                title: "Seguridad y Control",
+                description: "Mantén el acceso protegido con autenticación avanzada.",
+                icon: <FaShieldAlt className="w-12 h-12" />
+              }
+            ].map((step, index) => (
+              <div
+                key={index}
+                className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 transition-all duration-500 transform hover:-translate-y-3 hover:scale-105 hover:border-blue-400/30"
+              >
+                {/* Card background effects */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Step number and icon */}
+                <div className="relative z-10 text-center mb-6">
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <span className="text-3xl font-bold text-blue-400">{step.step}</span>
+                  </div>
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <div className="text-blue-400">
+                      {step.icon}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Title and description */}
+                <div className="relative z-10 text-center">
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+                
+                {/* Hover glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-xl"></div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
       </main>

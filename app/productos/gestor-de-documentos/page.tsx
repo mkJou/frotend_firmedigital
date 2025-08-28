@@ -153,30 +153,50 @@ export default function GestorDocumentos() {
   return (
     <div className="min-h-screen bg-black text-white">
      {/* Hero Section */}
-                                    <section ref={heroRef} className="relative py-16 px-4 md:px-8 overflow-hidden mt-[120px] min-h-[80vh] md:min-h-[85vh] lg:min-h-[90vh] flex items-center">
-                                      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 pointer-events-none"></div>
-                                      
-                                      {/* Fondo oscuro */}
-                                      <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/80"></div>
-                                      
-                                      <div className="max-w-7xl mx-auto px-4 relative z-10 w-full">
-                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                                          {/* Columna izquierda: Título y subtítulo */}
-                                          <div className="flex flex-col">
-                                            <div className="flex flex-col mb-8">
-                                              <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.8)] leading-tight p-4 rounded-lg backdrop-blur-sm bg-black/30 shadow-xl text-left tracking-tight">
-                        
-                                              Gestor de Documentos: <br />Administra, Organiza y Protege tu Información de Forma Integral
-     
-           
-                  
-                        
+      <section ref={heroRef}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-[7rem]"
+      >
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/portada gestor.jpg"
+            alt="Gestor de Documentos Background"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/70"></div>
+        </div>
+              
+        <div className="relative z-10 mx-auto max-w-4xl px-4 lg:px-8 text-center">
+          <div className="space-y-8">
+                      {/* Badge */}
+                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-400/30">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                        <span className="text-sm font-medium text-blue-300">Gestor de Documentos</span>
+                      </div>
+                      
+                      {/* Main Title */}
+                      <div className="space-y-6">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                          <span className="block text-white mb-2 relative inline-block">
+                            <span 
+                              className="glitch-text text-5xl md:text-6xl lg:text-7xl font-extrabold"
+                              data-text=""
+                            >
+                              Gestor de Documentos
+                            </span>
+                          </span>
+                          <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent text-xl md:text-2xl lg:text-3xl">
+                            Administra, Organiza y Protege tu Información
+                          </span>
                                               </h1>
-                                            
-                                              <div className="bg-gradient-to-r from-gray-800/50 to-blue-900/10 border-l-4 border-blue-500 rounded-lg shadow-lg hover:shadow-blue-500/20 hover:border-blue-400 transition-all duration-300 backdrop-blur-sm p-6 mb-8">
-                                                <p className="text-lg md:text-xl text-gray-300 leading-relaxed text-left">
-                                                Simplifica la gestión documental de tu organización desde la creación hasta su archivo o eliminación, garantizando seguridad, accesibilidad y control eficiente
-           
+                      </div>
+
+                      {/* Description */}
+                      <div className="space-y-6">
+                        <p className="text-lg text-gray-300 leading-relaxed">
+                          Simplifica la gestión documental de tu organización desde la creación hasta su archivo, garantizando seguridad, accesibilidad y control eficiente.
                                                 </p>
                                               </div>
                                               
@@ -253,35 +273,6 @@ export default function GestorDocumentos() {
                                                 </form>
                                               </div>
                                             </div>
-                                          </div>
-                                          
-                                          {/* Columna derecha: Imagen */}
-                                          <div className="relative h-[300px] lg:h-[500px] rounded-xl overflow-hidden shadow-2xl shadow-blue-500/20 border border-blue-500/30 transform hover:scale-[1.02] transition-all duration-500">
-                                            <Image
-                                              src="/images/portada gestor.jpg"
-                                              alt="Sector Gestor de Documentos"
-                                              fill
-                                              className="object-cover"
-                                              sizes="(max-width: 768px) 100vw, 50vw"
-                                              priority
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                                          </div>
-                                        </div>
-                                        
-                                        <div className="max-w-7xl mx-auto px-4 relative z-10" style={{ paddingTop: '2rem' }}>
-                                      <motion.div 
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.5 }}
-                                        className="bg-gradient-to-r from-gray-800/50 to-blue-900/10 border-l-4 border-blue-500 rounded-lg shadow-lg hover:shadow-blue-500/20 hover:border-blue-400 transition-all duration-300 backdrop-blur-sm p-6 text-center"
-                                      >
-                                        <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                                        "Centraliza y Controla cada Documento con FIRMEDIGITAL"
-                                        </h2>
-                                      </motion.div>
-                                    </div>
-                              
                                       </div>
                                     </section>
 
@@ -350,466 +341,30 @@ export default function GestorDocumentos() {
         </div>
       </section>
 
-       {/* ¿Por Qué Elegir el Validador de Identidad? Section */}
-                               <section className="py-12 px-4 bg-gradient-to-b from-black to-blue-950 relative">
-                                 <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
-                                 <div className="max-w-7xl mx-auto relative z-10">
-                                   <h2 className="text-3xl font-bold mb-10 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                                     ¿Por Qué Elegir la Trazabilidad de FIRMEDIGITAL?
-                                   </h2>
-                                   
-                                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
-                                     {/* Imagen en el lado izquierdo */}
-                                     <div className="lg:col-span-5 order-2 lg:order-1 relative mx-auto w-full flex items-center">
-                                       <div className="w-full h-[400px] md:h-[450px] lg:h-[500px] relative">
-                                         <img 
-                                           src="/images/porque gestor.jpg" 
-                                           alt="¿Por Qué Elegir el flujo de trabajo de FIRMADIGITAL?" 
-                                           className="w-full h-full object-contain"
-                                         />
-                                       </div>
+      {/* Planes y Precios Section */}
+     <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
                                      </div>
                                      
-                                     {/* Tarjetas en el lado derecho */}
-                                     <div className="lg:col-span-7 order-1 lg:order-2">
-                                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ paddingTop: '7rem' }}>
-                                         {[
-                                          {
-                                            icon: <HiOutlineDocumentText className="text-4xl text-blue-500" />,
-                                            title: "Administración Integral",
-                                            description: "Maneja toda la documentación de tu organización de manera organizada, accesible y segura."
-                                          },
-                                          {
-                                            icon: <FaFolderOpen className="text-4xl text-purple-500" />,
-                                            title: "Organización Eficiente",
-                                            description: "Clasifica y etiqueta automáticamente los documentos para facilitar su recuperación inmediata."
-                                          },
-                                          {
-                                            icon: <HiOutlineShieldCheck className="text-4xl text-blue-500" />,
-                                            title: "Seguridad y Control",
-                                            description: "Garantiza la protección de información confidencial con sistemas avanzados de encriptación y control de acceso."
-                                          },
-                                          {
-                                            icon: <HiOutlineLightningBolt className="text-4xl text-purple-500" />,
-                                            title: "Optimización de Procesos",
-                                            description: "Centraliza y automatiza el ciclo de vida de cada documento, eliminando complicaciones y reduciendo errores manuales."
-                                          }
-                                         ].map((benefit, index) => (
-                                           <div
-                                             key={index}
-                                             className="group relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-4 overflow-hidden transition-all duration-500 hover:border-blue-500/30"
-                                           >
-                                             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
-                                             <div className="flex items-start gap-3 relative z-10">
-                                               <div className="flex-shrink-0 w-10 h-10 bg-blue-500/10 rounded-full flex items-center justify-center">
-                                                 {benefit.icon}
-                                               </div>
-                                               <div>
-                                                 <h3 className="text-lg font-bold mb-1">{benefit.title}</h3>
-                                                 <p className="text-sm text-gray-300">{benefit.description}</p>
-                                               </div>
-                                             </div>
-                                           </div>
-                                         ))}
-                                       </div>
-                                     </div>
-                                   </div>
-                                   
-                                   <div className="max-w-7xl mx-auto relative z-10">
-          <h2 className="text-3xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-            ¿Cómo funciona?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                icon: <HiOutlineCloud className="text-5xl text-blue-400" />,
-                title: "Digitalización y Carga",
-                description: "Convierte tus documentos a formato digital y súbelos directamente a la plataforma.",
-                step: 1
-              },
-              {
-                icon: <FaFolderOpen className="text-5xl text-blue-400" />,
-                title: "Organización y Clasificación",
-                description: "Utiliza etiquetas y categorías para organizar la documentación de forma intuitiva y estructurada.",
-                step: 2
-              },
-              {
-                icon: <HiOutlineDatabase className="text-5xl text-blue-400" />,
-                title: "Gestión y Control",
-                description: "Accede, recupera, archiva y elimina documentos de forma segura y en tiempo real desde un panel centralizado.",
-                step: 3
-              }
-            ].map((step, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl overflow-hidden border border-gray-700/50 shadow-lg hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-300 flex flex-col items-center p-8"
-              >
-                <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center mb-6 relative">
-                  <span className="absolute -top-2 -right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-sm font-bold">{step.step}</span>
-                  {step.icon}
-                </div>
-                <h3 className="text-xl font-bold text-blue-400 mb-4 text-center">{step.title}</h3>
-                <p className="text-gray-300 text-center">{step.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-                                 </div>
-                               </section>
-
-      {/* Beneficios Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-blue-950 to-black relative">
-             <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
-
-        <div className="max-w-6xl mx-auto relative z-10">
-          <h2 className="text-3xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-            Beneficios
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                icon: <FaRocket className="text-4xl text-blue-500" />,
-                title: "Eficiencia Operativa",
-                description: "Reduce el tiempo de búsqueda y gestión de documentos hasta en un 80%."
-              },
-              {
-                icon: <FaShieldAlt className="text-4xl text-purple-500" />,
-                title: "Seguridad Avanzada",
-                description: "Protege tus documentos con múltiples capas de seguridad y control de acceso."
-              },
-              {
-                icon: <FaLeaf className="text-4xl text-blue-500" />,
-                title: "Sostenibilidad",
-                description: "Reduce el consumo de papel y contribuye a la conservación del medio ambiente."
-              },
-              {
-                icon: <FaUserFriends className="text-4xl text-purple-500" />,
-                title: "Colaboración Mejorada",
-                description: "Facilita el trabajo en equipo con acceso compartido y edición colaborativa."
-              },
-              {
-                icon: <HiOutlinePencil className="text-4xl text-blue-500" />,
-                title: "Personalización",
-                description: "Adapta el sistema a las necesidades específicas de tu organización."
-              },
-              {
-                icon: <HiOutlineEye className="text-4xl text-purple-500" />,
-                title: "Trazabilidad Total",
-                description: "Mantén un registro completo de todas las acciones realizadas sobre cada documento."
-              }
-            ].map((benefit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 p-6 rounded-xl border border-gray-700/50 shadow-lg backdrop-blur-sm hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-300 h-full"
-              >
-                <div className="flex flex-col items-center text-center h-full">
-                  <div className="mb-4 p-3 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg">
-                    {benefit.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.3)] mb-3">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-300">
-                    {benefit.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-      
-     {/* Casos de Uso Section con filtros - Negro a Azul */}
-<section className="py-16 px-4 bg-gradient-to-b from-black via-gray-900 to-blue-950">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-16"
-          >
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Casos de Uso del Gestor de Documentos</h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">Soluciones de gestión documental inteligente adaptadas a las necesidades de diferentes sectores</p>
-            </div>
-            
-            {/* Filtros */}
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
-              <button 
-                onClick={() => setActiveFilter('financiero')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'financiero' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Financiero
-              </button>
-              <button 
-                onClick={() => setActiveFilter('legal')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'legal' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Legal
-              </button>
-              <button 
-                onClick={() => setActiveFilter('gobierno')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'gobierno' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Gobierno
-              </button>
-              <button 
-                onClick={() => setActiveFilter('salud')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'salud' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Salud
-              </button>
-            </div>
-            
-            {/* Contenido de casos de uso */}
-            <div className="mt-8">
-              {/* Caso de uso para Sector Financiero */}
-              {activeFilter === 'financiero' && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  <div className="order-2 lg:order-1">
-                    <h3 className="text-3xl font-bold mb-6 text-blue-400">Gestor de Documentos para el Sector Financiero</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Gestión centralizada de contratos, pólizas y documentación de clientes con búsqueda avanzada</p>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Automatización de flujos de aprobación para créditos y productos financieros con trazabilidad</p>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Cumplimiento normativo con archivo digital seguro y auditable para regulaciones bancarias</p>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Integración con sistemas bancarios existentes para gestión documental unificada</p>
-                      </div>
-                    </div>
-                    <div className="mt-8">
-                      <Link href="https://app.firmedigital.com/auth/signup" className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10 text-white">
-                        Implementar Gestor de Documentos para Finanzas
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="order-1 lg:order-2">
-                    <Image
-                      src="/images/fintech.webp"
-                      alt="Validación de identidad para el sector financiero"
-                      width={600}
-                      height={400}
-                      className="rounded-xl shadow-2xl w-full h-auto object-cover"
-                    />
-                  </div>
-                </div>
-              )}
-              
-              {/* Caso de uso para Sector Legal */}
-              {activeFilter === 'legal' && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  <div className="order-2 lg:order-1">
-                    <h3 className="text-3xl font-bold mb-6 text-blue-400">Gestor de Documentos para el Sector Legal</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Archivo digital de expedientes legales con búsqueda avanzada por cliente, caso y tipo de documento</p>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Gestión de contratos con control de versiones, historial de cambios y comentarios colaborativos</p>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Automatización de flujos de trabajo para revisión y aprobación de documentos legales con trazabilidad</p>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Integración con sistemas de firma electrónica para completar el ciclo documental legal</p>
-                      </div>
-                    </div>
-                    <div className="mt-8">
-                      <Link href="https://app.firmedigital.com/auth/signup/" className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10 text-white">
-                        Implementar Gestor de Documentos Legal
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="order-1 lg:order-2">
-                    <Image
-                      src="/images/legalH.webp"
-                      alt="Validación de identidad para el sector legal"
-                      width={600}
-                      height={400}
-                      className="rounded-xl shadow-2xl w-full h-auto object-cover"
-                    />
-                  </div>
-                </div>
-              )}
-              
-              {/* Caso de uso para Sector Gobierno */}
-              {activeFilter === 'gobierno' && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  <div className="order-2 lg:order-1">
-                    <h3 className="text-3xl font-bold mb-6 text-blue-400">Gestor de Documentos para el Sector Gobierno</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Archivo digital centralizado para documentación oficial con clasificación por departamentos y tipos de trámites</p>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Gestión de expedientes ciudadanos con acceso controlado y trazabilidad de consultas</p>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Gestión de documentos de licitaciones y contratos públicos con seguimiento de versiones y aprobaciones</p>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Preservación digital de documentos históricos y administrativos con controles de acceso por niveles de confidencialidad</p>
-                      </div>
-                    </div>
-                    <div className="mt-8">
-                      <Link href="https://app.firmedigital.com/auth/signup/" className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10 text-white">
-                        Implementar Gestor de Documentos Gubernamental
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="order-1 lg:order-2">
-                    <Image
-                      src="/images/gobiernoss.webp"
-                      alt="Validación de identidad para el sector gobierno"
-                      width={600}
-                      height={400}
-                      className="rounded-xl shadow-2xl w-full h-auto object-cover"
-                    />
-                  </div>
-                </div>
-              )}
-              
-              {/* Caso de uso para Sector Salud */}
-              {activeFilter === 'salud' && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  <div className="order-2 lg:order-1">
-                    <h3 className="text-3xl font-bold mb-6 text-blue-400">Gestor de Documentos para el Sector Salud</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Gestión centralizada de historias clínicas con acceso seguro y cumplimiento de normativas de privacidad</p>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Organización de documentación médica con búsqueda inteligente y acceso por roles para personal sanitario</p>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Archivo digital de imágenes médicas y resultados de laboratorio con integración a sistemas hospitalarios</p>
-                      </div>
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0 mt-1">
-                          <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <p className="ml-3 text-gray-300">Trazabilidad completa de documentos clínicos con registros de auditoría para cumplimiento normativo</p>
-                      </div>
-                    </div>
-                    <div className="mt-8">
-                      <Link href="https://app.firmedigital.com/auth/signup/" className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20 border border-white/10 text-white">
-                        Implementar Gestor de Documentos para Salud
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="order-1 lg:order-2">
-                    <Image
-                      src="/images/saludd.webp"
-                      alt="Validación de identidad para el sector salud"
-                      width={600}
-                      height={400}
-                      className="rounded-xl shadow-2xl w-full h-auto object-cover"
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="relative border-t border-white/5 pricing-section bg-gradient-to-b from-blue-950 to-blue-950">
-        <div className="mx-auto max-w-7xl px-4 py-4">
+        <div className="mx-auto max-w-7xl px-4 relative z-10">
+          {/* Header */}
           <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-400">
-              Planes y Precios
-            </h2>
-            <p className="mt-4 text-xl text-gray-400">Soluciones flexibles para todas tus necesidades</p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 rounded-full border border-purple-400/30 mb-6">
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-purple-300">Planes Flexibles</span>
+                                               </div>
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">Planes y</span>
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Precios
+              </span>
+          </h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Soluciones flexibles para todas tus necesidades
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -820,42 +375,26 @@ export default function GestorDocumentos() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-blue-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <img src="/images/rocket-svgrepo-com.svg" alt="Rocket" className="w-8 h-8 filter brightness-0 invert" />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                    <p className="text-gray-400 text-sm">¡Impulso al siguiente nivel!</p>
-                    <p className="text-gray-400 text-sm">Para persona natural</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Despegue</h3>
+                    <p className="text-gray-300 text-sm">¡Impulso al siguiente nivel!</p>
+                    <p className="text-gray-300 text-sm">Para persona natural</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-blue-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <img src="/images/rocket-svgrepo-com.svg" alt="Rocket" className="w-8 h-8 filter brightness-0 invert" />
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                      <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                        <p className="text-gray-400 text-sm">Carga, publica y gestiona miles de docs.</p>
+                      <h3 className="text-2xl font-semibold mb-2 text-white">Plan Despegue</h3>
+                        <p className="text-gray-300 text-sm">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8 mt-5">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -886,7 +425,7 @@ export default function GestorDocumentos() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>400 Documentos</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -927,42 +466,30 @@ export default function GestorDocumentos() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-purple-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/efficiency.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
-                    <p className="text-gray-400 text-sm">¡Gestión eficiente de Documentos!</p>
-                    <p className="text-gray-400 text-sm">Para persona jurídica</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Élite</h3>
+                    <p className="text-gray-300 text-sm">¡Gestión eficiente de Documentos!</p>
+                    <p className="text-gray-300 text-sm">Para persona jurídica</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-purple-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/efficiency.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
-                        <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
+                        <h3 className="text-2xl font-semibold mb-2 text-white">Plan Élite</h3>
+                        <p className="text-gray-300 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8" style={{ paddingTop: '1rem' }}>
                           <div className="flex flex-col items-center justify-center w-full max-w-[280px]">
                           <div className="ml-2 flex flex-col">
@@ -986,7 +513,7 @@ export default function GestorDocumentos() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>1000 Documentos</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1024,42 +551,30 @@ export default function GestorDocumentos() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-green-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/organizacion.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                    <p className="text-gray-400 text-sm"> ¡Mantén tus certificados emitidos al día!</p>
-                    <p className="text-gray-400 text-sm">Para corporaciones</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Max</h3>
+                    <p className="text-gray-300 text-sm"> ¡Mantén tus certificados emitidos al día!</p>
+                    <p className="text-gray-300 text-sm">Para corporaciones</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-green-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/organizacion.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                        <p className="text-gray-400 text-sm mb-2">Creditos Ilimitados</p>
+                        <h3 className="text-2xl font-semibold mb-2 text-white">Plan Max</h3>
+                        <p className="text-gray-300 text-sm mb-2">Créditos Ilimitados</p>
                         <div className="flex flex-col items-center space-y-6 mb-8">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -1081,7 +596,7 @@ export default function GestorDocumentos() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>Documentos ilimitados</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1101,12 +616,6 @@ export default function GestorDocumentos() {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                             <span>Flujos</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>IA</span>
                           </li>
                         </ul>
                       </div>
@@ -1261,8 +770,12 @@ export default function GestorDocumentos() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-blue-950 to-black relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
+      <section className="relative py-20 px-4 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/3 w-[28rem] h-[28rem] bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/3 w-[28rem] h-[28rem] bg-purple-500/10 rounded-full blur-3xl"></div>
+        </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
@@ -1272,12 +785,23 @@ export default function GestorDocumentos() {
             transition={{ duration: 0.5 }}
             className="mb-16"
           >
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 px-2">
-              <div className="flex items-center">
-                <FaQuestionCircle className="text-4xl text-blue-500 mr-4" />
-                <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">Preguntas Frecuentes</h2>
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/20 rounded-full border border-indigo-400/30 mb-6">
+                <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
+                <span className="text-sm font-medium text-indigo-300">Preguntas Frecuentes</span>
               </div>
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
+                <span className="block text-white">Preguntas</span>
+                <span className="block bg-gradient-to-r from-indigo-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                  Frecuentes
+                </span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">Resolvemos tus dudas sobre el Gestor de Documentos</p>
+              <div className="mt-4 flex justify-center">
+                <div className="w-24 h-1 bg-gradient-to-r from-indigo-400 via-blue-500 to-purple-500 rounded-full"></div>
             </div>
+            </div>
+            
             <div className="space-y-4">
               {faqs.map((faq, index) => (
                 <motion.div
@@ -1286,13 +810,13 @@ export default function GestorDocumentos() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden shadow-lg border border-gray-700/50"
+                  className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl border border-gray-200/20 hover:border-blue-400/30 transition-all duration-300"
                 >
                   <button
                     onClick={() => toggleQuestion(index)}
-                    className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-800/50 transition-colors"
+                    className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-gradient-to-r from-blue-500/5 to-purple-500/5 transition-all duration-300"
                   >
-                    <h3 className="text-xl font-semibold text-blue-400">{faq.pregunta}</h3>
+                    <h3 className="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors duration-300">{faq.pregunta}</h3>
                     <FaChevronDown 
                       className={`text-blue-400 transition-transform duration-300 ${
                         activeQuestion === index ? 'rotate-180' : ''
@@ -1306,9 +830,9 @@ export default function GestorDocumentos() {
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="px-6 pb-4"
+                        className="px-8 pb-6"
                       >
-                        <p className="text-gray-300">{faq.respuesta}</p>
+                        <p className="text-gray-300 leading-relaxed">{faq.respuesta}</p>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -1316,6 +840,99 @@ export default function GestorDocumentos() {
               ))}
             </div>
           </motion.div>
+        </div>
+      </section>
+      
+       {/* ¿Cómo Funciona el Gestor de Documentos? Section */}
+       <section className="relative py-24 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+         {/* Background Effects */}
+         <div className="absolute inset-0">
+           <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+         </div>
+         
+         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+           {/* Enhanced Header */}
+           <div className="text-center mb-20">
+             <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full border border-blue-400/30 mb-8 backdrop-blur-sm">
+               <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+               <span className="text-sm font-semibold text-transparent bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text tracking-wide uppercase">Proceso Simple</span>
+             </div>
+             
+             <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+               <span className="block text-white mb-2">¿Cómo Funciona el</span>
+               <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                 Gestor de Documentos?
+               </span>
+             </h2>
+             
+             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+               Un proceso simple y eficiente para la gestión documental
+             </p>
+             
+             {/* Decorative line */}
+             <div className="mt-8 flex justify-center">
+               <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-full"></div>
+             </div>
+           </div>
+           
+           {/* Steps */}
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+             {[
+               {
+                 step: "1",
+                 title: "Digitalización y Carga",
+                 description: "Convierte tus documentos a formato digital y súbelos directamente a la plataforma.",
+                 icon: <HiOutlineCloud className="w-12 h-12" />
+               },
+               {
+                 step: "2",
+                 title: "Organización y Clasificación",
+                 description: "Utiliza etiquetas y categorías para organizar la documentación de forma intuitiva y estructurada.",
+                 icon: <FaFolderOpen className="w-12 h-12" />
+               },
+               {
+                 step: "3",
+                 title: "Gestión y Control",
+                 description: "Accede, recupera, archiva y elimina documentos de forma segura y en tiempo real desde un panel centralizado.",
+                 icon: <HiOutlineDatabase className="w-12 h-12" />
+               }
+             ].map((step, index) => (
+               <div
+                 key={index}
+                 className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 transition-all duration-500 transform hover:-translate-y-3 hover:scale-105 hover:border-blue-400/30"
+               >
+                 {/* Card background effects */}
+                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                 
+                 {/* Step number and icon */}
+                 <div className="relative z-10 text-center mb-6">
+                   <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                     <span className="text-3xl font-bold text-blue-400">{step.step}</span>
+                   </div>
+                   <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                     <div className="text-blue-400">
+                       {step.icon}
+                     </div>
+                   </div>
+                 </div>
+                 
+                 {/* Title and description */}
+                 <div className="relative z-10 text-center">
+                   <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                     {step.title}
+                   </h3>
+                   <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 leading-relaxed">
+                     {step.description}
+                   </p>
+                 </div>
+                 
+                 {/* Hover glow effect */}
+                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-xl"></div>
+               </div>
+             ))}
+           </div>
         </div>
       </section>
     </div>

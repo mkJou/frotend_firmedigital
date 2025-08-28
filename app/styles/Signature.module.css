@@ -1,0 +1,97 @@
+/* Estilos para la firma animada */
+.signatureContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.signaturePath {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.animateSignature {
+  animation: drawSignature 1.5s ease-in-out forwards;
+}
+
+.animateSignatureDelay {
+  animation: drawSignature 1s ease-in-out 0.8s forwards;
+}
+
+.animateSignatureFast {
+  animation: drawSignature 1.5s ease-in-out 0.8s forwards;
+}
+
+@keyframes drawSignature {
+  from {
+    stroke-dashoffset: 100%;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Efecto de escritura con pluma */
+.penEffect {
+  filter: drop-shadow(0 0 2px rgba(74, 222, 128, 0.3));
+  transition: all 0.3s ease;
+}
+
+.penEffect:hover {
+  filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.6));
+  transform: scale(1.02);
+}
+
+/* Variaciones de color para diferentes contextos */
+.signatureGreen {
+  stroke: #4ade80;
+}
+
+.signatureBlue {
+  stroke: #60a5fa;
+}
+
+.signaturePurple {
+  stroke: #a78bfa;
+}
+
+.signatureGold {
+  stroke: #fbbf24;
+}
+
+/* Efecto de resplandor */
+.glowEffect {
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+/* Animación de aparición suave */
+.fadeIn {
+  animation: fadeInSignature 0.5s ease-in-out;
+}
+
+@keyframes fadeInSignature {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .signatureContainer {
+    height: 40px;
+  }
+}
+
+@media (min-width: 769px) {
+  .signatureContainer {
+    height: 60px;
+  }
+}

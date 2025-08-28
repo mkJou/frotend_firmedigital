@@ -94,16 +94,17 @@ const testimonials = [
     quote: "Hemos logrado optimizar todo el proceso de certificación profesional gracias a la firma electrónica, mejorando significativamente la experiencia de nuestros agremiados."
   }
 ];
-const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-  const card = e.currentTarget;
-  const rect = card.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  
-  card.style.setProperty('--mouse-x', `${x}px`);
-  card.style.setProperty('--mouse-y', `${y}px`);
-};
+
 export default function FirmaElectronica() {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+  };
   const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
   const [activeFilter, setActiveFilter] = useState('legal');
   const [isLoading, setIsLoading] = useState(true);
@@ -146,6 +147,7 @@ export default function FirmaElectronica() {
       setIsSubmitting(false);
     }
   };
+
   useEffect(() => {
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
@@ -177,30 +179,55 @@ export default function FirmaElectronica() {
   }, []);
 
   return (
+    <>
     <main className="min-h-screen bg-gradient-to-b from-blue-900 to-black text-white">
       <MegaMenu />
       
       {/* Hero Section */}
-            <section ref={heroRef} className="relative py-16 px-4 md:px-8 overflow-hidden mt-[120px] min-h-[80vh] md:min-h-[85vh] lg:min-h-[90vh] flex items-center bg-gradient-to-b from-blue-950 to-black">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
+      <section ref={heroRef}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-[7rem]"
+      >
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/PORTADA DE FIRMA ELECTRONICA.jpg"
+            alt="Firma Electrónica Background"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/70"></div>
+        </div>
               
-              {/* Fondo oscuro */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/70"></div>
-              
-              <div className="max-w-7xl mx-auto px-4 relative z-10 w-full">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  {/* Columna izquierda: Título y subtítulo */}
-                  <div className="flex flex-col">
-                    <div className="flex flex-col mb-8">
-                      <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.8)] leading-tight p-4 rounded-lg backdrop-blur-sm bg-black/30 shadow-xl text-left tracking-tight">
+        <div className="relative z-10 mx-auto max-w-4xl px-4 lg:px-8 text-center">
+          <div className="space-y-8">
+                      {/* Badge */}
+                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-400/30">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                        <span className="text-sm font-medium text-blue-300">Firma Electrónica Certificada</span>
+                      </div>
+                      
+                      {/* Main Title */}
+                      <div className="space-y-6">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                          <span className="block text-white mb-2 relative inline-block">
+                            <span 
+                              className="glitch-text text-5xl md:text-6xl lg:text-7xl font-extrabold"
+                              data-text=""
+                            >
+                              Firma Electrónica
+                            </span>
+                          </span>
+                          <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent text-xl md:text-2xl lg:text-3xl">
+                            La Solución Más Rápida y Segura
+                          </span>
+                        </h1>
+                      </div>
 
-                      Firma electronica: <br /> La Solución Más Rápida <br /> y Segura para Tu Negocio
-
-                      </h1>
-                    
-                      <div className="bg-gradient-to-r from-gray-800/50 to-blue-900/10 border-l-4 border-blue-500 rounded-lg shadow-lg hover:shadow-blue-500/20 hover:border-blue-400 transition-all duration-300 backdrop-blur-sm p-6 mb-8">
-                        <p className="text-lg md:text-xl text-gray-300 leading-relaxed text-left">
-                        Digitaliza tus procesos con una herramienta diseñada para ser segura, eficiente y 100% legal. ¡Optimiza tu tiempo y recursos!
+                      {/* Description */}
+                      <div className="space-y-6">
+                        <p className="text-lg text-gray-300 leading-relaxed">
+                          Digitaliza tus procesos con una herramienta diseñada para ser segura, eficiente y 100% legal. ¡Optimiza tu tiempo y recursos!
                         </p>
                       </div>
                       
@@ -277,267 +304,411 @@ export default function FirmaElectronica() {
                         </form>
                       </div>
                     </div>
-                  </div>
-                  
-                  {/* Columna derecha: Imagen */}
-                  <div className="relative h-[300px] lg:h-[500px] rounded-xl overflow-hidden shadow-2xl shadow-blue-500/20 border border-blue-500/30 transform hover:scale-[1.02] transition-all duration-500">
-                    <Image
-                      src="/images/PORTADA DE FIRMA ELECTRONICA.jpg"
-                      alt="Sector Banca"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  </div>
-                </div>
-                <div className="max-w-7xl mx-auto px-4 relative z-10" style={{ paddingTop: '2rem' }}>
-                                      <motion.div 
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.5 }}
-                                        className="bg-gradient-to-r from-gray-800/50 to-blue-900/10 border-l-4 border-blue-500 rounded-lg shadow-lg hover:shadow-blue-500/20 hover:border-blue-400 transition-all duration-300 backdrop-blur-sm p-6 text-center"
-                                      >
-                                        <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-                                        ¡Transforma la forma en que gestionas tus documentos importantes!
-                                        </h2>
-                                      </motion.div>
-                                    </div>
-      
-              </div>
-            </section>
+        </div>
+      </section>
 
 
-      {/* ¿Por Qué Elegir FIRMA DIGITAL? Section */}
-      <section className="py-12 px-4 bg-gradient-to-b from-black to-blue-950 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto relative z-10">
-          <h2 className="text-3xl font-bold mb-10 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-            ¿Por Qué Elegir FIRMEDIGITAL?
-          </h2>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
-            {/* Imagen en el lado izquierdo */}
-            <div className="lg:col-span-5 order-2 lg:order-1 relative mx-auto w-full flex items-center">
-              <div className="w-full h-[400px] md:h-[450px] lg:h-[500px] relative">
-                <img 
-                  src="/images/PORQUE ELEGIR FIRMADIGITAL.jpg" 
-                  alt="¿Por Qué Elegir FIRMA DIGITAL?" 
-                  className="w-full h-full object-contain"
-                />
-              </div>
+
+      {/* ¿Por Qué Elegir FIRMEDIGITAL? Section */}
+      <section className="relative py-24 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
+          {/* Enhanced Header */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full border border-blue-400/30 mb-8 backdrop-blur-sm">
+              <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-semibold text-transparent bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text tracking-wide uppercase">Ventajas Competitivas</span>
             </div>
             
-            {/* Tarjetas en el lado derecho */}
-            <div className="lg:col-span-7 order-1 lg:order-2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ paddingTop: '7rem' }}>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+              <span className="block text-white mb-2">¿Por Qué Elegir</span>
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                FIRMEDIGITAL?
+              </span>
+            </h2>
+            
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Descubre las razones que nos convierten en la mejor opción para tu transformación digital
+            </p>
+            
+            {/* Decorative line */}
+            <div className="mt-8 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-full"></div>
+            </div>
+          </div>
+          
+          {/* Main Content - Tarjetas centradas y responsivas */}
+          <div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 {[
                   {
-                    icon: <BsSpeedometer2 className="text-3xl text-blue-400" />,
+                    icon: <BsSpeedometer2 className="text-3xl" />,
                     title: "Ahorro de Tiempo",
-                    description: "Firma documentos al instante, desde cualquier lugar."
+                    description: "Firma documentos al instante, desde cualquier lugar del mundo. Elimina esperas y optimiza tus procesos.",
+                    color: "blue",
+                    gradient: "from-blue-500 to-blue-600",
+                    textColor: "text-blue-300",
+                    borderColor: "hover:border-blue-400/40",
+                    lineGradient: "from-blue-400 to-transparent"
                   },
                   {
-                    icon: <FaUserShield className="text-3xl text-blue-400" />,
+                    icon: <FaUserShield className="text-3xl" />,
                     title: "Legalmente Válida",
-                    description: "Cumple con normativas y regulaciones para respaldo legal completo."
+                    description: "Cumple con todas las normativas y regulaciones internacionales para un respaldo legal completo.",
+                    color: "green",
+                    gradient: "from-green-500 to-green-600",
+                    textColor: "text-green-300",
+                    borderColor: "hover:border-green-400/40",
+                    lineGradient: "from-green-400 to-transparent"
                   },
                   {
-                    icon: <BsFillShieldLockFill className="text-3xl text-blue-400" />,
+                    icon: <BsFillShieldLockFill className="text-3xl" />,
                     title: "Seguridad Garantizada",
-                    description: "Protege datos sensibles con tecnología avanzada de encriptación."
+                    description: "Protege datos sensibles con tecnología de encriptación avanzada y certificaciones de seguridad.",
+                    color: "purple",
+                    gradient: "from-purple-500 to-purple-600",
+                    textColor: "text-purple-300",
+                    borderColor: "hover:border-purple-400/40",
+                    lineGradient: "from-purple-400 to-transparent"
                   },
-                  {
-                    icon: <FaMoneyBillWave className="text-3xl text-blue-400" />,
-                    title: "Reducción de Costos",
-                    description: "Elimina el uso de papel y procesos manuales innecesarios."
-                  }
                 ].map((benefit, index) => (
                   <div
                     key={index}
-                    className="group relative bg-[#0A0A0A]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-4 overflow-hidden transition-all duration-500 hover:border-blue-500/30"
+                    className={`group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 transition-all duration-500 transform hover:-translate-y-3 hover:scale-105 ${benefit.borderColor}`}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-2xl"></div>
-                    <div className="flex items-start gap-3 relative z-10">
-                      <div className="flex-shrink-0 w-10 h-10 bg-blue-500/10 rounded-full flex items-center justify-center">
-                        {benefit.icon}
+                    {/* Card background effects */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    {/* Icon and title */}
+                    <div className="relative z-10 mb-6">
+                      <div className={`w-16 h-16 bg-gradient-to-r ${benefit.gradient} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                        <div className={benefit.textColor}>
+                          {benefit.icon}
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-bold mb-1">{benefit.title}</h3>
-                        <p className="text-sm text-gray-300">{benefit.description}</p>
-                      </div>
+                      <h3 className={`text-2xl font-bold ${benefit.textColor} mb-3 group-hover:text-white transition-colors duration-300`}>
+                        {benefit.title}
+                      </h3>
                     </div>
+                    
+                    {/* Description */}
+                    <p className="relative z-10 text-gray-300 leading-relaxed text-base group-hover:text-gray-200 transition-colors duration-300">
+                      {benefit.description}
+                    </p>
+                    
+                    {/* Decorative line */}
+                    <div className={`relative z-10 mt-8 h-1 bg-gradient-to-r ${benefit.lineGradient} rounded-full group-hover:h-2 transition-all duration-300`}></div>
+                    
+                    {/* Hover glow effect */}
+                    <div className={`absolute inset-0 bg-gradient-to-r ${benefit.gradient} rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-xl`}></div>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
-          
-          <div className="mt-16">
-            <h2 className="text-3xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-              ¿Cómo funciona la FIRMA ELECTRÓNICA?
+        </div>
+      </section>
+
+      {/* Cómo Funciona Section */}
+      <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        
+        <div className="mx-auto max-w-7xl px-4 relative z-10">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 rounded-full border border-green-400/30 mb-6">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-green-300">Proceso Simple</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">¿Cómo Funciona</span>
+              <span className="block bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                la Firma Electrónica?
+              </span>
             </h2>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="bg-gradient-to-r from-gray-800/50 to-blue-900/10 border-l-4 border-blue-500 rounded-lg shadow-lg hover:shadow-blue-500/20 hover:border-blue-400 transition-all duration-300 backdrop-blur-sm p-8 max-w-4xl mx-auto"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl font-bold text-blue-400">1</span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-blue-400 mb-2">Carga tu Documento</h3>
-                  <p className="text-gray-300 text-sm">Sube archivos directamente a la plataforma.</p>
-                  <div className="mt-4 h-24 flex items-center justify-center">
-                    <svg className="w-16 h-16 text-blue-400 opacity-80" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"></path>
-                    </svg>
-                  </div>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Un proceso simple y seguro en solo 3 pasos
+            </p>
+          </div>
+
+          {/* Steps Grid */}
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Step 1 */}
+            <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 hover:border-green-400/30 transition-all duration-300 transform hover:-translate-y-2">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center">
+                  <span className="text-xl font-bold text-white">1</span>
                 </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl font-bold text-blue-400">2</span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-blue-400 mb-2">Añade Firmas Electrónicas</h3>
-                  <p className="text-gray-300 text-sm">Selecciona y asigna firmantes en segundos.</p>
-                  <div className="mt-4 h-24 flex items-center justify-center">
-                    <svg className="w-16 h-16 text-purple-400 opacity-80" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM17 11h-4v4h-2v-4H7V9h4V5h2v4h4v2z"></path>
-                    </svg>
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl font-bold text-blue-400">3</span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-blue-400 mb-2">Envía y Confirma</h3>
-                  <p className="text-gray-300 text-sm">Firma y comparte documentos de manera segura y rápida.</p>
-                  <div className="mt-4 h-24 flex items-center justify-center">
-                    <svg className="w-16 h-16 text-blue-400 opacity-80" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                    </svg>
-                  </div>
-                </div>
+                <h3 className="text-xl font-semibold text-green-300">Carga tu Documento</h3>
               </div>
-            </motion.div>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                Sube archivos directamente a la plataforma de forma segura y rápida.
+              </p>
+              <div className="flex justify-center">
+                <svg className="w-16 h-16 text-green-400 opacity-80" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"></path>
+                </svg>
+              </div>
+              <div className="mt-6 h-1 bg-gradient-to-r from-green-400 to-transparent rounded-full"></div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 hover:border-blue-400/30 transition-all duration-300 transform hover:-translate-y-2">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                  <span className="text-xl font-bold text-white">2</span>
+                </div>
+                <h3 className="text-xl font-semibold text-blue-300">Añade Firmas</h3>
+              </div>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                Selecciona y asigna firmantes en segundos con nuestra interfaz intuitiva.
+              </p>
+              <div className="flex justify-center">
+                <svg className="w-16 h-16 text-blue-400 opacity-80" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM17 11h-4v4h-2v-4H7V9h4V5h2v4h4v2z"></path>
+                </svg>
+              </div>
+              <div className="mt-6 h-1 bg-gradient-to-r from-blue-400 to-transparent rounded-full"></div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 hover:border-purple-400/30 transition-all duration-300 transform hover:-translate-y-2">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
+                  <span className="text-xl font-bold text-white">3</span>
+                </div>
+                <h3 className="text-xl font-semibold text-purple-300">Envía y Confirma</h3>
+              </div>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                Firma y comparte documentos de manera segura con validez legal completa.
+              </p>
+              <div className="flex justify-center">
+                <svg className="w-16 h-16 text-purple-400 opacity-80" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                </svg>
+              </div>
+              <div className="mt-6 h-1 bg-gradient-to-r from-purple-400 to-transparent rounded-full"></div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Beneficios Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-blue-950 to-black relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-blue-800/10 pointer-events-none"></div>
-        <div className="max-w-6xl mx-auto relative z-10">
-          <h2 className="text-3xl font-bold mb-16 text-center bg-gradient-to-r from-blue-400 via-white to-purple-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
-            Beneficios Adicionales
-          </h2>
+      {/* Beneficios Adicionales Section */}
+      <section className="relative py-24 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-orange-500/5 via-teal-500/5 to-purple-500/5 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
+          {/* Enhanced Header */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-orange-500/20 to-teal-500/20 rounded-full border border-orange-400/30 mb-8 backdrop-blur-sm">
+              <div className="w-3 h-3 bg-gradient-to-r from-orange-400 to-teal-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-semibold text-transparent bg-gradient-to-r from-orange-300 to-teal-300 bg-clip-text tracking-wide uppercase">Beneficios Adicionales</span>
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+              <span className="block text-white mb-2">Más Razones para</span>
+              <span className="block bg-gradient-to-r from-orange-400 via-teal-500 to-purple-500 bg-clip-text text-transparent">
+                Elegirnos
+              </span>
+            </h2>
+            
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Descubre todas las ventajas que obtienes al elegir nuestra plataforma de firma electrónica
+            </p>
+            
+            {/* Decorative line */}
+            <div className="mt-8 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-orange-400 via-teal-500 to-purple-500 rounded-full"></div>
+            </div>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {/* Benefits Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: <FaDatabase className="text-4xl text-purple-500" />,
+                icon: <FaDatabase className="text-3xl" />,
                 title: "Acceso y Almacenamiento",
-                description: "Gestión centralizada y acceso inmediato a documentos firmados desde cualquier dispositivo."
+                description: "Gestión centralizada y acceso inmediato a documentos firmados desde cualquier dispositivo con máxima seguridad.",
+                color: "orange",
+                gradient: "from-orange-500 to-orange-600",
+                textColor: "text-orange-300",
+                borderColor: "hover:border-orange-400/40",
+                lineGradient: "from-orange-400 to-transparent"
               },
               {
-                icon: <FaHistory className="text-4xl text-blue-500" />,
+                icon: <FaHistory className="text-3xl" />,
                 title: "Trazabilidad Completa",
-                description: "Seguimiento detallado de firmas, fechas y participantes para total transparencia."
+                description: "Seguimiento detallado de firmas, fechas y participantes para total transparencia y auditoría.",
+                color: "teal",
+                gradient: "from-teal-500 to-teal-600",
+                textColor: "text-teal-300",
+                borderColor: "hover:border-teal-400/40",
+                lineGradient: "from-teal-400 to-transparent"
               },
               {
-                icon: <FaLeaf className="text-4xl text-purple-500" />,
+                icon: <FaLeaf className="text-3xl" />,
                 title: "Sostenibilidad Ambiental",
-                description: "Reduce el impacto ambiental eliminando el uso de papel y procesos físicos."
+                description: "Reduce significativamente el impacto ambiental eliminando el uso de papel y procesos físicos.",
+                color: "green",
+                gradient: "from-green-500 to-green-600",
+                textColor: "text-green-300",
+                borderColor: "hover:border-green-400/40",
+                lineGradient: "from-green-400 to-transparent"
               },
               {
-                icon: <FaUserShield className="text-4xl text-blue-500" />,
+                icon: <FaUserShield className="text-3xl" />,
                 title: "Verificación de Identidad",
-                description: "Garantiza que solo personas autorizadas puedan firmar tus documentos importantes."
+                description: "Garantiza que solo personas autorizadas puedan firmar tus documentos con tecnología avanzada.",
+                color: "blue",
+                gradient: "from-blue-500 to-blue-600",
+                textColor: "text-blue-300",
+                borderColor: "hover:border-blue-400/40",
+                lineGradient: "from-blue-400 to-transparent"
               },
               {
-                icon: <FaTools className="text-4xl text-purple-500" />,
+                icon: <FaTools className="text-3xl" />,
                 title: "Integración Sencilla",
-                description: "Se integra fácilmente con tus sistemas y flujos de trabajo existentes."
+                description: "Se integra perfectamente con tus sistemas y flujos de trabajo existentes sin complicaciones.",
+                color: "purple",
+                gradient: "from-purple-500 to-purple-600",
+                textColor: "text-purple-300",
+                borderColor: "hover:border-purple-400/40",
+                lineGradient: "from-purple-400 to-transparent"
               },
               {
-                icon: <FaGraduationCap className="text-4xl text-blue-500" />,
+                icon: <FaGraduationCap className="text-3xl" />,
                 title: "Soporte y Capacitación",
-                description: "Acceso a soporte técnico especializado y capacitación para tu equipo."
+                description: "Acceso completo a soporte técnico especializado y capacitación integral para tu equipo.",
+                color: "pink",
+                gradient: "from-pink-500 to-pink-600",
+                textColor: "text-pink-300",
+                borderColor: "hover:border-pink-400/40",
+                lineGradient: "from-pink-400 to-transparent"
               }
             ].map((benefit, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 p-6 rounded-xl border border-gray-700/50 shadow-lg backdrop-blur-sm hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-300 h-full"
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className={`group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-gray-200/20 shadow-2xl p-8 transition-all duration-500 transform hover:-translate-y-3 hover:scale-105 ${benefit.borderColor}`}
               >
-                <div className="flex flex-col items-center text-center h-full">
-                  <div className="mb-4 p-3 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg">
-                    {benefit.icon}
+                {/* Card background effects */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Icon and title */}
+                <div className="relative z-10 mb-6">
+                  <div className={`w-16 h-16 bg-gradient-to-r ${benefit.gradient} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                    <div className={benefit.textColor}>
+                      {benefit.icon}
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.3)] mb-3">
+                  <h3 className={`text-2xl font-bold ${benefit.textColor} mb-3 group-hover:text-white transition-colors duration-300`}>
                     {benefit.title}
                   </h3>
-                  <p className="text-gray-300">
-                    {benefit.description}
-                  </p>
                 </div>
+                
+                {/* Description */}
+                <p className="relative z-10 text-gray-300 leading-relaxed text-base group-hover:text-gray-200 transition-colors duration-300">
+                  {benefit.description}
+                </p>
+                
+                {/* Decorative line */}
+                <div className={`relative z-10 mt-8 h-1 bg-gradient-to-r ${benefit.lineGradient} rounded-full group-hover:h-2 transition-all duration-300`}></div>
+                
+                {/* Hover glow effect */}
+                <div className={`absolute inset-0 bg-gradient-to-r ${benefit.gradient} rounded-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-xl`}></div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
       
-{/* Casos de Uso Section con filtros - Negro a Azul */}
-<section className="py-16 px-4 bg-gradient-to-b from-black via-gray-900 to-blue-950">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-16"
-          >
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Casos de Uso de Firma Electrónica</h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">Soluciones de FIRMEDIGITAL con validez legal para diferentes sectores</p>
+      {/* Casos de Uso Section */}
+      <section className="relative py-24 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-r from-cyan-500/5 via-indigo-500/5 to-purple-500/5 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
+          {/* Enhanced Header */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-cyan-500/20 to-indigo-500/20 rounded-full border border-cyan-400/30 mb-8 backdrop-blur-sm">
+              <div className="w-3 h-3 bg-gradient-to-r from-cyan-400 to-indigo-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-semibold text-transparent bg-gradient-to-r from-cyan-300 to-indigo-300 bg-clip-text tracking-wide uppercase">Casos de Uso</span>
             </div>
             
-            {/* Filtros */}
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
-              <button 
-                onClick={() => setActiveFilter('legal')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'legal' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Legal
-              </button>
-              <button 
-                onClick={() => setActiveFilter('financiero')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'financiero' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Financiero
-              </button>
-              <button 
-                onClick={() => setActiveFilter('gobierno')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'gobierno' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Gobierno
-              </button>
-              <button 
-                onClick={() => setActiveFilter('empresarial')}
-                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 ${activeFilter === 'empresarial' ? 'bg-blue-600 text-white' : 'bg-gray-800/80 text-gray-300 hover:bg-gray-700'}`}
-              >
-                Sector Empresarial
-              </button>
-            </div>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+              <span className="block text-white mb-2">Soluciones por</span>
+              <span className="block bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-500 bg-clip-text text-transparent">
+                Sectores
+              </span>
+            </h2>
             
-            {/* Contenido de casos de uso */}
-            <div className="mt-8">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Descubre cómo FIRMEDIGITAL transforma los procesos de firma en diferentes industrias
+            </p>
+            
+            {/* Decorative line */}
+            <div className="mt-8 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-500 rounded-full"></div>
+            </div>
+          </div>
+          
+          {/* Enhanced Filters */}
+          <div className="flex flex-wrap justify-center gap-4 mb-16">
+            {[
+              { key: 'legal', label: 'Sector Legal', gradient: 'from-blue-500 to-blue-600', activeGradient: 'from-blue-500 to-blue-600' },
+              { key: 'financiero', label: 'Sector Financiero', gradient: 'from-green-500 to-green-600', activeGradient: 'from-green-500 to-green-600' },
+              { key: 'gobierno', label: 'Sector Gobierno', gradient: 'from-purple-500 to-purple-600', activeGradient: 'from-purple-500 to-purple-600' },
+              { key: 'empresarial', label: 'Sector Empresarial', gradient: 'from-orange-500 to-orange-600', activeGradient: 'from-orange-500 to-orange-600' }
+            ].map((filter) => (
+              <button 
+                key={filter.key}
+                onClick={() => setActiveFilter(filter.key)}
+                className={`group relative px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-500 transform hover:scale-105 ${
+                  activeFilter === filter.key 
+                    ? `bg-gradient-to-r ${filter.activeGradient} text-white shadow-2xl shadow-blue-500/25` 
+                    : 'bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 text-gray-300 hover:text-white hover:border-gray-200/40'
+                }`}
+              >
+                {/* Active state glow */}
+                {activeFilter === filter.key && (
+                  <div className={`absolute inset-0 bg-gradient-to-r ${filter.gradient} rounded-2xl opacity-20 blur-xl`}></div>
+                )}
+                
+                {/* Button content */}
+                <span className="relative z-10">{filter.label}</span>
+                
+                {/* Hover effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </button>
+            ))}
+          </div>
+          
+          {/* Contenido de casos de uso */}
+          <div className="mt-12">
               {/* Caso de uso para Sector Legal */}
               {activeFilter === 'legal' && (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -823,17 +994,33 @@ export default function FirmaElectronica() {
                 </div>
               )}
             </div>
-          </motion.div>
         </div>
       </section>
       
-      <section className="relative border-t border-white/5 pricing-section bg-gradient-to-b from-blue-950 to-blue-950">
-        <div className="mx-auto max-w-7xl px-4 py-4">
+     {/* Planes y Precios Section */}
+     <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        
+        <div className="mx-auto max-w-7xl px-4 relative z-10">
+          {/* Header */}
           <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-400">
-              Planes y Precios
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 rounded-full border border-purple-400/30 mb-6">
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-purple-300">Planes Flexibles</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              <span className="block text-white">Planes y</span>
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Precios
+              </span>
             </h2>
-            <p className="mt-4 text-xl text-gray-400">Soluciones flexibles para todas tus necesidades</p>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Soluciones flexibles para todas tus necesidades
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -844,42 +1031,26 @@ export default function FirmaElectronica() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-blue-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="2" x2="20" y2="17.8" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <img src="/images/rocket-svgrepo-com.svg" alt="Rocket" className="w-8 h-8 filter brightness-0 invert" />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                    <p className="text-gray-400 text-sm">¡Impulso al siguiente nivel!</p>
-                    <p className="text-gray-400 text-sm">Para persona natural</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Despegue</h3>
+                    <p className="text-gray-300 text-sm">¡Impulso al siguiente nivel!</p>
+                    <p className="text-gray-300 text-sm">Para persona natural</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-blue-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/rocket-svgrepo-com.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <img src="/images/rocket-svgrepo-com.svg" alt="Rocket" className="w-8 h-8 filter brightness-0 invert" />
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                      <h3 className="text-2xl font-semibold mb-2">Plan Despegue</h3>
-                        <p className="text-gray-400 text-sm">Carga, publica y gestiona miles de docs.</p>
+                      <h3 className="text-2xl font-semibold mb-2 text-white">Plan Despegue</h3>
+                        <p className="text-gray-300 text-sm">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8 mt-5">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -892,16 +1063,16 @@ export default function FirmaElectronica() {
                             </div>
                           </div>
                           <div className="flex flex-col items-center justify-center w-full max-w-[280px]">
-                            <div className="flex flex-col items-center">
-                              <span className="text-gray-400 text-base mb-2">Inversión anual:</span>
-                              <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                                10$
-                              </span>
-                              <span className="text-gray-400 text-sm mt-1">Equivale a</span>
-                              <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                                {(10/12).toFixed(2)}$/mes
-                              </span>
-                            </div>
+                          <div className="flex flex-col items-center">
+  <span className="text-gray-400 text-base mb-2">Inversión anual:</span>
+  <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+    10$
+  </span>
+  <span className="text-gray-400 text-sm mt-1">Equivale a</span>
+  <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+    {(10/12).toFixed(2)}$/mes
+  </span>
+</div>
                           </div>
                         </div>
                         <div className="text-sm font-medium mb-4 text-blue-400 mt-10">¿QUÉ INCLUYE?</div>
@@ -910,7 +1081,7 @@ export default function FirmaElectronica() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>400 Documentos</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -951,42 +1122,30 @@ export default function FirmaElectronica() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-purple-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/efficiency.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
-                    <p className="text-gray-400 text-sm">¡Gestión eficiente de Documentos!</p>
-                    <p className="text-gray-400 text-sm">Para persona jurídica</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Élite</h3>
+                    <p className="text-gray-300 text-sm">¡Gestión eficiente de Documentos!</p>
+                    <p className="text-gray-300 text-sm">Para persona jurídica</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-purple-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/efficiency.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Élite</h3>
-                        <p className="text-gray-400 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
+                        <h3 className="text-2xl font-semibold mb-2 text-white">Plan Élite</h3>
+                        <p className="text-gray-300 text-sm mb-6">Carga, publica y gestiona miles de docs.</p>
                         <div className="flex flex-col items-center space-y-6 mb-8" style={{ paddingTop: '1rem' }}>
                           <div className="flex flex-col items-center justify-center w-full max-w-[280px]">
                           <div className="ml-2 flex flex-col">
@@ -1010,7 +1169,7 @@ export default function FirmaElectronica() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>1000 Documentos</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1048,42 +1207,30 @@ export default function FirmaElectronica() {
                 <CardSkeleton />
               ) : (
                 <div className={styles['flip-card-inner']}>
-                  <div className={`${styles['flip-card-front']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-center items-center`}>
+                  <div className={`${styles['flip-card-front']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-green-400/30 transition-all duration-300 h-full flex flex-col justify-center items-center shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/organizacion.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                    <p className="text-gray-400 text-sm"> ¡Mantén tus certificados emitidos al día!</p>
-                    <p className="text-gray-400 text-sm">Para corporaciones</p>
+                    <h3 className="text-2xl font-semibold mb-2 text-white">Plan Max</h3>
+                    <p className="text-gray-300 text-sm"> ¡Mantén tus certificados emitidos al día!</p>
+                    <p className="text-gray-300 text-sm">Para corporaciones</p>
                   </div>
-                  <div className={`${styles['flip-card-back']} relative bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300 h-full flex flex-col`}>
+                  <div className={`${styles['flip-card-back']} relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-gray-200/20 rounded-3xl p-8 hover:border-green-400/30 transition-all duration-300 h-full flex flex-col shadow-2xl`}>
                     <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-[#0A0A0A] p-3 rounded-xl border border-white/10 shadow-lg backdrop-blur-sm">
-                      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <image href="/images/organizacion.svg" width="24" height="24" />
-                          <defs>
-                            <linearGradient id="grad1" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
-                              <stop stopColor="#60A5FA" />
-                              <stop offset="1" stopColor="#A78BFA" />
-                            </linearGradient>
-                          </defs>
+                      <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-xl shadow-lg backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                       </div>
                     </div>
                     <div className="flex flex-col h-full">
                       <div className="flex-grow">
-                        <h3 className="text-2xl font-semibold mb-2">Plan Max</h3>
-                        <p className="text-gray-400 text-sm mb-2">Creditos Ilimitados</p>
+                        <h3 className="text-2xl font-semibold mb-2 text-white">Plan Max</h3>
+                        <p className="text-gray-300 text-sm mb-2">Créditos Ilimitados</p>
                         <div className="flex flex-col items-center space-y-6 mb-8">
                           <div className="flex items-center justify-between w-full max-w-[280px]">
                             <div className="flex items-center">
@@ -1105,7 +1252,7 @@ export default function FirmaElectronica() {
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>Firmas ilimitadas</span>
+                            <span>Documentos ilimitados</span>
                           </li>
                           <li className="flex items-center gap-3">
                             <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1125,12 +1272,6 @@ export default function FirmaElectronica() {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                             <span>Flujos</span>
-                          </li>
-                          <li className="flex items-center gap-3">
-                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>IA</span>
                           </li>
                         </ul>
                       </div>
@@ -1308,5 +1449,6 @@ export default function FirmaElectronica() {
         </div>
       </section>
     </main>
+    </>
   );
 }
