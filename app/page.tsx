@@ -219,7 +219,7 @@ export default function Home() {
   const textRef = useRef<HTMLElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showFeatures, setShowFeatures] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
   const [modalContent, setModalContent] = useState({
     title: '',
     description: ''
@@ -249,6 +249,12 @@ export default function Home() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  // Modal abierto por defecto al cargar
+  useEffect(() => {
+    setModalContent({ title: 'Contáctanos', description: 'Déjanos tus datos para asesorarte y enviarte información sobre firmas electrónicas, flujos de trabajo y gestor de documentos.' });
+    setIsModalOpen(true);
+  }, []);
 
   // Función para validar si una cédula tiene formato válido
   const isValidCI = (ci: string): boolean => {
@@ -855,6 +861,147 @@ export default function Home() {
   return (
     <main ref={mainRef} className="min-h-screen bg-[#000000] text-white overflow-hidden">
       <MegaMenu />
+
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal} title={modalContent.title}>
+        {modalContent.description && (
+          <p className="text-sm text-gray-300 mb-4">
+            {modalContent.description}
+          </p>
+        )}
+        {formStatusFedeindustria && (
+          <div className={`mb-4 p-3 rounded-lg ${formStatusFedeindustria.success ? 'bg-green-500/20 border border-green-500/30' : 'bg-red-500/20 border border-red-500/30'}`}>
+            <p className={`text-sm ${formStatusFedeindustria.success ? 'text-green-400' : 'text-red-400'}`}>
+              {formStatusFedeindustria.message}
+            </p>
+          </div>
+        )}
+        <form
+          className="space-y-3"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setIsSubmittingFedeindustria(true);
+            setFormStatusFedeindustria(null);
+
+            try {
+              if (!nombre || !tipoPersona || !sector || !emailFedeindustria || !telefono) {
+                setFormStatusFedeindustria({ success: false, message: 'Por favor complete todos los campos requeridos.' });
+                setIsSubmittingFedeindustria(false);
+                return;
+              }
+
+              if (tipoPersona === 'juridica' && !empresa) {
+                setFormStatusFedeindustria({ success: false, message: 'Por favor ingrese el nombre de la empresa.' });
+                setIsSubmittingFedeindustria(false);
+                return;
+              }
+
+              const formDataToSend = { nombre, tipoPersona, empresa, sector, email: emailFedeindustria, telefono };
+              const response = await fetch('/api/fedeindustria', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formDataToSend),
+              });
+
+              const data = await response.json();
+              if (response.ok) {
+                setFormStatusFedeindustria({ success: true, message: 'Información recibida correctamente. Nos pondremos en contacto pronto.' });
+                setNombre('');
+                setTipoPersona('');
+                setEmpresa('');
+                setSector('');
+                setEmailFedeindustria('');
+                setTelefono('');
+              } else {
+                setFormStatusFedeindustria({ success: false, message: data.message || 'Ocurrió un error al enviar el formulario.' });
+              }
+            } catch (error) {
+              setFormStatusFedeindustria({ success: false, message: 'Error de conexión. Por favor, inténtelo de nuevo.' });
+            } finally {
+              setIsSubmittingFedeindustria(false);
+            }
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Nombre Completo"
+            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            required
+          />
+
+          <div className="space-y-2">
+            <p className="text-white text-sm">Tipo de Persona:</p>
+            <div className="flex flex-wrap gap-4">
+              <label className="flex items-center gap-2 text-gray-300">
+                <input
+                  type="radio"
+                  name="tipoPersona"
+                  value="natural"
+                  onChange={() => {
+                    setTipoPersona('natural');
+                  }}
+                  required
+                />
+                Persona Natural
+              </label>
+              <label className="flex items-center gap-2 text-gray-300">
+                <input
+                  type="radio"
+                  name="tipoPersona"
+                  value="juridica"
+                  onChange={() => {
+                    setTipoPersona('juridica');
+                  }}
+                />
+                Persona Jurídica
+              </label>
+            </div>
+          </div>
+
+          {tipoPersona === 'juridica' && (
+            <input
+              type="text"
+              placeholder="Nombre de la Empresa"
+              className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+              value={empresa}
+              onChange={(e) => setEmpresa(e.target.value)}
+            />
+          )}
+
+          <input
+            type="text"
+            placeholder="Sector al que pertenece"
+            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+            value={sector}
+            onChange={(e) => setSector(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Correo Electrónico"
+            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+            value={emailFedeindustria}
+            onChange={(e) => setEmailFedeindustria(e.target.value)}
+            required
+          />
+          <input
+            type="tel"
+            placeholder="Teléfono"
+            className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
+            required
+          />
+          <button
+            type="submit"
+            className="w-full px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-2xl hover:opacity-90 transition-opacity"
+            disabled={isSubmittingFedeindustria}
+          >
+            {isSubmittingFedeindustria ? 'Enviando...' : 'Enviar Registro'}
+          </button>
+        </form>
+      </Modal>
       
       {/* Hero Section */}
       <section ref={heroRef}
